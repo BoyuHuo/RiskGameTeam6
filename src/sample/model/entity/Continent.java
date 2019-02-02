@@ -2,7 +2,7 @@ package sample.model.entity;
 
 import java.util.List;
 
-public class Contient {
+public class Continent {
     private String name;
     private int ctrNum;
     private List<Territory> territories;

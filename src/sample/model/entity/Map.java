@@ -5,7 +5,7 @@ import java.util.List;
 public class Map {
     private String map;
     private String author;
-    private List<Contient>  contients;
+    private List<Continent>  continents;
     private List<Territory> territories;
 
     public String getMap() {
@@ -24,12 +24,12 @@ public class Map {
         this.author = author;
     }
 
-    public List<Contient> getContients() {
-        return contients;
+    public List<Continent> getContinents() {
+        return continents;
     }
 
-    public void setContients(List<Contient> contients) {
-        this.contients = contients;
+    public void setContinents(List<Continent> continents) {
+        this.continents = continents;
     }
 
     public List<Territory> getTerritories() {
