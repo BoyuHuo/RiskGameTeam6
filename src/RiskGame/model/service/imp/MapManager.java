@@ -36,18 +36,19 @@ public class MapManager implements IMapManager {
 
 /*                    System.out.print(mode);
                     System.out.println(lineTxt);*/
-                    translateTxt2Map(lineTxt,mode,gameMap);
+                    translateTxt2Map(lineTxt, mode, gameMap);
                 }
+                GenerateTheRelationshipOfTerr(gameMap);
+
                 bufferedReader.close();
                 read.close();
             } else {
-                System.out.println("找不到指定的文件");
+                System.out.println("Can't find the file in this url");
             }
         } catch (Exception e) {
-            System.out.println("读取文件内容出错");
+            System.out.println("Wrong content");
             e.printStackTrace();
         }
-
         return gameMap;
     }
 
@@ -81,7 +82,7 @@ public class MapManager implements IMapManager {
             if (lineTxt.contains("=")) {
                 String[] valuePair = lineTxt.split("=");
                 Continent continent = new Continent(valuePair[0], Integer.parseInt(valuePair[1]));
-                gameMap.getContinents().put(continent.getName(),continent);
+                gameMap.getContinents().put(continent.getName(), continent);
             }
         }
         if (mode == 3) {
@@ -92,33 +93,41 @@ public class MapManager implements IMapManager {
                 territory.setX(Integer.parseInt(valuePair[1]));
                 territory.setY(Integer.parseInt(valuePair[2]));
                 territory.setContinent(gameMap.getContinents().get(valuePair[3]));
-                for (int i=4; i<valuePair.length;i++){
-                    territory.getNeighbors().put(valuePair[i],new Territory());
+                for (int i = 4; i < valuePair.length; i++) {
+                    territory.getNeighbors().put(valuePair[i], new Territory());
                 }
-                gameMap.getTerritories().put(territory.getName(),territory);
+                gameMap.getTerritories().put(territory.getName(), territory);
                 gameMap.getContinents().get(valuePair[3]).getTerritories().add(territory);
             }
         }
 
     }
 
+    private void GenerateTheRelationshipOfTerr(GameMap gameMap){
+        for(String key : gameMap.getTerritories().keySet()){
+            for(String neighborKey: gameMap.getTerritories().get(key).getNeighbors().keySet()){
+                gameMap.getTerritories().get(key).getNeighbors().put(neighborKey,gameMap.getTerritories().get(neighborKey));
+            }
+        }
+    }
 
-    public static void main(String[] args) {
+    @Override
+    public boolean CreateMap() {
+        return false;
+    }
+
+    @Override
+    public boolean IsValided(GameMap gameMap) {
+        return false;
+    }
+
+    //test
+/*    public static void main(String[] args) {
         MapManager mapManager = new MapManager();
         GameMap map = mapManager.LoadMap("D://1.map");
         map.print();
 
-    }
-
-    @Override
-    public boolean createMap() {
-        return false;
-    }
-
-    @Override
-    public boolean isValided(GameMap gameMap) {
-        return false;
-    }
+    }*/
 
 
 }

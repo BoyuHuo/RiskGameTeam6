@@ -7,7 +7,7 @@ public class Territory {
     private int x;
     private int y;
     private Continent continent;
-    private HashMap neighbors = new HashMap();
+    private HashMap<String,Territory> neighbors = new HashMap<String, Territory>();
 
     public String getName() {
         return name;
@@ -41,7 +41,7 @@ public class Territory {
         this.continent = continent;
     }
 
-    public HashMap getNeighbors() {
+    public HashMap<String,Territory> getNeighbors() {
         return neighbors;
     }
 
