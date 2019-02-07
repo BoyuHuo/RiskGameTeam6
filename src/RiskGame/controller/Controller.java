@@ -1,4 +1,4 @@
-package sample.controller;
+package RiskGame.controller;
 
 public class Controller {
 }

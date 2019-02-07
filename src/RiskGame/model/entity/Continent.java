@@ -1,11 +1,18 @@
-package sample.model.entity;
+package RiskGame.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Continent {
     private String name;
     private int ctrNum;
-    private List<Territory> territories;
+    private List<Territory> territories = new ArrayList<Territory>();
+
+    public Continent(){}
+    public Continent(String name, int ctrNum){
+        this.name = name;
+        this.ctrNum = ctrNum;
+    }
 
     public String getName() {
         return name;

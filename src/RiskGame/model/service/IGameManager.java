@@ -1,4 +1,4 @@
-package sample.model.service;
+package RiskGame.model.service;
 
 public interface IGameManager {
 }

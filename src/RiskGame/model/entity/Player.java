@@ -1,4 +1,4 @@
-package sample.model.entity;
+package RiskGame.model.entity;
 
 public class Player {
     private String name;
