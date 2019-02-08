@@ -112,7 +112,31 @@ public class MapManager implements IMapManager {
     }
 
     @Override
-    public boolean CreateMap() {
+    public boolean CreateMap(String url, GameMap gameMap) {
+        File file = new File(url);
+        try {
+            file.createNewFile();
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            out.write("[Map]\r\n");
+            if(!gameMap.getAuthor().isEmpty()){
+                out.write("auther="+gameMap.getAuthor());
+            }
+            if(!gameMap.getImage().isEmpty()){
+                out.write("image="+gameMap.getImage());
+            }
+            if(!gameMap.getWarn().isEmpty()){
+                out.write("warn="+gameMap.getWarn());
+            }
+            if(!gameMap.getWrap().isEmpty()){
+                out.write("wrap="+gameMap.getWrap());
+            }
+            if(!gameMap.getScroll().isEmpty()){
+                out.write("scroll="+gameMap.getScroll());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
