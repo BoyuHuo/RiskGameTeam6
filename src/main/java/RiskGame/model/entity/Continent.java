@@ -1,12 +1,13 @@
 package RiskGame.model.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Continent {
     private String name;
     private int ctrNum;
-    private List<Territory> territories = new ArrayList<Territory>();
+    private HashMap<String,Territory> territories = new HashMap<String,Territory>();
 
     public Continent(){}
     public Continent(String name, int ctrNum){
@@ -30,11 +31,11 @@ public class Continent {
         this.ctrNum = ctrNum;
     }
 
-    public List<Territory> getTerritories() {
+    public HashMap<String, Territory> getTerritories() {
         return territories;
     }
 
-    public void setTerritories(List<Territory> territories) {
+    public void setTerritories(HashMap<String, Territory> territories) {
         this.territories = territories;
     }
 }
