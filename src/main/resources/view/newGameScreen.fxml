@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
-<?import javafx.embed.swing.*?>
-<?import javafx.scene.media.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -28,7 +22,7 @@
                <children>
                   <ImageView fitHeight="254.0" fitWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image url="@Battle.jpg" />
+                        <Image url="/images/battle.jpg" />
                      </image>
                   </ImageView>
                   <Text fill="#f7ef53" layoutX="128.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0" AnchorPane.bottomAnchor="184.6123046875" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="248.9833984375" AnchorPane.topAnchor="26.8388671875">

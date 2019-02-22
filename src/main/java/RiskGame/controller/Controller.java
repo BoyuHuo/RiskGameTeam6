@@ -36,8 +36,7 @@ public class Controller implements Initializable {
     @FXML
     private void clickNewGameButton(ActionEvent event) throws IOException
     {
-        URL myURL = new File("C:/Users/Hp/IdeaProjects/RiskGameTeam6/src/RiskGame/view/newGameScreen.fxml").toURL();
-        Parent newGameScreen = FXMLLoader.load(myURL);
+        Parent newGameScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
         Scene newGameScene = new Scene(newGameScreen, 610,400);
         Stage newGameScreenStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         newGameScreenStage.setScene(newGameScene);
@@ -61,8 +60,7 @@ public class Controller implements Initializable {
    @FXML
    private void clickCreateMapButton(ActionEvent event) throws IOException
    {
-       URL myURL = new File("C:/Users/Hp/IdeaProjects/RiskGameTeam6/src/RiskGame/view/createMapScreen.fxml").toURL();
-       Parent createMap = FXMLLoader.load(myURL);
+       Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
        createMapScene = new Scene(createMap, 610,400);
        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
        createMapSceneStage.setScene(createMapScene);
@@ -99,6 +97,8 @@ public class Controller implements Initializable {
        Stage newStage = new Stage();
        newStage.setScene(sc);
        newStage.show();
+
+
 
    }
 
