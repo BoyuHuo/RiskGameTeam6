@@ -6,11 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.net.URL;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent mainScreen = FXMLLoader.load(getClass().getResource("/view/sample.fxml"));
+
+        Parent mainScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
         primaryStage.setTitle("The Risk Game");
         primaryStage.setScene(new Scene(mainScreen, 610, 400));
         primaryStage.setResizable(false);
