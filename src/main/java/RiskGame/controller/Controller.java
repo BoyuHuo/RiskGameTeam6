@@ -4,14 +4,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +30,8 @@ public class Controller implements Initializable {
     AnchorPane myPanel;
     @FXML
     AnchorPane createMapPane;
+    Group group_for_rectangles = new Group() ;
+    Rectangle square = null ;
 
     /**
      * This is the implementation for New Game Button.
@@ -82,15 +88,48 @@ public class Controller implements Initializable {
      * @param event Ignore
      */
 
+
+
+
+    //  The following method adjusts coordinates so that the rectangle
+    //  is shown "in a correct way" in relation to the mouse movement.
+
+    void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square )
+    {
+        square.setX( starting_point_x ) ;
+        square.setY( starting_point_y ) ;
+        square.setWidth( 50 ) ;
+        square.setHeight( 50 ) ;
+        square.setFill( Color.TRANSPARENT ) ; // set color to transparent
+        square.setStroke( Color.BLACK ) ;
+
+    }
+
+
    @FXML
    public void getMouseCoordinates(ActionEvent event)
    {
+
+       createMapPane.getChildren().add(group_for_rectangles);
+
        createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
            @Override
            public void handle(MouseEvent event) {
 
-                   lblCoordinates.setText("X:"+event.getX()+" Y: "+event.getY());
 
+               lblCoordinates.setText("X:"+event.getX()+" Y: "+event.getY());
+               lblCoordinates.setVisible(false);
+
+               square = new Rectangle();
+               setSquareProperties( event.getX(),event.getY(),square ) ;
+               group_for_rectangles.getChildren().add( square ) ;
+
+           }});
+
+       createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+           @Override
+           public void handle(MouseEvent event) {
+               square=null;
            }});
 
    }
