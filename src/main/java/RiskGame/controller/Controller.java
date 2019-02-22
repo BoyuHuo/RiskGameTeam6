@@ -24,6 +24,8 @@ public class Controller implements Initializable {
     private Label lblPath, lblCoordinates;
     Scene createMapScene;
     AnchorPane myPanel;
+    @FXML
+    AnchorPane createMapPane;
 
     /**
      * This is the implementation for New Game Button.
@@ -83,25 +85,38 @@ public class Controller implements Initializable {
    @FXML
    public void getMouseCoordinates(ActionEvent event)
    {
-       myPanel = new AnchorPane();
-       Scene sc = new Scene(myPanel);
-       sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
+       createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
            @Override
            public void handle(MouseEvent event) {
-               if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
 
-                   lblCoordinates.setText("X:"+event.getSceneY()+" Y: "+event.getSceneY());
-               }
+                   lblCoordinates.setText("X:"+event.getX()+" Y: "+event.getY());
+
            }});
-
-       Stage newStage = new Stage();
-       newStage.setScene(sc);
-       newStage.show();
-
-
 
    }
 
+
+    @FXML
+    public void getMouseClick(ActionEvent event)
+    {
+        myPanel = new AnchorPane();
+        Scene sc = new Scene(myPanel);
+        sc.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+
+                    lblCoordinates.setText("X:"+event.getSceneY()+" Y: "+event.getSceneY());
+                }
+            }});
+
+        Stage newStage = new Stage();
+        newStage.setScene(sc);
+        newStage.show();
+
+
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
