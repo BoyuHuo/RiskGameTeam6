@@ -8,7 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -30,7 +31,7 @@ public class Controller implements Initializable {
     AnchorPane myPanel;
     @FXML
     AnchorPane createMapPane;
-    Group group_for_rectangles = new Group() ;
+    Group rectangleGroups = new Group() ;
     Rectangle square = null ;
 
     /**
@@ -98,8 +99,8 @@ public class Controller implements Initializable {
     {
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
-        square.setWidth( 50 ) ;
-        square.setHeight( 50 ) ;
+        square.setWidth( 100 ) ;
+        square.setHeight( 100 ) ;
         square.setFill( Color.TRANSPARENT ) ; // set color to transparent
         square.setStroke( Color.BLACK ) ;
 
@@ -110,7 +111,7 @@ public class Controller implements Initializable {
    public void getMouseCoordinates(ActionEvent event)
    {
 
-       createMapPane.getChildren().add(group_for_rectangles);
+       createMapPane.getChildren().add(rectangleGroups);
 
        createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
            @Override
@@ -121,8 +122,12 @@ public class Controller implements Initializable {
                lblCoordinates.setVisible(false);
 
                square = new Rectangle();
-               setSquareProperties( event.getX(),event.getY(),square ) ;
-               group_for_rectangles.getChildren().add( square ) ;
+
+               if(showInputTextDialog(event.getX(),event.getY())) {
+                   setSquareProperties( event.getX(),event.getY(),square ) ;
+
+                   rectangleGroups.getChildren().add( square ) ;
+               }
 
            }});
 
@@ -133,6 +138,44 @@ public class Controller implements Initializable {
            }});
 
    }
+
+    private boolean showInputTextDialog(Double x, Double y) {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter Country Name");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()){
+
+            if(result.get().equalsIgnoreCase("")){
+                showAlertDialog();
+                return false;
+            }
+            Label label=new Label();
+            label.setLayoutX((x+50)-25);
+            label.setLayoutY((y+50)-25);
+            label.setText(result.get());
+
+            createMapPane.getChildren().add(label);
+
+            return true;
+        } else {
+            return  false;
+        }
+
+    }
+
+    private void showAlertDialog() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(null);
+        alert.setContentText("Enter Country name");
+        alert.showAndWait();
+    }
 
 
     @FXML
