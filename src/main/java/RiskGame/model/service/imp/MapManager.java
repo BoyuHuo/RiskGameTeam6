@@ -63,19 +63,35 @@ public class MapManager implements IMapManager {
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
             out.write("[Map]\r\n");
             if (!gameMap.getAuthor().isEmpty()) {
-                out.write("auther=" + gameMap.getAuthor());
+                out.write("auther=" + gameMap.getAuthor()+"\r\n");
             }
             if (!gameMap.getImage().isEmpty()) {
-                out.write("image=" + gameMap.getImage());
+                out.write("image=" + gameMap.getImage()+"\r\n");
             }
             if (!gameMap.getWarn().isEmpty()) {
-                out.write("warn=" + gameMap.getWarn());
+                out.write("warn=" + gameMap.getWarn()+"\r\n");
             }
             if (!gameMap.getWrap().isEmpty()) {
-                out.write("wrap=" + gameMap.getWrap());
+                out.write("wrap=" + gameMap.getWrap()+"\r\n");
             }
             if (!gameMap.getScroll().isEmpty()) {
-                out.write("scroll=" + gameMap.getScroll());
+                out.write("scroll=" + gameMap.getScroll()+"\r\n");
+            }
+            out.write("[Continent]\r\n");
+            if(gameMap.getContinents().size()>0){
+                for(Continent c : gameMap.getContinents().values()){
+                    out.write(c.getName()+"="+c.getCtrNum()+"\r\n");
+                }
+            }
+            out.write("[Territory]\r\n");
+            if(gameMap.getTerritories().size()>0){
+                for (Territory t: gameMap.getTerritories().values()){
+                    out.write(t.getName()+","+t.getX()+","+t.getY()+","+t.getContinent().getName());
+                    for (Territory neibor: t.getNeighbors().values()){
+                        out.write(","+neibor.getName());
+                    }
+                    out.write("\r\n");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
