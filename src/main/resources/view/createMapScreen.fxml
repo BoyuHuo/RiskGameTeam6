@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.mainScreenController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -18,13 +19,13 @@
    <center>
       <SplitPane dividerPositions="0.7792642140468228" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="createMapPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label fx:id="lblCoordinates" layoutX="204.0" layoutY="162.0" text="Label" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="149.0">
                <children>
-                  <Button fx:id="buildMap" layoutX="26.0" layoutY="64.0" mnemonicParsing="false" onAction="#getMouseCoordinates" text="Build Map" />
+                  <Button fx:id="buildMap" layoutX="26.0" layoutY="64.0" mnemonicParsing="false" text="Build Map" />
                   <Button layoutX="9.0" layoutY="132.0" mnemonicParsing="false" text="Edit Player Details" />
                   <Button layoutX="45.0" layoutY="321.0" mnemonicParsing="false" text="Save" />
                </children>
