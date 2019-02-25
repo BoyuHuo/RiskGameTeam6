@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -31,7 +33,7 @@ public class createMapScreenController implements Initializable {
     @FXML
     AnchorPane createMapPane;
     @FXML
-    Button createTerrotoryBt,connectTerrotoryBt,createContinentsBt,saveBt;
+    private Button createTerrotoryBt,connectTerrotoryBt,createContinentsBt,saveBt,backBt;
     Scene createMapScene;
     AnchorPane myPanel;
     Group rectangleGroups = new Group() ;
@@ -93,14 +95,22 @@ public class createMapScreenController implements Initializable {
      * @param event Ignore
      */
 
+    ArrayList<HashMap<String,Double>> countries=new ArrayList<>();
+
     private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square )
     {
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
-        square.setWidth( 100 ) ;
-        square.setHeight( 100 ) ;
+        square.setWidth( 50 ) ;
+        square.setHeight( 50 ) ;
         square.setFill( Color.TRANSPARENT ) ; // set color to transparent
         square.setStroke( Color.BLACK ) ;
+
+        HashMap<String,Double> newHash= new HashMap<>();
+        newHash.put("x",starting_point_x);
+        newHash.put("y",starting_point_y);
+
+        countries.add(newHash);
 
     }
 
@@ -142,6 +152,7 @@ public class createMapScreenController implements Initializable {
 
     }
 
+    boolean isvalidlineStart, isValidlineEnd;
     @FXML
     public void connectTerrotory(ActionEvent event)    {
         createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -157,9 +168,14 @@ public class createMapScreenController implements Initializable {
                 l1.setStartX(event.getX());
                 l1.setStartY(event.getY());
 
+                isvalidlineStart=checkCoordinates(event.getX(),event.getY());
+                System.out.println("IsValid"+isvalidlineStart);
                 event.setDragDetect(true);
 
-            }});
+            }
+
+
+        });
 
 
         createMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
@@ -169,7 +185,7 @@ public class createMapScreenController implements Initializable {
                 //l1.setEndX(event.getX());
                 //l1.setEndY(event.getY());
                 //rectangleGroups.getChildren().add( l1 ) ;
-                System.out.println("Drag"+"X:"+event.getX()+" Y: "+event.getY());
+                //System.out.println("Drag"+"X:"+event.getX()+" Y: "+event.getY());
 
 
             }});
@@ -179,10 +195,19 @@ public class createMapScreenController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
 
-                l1.setEndX(event.getX());
-                l1.setEndY(event.getY());
-                rectangleGroups.getChildren().add( l1 ) ;
+
+                isValidlineEnd=checkCoordinates(event.getX(),event.getY());
                 System.out.println("Dragreleased"+"X:"+event.getX()+" Y: "+event.getY());
+                System.out.println("IsValidend"+event.getX()+"sdfdsf"+event.getY());
+                if(isvalidlineStart&&isValidlineEnd) {
+                    l1.setEndX(event.getX());
+                    l1.setEndY(event.getY());
+                    rectangleGroups.getChildren().add( l1 ) ;
+
+
+
+                }
+
                 l1=null;
                 event.setDragDetect(false);
 
@@ -192,6 +217,32 @@ public class createMapScreenController implements Initializable {
         connectTerrotoryBt.setDisable(true);
         createContinentsBt.setDisable(false);
         saveBt.setDisable(true);
+    }
+
+    @FXML
+    private void clickBack(ActionEvent event) throws IOException
+    {
+        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
+        Scene editPlayerScene = new Scene(editPlayerScreen, 610,400);
+        Stage editPlayerStage = (Stage)backBt.getScene().getWindow();
+        editPlayerStage.setScene(editPlayerScene);
+        editPlayerStage.show();
+    }
+
+    private boolean checkCoordinates(double x, double y) {
+
+        for(int i=0; i<countries.size();i++){
+            double _x=countries.get(i).get("x");
+            double _y=countries.get(i).get("y");
+
+            System.out.println("  x:"+_x);
+            System.out.println("  y:"+_y);
+
+            if(x>=_x && y>=_y &&
+               x<=_x+50 && y<=_y+50)
+            return true;
+        }
+        return false;
     }
 
     @FXML
@@ -232,8 +283,8 @@ public class createMapScreenController implements Initializable {
                 return false;
             }
             Label label=new Label();
-            label.setLayoutX((x+50)-25);
-            label.setLayoutY((y+50)-25);
+            label.setLayoutX((x+25)-12.5);
+            label.setLayoutY((y+25)-12.5);
             label.setText(result.get());
 
             createMapPane.getChildren().add(label);

@@ -30,10 +30,11 @@
                     </children></AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="149.0">
                     <children>
-                        <Button fx:id="createTerrotoryBt"     layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                        <Button fx:id="connectTerrotoryBt"    layoutX="20.0" layoutY="64.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" disable="true" />
-                        <Button fx:id="createContinentsBt"    layoutX="9.0" layoutY="132.0" mnemonicParsing="false" text="Continents" onAction="#addContinents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="98.0" disable="true"/>
-                        <Button fx:id="saveBt"    layoutX="45.0" layoutY="321.0" mnemonicParsing="false" text="Save" onAction="#saveMap" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="130.0" disable="true" />
+                        <Button fx:id="createTerrotoryBt" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <Button fx:id="connectTerrotoryBt" disable="true" layoutX="20.0" layoutY="64.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <Button fx:id="createContinentsBt" disable="true" layoutX="9.0" layoutY="132.0" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="98.0" />
+                        <Button fx:id="saveBt" disable="true" layoutX="45.0" layoutY="321.0" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="130.0" />
+                        <Button fx:id="backBt"  layoutX="45.0" layoutY="321.0" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="165.0" />
                     </children>
                 </AnchorPane>
             </items>
