@@ -16,7 +16,7 @@ public class TestMapReader {
 
     @Test
     public void testMapLoadNotNull() {
-        GameMap map = mapManager.LoadMap("C:\\Users\\14748\\IdeaProjects\\RiskGameTeam6\\map\\PekmonLand.map");
+        GameMap map = mapManager.LoadMap(getClass().getResource("/map/1.map").getPath());
         assertNotNull(map);
     }
 

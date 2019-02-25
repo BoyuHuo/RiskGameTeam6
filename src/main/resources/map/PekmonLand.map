@@ -1,0 +1,20 @@
+[Map]
+author=Hao Ma
+image=001_I72_Ghtroc 720.bmp
+wrap=no
+scroll=vertical
+warn=no
+
+[Continents]
+FireLand=5
+WaterLand=4
+WindLand=4
+IceLand=3
+
+[Territories]
+FireDragon,100,200,FireLand,FireHorse,FireBird,WaterDragon
+FireHorse,100,400,FireLand,FireDragon,FireBird,WaterDragon,WaterElephant
+FireBird,100,600,FireLand,FireDragon,FireHorse,WaterElephant
+WaterDragon,200,300,WaterLand,FireDragon,FireHorse,WaterElephant
+WaterElephant,200,475,WaterLand,FireHorse,FireBird,WaterDragon,WindDragon
+WindDragon,225,525,WindLand,WindHorse,
