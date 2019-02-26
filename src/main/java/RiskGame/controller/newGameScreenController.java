@@ -1,4 +1,7 @@
 package RiskGame.controller;
+import RiskGame.Main;
+import RiskGame.model.entity.GameMap;
+import RiskGame.model.service.imp.MapManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -24,16 +28,37 @@ public class newGameScreenController implements Initializable {
     @FXML
     private Hyperlink hyperLinkBack;
 
+
+
     @FXML
-    private void mapFileChooser()
-    {
+    private void mapFileChooser() throws IOException {
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         File mapFile = mapFileChooser.showOpenDialog(null);
         if(mapFile!=null)
         {
             lblPath.setText(mapFile.toString());
+            MapManager mapManager=new MapManager();
+            GameMap gameMap=mapManager.LoadMap(mapFile.toString());
+
+            showMap(gameMap);
+
         }
+    }
+
+    private void showMap(GameMap gameMap) throws IOException {
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
+        loader.load();
+        loadMapScreenController controller = loader.getController();
+        controller.setMap(gameMap);
+        createMapScene = new Scene(loader.getRoot(), 600,400);
+
+        Stage createMapSceneStage = (Stage) lblPath.getScene().getWindow();
+        createMapSceneStage.setScene(createMapScene);
+        createMapSceneStage.show();
     }
 
     @FXML
