@@ -263,8 +263,8 @@ public class createMapScreenController implements Initializable {
     @FXML
     public void addContinents(ActionEvent event) {
         mode=3;
-       /* if(mode==3)
-        showContinentAlertDialog();*/
+        if(mode==3)
+        showContinentAlertDialog();
     }
 
 
