@@ -19,4 +19,5 @@ WaterDragon,200,300,WaterLand,FireDragon,FireHorse,WaterElephant
 WaterElephant,200,475,WaterLand,FireHorse,FireBird,WaterDragon,WindDragon
 WindDragon,225,525,WindLand,WindHorse,WaterElephant
 WindHorse,275,525,WindLand,WindDragon,IceDragon
-IceDragon,275,300,IceLand,WindHorse
+IceDragon,275,300,IceLand,WindHorse,IceHorse
+IceHorse,275,175,IceLand,IceDragon
