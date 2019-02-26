@@ -33,6 +33,8 @@ public class loadMapScreenController implements Initializable {
     Button btBack;
 
     HashMap<String,Color> continentColor=new HashMap<String,Color>();
+
+
     public void setMap(GameMap gameMap) {
         this.gameMap = gameMap;
         createMapPane.getChildren().add(rectangleGroups);
