@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane prefHeight="834.0" prefWidth="906.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
+  <children>
+    <Pane layoutX="14.0" layoutY="106.0" prefHeight="623.0" prefWidth="687.0">
+      <children>
+        <Pane layoutX="3.0" layoutY="-86.0" prefHeight="70.0" prefWidth="679.0" />
+      </children>
+    </Pane>
+    <Pane layoutX="262.0" layoutY="741.0" prefHeight="70.0" prefWidth="439.0" />
+    <Pane layoutX="719.0" layoutY="20.0" prefHeight="397.0" prefWidth="174.0" />
+    <Button layoutX="48.0" layoutY="741.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="163.0" text="End">
+      <textFill>
+        <Color blue="0.000" green="0.480" red="1.000" fx:id="x1" />
+      </textFill>
+    </Button>
+    <Button layoutX="745.0" layoutY="474.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="My Cards" textFill="$x1" />
+    <TextField layoutX="719.0" layoutY="575.0" prefWidth="72.0" text="Solders:" />
+    <TextField layoutX="790.0" layoutY="575.0" prefWidth="89.0" />
+    <TextField layoutX="719.0" layoutY="623.0" prefWidth="72.0" text="Dices:" />
+    <ComboBox layoutX="790.0" layoutY="624.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <Button layoutX="763.0" layoutY="677.0" mnemonicParsing="false" text="Sure" textFill="$x1" />
+  </children>
+</AnchorPane>
