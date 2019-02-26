@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="834.0" prefWidth="906.0" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.cardScreenController">
 
 </AnchorPane>

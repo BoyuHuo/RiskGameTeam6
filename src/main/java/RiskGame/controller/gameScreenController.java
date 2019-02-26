@@ -21,14 +21,17 @@ public class gameScreenController{
         @FXML
         private void newButtonOnClicked() {
                 try {
-                        Parent anotherRoot = FXMLLoader.load(getClass().getResource("cardScreen.fxml"));
+                        Parent anotherRoot = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
                         Stage anotherStage = new Stage();
                         anotherStage.setTitle("My cards");
-                        anotherStage.setScene(new Scene(anotherRoot, 600, 329));
+                        anotherStage.setScene(new Scene(anotherRoot, 600.0, 400.0));
                         anotherStage.show();
                 } catch (Exception e) {
                         e.printStackTrace();
                 }
         }
+
+
+
 
 }
