@@ -14,24 +14,37 @@ public class TestMapReader {
         mapManager = new MapManager();
     }
 
+
+    /**
+    * This is the test method which can check if the loaded map is not null.
+    * @author Hao Ma
+    * @version 1.0.0
+     */
     @Test
     public void testMapLoadNotNull() {
-        GameMap map = mapManager.LoadMap("C:\\Users\\14748\\IdeaProjects\\RiskGameTeam6\\map\\PekmonLand.map");
+        GameMap map = mapManager.LoadMap(getClass().getResource("/map/1.map").getPath());
         assertNotNull(map);
     }
-
+    /**
+     * This is the test method which can check if the CtrNum is correct.
+     * @author Hao Ma
+     * @version 1.0.0
+     */
     @Test
     public void testMapLoadContinentCtrNum() {
-        GameMap map = mapManager.LoadMap("C:\\Users\\14748\\IdeaProjects\\RiskGameTeam6\\map\\PekmonLand.map");
+        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
         Continent c = map.getContinents().get("FireLand");
         assertEquals(5, c.getCtrNum());
     }
-
-    ///@Test
-    ///public void testContinentNotNull()
-    ///{
-    ///    GameMap map = mapManager.LoadMap("C:\\Users\\14748\\IdeaProjects\\RiskGameTeam6\\map\\PekmonLand.map");
-    ///    Continent c = map.getContinents().get("WaterLand");
-    ///    assertNotNull(continets);
-    ///}
+    /**
+     * This is the test method which can check if the Continent is not null.
+     * @author Hao Ma
+     * @version 1.0.0
+     */
+    @Test
+    public void testMapContinentNotNull(){
+        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        Continent d = map.getContinents().get("WindLand");
+        assertNotNull(d.getTerritories());
+    }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class GameMap {
+public class  GameMap {
     private String image;
     private String wrap;
     private String scroll;
