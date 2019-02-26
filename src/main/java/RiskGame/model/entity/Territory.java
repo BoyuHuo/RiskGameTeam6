@@ -9,6 +9,14 @@ public class Territory {
     private Continent continent;
     private HashMap<String,Territory> neighbors = new HashMap<String, Territory>();
 
+    public Territory(String name, int x,int y){
+        this.name=name;
+        this.x=x;
+        this.y=y;
+    }
+    public Territory(){
+    }
+
     public String getName() {
         return name;
     }
@@ -39,6 +47,7 @@ public class Territory {
 
     public void setContinent(Continent continent) {
         this.continent = continent;
+        continent.getTerritories().put(name,this);
     }
 
     public HashMap<String,Territory> getNeighbors() {

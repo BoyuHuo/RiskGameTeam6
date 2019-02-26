@@ -1,0 +1,13 @@
+.root {
+    -fx-font-size: 16px;
+    -fx-background-color: #F0FFF0;
+}
+
+.button {
+    -fx-background-color: lightblue;
+}
+
+.button:hover {
+    -fx-background-color: blue;
+}
+

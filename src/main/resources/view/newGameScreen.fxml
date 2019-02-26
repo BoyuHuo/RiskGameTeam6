@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
-<?import javafx.embed.swing.*?>
-<?import javafx.scene.media.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.newGameScreenController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -28,7 +22,7 @@
                <children>
                   <ImageView fitHeight="254.0" fitWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image url="@Battle.jpg" />
+                        <Image url="/images/battle.jpg" />
                      </image>
                   </ImageView>
                   <Text fill="#f7ef53" layoutX="128.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0" AnchorPane.bottomAnchor="184.6123046875" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="248.9833984375" AnchorPane.topAnchor="26.8388671875">
@@ -40,17 +34,12 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <VBox layoutX="184.0" layoutY="14.0" prefHeight="108.0" prefWidth="218.0" AnchorPane.topAnchor="14.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" translateX="70.0">
-                           <VBox.margin>
-                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#clickCreateMapButton" text="Create Map" translateX="75.0" translateY="20.0" />
-                     </children>
-                  </VBox>
                   <Label fx:id="lblPath" layoutX="506.0" layoutY="47.0" />
+                  <Button layoutX="65.0" layoutY="46.0" mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" />
+                  <Button layoutX="196.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickCreateMapButton" text="Create Map" />
+                  <Button fx:id="btnEditPlayerDetails" layoutX="338.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" text="Player Details" />
+                  <Button layoutX="525.0" layoutY="46.0" mnemonicParsing="false" text="Start" />
+                  <Hyperlink fx:id="hyperLinkBack" layoutX="6.0" layoutY="93.0" onAction="#hyperBack" text="Back" />
                </children>
             </AnchorPane>
         </items>
