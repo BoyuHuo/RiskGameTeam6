@@ -47,4 +47,26 @@ public class TestMapReader {
         Continent d = map.getContinents().get("WindLand");
         assertNotNull(d.getTerritories());
     }
+    /**
+     * This is the test method which can check if the map is valided
+     * @author Hao Ma
+     * @version 1.0.0
+     */
+    @Test
+    public void testMapIsValided(){
+        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        ///boolean validedTerritories = false;
+        /// boolean validedContinent = true;
+        /// validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
+        /// validedContinent = IsConnectedContinents(continent) && validedContinent;
+        ///boolean validedTerritories = false;
+        ///boolean validedContinent = true;
+        ///validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
+        ///for (Continent continent : gameMap.getContinents().values()) {
+        ///     validedContinent = IsConnectedContinents(continent) && validedContinent;
+        /// }
+
+        /// return validedContinent||validedTerritories;
+        ///  assertFalse(false,validedContinent||validedTerritories);
+    }
 }
