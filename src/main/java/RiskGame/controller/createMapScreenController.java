@@ -1,5 +1,8 @@
 package RiskGame.controller;
 
+import RiskGame.model.entity.Continent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,6 +43,13 @@ public class createMapScreenController implements Initializable {
     Group rectangleGroups = new Group();
     Rectangle square = null;
 
+    ArrayList<Continent> continentArray= new ArrayList<>();
+    private ObservableList continentsNames = FXCollections.observableArrayList();
+
+    @FXML
+    private ChoiceBox<Integer> cbContinents;
+
+    int mode;
 
     /**
      * This is the implementation for New Game Button.
@@ -116,37 +126,40 @@ public class createMapScreenController implements Initializable {
     @FXML
     public void createTerrotory(ActionEvent event) {
 
-        createMapPane.getChildren().add(rectangleGroups);
+        mode=0;
+        if(mode==0) {
 
-        createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                lblCoordinates.setText("X:" + event.getX() + " Y: " + event.getY());
-                lblCoordinates.setVisible(false);
 
-                square = new Rectangle();
+            createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
 
-                if (showInputTextDialog(event.getX(), event.getY())) {
-                    setSquareProperties(event.getX(), event.getY(), square);
+                    lblCoordinates.setText("X:" + event.getX() + " Y: " + event.getY());
+                    lblCoordinates.setVisible(false);
 
-                    rectangleGroups.getChildren().add(square);
+                    square = new Rectangle();
+
+                    if (showInputTextDialog(event.getX(), event.getY())) {
+                        setSquareProperties(event.getX(), event.getY(), square);
+
+                        rectangleGroups.getChildren().add(square);
+                    }
+
                 }
+            });
 
-            }
-        });
-
-        createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                square = null;
-            }
-        });
+            createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    square = null;
+                }
+            });
 
 
-        connectTerrotoryBt.setDisable(false);
-        createTerrotoryBt.setDisable(true);
-
+            //connectTerrotoryBt.setDisable(false);
+            //createTerrotoryBt.setDisable(true);
+        }
 
     }
 
@@ -154,69 +167,75 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     public void connectTerrotory(ActionEvent event) {
-        createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                lblCoordinates.setText("X:" + event.getX() + " Y: " + event.getY());
-                //lblCoordinates.setVisible(false);
+        mode=1;
 
-                l1 = new Line();
+        if(mode==1) {
+            createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
 
-                System.out.println("Pressed" + "X:" + event.getX() + " Y: " + event.getY());
-                l1.setStartX(event.getX());
-                l1.setStartY(event.getY());
+                    lblCoordinates.setText("X:" + event.getX() + " Y: " + event.getY());
+                    //lblCoordinates.setVisible(false);
 
-                isvalidlineStart = checkCoordinates(event.getX(), event.getY());
-                System.out.println("IsValid" + isvalidlineStart);
-                event.setDragDetect(true);
+                    l1 = new Line();
 
-            }
+                    System.out.println("Pressed" + "X:" + event.getX() + " Y: " + event.getY());
+                    l1.setStartX(event.getX());
+                    l1.setStartY(event.getY());
 
-
-        });
-
-
-        createMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-                //l1.setEndX(event.getX());
-                //l1.setEndY(event.getY());
-                //rectangleGroups.getChildren().add( l1 ) ;
-                //System.out.println("Drag"+"X:"+event.getX()+" Y: "+event.getY());
-
-
-            }
-        });
-
-
-        createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-
-                isValidlineEnd = checkCoordinates(event.getX(), event.getY());
-                System.out.println("Dragreleased" + "X:" + event.getX() + " Y: " + event.getY());
-                System.out.println("IsValidend" + event.getX() + "sdfdsf" + event.getY());
-                if (isvalidlineStart && isValidlineEnd) {
-                    l1.setEndX(event.getX());
-                    l1.setEndY(event.getY());
-                    rectangleGroups.getChildren().add(l1);
-
+                    isvalidlineStart = checkCoordinates(event.getX(), event.getY());
+                    System.out.println("IsValid" + isvalidlineStart);
+                    event.setDragDetect(true);
 
                 }
 
-                l1 = null;
-                event.setDragDetect(false);
 
-            }
-        });
+            });
 
 
-        connectTerrotoryBt.setDisable(true);
-        createContinentsBt.setDisable(false);
-        saveBt.setDisable(true);
+            createMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                    //l1.setEndX(event.getX());
+                    //l1.setEndY(event.getY());
+                    //rectangleGroups.getChildren().add( l1 ) ;
+                    //System.out.println("Drag"+"X:"+event.getX()+" Y: "+event.getY());
+
+
+                }
+            });
+
+
+            createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+
+                    isValidlineEnd = checkCoordinates(event.getX(), event.getY());
+
+                    System.out.println("IsValidend" + event.getX() + "sdfdsf" + event.getY());
+                    if (isvalidlineStart && isValidlineEnd) {
+                        l1.setEndX(event.getX());
+                        l1.setEndY(event.getY());
+                        rectangleGroups.getChildren().add(l1);
+
+
+                    }
+
+                    l1 = null;
+                    event.setDragDetect(false);
+
+                }
+            });
+
+
+            //connectTerrotoryBt.setDisable(true);
+            //createContinentsBt.setDisable(false);
+            //saveBt.setDisable(true);
+
+        }
     }
 
     @FXML
@@ -234,9 +253,6 @@ public class createMapScreenController implements Initializable {
             double _x = countries.get(i).get("x");
             double _y = countries.get(i).get("y");
 
-            System.out.println("  x:" + _x);
-            System.out.println("  y:" + _y);
-
             if (x >= _x && y >= _y &&
                     x <= _x + 50 && y <= _y + 50)
                 return true;
@@ -246,18 +262,9 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     public void addContinents(ActionEvent event) {
-        /*createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-
-
-            }});*/
-
-        createMapPane.setDisable(true);
-
-        createContinentsBt.setDisable(true);
-        saveBt.setDisable(false);
+        mode=3;
+        if(mode==3)
+        showContinentAlertDialog();
     }
 
 
@@ -278,7 +285,7 @@ public class createMapScreenController implements Initializable {
         if (result.isPresent()) {
 
             if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog();
+                showAlertDialog("Country");
                 return false;
             }
             Label label = new Label();
@@ -295,13 +302,46 @@ public class createMapScreenController implements Initializable {
 
     }
 
-    private void showAlertDialog() {
+    private void showAlertDialog(String alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
-        alert.setContentText("Enter Country name");
+        alert.setContentText("Enter "+alertType+"name");
         alert.showAndWait();
+    }
+
+
+
+    private boolean showContinentAlertDialog() {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter Country Name");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Name:");
+
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+
+            if (result.get().equalsIgnoreCase("")) {
+                showAlertDialog("Continent");
+                return false;
+            }
+            Continent continent= new Continent();
+            continent.setName(result.get());
+
+
+
+            continentsNames.removeAll(continentsNames);
+            continentArray.add(continent);
+            continentsNames.add(result.get());
+            cbContinents.getItems().addAll(continentsNames);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -331,5 +371,6 @@ public class createMapScreenController implements Initializable {
         /*connectTerrotoryBt.setDisable(true);
         createContinentsBt.setDisable(true);
         saveBt.setDisable(true);*/
+        createMapPane.getChildren().add(rectangleGroups);
     }
 }

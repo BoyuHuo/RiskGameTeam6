@@ -4,31 +4,57 @@ import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
 import org.junit.*;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
+/**
+ * This is a Junit Test Class, used for testing <b> Map Reading </b> function
+ * It contains all test cases which is related to map reading.
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @since v1.0.0
+ * @see MapManager
+ */
 public class TestMapReader {
     MapManager mapManager;
 
+    /**
+     * This is the setUp method before each test case, its main purpose is use for initiate the instance.
+     */
     @Before
     public void setUp() {
         mapManager = new MapManager();
     }
 
-
     /**
-    * This is the test method which can check if the loaded map is not null.
-    * @author Hao Ma
-    * @version 1.0.0
+     * Test case 1
+     * Purpose: testing the function of loading a map
+     * Process:
+     * <ul>
+     *     <li>load a existed map</li>
+     *     <li>check if the map is not null</li>
+     * </ul>
+     *
      */
+
     @Test
     public void testMapLoadNotNull() {
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/1.map").getPath());
         assertNotNull(map);
     }
+
     /**
-     * This is the test method which can check if the CtrNum is correct.
-     * @author Hao Ma
-     * @version 1.0.0
+     * Test case 2
+     * Purpose: testing the control number of a Continent
+     * Process:
+     * <ul>
+     *     <li>load a existed map</li>
+     *     <li>get a Continent from the map</li>
+     *     <li>check if the control number equals to the test case</li>
+     * </ul>
+     *
      */
     @Test
     public void testMapLoadContinentCtrNum() {
@@ -37,9 +63,15 @@ public class TestMapReader {
         assertEquals(5, c.getCtrNum());
     }
     /**
-     * This is the test method which can check if the Continent is not null.
-     * @author Hao Ma
-     * @version 1.0.0
+     * Test case 3
+     * Purpose: testing the Continent of the map
+     * Process:
+     * <ul>
+     *     <li>load a existed map</li>
+     *     <li>get a Continent from the map</li>
+     *     <li>check if the Continent is not null</li>
+     * </ul>
+     *
      */
     @Test
     public void testMapContinentNotNull(){
@@ -47,26 +79,24 @@ public class TestMapReader {
         Continent d = map.getContinents().get("WindLand");
         assertNotNull(d.getTerritories());
     }
+
     /**
-     * This is the test method which can check if the map is valided
-     * @author Hao Ma
-     * @version 1.0.0
+     * Test case 4
+     * Purpose: testing the size of Territories or Continents
+     * Process:
+     * <ul>
+     *     <li>load a existed map</li>
+     *     <li>get the size of Continentsand the size of Territories of a Continent</li>
+     *     <li>check if the results equals the test cases</li>
+     * </ul>
+     *
      */
     @Test
-    public void testMapIsValided(){
+    public void testMapContinentSize(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
-        ///boolean validedTerritories = false;
-        /// boolean validedContinent = true;
-        /// validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
-        /// validedContinent = IsConnectedContinents(continent) && validedContinent;
-        ///boolean validedTerritories = false;
-        ///boolean validedContinent = true;
-        ///validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
-        ///for (Continent continent : gameMap.getContinents().values()) {
-        ///     validedContinent = IsConnectedContinents(continent) && validedContinent;
-        /// }
-
-        /// return validedContinent||validedTerritories;
-        ///  assertFalse(false,validedContinent||validedTerritories);
+        int m = map.getContinents().size();
+        int h = map.getContinents().get("WindLand").getTerritories().size();
+        assertEquals(4,m);
+        assertEquals(2,h);
     }
 }

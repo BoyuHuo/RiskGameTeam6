@@ -40,8 +40,9 @@ public class newGameScreenController implements Initializable {
             lblPath.setText(mapFile.toString());
             MapManager mapManager=new MapManager();
             GameMap gameMap=mapManager.LoadMap(mapFile.toString());
+         /*   Ga
 
-            showMap(gameMap);
+            showMap(gameMap);*/
 
         }
     }

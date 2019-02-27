@@ -7,35 +7,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="834.0" prefWidth="906.0" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
   <children>
-    <Pane layoutX="14.0" layoutY="106.0" prefHeight="623.0" prefWidth="687.0">
+    <Pane id="game" layoutX="14.0" layoutY="56.0" prefHeight="287.0" prefWidth="453.0">
       <children>
-        <Pane layoutX="3.0" layoutY="-86.0" prefHeight="70.0" prefWidth="679.0" />
+        <Pane id="notification" layoutX="34.0" layoutY="-47.0" prefHeight="33.0" prefWidth="387.0000999999975" />
+        <Pane id="phase" layoutX="137.0" layoutY="301.0" prefHeight="33.0" prefWidth="316.0" />
+        <Button id="endRound" layoutX="5.0" layoutY="302.0" mnemonicParsing="false" text="End Round">
+          <font>
+            <Font name="System Bold" size="18.0" fx:id="x1" />
+          </font>
+          <textFill>
+            <Color blue="0.000" green="0.480" red="1.000" fx:id="x2" />
+          </textFill>
+        </Button>
       </children>
     </Pane>
-    <Pane layoutX="262.0" layoutY="741.0" prefHeight="70.0" prefWidth="439.0" />
-    <Pane layoutX="719.0" layoutY="20.0" prefHeight="397.0" prefWidth="174.0" />
-    <Button layoutX="48.0" layoutY="741.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="163.0" text="End">
-      <textFill>
-        <Color blue="0.000" green="0.480" red="1.000" fx:id="x1" />
-      </textFill>
-    </Button>
-    <Button layoutX="745.0" layoutY="474.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="123.0" text="My Cards" textFill="$x1" />
-    <TextField layoutX="719.0" layoutY="575.0" prefWidth="72.0" text="Solders:" />
-    <TextField layoutX="790.0" layoutY="575.0" prefWidth="89.0" />
-    <TextField layoutX="719.0" layoutY="623.0" prefWidth="72.0" text="Dices:" />
-    <ComboBox layoutX="790.0" layoutY="624.0">
+    <Pane id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0" />
+    <Button id="myCards" font="$x1" layoutX="480.0" layoutY="217.0"
+            mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" text="My Cards" textFill="$x2" />
+    <TextField layoutX="471.0" layoutY="265.0" prefWidth="84.0" text="Soldiers:" />
+    <TextField id="soldiersNumber" layoutX="555.0" layoutY="265.0" prefWidth="37.999900000002526" />
+    <TextField layoutX="471.0" layoutY="307.0" prefWidth="60.0" text="Dices:" />
+    <ComboBox id="dicesNumber" layoutX="531.0" layoutY="308.0" minWidth="49.0" prefWidth="62.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Item 1" />
-          <String fx:value="Item 2" />
-          <String fx:value="Item 3" />
+          <String fx:value="1" />
+          <String fx:value="2" />
+          <String fx:value="3" />
         </FXCollections>
       </items>
     </ComboBox>
-    <Button layoutX="763.0" layoutY="677.0" mnemonicParsing="false" text="Sure" textFill="$x1" />
+    <Button id="certifyDicesNumber" font="$x1" layoutX="498.0" layoutY="349.0" mnemonicParsing="false" text="Sure" textFill="$x2" />
   </children>
 </AnchorPane>
