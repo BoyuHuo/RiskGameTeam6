@@ -9,13 +9,26 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
+<AnchorPane stylesheets="@../CSS/gameScreenController_CSS.css" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
   <children>
     <Pane id="game" layoutX="14.0" layoutY="56.0" prefHeight="287.0" prefWidth="453.0">
       <children>
-        <Pane id="notification" layoutX="34.0" layoutY="-47.0" prefHeight="33.0" prefWidth="387.0000999999975" />
-        <Pane id="phase" layoutX="137.0" layoutY="301.0" prefHeight="33.0" prefWidth="316.0" />
-        <Button id="endRound" layoutX="5.0" layoutY="302.0" mnemonicParsing="false" text="End Round">
+
+        <!-- Show notification information-->
+        <Pane id="notifications" layoutX="34.0" layoutY="-47.0" prefHeight="33.0"
+              prefWidth="387.0000999999975">
+          <Text fx:id="notification"/>
+        </Pane>
+
+
+        <!-- Show game phase information-->
+        <Pane id="phases" layoutX="137.0" layoutY="301.0" prefHeight="33.0" prefWidth="316.0">
+          <Text fx:id="phase"/>
+        </Pane>
+
+
+        <!--End this round of game-->
+        <Button id="endRound" layoutX="5.0" layoutY="302.0" mnemonicParsing="false" text="End Round" >
           <font>
             <Font name="System Bold" size="18.0" fx:id="x1" />
           </font>
@@ -23,13 +36,30 @@
             <Color blue="0.000" green="0.480" red="1.000" fx:id="x2" />
           </textFill>
         </Button>
+
       </children>
     </Pane>
-    <Pane id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0" />
+
+
+    <!--Show players information-->
+    <Pane id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0" >
+      <Text fx:id="player"  />
+    </Pane>
+
+
+    <!--View the player's cards-->
     <Button id="myCards" font="$x1" layoutX="480.0" layoutY="217.0"
-            mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" text="My Cards" textFill="$x2" />
+            mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" text="My Cards" textFill="#B0C4DE" />
+
+
+    <!--Show soldiers number-->
     <TextField layoutX="471.0" layoutY="265.0" prefWidth="84.0" text="Soldiers:" />
-    <TextField id="soldiersNumber" layoutX="555.0" layoutY="265.0" prefWidth="37.999900000002526" />
+    <TextField id="soldiersNumbers" layoutX="555.0" layoutY="265.0" prefWidth="37.999900000002526">
+      <Text fx:id="soldiersNumber"  text=" "/>
+    </TextField>
+
+
+    <!--Show dices number-->
     <TextField layoutX="471.0" layoutY="307.0" prefWidth="60.0" text="Dices:" />
     <ComboBox id="dicesNumber" layoutX="531.0" layoutY="308.0" minWidth="49.0" prefWidth="62.0">
       <items>
@@ -40,6 +70,10 @@
         </FXCollections>
       </items>
     </ComboBox>
-    <Button id="certifyDicesNumber" font="$x1" layoutX="498.0" layoutY="349.0" mnemonicParsing="false" text="Sure" textFill="$x2" />
+
+
+    <!--Certify dices number-->
+    <Button id="certifyDicesNumber" font="$x1" layoutX="498.0"
+            layoutY="349.0" mnemonicParsing="false" text="Sure" textFill="#B0C4DE" />
   </children>
 </AnchorPane>

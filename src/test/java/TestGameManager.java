@@ -16,7 +16,6 @@ public class TestGameManager {
 
     @Before
     public void setUp() {
-        gameManager = new GameManager();
         mapManager = new MapManager();
         Map<String, Player> players = new HashMap<>();
         Player p1 = new Player("Player1", 10);
@@ -26,7 +25,9 @@ public class TestGameManager {
         players.put(p2.getName(),p2);
         players.put(p3.getName(),p3);
 
-        gameManager.NewGame(players,mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
+        GameManager.getInstance().setPlayers(players);
+        GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
+        gameManager.NewGame();
 
         for(String key:gameManager.getPlayers().keySet()){
             System.out.println(key);
