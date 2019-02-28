@@ -89,6 +89,7 @@ public class Territory {
 
     public void addNeibor(Territory t){
         this.neighbors.put(t.getName(),t);
+        //t.getNeighbors().put(this.name,this);
     }
 
     public void removeNeibor(Territory t){

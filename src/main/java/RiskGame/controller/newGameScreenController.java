@@ -43,14 +43,14 @@ public class newGameScreenController implements Initializable {
             lblPath.setText(mapFile.toString());
             MapManager mapManager=new MapManager();
             GameMap gameMap=mapManager.LoadMap(mapFile.toString());
-         /*   Ga
 
-            showMap(gameMap);*/
+
+            showMap(gameMap);
 
         }
     }
 
-    private void showMap(GameMap gameMap) throws IOException {
+    private void                                                                                                                                                                                                              showMap(GameMap gameMap) throws IOException {
 
 
         FXMLLoader loader = new FXMLLoader();
@@ -58,7 +58,7 @@ public class newGameScreenController implements Initializable {
         loader.load();
         loadMapScreenController controller = loader.getController();
         controller.setMap(gameMap);
-        createMapScene = new Scene(loader.getRoot(), 600,400);
+        createMapScene = new Scene(loader.getRoot(), 1000,1000);
 
         Stage createMapSceneStage = (Stage) lblPath.getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
