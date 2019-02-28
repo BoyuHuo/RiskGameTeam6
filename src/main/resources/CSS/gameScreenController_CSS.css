@@ -1,13 +1,13 @@
 .root {
     -fx-font-size: 16px;
-    -fx-background-color: #F0FFF0;
+    -fx-background-color: #333333;
 }
 
 .button {
-    -fx-background-color: lightblue;
+    -fx-background-color: #668B8B;
 }
 
 .button:hover {
-    -fx-background-color: blue;
+    -fx-background-color: white;
 }
 

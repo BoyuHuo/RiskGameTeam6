@@ -30,10 +30,13 @@ public class gameScreenController{
         private Text phase;
 
         @FXML
-        private Text player;
+        private Pane players;
 
         @FXML
         private Text soldiersNumber;
+
+        @FXML
+        private Button certifyDicesNumber;
 
 
         // Show the card window
@@ -80,11 +83,7 @@ public class gameScreenController{
         // Get and show players information
         @FXML
         private void playerInfo(String playerInfo){
-                try {
-                        player.setText(playerInfo);
-                }catch (Exception e){
-                        e.printStackTrace();
-                }
+
         }
 
 
@@ -97,5 +96,15 @@ public class gameScreenController{
                         e.printStackTrace();
                 }
         }
+
+
+        // Certify the number of dices
+        @FXML
+        private void certifyDices(String certifyDices){
+
+        }
+
+
+
 
 }
