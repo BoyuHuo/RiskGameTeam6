@@ -38,7 +38,7 @@
                   <Button layoutX="65.0" layoutY="46.0" mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" />
                   <Button layoutX="196.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickCreateMapButton" text="Create Map" />
                   <Button fx:id="btnEditPlayerDetails" layoutX="338.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" text="Player Details" />
-                  <Button layoutX="525.0" layoutY="46.0" mnemonicParsing="false" text="Start" />
+                  <Button layoutX="525.0" layoutY="46.0" mnemonicParsing="false" text="Start" onAction="#clickStartButton" />
                   <Hyperlink fx:id="hyperLinkBack" layoutX="6.0" layoutY="93.0" onAction="#hyperBack" text="Back" />
                </children>
             </AnchorPane>

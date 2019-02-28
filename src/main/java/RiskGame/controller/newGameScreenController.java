@@ -1,6 +1,7 @@
 package RiskGame.controller;
 import RiskGame.Main;
 import RiskGame.model.entity.GameMap;
+import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class newGameScreenController implements Initializable {
+
+    private GameManager gameManager;
 
     @FXML
     private Label lblPath;
@@ -96,7 +99,16 @@ public class newGameScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        gameManager=new GameManager();
+    }
 
-
+    @FXML
+    public void clickStartButton() throws IOException
+    {
+        Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
+        Scene gameScene = new Scene(gameScreen, 610,400);
+        Stage gameStage = (Stage)hyperLinkBack.getScene().getWindow();
+        gameStage.setScene(gameScene);
+        gameStage.show();
     }
 }

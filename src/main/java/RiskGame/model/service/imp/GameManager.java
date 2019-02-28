@@ -17,9 +17,12 @@ public class GameManager extends Observable implements IGameManager {
     private GameMap map;
     private phase gamePhase;
 
-    public void NewGame(Map<String, Player> players, GameMap map) {
-        this.players = players;
+    public GameManager(){}
+    public GameManager(GameMap map,Map<String,Player> players){
         this.map = map;
+        this.players = players;
+    }
+    public void NewGame() {
         start();
     }
 
