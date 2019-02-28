@@ -53,7 +53,7 @@ public class loadMapScreenController implements Initializable {
 
 
 
-            setSquareProperties( territory.getX()*.60,territory.getY()*.40,square) ;
+            setSquareProperties( territory.getX(),territory.getY(),square,continentColor.get(territory.getContinent().getName())) ;
             //connectNeighbours(territory);
             DFS(territory,new ArrayList<>());
 
@@ -63,25 +63,41 @@ public class loadMapScreenController implements Initializable {
     }
 
 
-    public void checkMap(ArrayList<Territory> territories) {
+    public void checkMap(GameMap map) {
 
         createMapPane.getChildren().add(rectangleGroups);
 
-        for(Territory t:territories){
-            System.out.println(t.getNeighbors().size());
+        for (Map.Entry<String, Territory> entry :map.getTerritories().entrySet() ) {
+            String key=entry.getKey();
+            Territory territory=entry.getValue();
+            territory.getContinent();
+            square = new Rectangle();
+
+            if(!continentColor.containsKey(territory.getContinent().getName())){
+                continentColor.put(territory.getContinent().getName(),generateRandomColor());
+            }
+
+
+
+            setSquareProperties( territory.getX(),territory.getY(),square,continentColor.get(territory.getContinent().getName())) ;
+            //connectNeighbours(territory);
+            DFS(territory,new ArrayList<>());
+
+            rectangleGroups.getChildren().add( square ) ;
+            square=null;
         }
 
 
 
-        for (int i=0; i<territories.size();i++) {
+       /* for (int i=0; i<territories.size();i++) {
 
             Territory territory=territories.get(i);
             //territory.getContinent();
             square = new Rectangle();
 
-            /*if(!continentColor.containsKey(territory.getContinent().getName())){
+            *//*if(!continentColor.containsKey(territory.getContinent().getName())){
                 continentColor.put(territory.getContinent().getName(),generateRandomColor());
-            }*/
+            }*//*
 
 
             //setSquareProperties( territory.getX()*.60,territory.getY()*.40,square,continentColor.get(territory.getContinent().getName()) ) ;
@@ -92,7 +108,7 @@ public class loadMapScreenController implements Initializable {
 
             rectangleGroups.getChildren().add( square ) ;
             square=null;
-        }
+        }*/
     }
 
     public Color generateRandomColor() {
@@ -138,13 +154,13 @@ public class loadMapScreenController implements Initializable {
             l1=null;
         }
     }
-    private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square )
+    private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square, Color color )
     {
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
         square.setWidth( 50 ) ;
         square.setHeight( 50 ) ;
-        square.setFill( Color.TRANSPARENT ) ;
+        square.setFill( color ) ;
         square.setStroke( Color.BLACK ) ;
 
 

@@ -47,7 +47,7 @@ public class newGameScreenController implements Initializable {
         }
     }
 
-    private void                                                                                                                                                                                                              showMap(GameMap gameMap) throws IOException {
+    private void showMap(GameMap gameMap) throws IOException {
 
 
         FXMLLoader loader = new FXMLLoader();

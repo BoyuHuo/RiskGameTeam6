@@ -1,6 +1,7 @@
 package RiskGame.controller;
 
 import RiskGame.model.entity.Continent;
+import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,15 +24,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class createMapScreenController implements Initializable {
 
@@ -108,6 +104,7 @@ public class createMapScreenController implements Initializable {
      * @param event Ignore
      */
 
+    GameMap map =new GameMap();
     ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
 
     ArrayList<Territory> territoryArrayList = new ArrayList<>();
@@ -182,8 +179,8 @@ public class createMapScreenController implements Initializable {
 
     Territory sourceT;
     Territory destT;
-    int sourceIndex;
-    int destIndex;
+    String sourceName;
+    String destName;
     @FXML
     public void connectTerrotory(ActionEvent event) {
 
@@ -206,25 +203,27 @@ public class createMapScreenController implements Initializable {
 
                     double x= event.getX();
                     double y=event.getY();
-                    for (int i = 0; i < territoryArrayList.size(); i++) {
 
-                        double _x = territoryArrayList.get(i).getX();
-                        double _y = territoryArrayList.get(i).getY();
+                    for(Map.Entry<String, Territory> entry :map.getTerritories().entrySet()) {
+
+                        double _x = entry.getValue().getX();
+                        double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
                                 x <= _x + 50 && y <= _y + 50){
                             sourceT=new Territory();
                             sourceT.setX((int) Math.round(_x));
                             sourceT.setY((int) Math.round(_y));
-                            sourceT.setName(territoryArrayList.get(i).getName());
+                            sourceT.setName(entry.getValue().getName());
 
-                            sourceIndex=i;
+                            sourceName=entry.getValue().getName();
 
-                            System.out.println("Index"+sourceIndex);
+                            //System.out.println("Index"+sourceIndex);
 
                         }
 
                     }
+
 
                     System.out.println("IsValid" + isvalidlineStart);
                     event.setDragDetect(true);
@@ -249,27 +248,32 @@ public class createMapScreenController implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
 
+                    if(mode==1) {
 
                     isValidlineEnd = checkCoordinates(event.getX(), event.getY());
 
 
                     double x= event.getX();
                     double y=event.getY();
-                    for (int i = 0; i < territoryArrayList.size(); i++) {
-                        double _x = territoryArrayList.get(i).getX();
-                        double _y = territoryArrayList.get(i).getY();
+
+                    for(Map.Entry<String, Territory> entry :map.getTerritories().entrySet()) {
+
+                        double _x = entry.getValue().getX();
+                        double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
                                 x <= _x + 50 && y <= _y + 50){
                             destT=new Territory();
                             destT.setX((int) Math.round(_x));
                             destT.setY((int) Math.round(_y));
-                            destT.setName(territoryArrayList.get(i).getName());
-                            destIndex=i;
+                            destT.setName(entry.getValue().getName());
+                            destName=entry.getValue().getName();
 
                         }
 
                     }
+
+
 
                     if (isvalidlineStart && isValidlineEnd) {
                         l1.setEndX(event.getX());
@@ -277,15 +281,22 @@ public class createMapScreenController implements Initializable {
                         rectangleGroups.getChildren().add(l1);
                         System.out.println(sourceT.getName()+"->"+destT.getName());
 
-                        territoryArrayList.get(destIndex).addNeibor(sourceT);
+
+
+                        map.getTerritories().get(destName).addNeibor(sourceT);
 
                         System.out.println(destT.getName()+"->"+sourceT.getName());
-                        territoryArrayList.get(sourceIndex).addNeibor(destT);
+
+                        map.getTerritories().get(sourceName).addNeibor(destT);
+
+
 
                     }
 
                     l1 = null;
                     event.setDragDetect(false);
+
+                }
 
                 }
             });
@@ -299,7 +310,7 @@ public class createMapScreenController implements Initializable {
         loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
         loader.load();
         loadMapScreenController controller = loader.getController();
-        controller.checkMap(territoryArrayList);
+        controller.checkMap(map);
         createMapScene = new Scene(loader.getRoot(), 600,400);
 
         Stage createMapSceneStage = (Stage)backBt.getScene().getWindow();
@@ -357,8 +368,9 @@ public class createMapScreenController implements Initializable {
             createMapPane.getChildren().add(label);
 
             Territory territory=new Territory(result.get(),(int) Math.round(x),(int) Math.round(y));
-
+            map.getTerritories().put(territory.getName(),territory);
             territoryArrayList.add(territory);
+
             return true;
         } else {
             return false;
@@ -425,42 +437,51 @@ public class createMapScreenController implements Initializable {
 
     }
 
+    Continent continent;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         createMapPane.getChildren().add(rectangleGroups);
         cbContinents.valueProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println(newVal);
-             mode=3;
+            mode=3;
             if(mode==3) {
 
                 createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+
+                        continent=new Continent();
                         double x= event.getX();
                         double y=event.getY();
-                        for (int i = 0; i < territoryArrayList.size(); i++) {
 
-                            double _x = territoryArrayList.get(i).getX();
-                            double _y = territoryArrayList.get(i).getY();
+                        for(Map.Entry<String, Territory> entry :map.getTerritories().entrySet()) {
+
+                            double _x = entry.getValue().getX();
+                            double _y = entry.getValue().getY();
 
                             if (x >= _x && y >= _y &&
                                     x <= _x + 50 && y <= _y + 50){
+
+                                continent.setName(newVal);
+
+                                /*HashMap<String,Territory> territory=continent.getTerritories();
+
                                 sourceT=new Territory();
                                 sourceT.setX((int) Math.round(_x));
                                 sourceT.setY((int) Math.round(_y));
-                                sourceT.setName(territoryArrayList.get(i).getName());
+                                sourceT.setName(entry.getValue().getName());
 
-                                sourceIndex=i;
-
-                                System.out.println("Index"+sourceIndex);
+                                territory.put(entry.getValue().getName(),sourceT);
+                                territory.s */
+                                entry.getValue().setContinent(continent);
+                                System.out.println(entry.getValue().getName()+entry.getValue().getContinent().getName());
+                                // territoryArrayList.get(i).
 
                             }
 
                         }
 
-                        System.out.println("IsValid" + isvalidlineStart);
-                        event.setDragDetect(true);
 
                     }
 
