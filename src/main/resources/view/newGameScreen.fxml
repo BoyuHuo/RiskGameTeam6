@@ -36,6 +36,7 @@
                <children>
                   <Label fx:id="lblPath" layoutX="506.0" layoutY="47.0" />
                   <Button layoutX="65.0" layoutY="46.0" mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" />
+                   <Text fx:id="mapName"/>
                   <Button layoutX="196.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickCreateMapButton" text="Create Map" />
                   <Button fx:id="btnEditPlayerDetails" layoutX="338.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" text="Player Details" />
                   <Button layoutX="525.0" layoutY="46.0" mnemonicParsing="false" text="Start" onAction="#clickStartButton" />

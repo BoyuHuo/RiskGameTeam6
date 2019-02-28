@@ -25,7 +25,8 @@ public class TestGameManager {
         players.put(p2.getName(),p2);
         players.put(p3.getName(),p3);
 
-        gameManager = new GameManager(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()),players);
+        GameManager.getInstance().setPlayers(players);
+        GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
         gameManager.NewGame();
 
         for(String key:gameManager.getPlayers().keySet()){

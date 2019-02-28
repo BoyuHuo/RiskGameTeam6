@@ -16,12 +16,16 @@ public class GameManager extends Observable implements IGameManager {
     private Player activePlayer;
     private GameMap map;
     private phase gamePhase;
+    private static GameManager instance;
 
-    public GameManager(){}
-    public GameManager(GameMap map,Map<String,Player> players){
-        this.map = map;
-        this.players = players;
+
+    public static GameManager getInstance(){
+        if(instance==null){
+            instance=new GameManager();
+        }
+        return instance;
     }
+    private GameManager(){}
     public void NewGame() {
         start();
     }
@@ -96,6 +100,11 @@ public class GameManager extends Observable implements IGameManager {
 
     public void setPlayerIterator(Iterator iterator) {
         this.playerIterator = iterator;
+    }
+
+    public void cleanUp(){
+        this.map=new GameMap();
+        this.players.clear();
     }
 
 
