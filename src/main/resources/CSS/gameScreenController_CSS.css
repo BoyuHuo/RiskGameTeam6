@@ -1,6 +1,6 @@
 .root {
     -fx-font-size: 16px;
-    -fx-background-color: #333333;
+    -fx-background-color: white;
 }
 
 .button {
@@ -8,6 +8,6 @@
 }
 
 .button:hover {
-    -fx-background-color: white;
+    -fx-background-color: grey;
 }
 

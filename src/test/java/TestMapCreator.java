@@ -32,7 +32,7 @@ public class TestMapCreator {
     /**
      * This is the clean up method after each test case, to clean the file which generated during the test.
      */
-/*    @After
+    @After
     public void cleanUp(){
         try{
             String encodeUrl = java.net.URLDecoder.decode(getClass().getResource("/map/").getPath()+"NewMap1.map", "utf-8");
@@ -45,7 +45,7 @@ public class TestMapCreator {
         }catch(Exception e){
             e.printStackTrace();
         }
-    }*/
+    }
 
     /**
      * Test case 1
