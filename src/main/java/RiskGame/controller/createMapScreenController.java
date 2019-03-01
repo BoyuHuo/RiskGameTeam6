@@ -3,6 +3,7 @@ package RiskGame.controller;
 import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
+import RiskGame.model.service.imp.MapManager;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,6 +25,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
