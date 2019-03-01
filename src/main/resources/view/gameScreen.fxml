@@ -1,73 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.lang.String?>
 <?import java.util.*?>
 <?import javafx.collections.*?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<!--<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">-->
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Rectangle2D?>
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
+  <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">-->
+  <ImageView fitHeight="404.0" fitWidth="1020.0" layoutY="-1.0">
+    <image>
+      <Image url="/images/gameBackground.jpg" />
+    </image>
+    <viewport>
+      <Rectangle2D />
+    </viewport>
+  </ImageView>
   <children>
-    <Pane id="game" layoutX="14.0" layoutY="56.0" prefHeight="287.0" prefWidth="453.0">
-      <children>
-
-        <!-- Show notification information-->
-        <Pane id="notifications" layoutX="34.0" layoutY="-47.0" prefHeight="33.0" prefWidth="387.0000999999975">
-          <Text fx:id="notification" />
-        </Pane>
-
-
-        <!-- Show game phase information-->
-        <Pane id="phases" layoutX="137.0" layoutY="301.0" prefHeight="33.0" prefWidth="316.0">
-          <Text fx:id="phase" />
-        </Pane>
-
-
-        <!--End this round of game-->
-        <Button id="endRound" layoutX="5.0" layoutY="298.0" mnemonicParsing="false" prefHeight="4.0" prefWidth="125.0" text="End Round" textFill="LIGHTSTEELBLUE">
-          <font>
-            <Font name="System Bold" size="18.0" fx:id="x1" />
-          </font>
-        </Button>
-
-      </children>
-    </Pane>
-
-
-    <!--Show players information-->
-    <Pane id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0">
-      <Text fx:id="player" />
-    </Pane>
-
-
     <!--View the player's cards-->
-    <Button id="myCards" font="$x1" layoutX="480.0" layoutY="217.0" mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" text="My Cards" textFill="#B0C4DE" />
-
-
-    <!--Show soldiers number-->
-    <TextField layoutX="471.0" layoutY="265.0" prefWidth="84.0" text="Soldiers:" />
-    <TextField id="soldiersNumbers" layoutX="555.0" layoutY="265.0" prefWidth="37.999900000002526">
-      <Text fx:id="soldiersNumber" text=" " />
+    <Button id="myCards" layoutX="733.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" prefWidth="182.0" text="View My Cards" textFill="BLACK">
+      <font>
+        <Font size="18.0" fx:id="x1" />
+      </font>
+    </Button>
+    <TextField id="soldiersNumbers" layoutX="864.0" layoutY="370.0" prefWidth="73.0">
+      <String fx:value="" />
     </TextField>
-
-
-    <!--Show dices number-->
-    <TextField layoutX="471.0" layoutY="307.0" prefWidth="60.0" text="Dices:" />
-    <ComboBox id="dicesNumber" layoutX="531.0" layoutY="308.0" minWidth="49.0" prefWidth="62.0">
+    <ComboBox id="dicesNumber" layoutX="864.0" layoutY="416.0" minWidth="49.0" prefWidth="73.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="1" />
@@ -76,9 +50,32 @@
         </FXCollections>
       </items>
     </ComboBox>
-
-
     <!--Certify dices number-->
-    <Button id="certifyDicesNumber" font="$x1" layoutX="498.0" layoutY="349.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="62.0" text="Sure" textFill="#B0C4DE" />
+    <Button id="certifyDicesNumber" font="$x1" layoutX="774.0" layoutY="465.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="113.8798828125" text="Sure" textFill="BLACK" />
+    <!-- Show notification information-->
+    <Pane id="phases" layoutX="692.0" layoutY="14.0" prefHeight="48.0" prefWidth="259.0">
+      <Text fx:id="notification" />
+    </Pane>
+    <GridPane id="players" layoutX="692.0" layoutY="95.0" prefHeight="128.0" prefWidth="257.9999000000025">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Text layoutX="728.0" layoutY="389.0" scaleX="0.9309564850574211" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soldier Number : " />
+    <Text layoutX="733.0" layoutY="438.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dice Number :" />
+    <!--End this round of game-->
+    <Button id="endRound" font="$x1" layoutX="760.0" layoutY="522.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="141.0" text="End Round" textFill="BLACK" />
+    <!-- Show game phase information-->
+    <Pane id="notifications" layoutX="692.0" layoutY="315.0" prefHeight="32.0" prefWidth="259.0">
+      <Text fx:id="phase" />
+    </Pane>
+    <BorderPane id="game" layoutX="28.0" layoutY="32.0" prefHeight="540.0" prefWidth="658.0" />
   </children>
 </AnchorPane>

@@ -113,7 +113,7 @@ public class newGameScreenController implements Initializable {
         GameManager.getInstance().NewGame();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
-        Scene gameScene = new Scene(gameScreen, 610, 400);
+        Scene gameScene = new Scene(gameScreen, 1000, 600);
         Stage gameStage = (Stage) hyperLinkBack.getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();
