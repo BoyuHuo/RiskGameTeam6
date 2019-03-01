@@ -28,7 +28,7 @@
 
 
         <!--End this round of game-->
-        <Button id="endRound" layoutX="5.0" layoutY="302.0" mnemonicParsing="false" text="End Round" >
+        <Button id="endRound" layoutX="5.0" layoutY="302.0" mnemonicParsing="false" text="End Round" onAction="#endRoundClick" >
           <font>
             <Font name="System Bold" size="18.0" fx:id="x1" />
           </font>
@@ -42,9 +42,8 @@
 
 
     <!--Show players information-->
-    <Pane id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0" >
-      <Text fx:id="player"  />
-    </Pane>
+    <GridPane fx:id="players" layoutX="479.0" layoutY="14.0" prefHeight="193.0" prefWidth="110.0" >
+    </GridPane>
 
 
     <!--View the player's cards-->

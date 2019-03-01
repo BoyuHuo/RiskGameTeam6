@@ -86,8 +86,18 @@ public class GameManager extends Observable implements IGameManager {
         this.activePlayer = activePlayer;
     }
 
-    public phase getGamePhase() {
-        return gamePhase;
+    public String getGamePhase() {
+        String result="";
+        switch (gamePhase){
+            case STARTUP: result="Start Up"; break;
+            case REINFORCEMENTS: result = "Reinforcements"; break;
+            case ATTACK: result = "Attack"; break;
+            case FORTIFICATION: result ="Fortification"; break;
+        }
+
+        return result;
+
+
     }
 
     public void setGamePhase(phase gamePhase) {
@@ -102,9 +112,13 @@ public class GameManager extends Observable implements IGameManager {
         this.playerIterator = iterator;
     }
 
+
     public void cleanUp(){
         this.map=new GameMap();
         this.players.clear();
+    }
+
+    private void ramdomAssignTerritoryToPlayer(){
     }
 
 
