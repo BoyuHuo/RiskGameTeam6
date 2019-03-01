@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class  GameMap {
-    private String image;
-    private String wrap;
-    private String scroll;
-    private String author;
-    private String warn;
+    private String image="";
+    private String wrap="";
+    private String scroll="";
+    private String author="";
+    private String warn="";
+
     private HashMap<String,Continent> continents = new HashMap<String,Continent>();
     private HashMap<String,Territory> territories = new HashMap<String,Territory>();
 

@@ -2,6 +2,7 @@ package RiskGame.model.service.imp;
 
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
+import RiskGame.model.entity.Territory;
 import RiskGame.model.service.IGameManager;
 import com.sun.scenario.effect.impl.prism.ps.PPSBlend_ADDPeer;
 
@@ -86,8 +87,18 @@ public class GameManager extends Observable implements IGameManager {
         this.activePlayer = activePlayer;
     }
 
-    public phase getGamePhase() {
-        return gamePhase;
+    public String getGamePhase() {
+        String result="";
+        switch (gamePhase){
+            case STARTUP: result="Start Up"; break;
+            case REINFORCEMENTS: result = "Reinforcements"; break;
+            case ATTACK: result = "Attack"; break;
+            case FORTIFICATION: result ="Fortification"; break;
+        }
+
+        return result;
+
+
     }
 
     public void setGamePhase(phase gamePhase) {
@@ -102,9 +113,33 @@ public class GameManager extends Observable implements IGameManager {
         this.playerIterator = iterator;
     }
 
+
     public void cleanUp(){
         this.map=new GameMap();
         this.players.clear();
+    }
+
+    public void ramdomAssignTerritoryToPlayer(){
+        Random generator = new Random();
+        Object[] keys= map.getTerritories().keySet().toArray();
+        Iterator<Player> tempIterator = players.values().iterator();
+
+        while(keys.length>1) {
+            while (tempIterator.hasNext()) {
+                Player player = tempIterator.next();
+                map.getTerritories().get(keys[generator.nextInt(keys.length)]).setBelongs(player);
+                System.out.println(player.getName());
+            }
+        }
+    }
+
+    private int[] deleteInArray(int index, int array[]) {
+        int[] arrNew = new int[array.length - 1];
+        for (int i = index; i < array.length - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        System.arraycopy(array, 0, arrNew, 0, arrNew.length);
+        return arrNew;
     }
 
 

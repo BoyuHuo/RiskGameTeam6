@@ -33,9 +33,11 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     private Hyperlink hyperLinkBack;
+/*
 
     @FXML
     private Text mapName;
+*/
 
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
@@ -49,7 +51,7 @@ public class newGameScreenController implements Initializable {
             lblPath.setText(mapFile.toString());
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
-            mapName.setText(mapFile.getName());
+   /*         mapName.setText(mapFile.getName());*/
 /*
             showMap(gameMap);*/
 
@@ -58,6 +60,13 @@ public class newGameScreenController implements Initializable {
 
     private void showMap(GameMap gameMap) throws IOException {
 
+        Player p1=new Player();
+        Player p2 = new Player();
+        p1.setName("Peter");
+        p2.setName("Lee");
+        players=new HashMap<>();
+        players.put(p1.getName(),p1);
+        players.put(p2.getName(),p2);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
@@ -106,8 +115,14 @@ public class newGameScreenController implements Initializable {
     }
 
     @FXML
-    public void clickStartButton() throws IOException {
-
+    public void clickStartButton(ActionEvent event) throws IOException {
+        Player p1=new Player();
+        Player p2 = new Player();
+        p1.setName("Peter");
+        p2.setName("Lee");
+        players=new HashMap<>();
+        players.put(p1.getName(),p1);
+        players.put(p2.getName(),p2);
         GameManager.getInstance().setMap(this.gameMap);
         GameManager.getInstance().setPlayers(this.players);
         GameManager.getInstance().NewGame();
