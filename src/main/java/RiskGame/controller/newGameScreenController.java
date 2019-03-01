@@ -64,7 +64,7 @@ public class newGameScreenController implements Initializable {
         loader.load();
         loadMapScreenController controller = loader.getController();
         controller.setMap(gameMap);
-        createMapScene = new Scene(loader.getRoot(), 1000, 1000);
+        createMapScene = new Scene(loader.getRoot(), 1000,600);
 
         Stage createMapSceneStage = (Stage) lblPath.getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
@@ -74,8 +74,9 @@ public class newGameScreenController implements Initializable {
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
         Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
-        createMapScene = new Scene(createMap, 610, 400);
-        Stage createMapSceneStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        createMapScene = new Scene(createMap, 1000,600);
+        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
 
@@ -83,8 +84,8 @@ public class newGameScreenController implements Initializable {
 
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610, 400);
-        Stage editPlayerStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
+        Stage editPlayerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
 
@@ -93,8 +94,8 @@ public class newGameScreenController implements Initializable {
     @FXML
     private void hyperBack() throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610, 400);
-        Stage editPlayerStage = (Stage) hyperLinkBack.getScene().getWindow();
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
+        Stage editPlayerStage = (Stage)hyperLinkBack.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
     }

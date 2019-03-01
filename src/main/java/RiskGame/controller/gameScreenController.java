@@ -48,10 +48,11 @@ public class gameScreenController{
                         Parent anotherRoot = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
                         Stage anotherStage = new Stage();
                         anotherStage.setTitle("My cards");
-                        Scene s=new Scene(anotherRoot,600,400);
+                        anotherStage.setScene(new Scene(anotherRoot, 1000.0, 600.0));
+                    /*    Scene s=new Scene(anotherRoot,600,400);
                         s.getStylesheets().add(
                                 getClass().getResource("/css/gameScreenController_CSS.css")
-                                        .toExternalForm());
+                                        .toExternalForm());*/
                         anotherStage.show();
                 } catch (Exception e) {
                         e.printStackTrace();

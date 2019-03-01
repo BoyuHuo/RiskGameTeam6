@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.newGameScreenController">
+  <center>
+    <SplitPane dividerPositions="0.6779359430604982" orientation="VERTICAL" prefHeight="400.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1000.0">
+          <children>
+            <ImageView fitHeight="404.0" fitWidth="1020.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <image>
+                <Image url="/images/newGameBackground.jpg" />
+              </image>
+            </ImageView>
+            <Text fill="#f7ef53" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0" AnchorPane.bottomAnchor="319.61117187499997" AnchorPane.leftAnchor="866.0" AnchorPane.rightAnchor="-89.0166015625" AnchorPane.topAnchor="15.840000000000003">
+<!--=======
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -19,6 +45,7 @@
               </image>
             </ImageView>
             <Text fill="#f7ef53" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0" AnchorPane.bottomAnchor="184.6123046875" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="248.9833984375" AnchorPane.topAnchor="26.8388671875">
+>>>>>>> 45862820ebe2303e16713b4cadb65cf4bf691d95-->
               <font>
                 <Font name="Franklin Gothic Medium" size="34.0" />
               </font>
@@ -28,12 +55,22 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
             <Label fx:id="lblPath" layoutX="506.0" layoutY="47.0" />
-            <Button layoutX="21.0" layoutY="35.0" mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" />
+            <Button layoutX="73.0" layoutY="67.0" mnemonicParsing="false" onAction="#mapFileChooser" prefHeight="47.0" prefWidth="131.0" text="Load Map">
+              <font>
+                <Font size="19.0" fx:id="x1" />
+              </font>
+            </Button>
+            <Button font="$x1" layoutX="305.0" layoutY="66.0" mnemonicParsing="false" onAction="#clickCreateMapButton" prefHeight="47.0" prefWidth="137.0" text="Create Map" />
+            <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="542.0" layoutY="67.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="145.0" text="Player Details" />
+            <Button font="$x1" layoutX="783.0" layoutY="67.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="92.0" text="Start" />
+            <Hyperlink fx:id="hyperLinkBack" font="$x1" layoutX="919.0" layoutY="126.0" onAction="#hyperBack" prefHeight="38.548828125" prefWidth="63.0" text="Back" />
+       <!--     <Button layoutX="21.0" layoutY="35.0" mnemonicParsing="false" onAction="#mapFileChooser" text="Load Map" />
             <Text fx:id="mapName" />
             <Button layoutX="172.0" layoutY="35.0" mnemonicParsing="false" onAction="#clickCreateMapButton" text="Create Map" />
             <Button fx:id="btnEditPlayerDetails" layoutX="338.0" layoutY="35.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" text="Player Details" />
             <Button layoutX="513.0" layoutY="35.0" mnemonicParsing="false" onAction="#clickStartButton" text="Start" />
             <Hyperlink fx:id="hyperLinkBack" layoutX="537.0" layoutY="74.0" onAction="#hyperBack" text="Back" />
+>>>>>>> 45862820ebe2303e16713b4cadb65cf4bf691d95-->
           </children>
         </AnchorPane>
       </items>

@@ -41,7 +41,7 @@ public class editPlayerDetailsController implements Initializable {
         if(cbSelectPlayers.getValue()!=null) {
             numberOfPlayers = cbSelectPlayers.getValue();
             Parent editPlayerScreen2 = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
-            Scene editPlayerScene2 = new Scene(editPlayerScreen2, 610, 430);
+            Scene editPlayerScene2 = new Scene(editPlayerScreen2, 1000, 600);
             Stage editPlayerStage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
             editPlayerStage2.setScene(editPlayerScene2);
             editPlayerStage2.show();
@@ -61,7 +61,7 @@ public class editPlayerDetailsController implements Initializable {
     private void clickHyperBack(ActionEvent event) throws IOException
     {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610,400);
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
         Stage editPlayerStage = (Stage)btnNext.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();

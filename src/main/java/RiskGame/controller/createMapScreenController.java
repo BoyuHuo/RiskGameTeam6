@@ -66,7 +66,7 @@ public class createMapScreenController implements Initializable {
     @FXML
     private void clickNewGameButton(ActionEvent event) throws IOException {
         Parent newGameScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene newGameScene = new Scene(newGameScreen, 610, 400);
+        Scene newGameScene = new Scene(newGameScreen, 1000, 600);
         Stage newGameScreenStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         newGameScreenStage.setScene(newGameScene);
         newGameScreenStage.show();
@@ -87,7 +87,7 @@ public class createMapScreenController implements Initializable {
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
         Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
-        createMapScene = new Scene(createMap, 610, 400);
+        createMapScene = new Scene(createMap, 1000, 600);
         Stage createMapSceneStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
@@ -116,8 +116,8 @@ public class createMapScreenController implements Initializable {
     private void setSquareProperties(double starting_point_x, double starting_point_y, Rectangle square) {
         square.setX(starting_point_x);
         square.setY(starting_point_y);
-        square.setWidth(50);
-        square.setHeight(50);
+        square.setWidth(75);
+        square.setHeight(75);
         square.setFill(Color.TRANSPARENT); // set color to transparent
         square.setStroke(Color.BLACK);
 
@@ -308,7 +308,12 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     private void clickBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000, 600);
+        Stage editPlayerStage = (Stage) backBt.getScene().getWindow();
+        editPlayerStage.setScene(editPlayerScene);
+        editPlayerStage.show();
+       /* FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
         loader.load();
         loadMapScreenController controller = loader.getController();
@@ -317,7 +322,7 @@ public class createMapScreenController implements Initializable {
 
         Stage createMapSceneStage = (Stage)backBt.getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
-        createMapSceneStage.show();
+        createMapSceneStage.show();*/
     }
 
 

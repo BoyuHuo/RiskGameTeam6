@@ -90,7 +90,7 @@ public class editPlayerDetailsController2 implements Initializable {
     private void clickButtonBack(ActionEvent event) throws IOException
     {
         Parent editPlayerScreen2 = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene editPlayerScene2 = new Scene(editPlayerScreen2, 610,430);
+        Scene editPlayerScene2 = new Scene(editPlayerScreen2, 1000,600);
         Stage editPlayerStage2 = (Stage)btnSave.getScene().getWindow();
         editPlayerStage2.setScene(editPlayerScene2);
         editPlayerStage2.show();
