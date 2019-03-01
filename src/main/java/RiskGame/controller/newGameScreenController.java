@@ -60,6 +60,13 @@ public class newGameScreenController implements Initializable {
 
     private void showMap(GameMap gameMap) throws IOException {
 
+        Player p1=new Player();
+        Player p2 = new Player();
+        p1.setName("Peter");
+        p2.setName("Lee");
+        players=new HashMap<>();
+        players.put(p1.getName(),p1);
+        players.put(p2.getName(),p2);
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
@@ -108,7 +115,7 @@ public class newGameScreenController implements Initializable {
     }
 
     @FXML
-    public void clickStartButton() throws IOException {
+    public void clickStartButton(ActionEvent event) throws IOException {
         Player p1=new Player();
         Player p2 = new Player();
         p1.setName("Peter");
@@ -121,7 +128,7 @@ public class newGameScreenController implements Initializable {
         GameManager.getInstance().NewGame();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
-        Scene gameScene = new Scene(gameScreen, 610, 400);
+        Scene gameScene = new Scene(gameScreen, 1000, 600);
         Stage gameStage = (Stage) hyperLinkBack.getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();

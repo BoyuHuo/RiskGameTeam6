@@ -15,7 +15,7 @@
       <items>
         <AnchorPane minHeight="-Infinity" prefHeight="400.0" prefWidth="1000.0">
           <children>
-            <ImageView fitHeight="404.0" fitWidth="1020.0" layoutY="-1.0">
+            <ImageView fitHeight="410.0" fitWidth="1020.0" layoutY="-1.0">
               <image>
                 <Image url="/images/background.jpg" />
               </image>
