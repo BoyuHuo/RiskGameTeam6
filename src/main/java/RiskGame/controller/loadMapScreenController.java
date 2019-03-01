@@ -81,7 +81,7 @@ public class loadMapScreenController implements Initializable {
     private void clickBack(ActionEvent event) throws IOException
     {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610,400);
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
         Stage editPlayerStage = (Stage)btBack.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
@@ -109,8 +109,8 @@ public class loadMapScreenController implements Initializable {
     {
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
-        square.setWidth( 20 ) ;
-        square.setHeight( 20 ) ;
+        square.setWidth( 33 ) ;
+        square.setHeight( 33 ) ;
         square.setFill( color ) ;
         square.setStroke( Color.BLACK ) ;
 

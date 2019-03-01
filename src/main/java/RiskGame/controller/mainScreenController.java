@@ -22,7 +22,7 @@ public class mainScreenController implements Initializable {
     private void clickNewGameButton(ActionEvent event) throws IOException
     {
         Parent newGameScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene newGameScene = new Scene(newGameScreen, 610,400);
+        Scene newGameScene = new Scene(newGameScreen, 1000,600);
         Stage newGameScreenStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         newGameScreenStage.setScene(newGameScene);
         newGameScreenStage.show();
