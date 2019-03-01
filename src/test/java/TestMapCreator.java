@@ -64,24 +64,36 @@ public class TestMapCreator {
     public void testCreate() {
         System.out.println("Test case: Test Map Create has been start...");
         GameMap map = new GameMap();
+
+
         map.setAuthor("Baiyu Huo");
         map.setScroll("vertical");
         map.setWarn("no");
         map.setImage("null");
         map.setWrap("no");
+
+
         Territory t1= new Territory("Ter1",100,100);
         Territory t2 = new Territory("Ter2",50,50);
         Territory t3 = new Territory("Ter3",80,80);
+
+
         t1.getNeighbors().put(t2.getName(),t2);
         t2.getNeighbors().put(t3.getName(),t3);
         t3.getNeighbors().put(t1.getName(),t1);
+
+
         Continent c1= new Continent("C1",5);
         Continent c2 = new Continent("C2",15);
+
+
         t1.setContinent(c1);
         t2.setContinent(c1);
         t3.setContinent(c2);
+
         map.getContinents().put(c1.getName(),c1);
         map.getContinents().put(c2.getName(),c2);
+
         map.getTerritories().put(t1.getName(),t1);
         map.getTerritories().put(t2.getName(),t2);
         map.getTerritories().put(t3.getName(),t3);
@@ -91,7 +103,11 @@ public class TestMapCreator {
         assertEquals("Baiyu Huo",result.getAuthor());
         assertEquals(3,result.getTerritories().size());
         assertEquals(2,result.getContinents().size());
+
     }
+
+
+
 
 
 }

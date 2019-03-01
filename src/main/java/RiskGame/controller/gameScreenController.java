@@ -1,4 +1,6 @@
 package RiskGame.controller;
+import RiskGame.model.entity.Player;
+import RiskGame.model.service.imp.GameManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -16,11 +20,12 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class gameScreenController{
-
-
+public class gameScreenController implements Initializable {
 
         @FXML
         private Button myCards;
@@ -32,13 +37,15 @@ public class gameScreenController{
         private Text phase;
 
         @FXML
-        private Pane players;
+        private GridPane players;
 
         @FXML
         private Text soldiersNumber;
 
         @FXML
         private Button certifyDicesNumber;
+
+        private HashMap<String,Text> playerList;
 
 
         // Show the card window
@@ -100,6 +107,12 @@ public class gameScreenController{
                 }
         }
 
+        @FXML
+        private void endRoundClick(){
+                GameManager.getInstance().nextPlayer();
+                Update();
+        }
+
 
         // Certify the number of dices
         @FXML
@@ -108,6 +121,37 @@ public class gameScreenController{
         }
 
 
+        public void initGameWindow(){
+                playerList=new HashMap<>();
+                int count=0;
+                for (Player p: GameManager.getInstance().getPlayers().values()) {
+                        Text t=new Text(p.getName());
+                        playerList.put(p.getName(),t);
+                        players.addColumn(count, t);
+                }
+
+                Update();
+        }
+
+        public void Update(){
+                phase.setText(GameManager.getInstance().getGamePhase());
+                int count=0;
+                for(Text t:playerList.values()) {
+                        count++;
+                        t.setUnderline(false);
+                        if(t.getText().equals(GameManager.getInstance().getActivePlayer().getName())) {
+                                t.setUnderline(true);
+                        }
+
+                }
 
 
+        }
+
+
+
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
+                initGameWindow();
+        }
 }
