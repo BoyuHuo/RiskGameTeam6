@@ -7,6 +7,8 @@ public class Territory {
     private int x;
     private int y;
     private Continent continent;
+    private int armies = 0;
+    private Player belongs;
     private HashMap<String,Territory> neighbors = new HashMap<String, Territory>();
 
     public Territory(String name, int x,int y){
@@ -56,5 +58,41 @@ public class Territory {
 
     public void setNeighbors(HashMap neighbors) {
         this.neighbors = neighbors;
+    }
+
+    public int getArmies() {
+        return armies;
+    }
+
+    public void setArmies(int armies) {
+        this.armies = armies;
+    }
+    public void increaseArmies(Player p){
+        if(!p.equals(this.belongs)){
+            return;
+        }
+        if(p.getArmies()>0){
+            p.setArmies(p.getArmies()-1);
+            armies++;
+        }
+
+    }
+
+
+    public Player getBelongs() {
+        return belongs;
+    }
+
+    public void setBelongs(Player belongs) {
+        this.belongs = belongs;
+    }
+
+    public void addNeibor(Territory t){
+        this.neighbors.put(t.getName(),t);
+        //t.getNeighbors().put(this.name,this);
+    }
+
+    public void removeNeibor(Territory t){
+        this.neighbors.remove(t.getName());
     }
 }

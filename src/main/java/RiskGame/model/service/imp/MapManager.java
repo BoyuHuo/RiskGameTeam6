@@ -90,6 +90,10 @@ public class MapManager implements IMapManager {
      */
     @Override
     public boolean CreateMap(String url, GameMap gameMap) {
+        boolean validate = IsValided(gameMap);
+        if(validate == false){
+            return false;
+        }
         String encodePath;
         File file = null;
         BufferedWriter out = null;
