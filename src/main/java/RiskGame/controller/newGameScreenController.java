@@ -33,9 +33,11 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     private Hyperlink hyperLinkBack;
+/*
 
     @FXML
     private Text mapName;
+*/
 
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
@@ -49,7 +51,7 @@ public class newGameScreenController implements Initializable {
             lblPath.setText(mapFile.toString());
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
-            mapName.setText(mapFile.getName());
+   /*         mapName.setText(mapFile.getName());*/
 /*
             showMap(gameMap);*/
 
