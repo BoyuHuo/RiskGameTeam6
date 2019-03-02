@@ -2,6 +2,7 @@ import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
+import com.sun.org.glassfish.gmbal.GmbalException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,15 +37,12 @@ public class TestTerritory {
 
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
 
-        for(Territory t: GameManager.getInstance().getMap().getTerritories().values()){
-            System.out.println(t.getBelongs().getName());
-        }
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WindHorse").getBelongs().getName());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getBelongs().getName());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("IceDragon").getBelongs().getName());
 
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
 
-        for(Territory t: GameManager.getInstance().getMap().getTerritories().values()){
-            System.out.println(t.getBelongs().getName());
-        }
 
 
     }
