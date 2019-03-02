@@ -16,7 +16,7 @@ public class Main extends Application {
 
         Parent mainScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
         primaryStage.setTitle("The Risk Game");
-        primaryStage.setScene(new Scene(mainScreen, 610, 400));
+        primaryStage.setScene(new Scene(mainScreen, 1000, 600));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

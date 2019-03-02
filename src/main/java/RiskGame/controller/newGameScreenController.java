@@ -33,9 +33,11 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     private Hyperlink hyperLinkBack;
+/*
 
     @FXML
     private Text mapName;
+*/
 
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
@@ -49,7 +51,7 @@ public class newGameScreenController implements Initializable {
             lblPath.setText(mapFile.toString());
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
-            mapName.setText(mapFile.getName());
+   /*         mapName.setText(mapFile.getName());*/
 /*
             showMap(gameMap);*/
 
@@ -64,7 +66,7 @@ public class newGameScreenController implements Initializable {
         loader.load();
         loadMapScreenController controller = loader.getController();
         controller.setMap(gameMap);
-        createMapScene = new Scene(loader.getRoot(), 1000, 1000);
+        createMapScene = new Scene(loader.getRoot(), 1000,600);
 
         Stage createMapSceneStage = (Stage) lblPath.getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
@@ -74,8 +76,9 @@ public class newGameScreenController implements Initializable {
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
         Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
-        createMapScene = new Scene(createMap, 610, 400);
-        Stage createMapSceneStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        createMapScene = new Scene(createMap, 1000,600);
+        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
 
@@ -83,8 +86,8 @@ public class newGameScreenController implements Initializable {
 
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610, 400);
-        Stage editPlayerStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
+        Stage editPlayerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
 
@@ -93,8 +96,8 @@ public class newGameScreenController implements Initializable {
     @FXML
     private void hyperBack() throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610, 400);
-        Stage editPlayerStage = (Stage) hyperLinkBack.getScene().getWindow();
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
+        Stage editPlayerStage = (Stage)hyperLinkBack.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
     }
@@ -106,7 +109,13 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     public void clickStartButton() throws IOException {
-
+        Player p1=new Player();
+        Player p2 = new Player();
+        p1.setName("Peter");
+        p2.setName("Lee");
+        players=new HashMap<>();
+        players.put(p1.getName(),p1);
+        players.put(p2.getName(),p2);
         GameManager.getInstance().setMap(this.gameMap);
         GameManager.getInstance().setPlayers(this.players);
         GameManager.getInstance().NewGame();
