@@ -10,6 +10,7 @@ public class  GameMap {
     private String scroll="";
     private String author="";
     private String warn="";
+
     private HashMap<String,Continent> continents = new HashMap<String,Continent>();
     private HashMap<String,Territory> territories = new HashMap<String,Territory>();
 

@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.TextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,12 +41,14 @@ public class gameScreenController implements Initializable {
         private GridPane players;
 
         @FXML
-        private Text soldiersNumber;
+        private TextField soldiersNumbers;
 
         @FXML
         private Button certifyDicesNumber;
 
         private HashMap<String,Text> playerList;
+
+        private Button endRound;
 
 
         // Show the card window
@@ -101,7 +104,7 @@ public class gameScreenController implements Initializable {
         @FXML
         private void soldierNum(String soldierNum){
                 try {
-                        soldiersNumber.setText(soldierNum);
+                        soldiersNumbers.setText(soldierNum);
                 }catch (Exception e){
                         e.printStackTrace();
                 }
