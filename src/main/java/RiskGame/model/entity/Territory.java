@@ -1,5 +1,6 @@
 package RiskGame.model.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Territory {
@@ -9,14 +10,15 @@ public class Territory {
     private Continent continent;
     private int armies = 0;
     private Player belongs;
-    private HashMap<String,Territory> neighbors = new HashMap<String, Territory>();
+    private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
-    public Territory(String name, int x,int y){
-        this.name=name;
-        this.x=x;
-        this.y=y;
+    public Territory(String name, int x, int y) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
     }
-    public Territory(){
+
+    public Territory() {
     }
 
     public String getName() {
@@ -49,10 +51,10 @@ public class Territory {
 
     public void setContinent(Continent continent) {
         this.continent = continent;
-        continent.getTerritories().put(name,this);
+        continent.getTerritories().put(name, this);
     }
 
-    public HashMap<String,Territory> getNeighbors() {
+    public HashMap<String, Territory> getNeighbors() {
         return neighbors;
     }
 
@@ -67,12 +69,13 @@ public class Territory {
     public void setArmies(int armies) {
         this.armies = armies;
     }
-    public void increaseArmies(Player p){
-        if(!p.equals(this.belongs)){
+
+    public void increaseArmies(Player p) {
+        if (!p.equals(this.belongs)) {
             return;
         }
-        if(p.getArmies()>0){
-            p.setArmies(p.getArmies()-1);
+        if (p.getArmies() > 0) {
+            p.setArmies(p.getArmies() - 1);
             armies++;
         }
 
@@ -87,12 +90,51 @@ public class Territory {
         this.belongs = belongs;
     }
 
-    public void addNeibor(Territory t){
-        this.neighbors.put(t.getName(),t);
+    public void addNeibor(Territory t) {
+        this.neighbors.put(t.getName(), t);
         //t.getNeighbors().put(this.name,this);
     }
 
-    public void removeNeibor(Territory t){
+    public void removeNeibor(Territory t) {
         this.neighbors.remove(t.getName());
     }
+
+    public boolean immigrantArimies(int num, Territory destination) {
+        if (num <= this.armies) {
+            this.armies -= num;
+            destination.setArmies(num + destination.getArmies());
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean validedToImmgrant(Territory destionation){
+        if(!belongs.getName().equals(destionation.getBelongs().getName()))
+           return false;
+        else{
+            return DFS(this,destionation,new ArrayList<String>());
+        }
+    }
+
+
+    private boolean DFS(Territory current, Territory destination,ArrayList<String> connectedTerrs) {
+        boolean result = false;
+
+            for (String key : current.getNeighbors().keySet()) {
+                Territory neightbor = current.getNeighbors().get(key);
+                if (neightbor.getBelongs().equals(destination.getBelongs())) {
+                    if(neightbor.getName().equals(destination.getName())){
+                        return true;
+                    }
+                    if (!connectedTerrs.contains(neightbor.getName())) {
+                        connectedTerrs.add(neightbor.getName());
+                       result=result||DFS(neightbor,destination, connectedTerrs);
+                    }
+                }
+
+            }
+            return result;
+    }
+
 }

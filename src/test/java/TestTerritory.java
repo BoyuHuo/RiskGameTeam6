@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TestTerritory {
     MapManager mapManager;
@@ -42,8 +42,13 @@ public class TestTerritory {
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("IceDragon").getBelongs().getName());
 
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
-
-
-
+    }
+    @Test
+    public void testImmgrant(){
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        GameManager.getInstance().getMap().getTerritories().get("FireElephant").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
     }
 }
