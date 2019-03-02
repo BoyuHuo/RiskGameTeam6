@@ -207,8 +207,8 @@ public class TestMapCreator {
         map.getTerritories().put(s1.getName(),s1);
         map.getTerritories().put(m1.getName(),m1);
 
-        mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
-        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
+        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        assertFalse(result);
     }
 
     /**
@@ -255,7 +255,7 @@ public class TestMapCreator {
         map.getTerritories().put(f1.getName(),f1);
         map.getTerritories().put(s1.getName(),s1);
 
-        mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
-        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
+        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        assertFalse(result);
     }
 }

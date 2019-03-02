@@ -1,47 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<?import javafx.scene.control.ChoiceBox?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.createMapScreenController">
-    <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-    </top>
-    <center>
-        <SplitPane dividerPositions="0.7792642140468228" prefHeight="240.0" prefWidth="333.0" BorderPane.alignment="CENTER">
-            <items>
-                <AnchorPane fx:id="createMapPane" minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="167.0">
-                    <children>
-                        <Label fx:id="lblCoordinates" layoutX="204.0" layoutY="162.0" text="Label" visible="false" />
-                    </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="248.0">
-                    <children>
-                        <Button fx:id="createTerrotoryBt" layoutX="20.0" layoutY="30.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                        <Button fx:id="connectTerrotoryBt"  layoutX="20.0" layoutY="64.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                        <Button fx:id="btCreateContinents" layoutX="9.0" layoutY="132.0" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="98.0" />
-                        <Button fx:id="backBt"  layoutX="45.0" layoutY="321.0" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="165.0" />
-                        <Button fx:id="saveBt"  layoutX="45.0" layoutY="321.0" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="130.0" />
-                        <ChoiceBox fx:id="cbContinents" layoutX="45" layoutY="122.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="205.0" onAction="#cbChangeContinent"/>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-    </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.createMapScreenController">
+  <center>
+    <SplitPane dividerPositions="0.779559118236473" prefHeight="240.0" prefWidth="333.0" BorderPane.alignment="CENTER">
+      <items>
+        <AnchorPane fx:id="createMapPane" minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="167.0">
+          <children>
+            <Label fx:id="lblCoordinates" layoutX="204.0" layoutY="162.0" text="Label" visible="false" />
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="248.0">
+            <ImageView fitHeight="600.0" fitWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <image>
+                    <Image url="/images/LMSBackground.jpg" />
+                </image>
+            </ImageView>
+          <children>
+            <Button fx:id="createTerrotoryBt" layoutY="30.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="connectTerrotoryBt" layoutY="89.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="btCreateContinents" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="150.0" />
+            <Button fx:id="backBt" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="265.0" />
+            <Button fx:id="saveBt" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="330.0" />
+              <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
+                         AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                         AnchorPane.topAnchor="205.0" onAction="#cbChangeContinent"/>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+  </center>
+  <top>
+    <MenuBar BorderPane.alignment="CENTER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
 </BorderPane>

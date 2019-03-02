@@ -48,7 +48,7 @@ public class gameScreenController implements Initializable {
         private BorderPane gameMapPane;
 
         @FXML
-        private TextField soldiersNumbers;
+        private Text soldiersNumbers;
 
         @FXML
         private Button certifyDicesNumber;
