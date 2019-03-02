@@ -38,16 +38,6 @@
       <Font size="21.0" />
     </font>
   </Hyperlink>
-  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-    <children>
-      <HBox prefHeight="203.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-        <children>
-          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-        </children>
-      </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-    </children>
-  </VBox>
   <VBox layoutX="286.0" layoutY="58.0" prefHeight="435.0" prefWidth="645.0" style="-fx-border-color: #36149d;">
     <children>
       <Label style="-fx-background-color: #ffffff;" text="  Information Board  ">
