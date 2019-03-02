@@ -33,8 +33,8 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     private Hyperlink hyperLinkBack;
-/*
 
+/*
     @FXML
     private Text mapName;
 */

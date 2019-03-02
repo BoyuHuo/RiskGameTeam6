@@ -20,13 +20,16 @@ public class GameManager extends Observable implements IGameManager {
     private static GameManager instance;
 
 
-    public static GameManager getInstance(){
-        if(instance==null){
-            instance=new GameManager();
+    public static GameManager getInstance() {
+        if (instance == null) {
+            instance = new GameManager();
         }
         return instance;
     }
-    private GameManager(){}
+
+    private GameManager() {
+    }
+
     public void NewGame() {
         start();
     }
@@ -69,13 +72,14 @@ public class GameManager extends Observable implements IGameManager {
         return this.players;
     }
 
-    public void addPlayer(Player p){
-        if (players==null || players.isEmpty()){
-            players=new HashMap<>();
+    public void addPlayer(Player p) {
+        if (players == null || players.isEmpty()) {
+            players = new HashMap<>();
         }
-        players.put(p.getName(),p);
+        players.put(p.getName(), p);
     }
-    public void removePlayer(Player p){
+
+    public void removePlayer(Player p) {
         players.remove(p.getName());
     }
 
@@ -88,12 +92,20 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     public String getGamePhase() {
-        String result="";
-        switch (gamePhase){
-            case STARTUP: result="Start Up"; break;
-            case REINFORCEMENTS: result = "Reinforcements"; break;
-            case ATTACK: result = "Attack"; break;
-            case FORTIFICATION: result ="Fortification"; break;
+        String result = "";
+        switch (gamePhase) {
+            case STARTUP:
+                result = "Start Up";
+                break;
+            case REINFORCEMENTS:
+                result = "Reinforcements";
+                break;
+            case ATTACK:
+                result = "Attack";
+                break;
+            case FORTIFICATION:
+                result = "Fortification";
+                break;
         }
 
         return result;
@@ -114,27 +126,32 @@ public class GameManager extends Observable implements IGameManager {
     }
 
 
-    public void cleanUp(){
-        this.map=new GameMap();
+    public void cleanUp() {
+        this.map = new GameMap();
         this.players.clear();
     }
 
-    public void ramdomAssignTerritoryToPlayer(){
+    public void ramdomAssignTerritoryToPlayer() {
         Random generator = new Random();
-        Object[] keys= map.getTerritories().keySet().toArray();
-        Iterator<Player> tempIterator = players.values().iterator();
+        Object[] keys = map.getTerritories().keySet().toArray();
 
-        while(keys.length>1) {
-            while (tempIterator.hasNext()) {
-                Player player = tempIterator.next();
-                map.getTerritories().get(keys[generator.nextInt(keys.length)]).setBelongs(player);
-                System.out.println(player.getName());
+        Iterator<Player> tempIterator = players.values().iterator();
+        while (keys.length > 0) {
+            if (!tempIterator.hasNext()) {
+                tempIterator = players.values().iterator();
             }
+            int randomTag =generator.nextInt(keys.length);
+            Player player = tempIterator.next();
+
+            map.getTerritories().get(keys[randomTag]).setBelongs(player);
+            keys=deleteInArray(randomTag,keys);
+
+
         }
     }
 
-    private int[] deleteInArray(int index, int array[]) {
-        int[] arrNew = new int[array.length - 1];
+    private Object[] deleteInArray(int index, Object array[]) {
+        Object[] arrNew = new Object[array.length - 1];
         for (int i = index; i < array.length - 1; i++) {
             array[i] = array[i + 1];
         }
