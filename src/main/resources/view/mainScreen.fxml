@@ -2,77 +2,90 @@
 
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.mainScreenController">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Game Rules" />
-                        <MenuItem mnemonicParsing="false" text="How to Build Maps" />
-                        <MenuItem mnemonicParsing="false" text="Contact Us" />
-                  </items>
-                </Menu>
-              </menus>
-               <effect>
-                  <Glow level="0.0">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect>
-            </MenuBar>
-         </children>
-      </VBox>
-   </top>
-   <center>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="-Infinity" prefHeight="254.0" prefWidth="610.0">
-               <children>
-                  <ImageView fitHeight="254.0" fitWidth="610.0" layoutY="-1.0">
-                     <image>
-                        <Image url="/images/battle.jpg" />
-                     </image>
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport>
-                  </ImageView>
-                  <Text fill="#f7ef53" layoutX="128.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="34.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <ToolBar prefHeight="113.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                      <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" text="New Game" textAlignment="JUSTIFY" translateX="70.0" />
-                        <Button mnemonicParsing="false" text="Load Game" translateX="110.0" />
-                        <Button mnemonicParsing="false" text="Tournament Mode" translateX="160.0" />
-                        <Button fx:id="btnExit" mnemonicParsing="false" onAction="#clickButtonExit" text="Exit" translateX="200.0" />
-                    </items>
-                     <effect>
-                        <Glow level="0.0">
-                           <input>
-                              <InnerShadow />
-                           </input>
-                        </Glow>
-                     </effect>
-                  </ToolBar>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.mainScreenController">
+  <center>
+    <SplitPane dividerPositions="0.7170818505338078" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+      <items>
+        <AnchorPane minHeight="-Infinity" prefHeight="400.0" prefWidth="1000.0">
+          <children>
+            <ImageView fitHeight="410.0" fitWidth="1020.0" layoutY="-1.0">
+              <image>
+                <Image url="/images/background.jpg" />
+              </image>
+              <viewport>
+                <Rectangle2D />
+              </viewport>
+            </ImageView>
+            <Text fill="#f7ef53" layoutX="128.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Risk Game" translateX="-100.0">
+              <font>
+                <Font name="Franklin Gothic Medium" size="34.0" />
+              </font>
+            </Text>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <children>
+            <ToolBar prefHeight="113.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <effect>
+                <Glow level="0.0">
+                  <input>
+                    <InnerShadow />
+                  </input>
+                </Glow>
+              </effect>
+              <items>
+                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" prefHeight="51.0" prefWidth="126.0" text="New Game" textAlignment="JUSTIFY" translateX="40.0">
+                  <font>
+                    <Font size="19.0" fx:id="x1" />
+                  </font>
+                </Button>
+                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="126.0" text="Load Game" translateX="100.0" />
+                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="206.0" text="Tournament Mode" translateX="160.0" />
+                <Button fx:id="btnExit" font="$x1" mnemonicParsing="false" onAction="#clickButtonExit" prefHeight="51.0" prefWidth="85.0" text="Exit" translateX="210.0" />
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="-1.0 " translateX="245.0">
+                  <image>
+                    <Image url="/images/logo.jpg" />
+                  </image>
+                  <viewport>
+                    <Rectangle2D />
+                  </viewport>
+                </ImageView>
+              </items>
+            </ToolBar>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+  </center>
+  <top>
+    <VBox BorderPane.alignment="CENTER">
+      <children>
+        <MenuBar>
+          <effect>
+            <Glow level="0.0">
+              <input>
+                <InnerShadow />
+              </input>
+            </Glow>
+          </effect>
+          <menus>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Game Rules" />
+                <MenuItem mnemonicParsing="false" text="How to Build Maps" />
+                <MenuItem mnemonicParsing="false" text="Contact Us" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+      </children>
+    </VBox>
+  </top>
 </BorderPane>

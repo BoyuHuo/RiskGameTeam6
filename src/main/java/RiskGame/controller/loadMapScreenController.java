@@ -53,7 +53,7 @@ public class loadMapScreenController implements Initializable {
 
 
 
-            setSquareProperties( territory.getX()*.60,territory.getY()*.40,square,continentColor.get(territory.getContinent().getName()) ) ;
+            setSquareProperties( territory.getX(),territory.getY(),square,continentColor.get(territory.getContinent().getName())) ;
             //connectNeighbours(territory);
             DFS(territory,new ArrayList<>());
 
@@ -62,6 +62,54 @@ public class loadMapScreenController implements Initializable {
         }
     }
 
+
+    public void checkMap(GameMap map) {
+
+        createMapPane.getChildren().add(rectangleGroups);
+
+        for (Map.Entry<String, Territory> entry :map.getTerritories().entrySet() ) {
+            String key=entry.getKey();
+            Territory territory=entry.getValue();
+            territory.getContinent();
+            square = new Rectangle();
+
+            if(!continentColor.containsKey(territory.getContinent().getName())){
+                continentColor.put(territory.getContinent().getName(),generateRandomColor());
+            }
+
+
+
+            setSquareProperties( territory.getX(),territory.getY(),square,continentColor.get(territory.getContinent().getName())) ;
+            //connectNeighbours(territory);
+            DFS(territory,new ArrayList<>());
+
+            rectangleGroups.getChildren().add( square ) ;
+            square=null;
+        }
+
+
+
+       /* for (int i=0; i<territories.size();i++) {
+
+            Territory territory=territories.get(i);
+            //territory.getContinent();
+            square = new Rectangle();
+
+            *//*if(!continentColor.containsKey(territory.getContinent().getName())){
+                continentColor.put(territory.getContinent().getName(),generateRandomColor());
+            }*//*
+
+
+            //setSquareProperties( territory.getX()*.60,territory.getY()*.40,square,continentColor.get(territory.getContinent().getName()) ) ;
+
+            setSquareProperties( territory.getX(),territory.getY(),square ) ;
+            //connectNeighbours(territory);
+            DFS(territory,new ArrayList<>());
+
+            rectangleGroups.getChildren().add( square ) ;
+            square=null;
+        }*/
+    }
 
     public Color generateRandomColor() {
         Random random = new Random();
@@ -81,36 +129,37 @@ public class loadMapScreenController implements Initializable {
     private void clickBack(ActionEvent event) throws IOException
     {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 610,400);
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
         Stage editPlayerStage = (Stage)btBack.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
     }
+
     private void DFS(Territory t, ArrayList<String> connectedTerrs) {
         for (String key : t.getNeighbors().keySet()) {
             Territory neightbor = t.getNeighbors().get(key);
 
+
             if (!connectedTerrs.contains(neightbor.getName())) {
                 connectedTerrs.add(neightbor.getName());
                 l1 = new Line();
-                l1.setStartX((t.getX()*0.60)+12.5);
-                l1.setStartY((t.getY()*0.40)+12.5);
+                l1.setStartX((t.getX())+25);
+                l1.setStartY((t.getY())+25);
 
-                l1.setEndX((neightbor.getX()*0.60)+12.5);
-                l1.setEndY((neightbor.getY()*0.40)+12.5);
+                l1.setEndX((neightbor.getX())+25);
+                l1.setEndY((neightbor.getY())+25);
                 rectangleGroups.getChildren().add( l1 ) ;
                 DFS(neightbor, connectedTerrs);
             }
             l1=null;
         }
     }
-
-    private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square,Color color )
+    private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square, Color color )
     {
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
-        square.setWidth( 20 ) ;
-        square.setHeight( 20 ) ;
+        square.setWidth( 50 ) ;
+        square.setHeight( 50 ) ;
         square.setFill( color ) ;
         square.setStroke( Color.BLACK ) ;
 

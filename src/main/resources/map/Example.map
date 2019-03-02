@@ -1,0 +1,15 @@
+[Map]
+author=Hao Ma
+image=001_I72_Ghtroc 720.bmp
+wrap=no
+scroll=vertical
+warn=no
+
+[Continents]
+FireLand=5
+
+[Territories]
+FireDragon,150,200,FireLand,FireHorse,FireElephant
+FireHorse,110,400,FireLand,FireDragon,FireBird
+FireBird,120,600,FireLand,FireHorse,FireElephant
+FireElephant,100,550,FireLand,FireBird,FireDragon

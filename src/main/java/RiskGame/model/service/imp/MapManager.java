@@ -90,6 +90,10 @@ public class MapManager implements IMapManager {
      */
     @Override
     public boolean CreateMap(String url, GameMap gameMap) {
+        boolean validate = IsValided(gameMap);
+        if(validate == false){
+            return false;
+        }
         String encodePath;
         File file = null;
         BufferedWriter out = null;
@@ -99,19 +103,19 @@ public class MapManager implements IMapManager {
             file.createNewFile();
             out = new BufferedWriter(new FileWriter(file));
             out.write("[Map]\r\n");
-            if (!gameMap.getAuthor().isEmpty()) {
+            if (gameMap.getAuthor()!=null||!gameMap.getAuthor().isEmpty()) {
                 out.write("author=" + gameMap.getAuthor() + "\r\n");
             }
-            if (!gameMap.getImage().isEmpty()) {
+            if (!gameMap.getImage().isEmpty()||gameMap.getImage()!=null) {
                 out.write("image=" + gameMap.getImage() + "\r\n");
             }
-            if (!gameMap.getWarn().isEmpty()) {
+            if (!gameMap.getWarn().isEmpty()||gameMap.getWrap()!=null) {
                 out.write("warn=" + gameMap.getWarn() + "\r\n");
             }
-            if (!gameMap.getWrap().isEmpty()) {
+            if (!gameMap.getWrap().isEmpty()||gameMap.getWarn()!=null) {
                 out.write("wrap=" + gameMap.getWrap() + "\r\n");
             }
-            if (!gameMap.getScroll().isEmpty()) {
+            if (!gameMap.getScroll().isEmpty()||gameMap.getScroll()!=null) {
                 out.write("scroll=" + gameMap.getScroll() + "\r\n");
             }
             out.write("\r\n");
