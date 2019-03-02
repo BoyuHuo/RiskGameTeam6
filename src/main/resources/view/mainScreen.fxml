@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.mainScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.mainScreenController">
   <center>
     <SplitPane dividerPositions="0.7170818505338078" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
       <items>
@@ -41,15 +40,15 @@
                 </Glow>
               </effect>
               <items>
-                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" prefHeight="51.0" prefWidth="126.0" text="New Game" textAlignment="JUSTIFY" translateX="40.0">
+                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" prefHeight="51.0" prefWidth="143.0" text="New Game" textAlignment="JUSTIFY" translateX="30.0">
                   <font>
                     <Font size="19.0" fx:id="x1" />
                   </font>
                 </Button>
-                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="126.0" text="Load Game" translateX="100.0" />
-                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="206.0" text="Tournament Mode" translateX="160.0" />
-                <Button fx:id="btnExit" font="$x1" mnemonicParsing="false" onAction="#clickButtonExit" prefHeight="51.0" prefWidth="85.0" text="Exit" translateX="210.0" />
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutY="-1.0 " translateX="245.0">
+                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="143.0" text="Load Game" translateX="90.0" />
+                <Button font="$x1" mnemonicParsing="false" prefHeight="51.0" prefWidth="206.0" text="Tournament Mode" translateX="150.0" />
+                <Button fx:id="btnExit" font="$x1" mnemonicParsing="false" onAction="#clickButtonExit" prefHeight="51.0" prefWidth="85.0" text="Exit" translateX="200.0" />
+                <ImageView fitHeight="150.0" fitWidth="195.0" translateX="220.0">
                   <image>
                     <Image url="/images/logo.jpg" />
                   </image>
