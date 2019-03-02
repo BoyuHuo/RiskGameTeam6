@@ -46,6 +46,10 @@ public class newGameScreenController implements Initializable {
     private Map<String, Player> players = new HashMap<>();
     private StringBuilder playersName=new StringBuilder();
 
+    public void setPlayers(Map<String, Player> playersList ){
+        this.players=players;
+    }
+
     @FXML
     private void mapFileChooser() throws IOException {
         FileChooser mapFileChooser = new FileChooser();
@@ -106,12 +110,20 @@ public class newGameScreenController implements Initializable {
     }
 
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
-        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
+        /*Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
         Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
         Stage editPlayerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
-        editPlayerStage.show();
-
+        editPlayerStage.show();*/
+        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
+        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
+        Stage stage=new Stage();
+        //AnchorPane root = new AnchorPane();
+        //Scene scene = new Scene(root,650,800);
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
+        //editPlayerScene.setRoot((Parent)fxmlLoader.load());
+        stage.setScene(editPlayerScene);
+        stage.show();
     }
 
     @FXML
@@ -130,15 +142,9 @@ public class newGameScreenController implements Initializable {
 
     @FXML
     public void clickStartButton(ActionEvent event) throws IOException {
-        Player p1=new Player();
-        Player p2 = new Player();
-        p1.setName("Peter");
-        p2.setName("Lee");
-        players=new HashMap<>();
-        players.put(p1.getName(),p1);
-        players.put(p2.getName(),p2);
+
         GameManager.getInstance().setMap(this.gameMap);
-        GameManager.getInstance().setPlayers(this.players);
+        GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().NewGame();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
