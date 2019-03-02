@@ -41,13 +41,14 @@ public class gameScreenController implements Initializable {
         private GridPane players;
 
         @FXML
-        private TextField soldiersNumbers;
+        private Text soldiersNumbers;
 
         @FXML
         private Button certifyDicesNumber;
 
         private HashMap<String,Text> playerList;
 
+        @FXML
         private Button endRound;
 
 
