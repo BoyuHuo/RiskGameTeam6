@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -24,22 +24,12 @@
   </Button>
   <Button font="$x1" layoutX="89.0" layoutY="187.0" mnemonicParsing="false" onAction="#clickCreateMapButton" prefHeight="46.999908447265625" prefWidth="149.0" text="Create Map" />
   <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="89.0" layoutY="292.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="149.0" text="Player Details" />
-  <Button font="$x1" layoutX="89.0" layoutY="398.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="149.0"  text="Start" />
+  <Button font="$x1" layoutX="89.0" layoutY="398.0" mnemonicParsing="false" onAction="#clickStartButton" prefHeight="47.0" prefWidth="149.0" text="Start" />
   <Hyperlink fx:id="hyperLinkBack" layoutX="30.0" layoutY="483.0" onAction="#hyperBack" prefHeight="47.0" prefWidth="66.0" text="Back" textFill="#141313">
     <font>
       <Font size="21.0" />
     </font>
   </Hyperlink>
-  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-    <children>
-      <HBox prefHeight="203.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-        <children>
-          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-        </children>
-      </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-    </children>
-  </VBox>
   <VBox layoutX="286.0" layoutY="58.0" prefHeight="435.0" prefWidth="645.0" style="-fx-border-color: #36149d;">
     <children>
       <Label style="-fx-background-color: #ffffff;" text="  Information Board  ">

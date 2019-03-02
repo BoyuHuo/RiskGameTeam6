@@ -4,6 +4,7 @@ import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.MapManager;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -212,15 +215,12 @@ public class createMapScreenController implements Initializable {
                         double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
-                                x <= _x + 50 && y <= _y + 50){
+                                x <= _x + 75 && y <= _y + 75){
                             sourceT=new Territory();
                             sourceT.setX((int) Math.round(_x));
                             sourceT.setY((int) Math.round(_y));
                             sourceT.setName(entry.getValue().getName());
-
                             sourceName=entry.getValue().getName();
-
-                            //System.out.println("Index"+sourceIndex);
 
                         }
 
@@ -239,9 +239,6 @@ public class createMapScreenController implements Initializable {
             createMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-
-
-
                 }
             });
 
@@ -264,7 +261,7 @@ public class createMapScreenController implements Initializable {
                         double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
-                                x <= _x + 50 && y <= _y + 50){
+                                x <= _x + 75 && y <= _y + 75){
                             destT=new Territory();
                             destT.setX((int) Math.round(_x));
                             destT.setY((int) Math.round(_y));
@@ -281,14 +278,9 @@ public class createMapScreenController implements Initializable {
                         l1.setEndX(event.getX());
                         l1.setEndY(event.getY());
                         rectangleGroups.getChildren().add(l1);
-                        System.out.println(sourceT.getName()+"->"+destT.getName());
-
-
-
+                        //System.out.println(sourceT.getName()+"->"+destT.getName());
                         map.getTerritories().get(destName).addNeibor(sourceT);
-
-                        System.out.println(destT.getName()+"->"+sourceT.getName());
-
+                       // System.out.println(destT.getName()+"->"+sourceT.getName());
                         map.getTerritories().get(sourceName).addNeibor(destT);
 
 
@@ -333,7 +325,7 @@ public class createMapScreenController implements Initializable {
             double _y = territoryArrayList.get(i).getY();
 
             if (x >= _x && y >= _y &&
-                    x <= _x + 50 && y <= _y + 50)
+                    x <= _x + 75 && y <= _y + 75)
                 return true;
         }
         return false;
@@ -349,7 +341,15 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     public void saveMap(ActionEvent event) throws IOException {
+            MapManager mapManager=new MapManager();
 
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save Map");
+            File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
+
+            if (file != null) {
+                mapManager.CreateMap(file.getPath(),map);
+            }
     }
 
     private boolean showInputTextDialog(Double x, Double y) {
@@ -358,6 +358,7 @@ public class createMapScreenController implements Initializable {
         dialog.setTitle("Enter Country Name");
         dialog.setHeaderText(null);
         dialog.setContentText("Name:");
+        dialog.setContentText("Control Number");
 
         Optional<String> result = dialog.showAndWait();
 
@@ -390,36 +391,64 @@ public class createMapScreenController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
-        alert.setContentText("Enter "+alertType+"name");
+        alert.setContentText("Enter "+alertType+" name");
         alert.showAndWait();
     }
 
 
 
-    private boolean showContinentAlertDialog() {
+    private Results showContinentAlertDialog() {
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter Country Name");
-        dialog.setHeaderText(null);
-        dialog.setContentText("Name:");
+        Dialog<Results> dialog = new Dialog<>();
+        dialog.setTitle("Enter Country Details");
+        //dialog.setHeaderText("Please specify…");
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField nameField = new TextField("");
+        TextField controlNumber = new TextField("");
+        Label  nameLabel = new Label("Name");
+        Label  controlLabel = new Label("Control Number");
+
+        //dialogPane.setContent();
 
 
-        Optional<String> result = dialog.showAndWait();
+        dialogPane.setContent(new HBox(8,new VBox(16, nameLabel, controlLabel),new VBox(8, nameField, controlNumber)));
 
-        if (result.isPresent()) {
 
-            if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog("Continent");
-                return false;
+        Platform.runLater(nameField::requestFocus);
+        dialog.setResultConverter((ButtonType button) -> {
+
+
+
+
+            if (button == ButtonType.OK) {
+
+
+                if (nameField.getText().equalsIgnoreCase("")||
+                        controlNumber.getText().equalsIgnoreCase("")) {
+                    showAlertDialog("Continent");
+                    return null;
+                }
+
+                Continent continent= new Continent();
+                continent.setName(nameField.getText());
+                continent.setCtrNum(Integer.parseInt(controlNumber.getText()));
+                map.getContinents().put(nameField.getText(),continent);
+
+                cbContinents.getItems().add(nameField.getText());
+
+                return new Results(nameField.getText(),
+                        Integer.parseInt(controlNumber.getText()));
             }
-            Continent continent= new Continent();
-            continent.setName(result.get());
+            return null;
+        });
+        Optional<Results> optionalResult = dialog.showAndWait();
+        optionalResult.ifPresent((Results results) -> {
+            System.out.println(
+                    results.continentName + " " + results.controlNumber);
+        });
 
-            cbContinents.getItems().add(result.get());
-            return true;
-        } else {
-            return false;
-        }
+        return  null;
     }
 
 
@@ -468,22 +497,11 @@ public class createMapScreenController implements Initializable {
                             double _y = entry.getValue().getY();
 
                             if (x >= _x && y >= _y &&
-                                    x <= _x + 50 && y <= _y + 50){
+                                    x <= _x + 75 && y <= _y + 75){
 
                                 continent.setName(newVal);
-
-                                /*HashMap<String,Territory> territory=continent.getTerritories();
-
-                                sourceT=new Territory();
-                                sourceT.setX((int) Math.round(_x));
-                                sourceT.setY((int) Math.round(_y));
-                                sourceT.setName(entry.getValue().getName());
-
-                                territory.put(entry.getValue().getName(),sourceT);
-                                territory.s */
                                 entry.getValue().setContinent(continent);
                                 System.out.println(entry.getValue().getName()+entry.getValue().getContinent().getName());
-                                // territoryArrayList.get(i).
 
                             }
 
@@ -497,4 +515,17 @@ public class createMapScreenController implements Initializable {
         });
 
     }
+
+
+    private static class Results {
+
+        String continentName;
+        int  controlNumber;
+
+        public Results(String continentName, int controlNumber) {
+            this.continentName = continentName;
+            this.controlNumber = controlNumber;
+        }
+    }
+
 }
