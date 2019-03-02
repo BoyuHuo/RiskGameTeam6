@@ -1,5 +1,6 @@
 package RiskGame.controller;
 
+import RiskGame.model.entity.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class editPlayerDetailsController2 implements Initializable {
@@ -22,9 +24,11 @@ public class editPlayerDetailsController2 implements Initializable {
     @FXML
     Button btnBack, btnSave;
 
-    editPlayerDetailsController playerDetails = new editPlayerDetailsController();
-    ArrayList<String> playerName = new ArrayList();
-
+    private editPlayerDetailsController playerDetails = new editPlayerDetailsController();
+    private ArrayList<String> playerName = new ArrayList();
+    private HashMap<String, Player> playerList=new HashMap<>();
+    private Player player;
+    private Scene newGameSceenScene;
 
     @FXML
     private void clickButtonSave(ActionEvent event) throws IOException
@@ -32,24 +36,45 @@ public class editPlayerDetailsController2 implements Initializable {
         switch (editPlayerDetailsController.numberOfPlayers)
         {
             case 1: playerName.add(0,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    break;
 
-            case 2: playerName.add(0,txtPlayer1.getText());
+            case 2:
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer2.getText());
+                    break;
 
             case 3: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer2.getText());
                     playerName.add(2,txtPlayer3.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    break;
 
             case 4: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer1.getText());
                     playerName.add(2,txtPlayer1.getText());
                     playerName.add(3,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    createPlayer(txtPlayer4.getText());
+                    break;
 
             case 5: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer1.getText());
                     playerName.add(2,txtPlayer1.getText());
                     playerName.add(3,txtPlayer1.getText());
                     playerName.add(4,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    createPlayer(txtPlayer4.getText());
+                    createPlayer(txtPlayer5.getText());
+                    break;
 
             case 6: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer1.getText());
@@ -57,6 +82,13 @@ public class editPlayerDetailsController2 implements Initializable {
                     playerName.add(3,txtPlayer1.getText());
                     playerName.add(4,txtPlayer1.getText());
                     playerName.add(5,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    createPlayer(txtPlayer4.getText());
+                    createPlayer(txtPlayer5.getText());
+                    createPlayer(txtPlayer6.getText());
+                break;
 
             case 7: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer1.getText());
@@ -65,6 +97,14 @@ public class editPlayerDetailsController2 implements Initializable {
                     playerName.add(4,txtPlayer1.getText());
                     playerName.add(5,txtPlayer1.getText());
                     playerName.add(6,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    createPlayer(txtPlayer4.getText());
+                    createPlayer(txtPlayer5.getText());
+                    createPlayer(txtPlayer6.getText());
+                    createPlayer(txtPlayer7.getText());
+                    break;
 
             case 8: playerName.add(0,txtPlayer1.getText());
                     playerName.add(1,txtPlayer1.getText());
@@ -74,6 +114,15 @@ public class editPlayerDetailsController2 implements Initializable {
                     playerName.add(5,txtPlayer1.getText());
                     playerName.add(6,txtPlayer1.getText());
                     playerName.add(7,txtPlayer1.getText());
+                    createPlayer(txtPlayer1.getText());
+                    createPlayer(txtPlayer2.getText());
+                    createPlayer(txtPlayer3.getText());
+                    createPlayer(txtPlayer4.getText());
+                    createPlayer(txtPlayer5.getText());
+                    createPlayer(txtPlayer6.getText());
+                    createPlayer(txtPlayer7.getText());
+                    createPlayer(txtPlayer8.getText());
+                    break;
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -84,6 +133,30 @@ public class editPlayerDetailsController2 implements Initializable {
 
         btnSave.setDisable(true);
         btnBack.setDisable(false);
+
+        showGameScreen();
+    }
+
+
+    private void showGameScreen() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/newGameScreen.fxml"));
+        loader.load();
+        newGameScreenController controller = loader.getController();
+        controller.setPlayersDetails(playerList);
+        newGameSceenScene = new Scene(loader.getRoot(), 1000,600);
+
+        Stage newGameScreenStage = (Stage)btnSave.getScene().getWindow();
+        newGameScreenStage.setScene(newGameSceenScene);
+        newGameScreenStage.show();
+    }
+
+    private void createPlayer(String text) {
+         player=new Player();
+         player.setName(text);
+         playerList.put(text,player);
+
     }
 
     @FXML

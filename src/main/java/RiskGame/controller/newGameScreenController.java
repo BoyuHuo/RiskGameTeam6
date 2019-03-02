@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class newGameScreenController implements Initializable {
     @FXML
-    private Label lblPath;
+    private Text mapName;
     private Scene createMapScene;
 
     @FXML
@@ -39,8 +39,12 @@ public class newGameScreenController implements Initializable {
     private Text mapName;
 */
 
+    @FXML
+    private Text playerList;
+
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
+    private StringBuilder playersName=new StringBuilder();
 
     @FXML
     private void mapFileChooser() throws IOException {
@@ -48,7 +52,7 @@ public class newGameScreenController implements Initializable {
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         File mapFile = mapFileChooser.showOpenDialog(null);
         if (mapFile != null) {
-            lblPath.setText(mapFile.toString());
+            mapName.setText(mapFile.getName().toString());
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
    /*         mapName.setText(mapFile.getName());*/
@@ -56,6 +60,16 @@ public class newGameScreenController implements Initializable {
             showMap(gameMap);*/
 
         }
+    }
+    public void setPlayersDetails(HashMap<String,Player> playersList) {
+
+        players=playersList;
+
+        for(Map.Entry<String, Player > entry: playersList.entrySet()){
+            playersName.append(entry.getKey()+"\n");
+        }
+
+        playerList.setText(playersName.toString());
     }
 
     private void showMap(GameMap gameMap) throws IOException {
@@ -75,7 +89,7 @@ public class newGameScreenController implements Initializable {
         controller.setMap(gameMap);
         createMapScene = new Scene(loader.getRoot(), 1000,600);
 
-        Stage createMapSceneStage = (Stage) lblPath.getScene().getWindow();
+        Stage createMapSceneStage = (Stage) mapName.getScene().getWindow();
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
     }
