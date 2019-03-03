@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -214,6 +215,7 @@ public class gameScreenController implements Initializable {
                 } else {
                         showAlertDialog("Select a terrotory!");
                 }
+                Update();
         }
 
 
@@ -260,6 +262,17 @@ public class gameScreenController implements Initializable {
                         String key=entry.getKey();
                         Territory territory=entry.getValue();
                         square = new Rectangle();
+
+                        Label continentName = new Label();
+                        continentName.setLayoutX((entry.getValue().getX() + 5));
+                        continentName.setLayoutY((entry.getValue().getY() + 10));
+                        continentName.setText(entry.getValue().getContinent().getName());
+
+                        Label armyAssigned = new Label();
+                        armyAssigned.setLayoutX((entry.getValue().getX() + 10));
+                        armyAssigned.setLayoutY((entry.getValue().getY() + 10));
+                        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
+
                         System.out.println(entry.getKey()+entry.getValue().getX()+"/"+entry.getValue().getY());
 
                         setSquareProperties( territory.getX(),territory.getY(),square,territory.getBelongs().getColor()) ;
