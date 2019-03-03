@@ -233,7 +233,9 @@ public class gameScreenController implements Initializable {
 
                 if(territory.getBelongs().equals(activePlayer)){
 
-                    sourceTerrotory.immigrantArimies(armyNumber,territory);
+                    if(!sourceTerrotory.immigrantArimies(armyNumber,territory)){
+                        showAlertDialog(sourceTerrotory.getName()+" can't move armies to  "+territory.getName());
+                    };
                     Update();
                     mode=0;
 
@@ -325,19 +327,22 @@ public class gameScreenController implements Initializable {
 
         public void Update(){
                 phase.setText(GameManager.getInstance().getGamePhase());
-                int count=0;
-                for(Text t:playerList.values()) {
-                        count++;
-                        t.setUnderline(false);
+                highLightActivePlayer();
+                drawMap();
+        }
 
-                        if(t.getText().equals(GameManager.getInstance().getActivePlayer().getName())) {
-                                t.setUnderline(true);
-                               // t.setStyle("-fx-text-fill: "+ GameManager.getInstance().getPlayers().get(t.getText()).getColor()+"; -fx-font-size: 16px;");
-                        }
+        public void highLightActivePlayer(){
+            int count=0;
+            for(Text t:playerList.values()) {
+                count++;
+                t.setUnderline(false);
 
+                if(t.getText().equals(GameManager.getInstance().getActivePlayer().getName())) {
+                    t.setUnderline(true);
+                    // t.setStyle("-fx-text-fill: "+ GameManager.getInstance().getPlayers().get(t.getText()).getColor()+"; -fx-font-size: 16px;");
                 }
 
-                drawMap();
+            }
         }
 
 
@@ -463,4 +468,5 @@ public class gameScreenController implements Initializable {
 
         return Color.rgb(r,g,b);
     }
+
 }
