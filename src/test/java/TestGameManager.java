@@ -42,7 +42,6 @@ public class TestGameManager {
 
     @Test
     public void testPlayerIterator() {
-        assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
         GameManager.getInstance().nextPlayer();
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
@@ -71,5 +70,17 @@ public class TestGameManager {
         System.out.println(GameManager.getInstance().getGamePhase());
         GameManager.getInstance().nextPhase();
         System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
+    }
+    @Test
+    public void testNextRound(){
+        for(int i=0;i<10;i++) {
+            System.out.println(GameManager.getInstance().getGamePhase());
+            System.out.println(GameManager.getInstance().getActivePlayer().getName());
+            GameManager.getInstance().nextRound();
+        }
     }
 }

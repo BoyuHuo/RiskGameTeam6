@@ -37,7 +37,7 @@ public class GameManager extends Observable implements IGameManager {
         start();
     }
 
-    private void   initArmies(){
+    private void initArmies(){
         int armiesNum = 0;
         switch (players.values().size()) {
             case 2:
@@ -78,7 +78,22 @@ public class GameManager extends Observable implements IGameManager {
 
     }
 
-    public void nextAction() {
+    public void nextRound() {
+        switch (gamePhase){
+            case STARTUP:
+                Player p = (Player) players.values().toArray()[players.values().size()-1];
+                if(p.equals(activePlayer)){
+                    nextPhase();
+                    nextPlayer();
+                }
+                else{
+                    nextPlayer();
+                }
+                break;
+            case ATTACK:case REINFORCEMENTS: nextPhase();break;
+            case FORTIFICATION: nextPhase();nextPlayer(); break;
+            default:break;
+        }
     }
 
     public void nextPlayer() {
