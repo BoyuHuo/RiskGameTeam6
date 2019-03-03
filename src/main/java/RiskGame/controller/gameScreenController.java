@@ -9,7 +9,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
+
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,13 +21,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -66,7 +67,7 @@ public class gameScreenController implements Initializable {
 
         private GameMap gameMap;
 
-        private Rectangle square = null ;
+        private Rectangle territorySquare = null ;
 
         private Line l1;
 
@@ -74,6 +75,11 @@ public class gameScreenController implements Initializable {
 
         Territory sourceTerrotory=null;
         int armyNumber=0;
+
+        private HashMap<String,Color> continentColor=new HashMap<String,Color>();
+
+        private String family = "Helvetica";
+        private double size = 25;
 
         // Show the card window
         @FXML
@@ -149,12 +155,19 @@ public class gameScreenController implements Initializable {
 
 
         public void initGameWindow(){
+
                 playerList=new HashMap<>();
                 int count=0;
                 for (Player p: GameManager.getInstance().getPlayers().values()) {
                         Text t=new Text(p.getName());
+                        Label label=new Label(p.getName());
+                        label.setBackground(new Background(new BackgroundFill(Color.valueOf(p.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+                        // t.setFont(Font.font(null, FontWeight.BOLD, 20));
+                        //t.setFont(Font.font ("Verdana", 20));
+                        t.setFill(Color.valueOf(p.getColor()));
+                        t.setFont(Font.font(family, FontWeight.BOLD, size));
                         playerList.put(p.getName(),t);
-                        players.addColumn(count, t);
+                        players.addColumn(count, label);
                 }
 
                 onMouseClick();
@@ -347,25 +360,50 @@ public class gameScreenController implements Initializable {
                 for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
                         String key=entry.getKey();
                         Territory territory=entry.getValue();
-                        square = new Rectangle();setSquareProperties( territory.getX(),territory.getY(),square,territory.getBelongs().getColor()) ;
+                        territorySquare = new Rectangle();
+                        setTerrotorySquareProperties( territory.getX(),territory.getY(),territorySquare,territory.getBelongs().getColor());
+                        rectangleGroups.getChildren().add( territorySquare ) ;
+                        if(!continentColor.containsKey(territory.getContinent().getName())){
+                            continentColor.put(territory.getContinent().getName(),generateRandomColor());
+                        }
+
+                        setContinentSquareProperties( territory.getX(),territory.getY(),continentColor.get(territory.getContinent().getName()));
                         setLabelProperties(entry);
-                        rectangleGroups.getChildren().add( square ) ;
-                        setLine(entry);
-                        square=null;
+
+                        //setLine(entry);
+                        territorySquare=null;
                 }
                 rectangleGroups=new Group();
         }
 
+    private void setContinentSquareProperties(int x, int y, Color color) {
+        Rectangle rectangle=new Rectangle();
+        rectangle.setArcHeight(10);
+        rectangle.setArcWidth(10);
+        rectangle.setX( x ) ;
+        rectangle.setY( y-20 ) ;
+        rectangle.setWidth( 55 ) ;
+        rectangle.setHeight( 20 ) ;
+        rectangle.setFill( color) ;
+        rectangle.setStroke( Color.BLACK ) ;
+        rectangleGroups.getChildren().add( rectangle ) ;
+    }
+
     private void setLabelProperties(Map.Entry<String, Territory> entry) {
         Label continentName = new Label();
         continentName.setLayoutX((entry.getValue().getX() + 5));
-        continentName.setLayoutY((entry.getValue().getY() + 5));
+        continentName.setLayoutY((entry.getValue().getY() - 20));
         continentName.setText(entry.getValue().getContinent().getName());
+        continentName.setTextFill(Color.WHITE);
+        continentName.setStyle("-fx-font-weight: bold;");
+
 
         Label armyAssigned = new Label();
-        armyAssigned.setLayoutX((entry.getValue().getX() + 15));
-        armyAssigned.setLayoutY((entry.getValue().getY() + 20));
+        armyAssigned.setLayoutX((entry.getValue().getX() + 22.5));
+        armyAssigned.setLayoutY((entry.getValue().getY() + 15));
         armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
+        armyAssigned.setTextFill(Color.BLACK);
+        armyAssigned.setStyle("-fx-font-weight: bold;");
 
         gameMapPane.getChildren().add(armyAssigned);
         gameMapPane.getChildren().add(continentName);
@@ -401,10 +439,11 @@ public class gameScreenController implements Initializable {
                 }
         }
 
-        private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square, String color)
+        private void setTerrotorySquareProperties( double starting_point_x, double starting_point_y,Rectangle square, String color)
         {
 
-
+                square.setArcHeight(10);
+                square.setArcWidth(10);
                 square.setX( starting_point_x ) ;
                 square.setY( starting_point_y ) ;
                 square.setWidth( 55 ) ;
@@ -414,4 +453,14 @@ public class gameScreenController implements Initializable {
 
 
         }
+
+    private Color generateRandomColor() {
+        Random random = new Random();
+        int r = random.nextInt(255);
+        int g = random.nextInt(255);
+        int b = random.nextInt(255);
+
+
+        return Color.rgb(r,g,b);
+    }
 }

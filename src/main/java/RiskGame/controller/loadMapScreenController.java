@@ -112,7 +112,7 @@ public class loadMapScreenController implements Initializable {
         }*/
     }
 
-    public Color generateRandomColor() {
+    private Color generateRandomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
         int g = random.nextInt(255);
