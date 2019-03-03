@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -48,7 +49,7 @@ public class gameScreenController implements Initializable {
 
 
         @FXML
-        private BorderPane gameMapPane;
+        private AnchorPane gameMapPane;
 
         @FXML
         private Text soldiersNumbers;
