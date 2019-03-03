@@ -230,6 +230,7 @@ public class gameScreenController implements Initializable {
 
             } else {
                 showAlertDialog("Select a terrotory!");
+                mode=0;
             }
         }
 
@@ -253,6 +254,10 @@ public class gameScreenController implements Initializable {
 
             if (result.get().equalsIgnoreCase("")) {
                 showAlertDialog("Enter number of army");
+                return false;
+            }
+            if (Integer.parseInt(result.get())>territory.getArmies()) {
+                showAlertDialog("Enter appropriate number of army!!");
                 return false;
             }
             armyNumber=Integer.parseInt(result.get());

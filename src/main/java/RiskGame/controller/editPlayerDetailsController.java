@@ -35,7 +35,7 @@ public class editPlayerDetailsController implements Initializable {
     private void loadChoiceBox()
     {
         noOfPlayers.removeAll(noOfPlayers);
-        noOfPlayers.addAll(1,2,3,4,5,6,7,8);
+        noOfPlayers.addAll(2,3,4,5,6,7,8);
         cbSelectPlayers.getItems().addAll(noOfPlayers);
     }
 
