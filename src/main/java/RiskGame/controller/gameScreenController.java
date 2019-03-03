@@ -58,7 +58,7 @@ public class gameScreenController implements Initializable {
         @FXML
         private Button certifyDicesNumber;
 
-        private HashMap<String,Text> playerList;
+        private HashMap<String,Label> playerList;
 
         @FXML
         private Button endRound;
@@ -155,24 +155,36 @@ public class gameScreenController implements Initializable {
 
 
         public void initGameWindow(){
-
-                playerList=new HashMap<>();
-                int count=0;
-                for (Player p: GameManager.getInstance().getPlayers().values()) {
-                        Text t=new Text(p.getName());
-                        Label label=new Label(p.getName());
-                        label.setBackground(new Background(new BackgroundFill(Color.valueOf(p.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
-                        // t.setFont(Font.font(null, FontWeight.BOLD, 20));
-                        //t.setFont(Font.font ("Verdana", 20));
-                        t.setFill(Color.valueOf(p.getColor()));
-                        t.setFont(Font.font(family, FontWeight.BOLD, size));
-                        playerList.put(p.getName(),t);
-                        players.addColumn(count, label);
-                }
+                 initPlayers();
 
                 onMouseClick();
 
                 Update();
+        }
+
+        public void initPlayers(){
+            if(playerList==null) {
+                playerList = new HashMap<>();
+            }
+            int count=0;
+            for (Player p: GameManager.getInstance().getPlayers().values()) {
+                Label label=new Label(p.getName()+" :"+p.getArmies());
+                label.setBackground(new Background(new BackgroundFill(Color.valueOf(p.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+                playerList.put(p.getName(),label);
+                players.addColumn(count, label);
+            }
+            highLightActivePlayer();
+        }
+
+        private void updatePlayers(){
+            for (Player p: GameManager.getInstance().getPlayers().values()){
+                playerList.get(p.getName()).setText(p.getName()+" :"+p.getArmies());
+            }
+            highLightActivePlayer();
+        }
+
+    public void highLightActivePlayer(){
+        playerList.get(GameManager.getInstance().getActivePlayer().getName()).setText("--> "+GameManager.getInstance().getActivePlayer().getName()+" :"+GameManager.getInstance().getActivePlayer().getArmies());
         }
 
         private void onMouseClick() {
@@ -327,23 +339,11 @@ public class gameScreenController implements Initializable {
 
         public void Update(){
                 phase.setText(GameManager.getInstance().getGamePhase());
-                highLightActivePlayer();
+                updatePlayers();
                 drawMap();
         }
 
-        public void highLightActivePlayer(){
-            int count=0;
-            for(Text t:playerList.values()) {
-                count++;
-                t.setUnderline(false);
 
-                if(t.getText().equals(GameManager.getInstance().getActivePlayer().getName())) {
-                    t.setUnderline(true);
-                    // t.setStyle("-fx-text-fill: "+ GameManager.getInstance().getPlayers().get(t.getText()).getColor()+"; -fx-font-size: 16px;");
-                }
-
-            }
-        }
 
 
 
@@ -398,7 +398,7 @@ public class gameScreenController implements Initializable {
         Label continentName = new Label();
         continentName.setLayoutX((entry.getValue().getX() + 5));
         continentName.setLayoutY((entry.getValue().getY() - 20));
-        continentName.setText(entry.getValue().getContinent().getName());
+        continentName.setText(entry.getValue().getName());
         continentName.setTextFill(Color.WHITE);
         continentName.setStyle("-fx-font-weight: bold;");
 
