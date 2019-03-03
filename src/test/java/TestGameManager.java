@@ -5,13 +5,13 @@ import RiskGame.model.service.imp.MapManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestGameManager {
-    GameManager gameManager;
     MapManager mapManager;
 
     @Before
@@ -27,9 +27,9 @@ public class TestGameManager {
 
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
-        gameManager.NewGame();
+        GameManager.getInstance().NewGame();
 
-        for(String key:gameManager.getPlayers().keySet()){
+        for(String key:GameManager.getInstance().getPlayers().keySet()){
             System.out.println(key);
         }
         System.out.println("-----------------");
@@ -42,21 +42,34 @@ public class TestGameManager {
 
     @Test
     public void testPlayerIterator() {
-        assertEquals("Player2",gameManager.getActivePlayer().getName());
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        gameManager.nextPlayer();
-        System.out.println(gameManager.getActivePlayer().getName());
-        assertEquals("Player2",gameManager.getActivePlayer().getName());
+        assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        GameManager.getInstance().nextPlayer();
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
 
+    }
+
+    @Test
+    public void testPhase() {
+        System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        GameManager.getInstance().nextPhase();
+        System.out.println(GameManager.getInstance().getGamePhase());
     }
 }
