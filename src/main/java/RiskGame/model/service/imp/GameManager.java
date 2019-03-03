@@ -12,6 +12,7 @@ public class GameManager extends Observable implements IGameManager {
 
     enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
 
+
     private Map<String, Player> players;
     private Iterator playerIterator;
     private Player activePlayer;
@@ -32,7 +33,34 @@ public class GameManager extends Observable implements IGameManager {
 
     public void NewGame() {
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+        initArmies();
         start();
+    }
+
+    private void initArmies(){
+        int armiesNum = 0;
+        switch (players.values().size()) {
+            case 2:
+                armiesNum = 45;
+                break;
+            case 3:
+                armiesNum = 35;
+                break;
+            case 4:
+                armiesNum = 30;
+                break;
+            case 5:
+                armiesNum = 25;
+                break;
+            case 6:
+                armiesNum = 20;
+                break;
+            default:
+                break;
+        }
+        for(Player p: players.values()){
+            p.setArmies(armiesNum);
+        }
     }
 
     public void start() {
@@ -50,11 +78,38 @@ public class GameManager extends Observable implements IGameManager {
 
     }
 
+    public void nextRound() {
+        switch (gamePhase){
+            case STARTUP:
+                Player p = (Player) players.values().toArray()[players.values().size()-1];
+                if(p.equals(activePlayer)){
+                    nextPhase();
+                    nextPlayer();
+                }
+                else{
+                    nextPlayer();
+                }
+                break;
+            case ATTACK:case REINFORCEMENTS: nextPhase();break;
+            case FORTIFICATION: nextPhase();nextPlayer(); break;
+            default:break;
+        }
+    }
+
     public void nextPlayer() {
         if (playerIterator == null || !playerIterator.hasNext()) {
             playerIterator = players.values().iterator();
         }
         activePlayer = (Player) playerIterator.next();
+    }
+
+    public void nextPhase() {
+        int tag = gamePhase.ordinal();
+        tag++;
+        if (tag >= phase.values().length) {
+            tag = 1;
+        }
+        gamePhase = phase.values()[tag];
     }
 
     public GameMap getMap() {
@@ -141,11 +196,11 @@ public class GameManager extends Observable implements IGameManager {
             if (!tempIterator.hasNext()) {
                 tempIterator = players.values().iterator();
             }
-            int randomTag =generator.nextInt(keys.length);
+            int randomTag = generator.nextInt(keys.length);
             Player player = tempIterator.next();
 
             map.getTerritories().get(keys[randomTag]).setBelongs(player);
-            keys=deleteInArray(randomTag,keys);
+            keys = deleteInArray(randomTag, keys);
 
 
         }

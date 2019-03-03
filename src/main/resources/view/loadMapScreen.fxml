@@ -30,7 +30,8 @@
                 <AnchorPane fx:id="createMapPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
                         <Label fx:id="lblCoordinates" layoutX="204.0" layoutY="162.0" text="Label" visible="false" />
-                    </children></AnchorPane>
+                    </children>
+                </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="149.0">
                     <ImageView fitHeight="562.0" fitWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <image>

@@ -100,12 +100,15 @@ public class Territory {
     }
 
     public boolean immigrantArimies(int num, Territory destination) {
-        if (num <= this.armies) {
-            this.armies -= num;
-            destination.setArmies(num + destination.getArmies());
-            return true;
+        if(!validedToImmgrant(destination)){
+            return false;
+        }else {
+            if (num <= this.armies) {
+                this.armies -= num;
+                destination.setArmies(num + destination.getArmies());
+                return true;
+            }
         }
-
         return false;
     }
 

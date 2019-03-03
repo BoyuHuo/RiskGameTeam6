@@ -24,7 +24,7 @@ import java.util.*;
 public class loadMapScreenController implements Initializable {
 
     private GameMap gameMap;
-    Group rectangleGroups = new Group() ;
+    private Group rectangleGroups = new Group() ;
     Rectangle square = null ;
 
     @FXML
@@ -46,6 +46,7 @@ public class loadMapScreenController implements Initializable {
             Territory territory=entry.getValue();
             territory.getContinent();
             square = new Rectangle();
+
 
             if(!continentColor.containsKey(territory.getContinent().getName())){
                 continentColor.put(territory.getContinent().getName(),generateRandomColor());
@@ -111,7 +112,7 @@ public class loadMapScreenController implements Initializable {
         }*/
     }
 
-    public Color generateRandomColor() {
+    private Color generateRandomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
         int g = random.nextInt(255);

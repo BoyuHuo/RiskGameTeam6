@@ -1,5 +1,6 @@
 package RiskGame.controller;
 
+import RiskGame.model.entity.GameMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -25,26 +28,41 @@ public class editPlayerDetailsController implements Initializable {
     @FXML
     private Hyperlink hyperBack;
     public static int numberOfPlayers;
+    private File gameMapFile;
 
 
     @FXML
     private void loadChoiceBox()
     {
         noOfPlayers.removeAll(noOfPlayers);
-        noOfPlayers.addAll(1,2,3,4,5,6,7,8);
+        noOfPlayers.addAll(2,3,4,5,6,7,8);
         cbSelectPlayers.getItems().addAll(noOfPlayers);
     }
+
 
     @FXML
     private void clickNext(ActionEvent event) throws IOException
     {
         if(cbSelectPlayers.getValue()!=null) {
             numberOfPlayers = cbSelectPlayers.getValue();
-            Parent editPlayerScreen2 = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
+            /*Parent editPlayerScreen2 = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
             Scene editPlayerScene2 = new Scene(editPlayerScreen2, 1000, 600);
             Stage editPlayerStage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
             editPlayerStage2.setScene(editPlayerScene2);
-            editPlayerStage2.show();
+            editPlayerStage2.show();*/
+
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
+            loader.load();
+            editPlayerDetailsController2 controller = loader.getController();
+            controller.setMapDetails(gameMapFile);
+            Scene editPlayerScene = new Scene(loader.getRoot(), 1000,600);
+
+            Stage newGameScreenStage = (Stage)btnNext.getScene().getWindow();
+            newGameScreenStage.setScene(editPlayerScene);
+            newGameScreenStage.show();
+
         }
         else
         {
@@ -95,6 +113,9 @@ public class editPlayerDetailsController implements Initializable {
         }
     }
 
+    public  void setMapDetails(File gameMapFile) {
+        this.gameMapFile=gameMapFile;
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
