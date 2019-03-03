@@ -70,7 +70,11 @@ public class gameScreenController implements Initializable {
 
         private Line l1;
 
-        enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
+        private int mode=0;
+
+        Territory sourceTerrotory=null;
+        int armyNumber=0;
+
         // Show the card window
         @FXML
         private void newButtonOnClicked() {
@@ -132,7 +136,7 @@ public class gameScreenController implements Initializable {
 
         @FXML
         private void endRoundClick(){
-                GameManager.getInstance().nextPlayer();
+                GameManager.getInstance().nextRound();
                 Update();
         }
 
@@ -177,40 +181,119 @@ public class gameScreenController implements Initializable {
                                                 break;
                                         case "Fortification":
 
+                                                fortifyArmy(event.getX(),event.getY());
+
                                                 break;
                                 }
                         }
                 });
         }
 
-        private void setupArmyTerrotory(double x, double y) {
+    private void fortifyArmy(double x, double y) {
 
-                HashMap<String,Territory> territories=GameManager.getInstance().getMap().getTerritories();
-                Territory territory=null;
-                for(Map.Entry<String, Territory> entry :territories.entrySet()) {
+        Territory territory=clickedTerrotory( x,  y);
+        Player activePlayer=GameManager.getInstance().getActivePlayer();
 
-                        double _x = entry.getValue().getX();
-                        double _y = entry.getValue().getY();
-                        if (x >= _x && y >= _y &&
-                                x <= _x + 40 && y <= _y + 40){
-                                System.out.println(entry.getKey());
-                                territory= territories.get(entry.getKey());
-                        }
+        if(mode==0){
 
-                }
-                if(territory!=null) {
-                        Player player=GameManager.getInstance().getActivePlayer();
-                        if(territory.getBelongs().equals(player)){
-                                territory.increaseArmies(player);
-                        } else {
-                                showAlertDialog(territory.getName()+" terrtory does not belongs to "+player.getName());
-                        }
+            if(territory!=null) {
+
+                if(territory.getBelongs().equals(activePlayer)){
+
+                    if(transferArmyNumberDialog(territory)){
+                        mode=1;
+                    }else {
+                        mode=0;
+                    }
+                    sourceTerrotory=territory;
 
                 } else {
-                        showAlertDialog("Select a terrotory!");
+                    showAlertDialog(territory.getName()+" terrotory does not belongs to "+activePlayer.getName());
                 }
-                Update();
+
+            } else {
+                showAlertDialog("Select a terrotory!");
+            }
+        } else  if(mode==1) {
+
+            if(territory!=null) {
+
+                if(territory.getBelongs().equals(activePlayer)){
+
+                    sourceTerrotory.immigrantArimies(armyNumber,territory);
+                    Update();
+                    mode=0;
+
+                } else {
+                    showAlertDialog(territory.getName()+" terrotory does not belongs to "+activePlayer.getName());
+                }
+
+            } else {
+                showAlertDialog("Select a terrotory!");
+            }
         }
+
+
+
+
+
+    }
+
+
+    private boolean transferArmyNumberDialog(Territory territory) {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Enter army");
+        dialog.setHeaderText("Transfer number of armies from: "+territory.getName());
+        dialog.setContentText("Number:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+
+            if (result.get().equalsIgnoreCase("")) {
+                showAlertDialog("Enter number of army");
+                return false;
+            }
+            armyNumber=Integer.parseInt(result.get());
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private Territory clickedTerrotory(double x, double y) {
+        HashMap<String,Territory> territories=GameManager.getInstance().getMap().getTerritories();
+        for(Map.Entry<String, Territory> entry :territories.entrySet()) {
+
+            double _x = entry.getValue().getX();
+            double _y = entry.getValue().getY();
+            if (x >= _x && y >= _y && x <= _x + 50 && y <= _y + 40){
+                return territories.get(entry.getKey());
+            }
+
+        }
+        return null;
+    }
+
+    private void setupArmyTerrotory(double x, double y) {
+
+            Territory territory=clickedTerrotory( x,  y);
+
+           if(territory!=null) {
+               Player activeplayer=GameManager.getInstance().getActivePlayer();
+               if(territory.getBelongs().equals(activeplayer)){
+                   territory.increaseArmies(activeplayer);
+               } else {
+                   showAlertDialog(territory.getName()+" terrtory does not belongs to "+activeplayer.getName());
+               }
+
+           } else {
+                            showAlertDialog("Select a terrotory!");
+           }
+           Update();
+    }
 
 
         private void showAlertDialog(String message) {
@@ -259,49 +342,41 @@ public class gameScreenController implements Initializable {
                 for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
                         String key=entry.getKey();
                         Territory territory=entry.getValue();
-                        square = new Rectangle();
-
-
-
-                        //System.out.println(entry.getValue().getArmies()+"/"+entry.getValue().getContinent().getName());
-
-                        setSquareProperties( territory.getX(),territory.getY(),square,territory.getBelongs().getColor()) ;
-                        //connectNeighbours(territory);
-
-
-                        Label continentName = new Label();
-                        continentName.setLayoutX((entry.getValue().getX() + 5));
-                        continentName.setLayoutY((entry.getValue().getY() + 5));
-                        continentName.setText(entry.getValue().getContinent().getName());
-
-                        Label armyAssigned = new Label();
-                        armyAssigned.setLayoutX((entry.getValue().getX() + 15));
-                        armyAssigned.setLayoutY((entry.getValue().getY() + 20));
-                        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
-
-                        gameMapPane.getChildren().add(armyAssigned);
-                        gameMapPane.getChildren().add(continentName);
-
+                        square = new Rectangle();setSquareProperties( territory.getX(),territory.getY(),square,territory.getBelongs().getColor()) ;
+                        setLabelProperties(entry);
                         rectangleGroups.getChildren().add( square ) ;
-
-                        Line line =new Line();
-                        line.setStartX(entry.getValue().getX());
-                        line.setStartY(entry.getValue().getY()+20);
-
-                        line.setEndX(entry.getValue().getX()+40);
-                        line.setEndY(entry.getValue().getY()+20);
-
-                        rectangleGroups.getChildren().add(line);
-
+                        setLine(entry);
                         square=null;
-
-
                 }
                 rectangleGroups=new Group();
         }
 
+    private void setLabelProperties(Map.Entry<String, Territory> entry) {
+        Label continentName = new Label();
+        continentName.setLayoutX((entry.getValue().getX() + 5));
+        continentName.setLayoutY((entry.getValue().getY() + 5));
+        continentName.setText(entry.getValue().getContinent().getName());
 
-        private void DFS(Territory t, ArrayList<String> connectedTerrs) {
+        Label armyAssigned = new Label();
+        armyAssigned.setLayoutX((entry.getValue().getX() + 15));
+        armyAssigned.setLayoutY((entry.getValue().getY() + 20));
+        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
+
+        gameMapPane.getChildren().add(armyAssigned);
+        gameMapPane.getChildren().add(continentName);
+    }
+
+    private void setLine(Map.Entry<String, Territory> entry) {
+        Line line =new Line();
+        line.setStartX(entry.getValue().getX());
+        line.setStartY(entry.getValue().getY()+20);
+        line.setEndX(entry.getValue().getX()+55);
+        line.setEndY(entry.getValue().getY()+20);
+        rectangleGroups.getChildren().add(line);
+    }
+
+
+    private void DFS(Territory t, ArrayList<String> connectedTerrs) {
                 for (String key : t.getNeighbors().keySet()) {
                         Territory neightbor = t.getNeighbors().get(key);
 
@@ -327,7 +402,7 @@ public class gameScreenController implements Initializable {
 
                 square.setX( starting_point_x ) ;
                 square.setY( starting_point_y ) ;
-                square.setWidth( 40 ) ;
+                square.setWidth( 55 ) ;
                 square.setHeight( 40 ) ;
                 square.setFill( Color.valueOf(color)) ;
                 square.setStroke( Color.BLACK ) ;
