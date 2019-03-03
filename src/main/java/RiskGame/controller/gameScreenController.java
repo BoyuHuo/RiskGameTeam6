@@ -167,10 +167,10 @@ public class gameScreenController implements Initializable {
 
                                 switch (GameManager.getInstance().getGamePhase()) {
                                         case "Start Up":
-                                                getClickedTerrotory(event.getX(),event.getY());
+                                                setupArmyTerrotory(event.getX(),event.getY());
                                                 break;
                                         case "Reinforcements":
-
+                                                setupArmyTerrotory(event.getX(),event.getY());
                                                 break;
                                         case "Attack":
 
@@ -183,17 +183,14 @@ public class gameScreenController implements Initializable {
                 });
         }
 
-        private void getClickedTerrotory(double x, double y) {
+        private void setupArmyTerrotory(double x, double y) {
 
                 HashMap<String,Territory> territories=GameManager.getInstance().getMap().getTerritories();
                 Territory territory=null;
-
-                System.out.println(x+"/"+y);
                 for(Map.Entry<String, Territory> entry :territories.entrySet()) {
 
                         double _x = entry.getValue().getX();
                         double _y = entry.getValue().getY();
-                        System.out.println(entry.getKey()+entry.getValue().getX()+"/"+entry.getValue().getY());
                         if (x >= _x && y >= _y &&
                                 x <= _x + 40 && y <= _y + 40){
                                 System.out.println(entry.getKey());
@@ -201,14 +198,10 @@ public class gameScreenController implements Initializable {
                         }
 
                 }
-                //System.out.println(territory.getName());
                 if(territory!=null) {
                         Player player=GameManager.getInstance().getActivePlayer();
-                        territory.getBelongs();
                         if(territory.getBelongs().equals(player)){
-                                //showAlertDialog("Up Up Up");
                                 territory.increaseArmies(player);
-                                //territory.get
                         } else {
                                 showAlertDialog(territory.getName()+" terrtory does not belongs to "+player.getName());
                         }
@@ -235,54 +228,76 @@ public class gameScreenController implements Initializable {
                 for(Text t:playerList.values()) {
                         count++;
                         t.setUnderline(false);
+
                         if(t.getText().equals(GameManager.getInstance().getActivePlayer().getName())) {
                                 t.setUnderline(true);
+                               // t.setStyle("-fx-text-fill: "+ GameManager.getInstance().getPlayers().get(t.getText()).getColor()+"; -fx-font-size: 16px;");
                         }
 
                 }
 
-
+                drawMap();
         }
 
 
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
-                initGameWindow();
+
                 gameMap=GameManager.getInstance().getMap();
-                drawMap();
+                initGameWindow();
         }
 
         private void drawMap() {
 
                 gameMapPane.getChildren().add(rectangleGroups);
 
-
+                for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
+                        DFS(entry.getValue(), new ArrayList<>());
+                }
 
                 for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
                         String key=entry.getKey();
                         Territory territory=entry.getValue();
                         square = new Rectangle();
 
-                        Label continentName = new Label();
-                        continentName.setLayoutX((entry.getValue().getX() + 5));
-                        continentName.setLayoutY((entry.getValue().getY() + 10));
-                        continentName.setText(entry.getValue().getContinent().getName());
 
-                        Label armyAssigned = new Label();
-                        armyAssigned.setLayoutX((entry.getValue().getX() + 10));
-                        armyAssigned.setLayoutY((entry.getValue().getY() + 10));
-                        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
 
-                        System.out.println(entry.getKey()+entry.getValue().getX()+"/"+entry.getValue().getY());
+                        //System.out.println(entry.getValue().getArmies()+"/"+entry.getValue().getContinent().getName());
 
                         setSquareProperties( territory.getX(),territory.getY(),square,territory.getBelongs().getColor()) ;
                         //connectNeighbours(territory);
-                        DFS(territory,new ArrayList<>());
+
+
+                        Label continentName = new Label();
+                        continentName.setLayoutX((entry.getValue().getX() + 5));
+                        continentName.setLayoutY((entry.getValue().getY() + 5));
+                        continentName.setText(entry.getValue().getContinent().getName());
+
+                        Label armyAssigned = new Label();
+                        armyAssigned.setLayoutX((entry.getValue().getX() + 15));
+                        armyAssigned.setLayoutY((entry.getValue().getY() + 20));
+                        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
+
+                        gameMapPane.getChildren().add(armyAssigned);
+                        gameMapPane.getChildren().add(continentName);
 
                         rectangleGroups.getChildren().add( square ) ;
+
+                        Line line =new Line();
+                        line.setStartX(entry.getValue().getX());
+                        line.setStartY(entry.getValue().getY()+20);
+
+                        line.setEndX(entry.getValue().getX()+40);
+                        line.setEndY(entry.getValue().getY()+20);
+
+                        rectangleGroups.getChildren().add(line);
+
                         square=null;
+
+
                 }
+                rectangleGroups=new Group();
         }
 
 
@@ -308,6 +323,8 @@ public class gameScreenController implements Initializable {
 
         private void setSquareProperties( double starting_point_x, double starting_point_y,Rectangle square, String color)
         {
+
+
                 square.setX( starting_point_x ) ;
                 square.setY( starting_point_y ) ;
                 square.setWidth( 40 ) ;
