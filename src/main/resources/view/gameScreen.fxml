@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.gameScreenController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">
   <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">-->
   <children>
     <!--View the player's cards-->
@@ -47,7 +54,7 @@
       <Text fx:id="notification" text=" " />
     </Pane>
     <!--Show the game information-->
-    <BorderPane fx:id="game" layoutX="14.0" layoutY="51.0" prefHeight="510.0" prefWidth="617.0" />
+    <BorderPane fx:id="gameMapPane" prefHeight="561.0" prefWidth="631.0" />
     <VBox layoutX="643.0" layoutY="101.0" prefHeight="167.0" prefWidth="306.0" style="-fx-border-color: #36149d;">
       <children>
         <Label style="-fx-background-color: #ffffff;" text="  Players  ">

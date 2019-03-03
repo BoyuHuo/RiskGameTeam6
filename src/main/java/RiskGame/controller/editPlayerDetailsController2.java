@@ -1,5 +1,6 @@
 package RiskGame.controller;
 
+import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,10 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class editPlayerDetailsController2 implements Initializable {
@@ -29,6 +33,7 @@ public class editPlayerDetailsController2 implements Initializable {
     private HashMap<String, Player> playerList=new HashMap<>();
     private Player player;
     private Scene newGameSceenScene;
+    private File gameMapFile;
 
     @FXML
     private void clickButtonSave(ActionEvent event) throws IOException
@@ -144,7 +149,7 @@ public class editPlayerDetailsController2 implements Initializable {
         loader.setLocation(getClass().getResource("/view/newGameScreen.fxml"));
         loader.load();
         newGameScreenController controller = loader.getController();
-        controller.setPlayersDetails(playerList);
+        controller.setPlayersDetails(playerList,gameMapFile);
         newGameSceenScene = new Scene(loader.getRoot(), 1000,600);
 
         Stage newGameScreenStage = (Stage)btnSave.getScene().getWindow();
@@ -152,12 +157,32 @@ public class editPlayerDetailsController2 implements Initializable {
         newGameScreenStage.show();
     }
 
+
+    public  void setMapDetails(File gameMapFile) {
+        this.gameMapFile=gameMapFile;
+    }
+
     private void createPlayer(String text) {
          player=new Player();
          player.setName(text);
+         player.setColor(randomColor());
          playerList.put(text,player);
 
     }
+
+    private String randomColor(){
+        Random random = new Random();
+
+        // create a big random number - maximum is ffffff (hex) = 16777215 (dez)
+        int nextInt = random.nextInt(0xffffff + 1);
+
+        // format it as hexadecimal string (with hashtag and leading zeros)
+        String colorCode = String.format("#%06x", nextInt);
+
+        return colorCode;
+    }
+
+
 
     @FXML
     private void clickButtonBack(ActionEvent event) throws IOException
