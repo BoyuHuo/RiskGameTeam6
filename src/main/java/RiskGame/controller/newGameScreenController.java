@@ -173,7 +173,7 @@ public class newGameScreenController implements Initializable {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
-        Scene gameScene = new Scene(gameScreen, 1000,600);
+        Scene gameScene = new Scene(gameScreen, 1000,900);
         Stage gameStage = (Stage) hyperLinkBack.getScene().getWindow();
         gameStage.setScene(gameScene);
         gameStage.show();

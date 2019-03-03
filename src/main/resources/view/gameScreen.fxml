@@ -25,7 +25,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">
   <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.gameScreenController">-->
   <children>
-      <SplitPane dividerPositions="0.7044088176352705" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.6603206412825652" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane fx:id="gameMapPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -34,12 +34,15 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <AnchorPane prefHeight="177.0" prefWidth="136.0">
+                              <AnchorPane prefHeight="295.0" prefWidth="522.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                <Label style="-fx-background-color: #ffffff;" text="  Players  " />
-                                <Text text=" " />
+                                <Label style="-fx-background-color: #ffffff;" text="Players  Names:" translateX="30.0" translateY="70.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Label>
+                                <Text text=" " translateX="30.0" translateY="80.0" />
                                 <!--Show information of players-->
-                                <GridPane fx:id="players" prefHeight="147.0" prefWidth="336.0">
+                                <GridPane fx:id="players" layoutX="-20.0" layoutY="16.0" prefHeight="147.0" prefWidth="336.0" translateX="50.0" translateY="80.0">
                                   <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,7 +56,10 @@
                                 </GridPane>
                                  </children>
                               </AnchorPane>
-                           <Text fx:id="phase" layoutX="14.0" layoutY="201.0" text=" " />
+                           <Text fx:id="phase" fontSmoothingType="LCD" layoutX="1.0" layoutY="201.0" text="Phase" translateX="30.0" translateY="-170.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Text>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
