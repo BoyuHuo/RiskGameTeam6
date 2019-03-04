@@ -25,21 +25,28 @@
           </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="248.0">
-            <ImageView fitHeight="600.0" fitWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <image>
-                    <Image url="/images/LMSBackground.jpg" />
-                </image>
-            </ImageView>
+          <ImageView fitHeight="560.0" fitWidth="248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+              <Image url="/images/LMSBackground.jpg" />
+            </image>
+          </ImageView>
           <children>
-            <Button fx:id="loadExistMapbt" layoutY="5.0" mnemonicParsing="false" onAction="#loadExistMap" text="Load Existing Map" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <Button fx:id="createTerrotoryBt" layoutY="35.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <Button fx:id="connectTerrotoryBt" layoutY="89.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <Button fx:id="btCreateContinents" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="150.0" />
-            <Button fx:id="backBt" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="265.0" />
-            <Button fx:id="saveBt" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="330.0" />
-              <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
-                         AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                         AnchorPane.topAnchor="205.0" onAction="#cbChangeContinent"/>
+            <Button fx:id="loadExistMapbt" layoutY="6.0" mnemonicParsing="false" onAction="#loadExistMap" text="Load Existing Map" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="createTerrotoryBt" layoutY="53.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="connectTerrotoryBt" layoutY="103.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="btCreateContinents" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="152.0" />
+            <Button fx:id="backBt" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="257.0" />
+            <Button fx:id="saveBt" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="308.0" />
+            <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
+                       AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                       AnchorPane.topAnchor="205.0" onAction="#cbChangeContinent"/>
+            <ImageView fitHeight="200.0" fitWidth="220.0" translateY="370" AnchorPane.bottomAnchor="0.0"
+                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                       AnchorPane.topAnchor="0.0">
+              <image>
+                <Image url="/images/logo.jpg" />
+              </image>
+            </ImageView>
           </children>
         </AnchorPane>
       </items>
