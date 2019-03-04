@@ -31,7 +31,8 @@
                 </image>
             </ImageView>
           <children>
-            <Button fx:id="createTerrotoryBt" layoutY="30.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="loadExistMapbt" layoutY="5.0" mnemonicParsing="false" onAction="#loadExistMap" text="Load Existing Map" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+            <Button fx:id="createTerrotoryBt" layoutY="35.0" mnemonicParsing="false" onAction="#createTerrotory" text="Create Terrotory" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <Button fx:id="connectTerrotoryBt" layoutY="89.0" mnemonicParsing="false" onAction="#connectTerrotory" text="Connect Countries" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <Button fx:id="btCreateContinents" mnemonicParsing="false" onAction="#addContinents" text="Continents" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="150.0" />
             <Button fx:id="backBt" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="265.0" />
