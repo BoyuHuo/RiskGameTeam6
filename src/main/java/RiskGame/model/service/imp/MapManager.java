@@ -134,6 +134,9 @@ public class MapManager implements IMapManager {
             out.write("[Territories]\r\n");
             if (gameMap.getTerritories().size() > 0) {
                 for (Territory t : gameMap.getTerritories().values()) {
+                    if(t.getContinent()==null){
+                        return false;
+                    }
                     out.write(t.getName() + "," + t.getX() + "," + t.getY() + "," + t.getContinent().getName());
                     for (Territory neibor : t.getNeighbors().values()) {
                         out.write("," + neibor.getName());
