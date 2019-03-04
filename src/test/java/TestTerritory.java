@@ -27,8 +27,6 @@ public class TestTerritory {
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
         GameManager.getInstance().NewGame();
-
-
     }
 
     @Test
@@ -49,5 +47,6 @@ public class TestTerritory {
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         GameManager.getInstance().getMap().getTerritories().get("FireElephant").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+
     }
 }
