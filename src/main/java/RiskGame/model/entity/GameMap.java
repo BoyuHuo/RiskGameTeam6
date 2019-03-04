@@ -4,12 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This is the GameMap class, it is a java bean, use for store the map data
+ * It including all the information like author, continents and territories as well as the relationship between territories and continents.
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ * @see RiskGame.model.service.imp.MapManager
+ */
 public class  GameMap {
-    private String image="";
-    private String wrap="";
-    private String scroll="";
-    private String author="";
-    private String warn="";
+    private String image=" ";
+    private String wrap=" ";
+    private String scroll=" ";
+    private String author=" ";
+    private String warn=" ";
 
     private HashMap<String,Continent> continents = new HashMap<String,Continent>();
     private HashMap<String,Territory> territories = new HashMap<String,Territory>();
@@ -72,6 +80,20 @@ public class  GameMap {
 
     public void setTerritories(HashMap<String, Territory> territories) {
         this.territories = territories;
+    }
+
+    public void removeTerrtory(String name){
+        for(Continent c:continents.values()){
+            if(c.getTerritories().get(name)!=null){
+                c.getTerritories().remove(name);
+            }
+        }
+        for(Territory t:territories.values()){
+            if(t.getNeighbors().get(name)!=null){
+                t.getNeighbors().remove(name);
+            }
+        }
+        territories.remove(name);
     }
 
     public void print(){

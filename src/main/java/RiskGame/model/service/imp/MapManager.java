@@ -26,7 +26,6 @@ public class MapManager implements IMapManager {
      *
      * @param url the path of map file
      * @return gameMap the instance in the game, which represent the whole relationship between territories and continents within the map.
-     * @throws IOException File reading Exceptions
      */
     @Override
     public GameMap LoadMap(String url) {
@@ -86,7 +85,6 @@ public class MapManager implements IMapManager {
      * @param url     the path of map file
      * @param gameMap the instance that need to be saved
      * @return boolean  True: Create successful  False: Create fail
-     * @throws IOException File reading Exceptions
      */
     @Override
     public boolean CreateMap(String url, GameMap gameMap) {
