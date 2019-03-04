@@ -258,4 +258,44 @@ public class TestMapCreator {
         boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         assertFalse(result);
     }
+    @Test
+    public void testRemove() {
+        System.out.println("Test case 5: Test Map Remove has been start...");
+        GameMap map = new GameMap();
+        map.setAuthor("Hao Ma");
+        map.setScroll("vertical");
+        map.setWarn("no");
+        map.setImage("null");
+        map.setWrap("no");
+        Territory b1= new Territory("Basketball1",225,225);
+        Territory b2 = new Territory("Basketball2",225,275);
+        Territory f1 = new Territory("Football1",325,275);
+        Territory s1= new Territory("Swimming1",425,225);
+        b2.getNeighbors().put(f1.getName(),f1);
+        f1.getNeighbors().put(s1.getName(),s1);
+        s1.getNeighbors().put(b1.getName(),b1);
+        Continent r = new Continent("Red",16);
+        Continent y = new Continent("Yellow",19);
+        Continent d = new Continent("Darkness",18);
+        b1.setContinent(r);
+        b2.setContinent(r);
+        f1.setContinent(y);
+        s1.setContinent(d);
+        map.getContinents().put(r.getName(),r);
+        map.getContinents().put(y.getName(),y);
+        map.getContinents().put(d.getName(),d);
+        map.getTerritories().put(b1.getName(),b1);
+        map.getTerritories().put(b2.getName(),b2);
+        map.getTerritories().put(f1.getName(),f1);
+        map.getTerritories().put(s1.getName(),s1);
+
+        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        assertFalse(result);
+
+        map.removeTerrtory(b1.getName());
+        assertEquals(3,map.getTerritories().size());
+        assertEquals(1,map.getContinents().get("Red").getTerritories().size());
+        assertEquals(0,map.getTerritories().get(s1.getName()).getNeighbors().size());
+
+    }
 }

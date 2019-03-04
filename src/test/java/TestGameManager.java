@@ -1,11 +1,10 @@
-import RiskGame.model.entity.GameMap;
+
 import RiskGame.model.entity.Player;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,11 +73,6 @@ public class TestGameManager {
         GameManager.getInstance().nextPlayer();
         assertEquals("Player2",GameManager.getInstance().getActivePlayer().getName());
         GameManager.getInstance().nextPlayer();
-        GameManager.getInstance().nextPlayer();
-        assertEquals("Player3",GameManager.getInstance().getActivePlayer().getName());
-        GameManager.getInstance().nextPlayer();
-        GameManager.getInstance().nextPlayer();
-        assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
         GameManager.getInstance().nextPlayer();
         assertEquals("Player3",GameManager.getInstance().getActivePlayer().getName());
 
