@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * This is a Junit Test Class, used for testing <b> Map Creation </b> function
  * It contains all test cases which is related to map creation.
  *
- * @author Baiyu Huo
+ * @author Baiyu Huo, Hao Ma
  * @version  v1.0.0
  * @since v1.0.0
  * @see MapManager
@@ -258,6 +258,10 @@ public class TestMapCreator {
         boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         assertFalse(result);
     }
+    /**
+     * Test case 5
+     * Purpose: testing the function of remove a territory from a map
+     */
     @Test
     public void testRemove() {
         System.out.println("Test case 5: Test Map Remove has been start...");

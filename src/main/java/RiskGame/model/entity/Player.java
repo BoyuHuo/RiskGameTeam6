@@ -1,5 +1,12 @@
 package RiskGame.model.entity;
 
+/**
+ * This is the Continent class, it is a java bean, use for store the continent data
+ * It including the name, control number and the list of territories that belongs to it.
+ *
+ * @author Runsen Tian
+ * @version v1.0.0
+ */
 public class Player {
     private String name;
     private String color;

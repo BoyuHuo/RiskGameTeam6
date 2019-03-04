@@ -3,8 +3,6 @@ package RiskGame.model.service.imp;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.service.IGameManager;
-
-import java.io.IOException;
 import java.util.*;
 /**
  * This is implement class for game manager interface, which contains all the implementation of game related logic function.

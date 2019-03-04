@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This is the GameMap class, it is a java bean, use for store the map data
+ * It including all the information like author, continents and territories as well as the relationship between territories and continents.
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ * @see RiskGame.model.service.imp.MapManager
+ */
 public class  GameMap {
     private String image=" ";
     private String wrap=" ";
