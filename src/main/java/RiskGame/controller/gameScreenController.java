@@ -155,7 +155,7 @@ public class gameScreenController implements Initializable {
 
 
         public void initGameWindow(){
-                 initPlayers();
+                initPlayers();
 
                 onMouseClick();
 
