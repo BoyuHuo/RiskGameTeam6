@@ -401,7 +401,7 @@ public class createMapScreenController implements Initializable {
 
         Dialog<Results> dialog = new Dialog<>();
         dialog.setTitle("Enter Country Details");
-        //dialog.setHeaderText("Please specify…");
+        //dialog.setHeaderText("Please specify");
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField nameField = new TextField("");

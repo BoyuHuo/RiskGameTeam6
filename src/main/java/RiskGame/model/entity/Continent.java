@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This is the Continent class, it is a java bean, use for store the continent data
+ * It including the name, control number and the list of territories that belongs to it.
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class Continent {
     private String name;
     private int ctrNum;
