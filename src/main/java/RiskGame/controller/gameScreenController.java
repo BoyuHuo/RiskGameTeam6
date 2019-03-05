@@ -68,6 +68,11 @@ public class gameScreenController implements Initializable {
         @FXML
         private ListView<String> continentList;
 
+        @FXML
+        private ListView<String> playerListView;
+
+        private final ObservableList<String> playerData= FXCollections.observableArrayList();
+
         private final ObservableList<String> continentData= FXCollections.observableArrayList();
 
         private Group rectangleGroups = new Group() ;
@@ -200,7 +205,44 @@ public class gameScreenController implements Initializable {
      *</p>
      */
         public void initPlayers(){
-            if(playerList==null) {
+
+            playerData.clear();
+
+
+            for (Player p: GameManager.getInstance().getPlayers().values()) {
+                playerData.add(p.getName());
+            }
+
+            playerListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                @Override
+                public ListCell<String> call(ListView<String> param) {
+                    ListCell<String> cell=new ListCell<String>() {
+                        @Override
+                        protected void updateItem(String playerName, boolean b) {
+                            //System.out.println(playerName);
+                            if(playerName!=null) {
+                                ListData data=new ListData();
+
+                                if(playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
+                                    data.setPlayerInfo(playerName + " :" +
+                                            GameManager.getInstance().getPlayers().get(playerName).getArmies(), Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()),true);
+                                }   else {
+                                    data.setPlayerInfo(playerName + " :" +
+                                            GameManager.getInstance().getPlayers().get(playerName).getArmies(), Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()),false);
+
+                                }
+                                    setGraphic(data.getBox());
+                            }
+
+                        }
+                    };
+                    return cell;
+                }
+            });
+
+            playerListView.setItems(playerData);
+
+           /* if(playerList==null) {
                 playerList = new HashMap<>();
             }
             int count=0;
@@ -209,8 +251,8 @@ public class gameScreenController implements Initializable {
                 label.setBackground(new Background(new BackgroundFill(Color.valueOf(p.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
                 playerList.put(p.getName(),label);
                 players.addColumn(count, label);
-            }
-            highLightActivePlayer();
+            }*/
+            //highLightActivePlayer();
         }
 
     /**
@@ -223,7 +265,7 @@ public class gameScreenController implements Initializable {
             for (Player p: GameManager.getInstance().getPlayers().values()){
                 playerList.get(p.getName()).setText(p.getName()+" :"+p.getArmies());
             }
-            highLightActivePlayer();
+            //highLightActivePlayer();
         }
 
         /**
@@ -232,8 +274,9 @@ public class gameScreenController implements Initializable {
      *</p>
      */
     public void highLightActivePlayer(){
+
         playerList.get(GameManager.getInstance().getActivePlayer().getName()).setText("--> "+GameManager.getInstance().getActivePlayer().getName()+" :"+GameManager.getInstance().getActivePlayer().getArmies());
-        }
+    }
 
 
     /**
@@ -437,7 +480,8 @@ public class gameScreenController implements Initializable {
 
         public void Update(){
                 phase.setText(GameManager.getInstance().getGamePhase());
-                updatePlayers();
+                //updatePlayers();
+                initPlayers();
                 drawMap();
         }
 
@@ -448,13 +492,12 @@ public class gameScreenController implements Initializable {
                 gameMap=GameManager.getInstance().getMap();
                 initGameWindow();
                 setContinentList();
+
         }
 
     private void setContinentList() {
         continentData.clear();
-        for (int i = 0; i <continent.size() ; i++) {
-            continentData.add(continent.get(i));
-        }
+        continentData.addAll(continent);
 
         continentList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override

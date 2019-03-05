@@ -4,7 +4,7 @@ package RiskGame.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -30,6 +30,13 @@ public class ListData{
             {
                 throw new RuntimeException(e);
             }
+        }
+
+        public void setPlayerInfo(String string, Color color,boolean activeStatue) {
+            label1.setText(string);
+            if(activeStatue)
+            label1.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
+            rectangle.setFill(color);
         }
 
         public void setInfo(String string, Color color) {

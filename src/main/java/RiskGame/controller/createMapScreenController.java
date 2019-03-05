@@ -800,14 +800,13 @@ public class createMapScreenController implements Initializable {
                             double _y = entry.getValue().getY();
 
 
-
-
-
                             if (x >= _x && y >= _y &&
-                                    x <= _x + 75 && y <= _y + 75){
+                                    x <= _x + 55 && y <= _y + 40){
 
                                 continent.setName(newVal);
-                                entry.getValue().setContinent(continent);
+
+
+                                entry.getValue().setContinent(gameMap.getContinents().get(newVal));
                                 System.out.println(entry.getValue().getName()+entry.getValue().getContinent().getName());
                                 if(!continentColor.containsKey(entry.getValue().getContinent().getName())){
                                     continentColor.put(entry.getValue().getContinent().getName(),generateRandomColor());
