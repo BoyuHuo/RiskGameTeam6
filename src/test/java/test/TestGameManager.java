@@ -1,3 +1,4 @@
+package test;
 
 import RiskGame.model.entity.Player;
 import RiskGame.model.service.imp.GameManager;
@@ -11,7 +12,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
     /**
-    * This is a Junit Test Class, used for testing <b> Game Operating </b> function
+    * This is a Junit test Class, used for testing <b> Game Operating </b> function
     * It contains all test cases which is related to game operating.
     *
     * @author Hao Ma
@@ -52,7 +53,7 @@ public class TestGameManager {
         }
 
         /**
-         * Test case 1
+         * test case 1
          * Purpose: testing the operating sequence of the players
          * Process:
          * <ul>
@@ -80,7 +81,7 @@ public class TestGameManager {
         }
 
         /**
-         * Test case 2
+         * test case 2
          * Purpose: testing the operating sequence of the GamePhase
          * Process:
          * <ul>
@@ -115,7 +116,7 @@ public class TestGameManager {
         }
 
         /**
-         * Test case 3
+         * test case 3
          * Purpose: testing the operating result of the NextRound
          * Process:
          * <ul>
