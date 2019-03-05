@@ -1,24 +1,18 @@
 package RiskGame.controller;
-import RiskGame.model.entity.Continent;
+
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,19 +22,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.junit.Ignore;
-
-import java.awt.*;
-import java.awt.TextField;
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
-
 public class gameScreenController implements Initializable {
 
         @FXML
@@ -71,6 +57,7 @@ public class gameScreenController implements Initializable {
         private Button endRound;
         @FXML
         private ListView<String> continentList;
+
         private final ObservableList<String> continentData= FXCollections.observableArrayList();
 
         private Group rectangleGroups = new Group() ;
@@ -83,7 +70,7 @@ public class gameScreenController implements Initializable {
 
         private int mode=0;
 
-        Territory sourceTerrotory=null;
+        private Territory sourceTerrotory=null;
         int armyNumber=0;
 
         private HashMap<String,Color> continentColor=new HashMap<String,Color>();
@@ -193,8 +180,8 @@ public class gameScreenController implements Initializable {
             highLightActivePlayer();
         }
 
-    public void highLightActivePlayer(){
-        playerList.get(GameManager.getInstance().getActivePlayer().getName()).setText("--> "+GameManager.getInstance().getActivePlayer().getName()+" :"+GameManager.getInstance().getActivePlayer().getArmies());
+        public void highLightActivePlayer(){
+            playerList.get(GameManager.getInstance().getActivePlayer().getName()).setText("--> "+GameManager.getInstance().getActivePlayer().getName()+" :"+GameManager.getInstance().getActivePlayer().getArmies());
         }
 
         private void onMouseClick() {
@@ -418,7 +405,6 @@ public class gameScreenController implements Initializable {
                         setContinentSquareProperties( territory.getX(),territory.getY(),continentColor.get(territory.getContinent().getName()));
                         setLabelProperties(entry);
 
-                        //setLine(entry);
                         territorySquare=null;
                 }
                 rectangleGroups=new Group();
