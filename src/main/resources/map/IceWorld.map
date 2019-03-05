@@ -1,0 +1,18 @@
+[Map]
+author=Hao Ma
+image=001_I72_Ghtroc 720.bmp
+wrap=no
+scroll=vertical
+warn=no
+
+[Continents]
+FireLand=3
+WaterLand=2
+WindLand=1
+
+
+[Territories]
+FireDragon,100,200,FireLand,WaterDragon,WindDragon
+WaterDragon,200,300,WaterLand,FireDragon,WindDragon
+WindDragon,225,525,WindLand,WaterDragon,FireDragon
+
