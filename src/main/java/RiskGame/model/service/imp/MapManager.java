@@ -55,9 +55,7 @@ public class MapManager implements IMapManager {
                             mode = 3;
                             break;
                     }
-                    if (!TranslateTxt2Map(lineTxt, mode, gameMap)){
-                        return null;
-                    };
+                    TranslateTxt2Map(lineTxt, mode, gameMap);
                 }
                 GenerateTheRelationshipOfTerr(gameMap);
 
@@ -172,6 +170,9 @@ public class MapManager implements IMapManager {
         boolean validedContinent = true;
         validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
         for (Continent continent : gameMap.getContinents().values()) {
+            if(continent.getCtrNum()<0){
+                return false;
+            }
             validedContinent = IsConnectedContinents(continent) && validedContinent;
         }
 
