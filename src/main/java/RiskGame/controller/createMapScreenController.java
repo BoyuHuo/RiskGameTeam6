@@ -55,6 +55,9 @@ public class createMapScreenController implements Initializable {
     @FXML
     private ChoiceBox<String> cbContinents;
 
+    @FXML
+    private TextField authorTextArea;
+
     int mode;
 
     private File mapFile;
@@ -551,12 +554,18 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     public void saveMap(ActionEvent event) throws IOException {
+
+        if(authorTextArea.getText().equalsIgnoreCase("")){
+
+            showAlertDialog("Enter author name");
+        } else {
             MapManager mapManager=new MapManager();
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
             File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
-
+            gameMap.setAuthor(authorTextArea.getText());
+            gameMap.setImage("Dummy Image");
             if (file != null) {
 
                 if(gameMap.getContinents().size()>0){
@@ -569,6 +578,7 @@ public class createMapScreenController implements Initializable {
                         showAlertDialog("Add atleast one continent!!");
                 }
             }
+        }
     }
 
     private boolean showInputTextDialog(Double x, Double y) {
