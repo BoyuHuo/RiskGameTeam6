@@ -74,7 +74,11 @@ public class MapManager implements IMapManager {
                 e.printStackTrace();
             }
         }
-        return gameMap;
+        if(IsValided(gameMap)){
+            return gameMap;
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -120,6 +124,9 @@ public class MapManager implements IMapManager {
             out.write("[Continents]\r\n");
             if (gameMap.getContinents().size() > 0) {
                 for (Continent c : gameMap.getContinents().values()) {
+                    if(c.getCtrNum()<0){
+                        return false;
+                    }
                     out.write(c.getName() + "=" + c.getCtrNum() + "\r\n");
                 }
             }
@@ -127,6 +134,9 @@ public class MapManager implements IMapManager {
             out.write("[Territories]\r\n");
             if (gameMap.getTerritories().size() > 0) {
                 for (Territory t : gameMap.getTerritories().values()) {
+                    if(t.getContinent()==null){
+                        return false;
+                    }
                     out.write(t.getName() + "," + t.getX() + "," + t.getY() + "," + t.getContinent().getName());
                     for (Territory neibor : t.getNeighbors().values()) {
                         out.write("," + neibor.getName());
@@ -253,13 +263,16 @@ public class MapManager implements IMapManager {
      * @param mode which stage of reading now
      * @param gameMap the gameMap instance that need to be fulfilled
      */
-    private void TranslateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
+    private boolean TranslateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
         if (mode == 0) {
-            return;
+            return true;
         }
         if (mode == 1) {
             if (lineTxt.contains("=")) {
                 String[] valuePair = lineTxt.split("=");
+                if(valuePair.length!=2){
+                    return false;
+                }
                 switch (valuePair[0]) {
                     case "image":
                         gameMap.setImage(valuePair[1]);
@@ -301,6 +314,7 @@ public class MapManager implements IMapManager {
                 gameMap.getContinents().get(valuePair[3]).getTerritories().put(territory.getName(), territory);
             }
         }
+        return true;
 
     }
 
