@@ -58,7 +58,7 @@
                             <Font name="System Bold Italic" size="18.0" />
                           </font>
                         </Text>
-                        <Text fx:id="phase" fontSmoothingType="LCD" layoutX="82.0" layoutY="233.0" text="Phase" translateX="30.0" translateY="-170.0">
+                        <Text fx:id="phase" fontSmoothingType="LCD" layoutX="50.0" layoutY="232.0" text="Phase" translateX="30.0" translateY="-170.0">
                           <font>
                             <Font name="System Bold Italic" size="28.0" />
                           </font>

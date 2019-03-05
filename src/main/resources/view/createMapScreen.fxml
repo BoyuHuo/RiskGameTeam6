@@ -40,10 +40,10 @@
             <Button fx:id="backBt" mnemonicParsing="false" onAction="#clickBack" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="338.0" />
             <Button fx:id="saveBt" mnemonicParsing="false" onAction="#saveMap" text="Save" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="298.0" />
             <TextField fx:id="authorTextArea" promptText="Author Name" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="258.0" />
-             <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
+            <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
                        AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
                        AnchorPane.topAnchor="218.0" onAction="#cbChangeContinent"/>
-            <ImageView fitHeight="150.0" fitWidth="220.0" translateY="430.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="200.0" fitWidth="220.0" translateY="390.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <image>
                 <Image url="/images/logo.jpg" />
               </image>
