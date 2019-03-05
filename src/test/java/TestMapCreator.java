@@ -5,6 +5,7 @@ import RiskGame.model.service.imp.MapManager;
 import org.junit.*;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -98,7 +99,9 @@ public class TestMapCreator {
         map.getTerritories().put(t2.getName(),t2);
         map.getTerritories().put(t3.getName(),t3);
 
-        mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+
+        boolean resultboolean=  mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        System.out.println(resultboolean);
         GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
         assertEquals("Baiyu Huo",result.getAuthor());
         assertEquals(3,result.getTerritories().size());
@@ -300,6 +303,36 @@ public class TestMapCreator {
         assertEquals(3,map.getTerritories().size());
         assertEquals(1,map.getContinents().get("Red").getTerritories().size());
         assertEquals(0,map.getTerritories().get(s1.getName()).getNeighbors().size());
+
+    }
+
+    @Test
+    public void testCreationOne() {
+        System.out.println("Test case 5: Test Map Remove has been start...");
+        GameMap map = new GameMap();
+        map.setAuthor("Hao Ma");
+        map.setScroll("vertical");
+        map.setWarn("no");
+        map.setImage("null");
+        map.setWrap("no");
+        Map<String,Territory> territoryMap = new HashMap<>();
+        Territory t1 = new Territory("t1",100,101);
+        Territory t2 = new Territory("t2" , 102,103);
+        Territory t3 = new Territory("t3",103,104);
+        Continent c1 = new Continent("c1",10);
+        Continent c2 = new Continent("c2", 12);
+
+
+        t1.setContinent(c1);
+        t2.setContinent(c2);
+        t3.setContinent(c2);
+
+        t1.addNeibor(t2);
+        t2.addNeibor(t3);
+
+        System.out.println(mapManager.IsValided(map));
+
+
 
     }
 }
