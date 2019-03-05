@@ -16,9 +16,19 @@ import java.util.Map;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+/**
+ * This is a Junit test Class, used for testing <b> Territory </b> function
+ *
+ * @author Baiyu Huo
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestTerritory {
     MapManager mapManager;
 
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setUp() {
         mapManager = new MapManager();
@@ -35,6 +45,9 @@ public class TestTerritory {
         GameManager.getInstance().NewGame();
     }
 
+    /**
+     * This is the test case for random assign the Territory, although it isn't using assert
+     */
     @Test
     public void testRandomTerritory() {
 
@@ -47,16 +60,12 @@ public class TestTerritory {
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
     }
 
-    @Test
-    public void testImmgrant() {
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
-
-    }
-
+    /**
+     * This is the test case for testing move the arimies from one territory to another territory
+     * It create a valid map, and a ideal situation for transfer the armies
+     * which means, the territory has enough armies to move and, both the source territory and destination belongs to the same player
+     * and it won't pass any enemy's territory.
+     */
     @Test
     public void testImmgrantOne() {
         System.out.println("Test case 1: Test Immgrant has been start...");
@@ -93,6 +102,11 @@ public class TestTerritory {
         assertTrue(result);
     }
 
+    /**
+     * This is the test case for testing move the arimies from one territory to another territory
+     * It create a valid map, and a not ideal situation for transfer the armies
+     * which means, the territory has enough armies to move, but the path has to pass the enemy's territory.
+     */
     @Test
     public void testImmgrantTwo() {
         System.out.println("Test case 2: Test Immgrant has been start...");
@@ -129,6 +143,12 @@ public class TestTerritory {
         assertFalse(result);
     }
 
+
+    /**
+     * This is the test case for testing move the arimies from one territory to another territory
+     * It create a valid map, and a not ideal situation for transfer the armies
+     * which means, the territory has enough armies to move, but it's not this player's territories.
+     */
     @Test
     public void testImmgrantThree() {
         System.out.println("Test case 3: Test Immgrant has been start...");
