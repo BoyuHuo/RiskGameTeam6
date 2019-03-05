@@ -154,7 +154,7 @@ public class createMapScreenController implements Initializable {
                         }
 
                     } else{
-                        showAlertDialog("Click inside a valid terrotory!!");
+                        showAlertDialog("Click inside a valid territory!!");
                     }
 
 
@@ -686,8 +686,14 @@ public class createMapScreenController implements Initializable {
         if (result.isPresent()) {
 
             if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog("Enter Country name");
+                showAlertDialog("Enter Territory name");
                 return false;
+            }
+
+
+            if(gameMap.getTerritories().containsKey(result.get())) {
+                showAlertDialog("Territory already added!");
+                return  false;
             }
 
             Label continentName = new Label();
@@ -722,7 +728,7 @@ public class createMapScreenController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
-        alert.setContentText("Enter "+alertType+" name");
+        alert.setContentText(alertType);
         alert.showAndWait();
     }
 
@@ -762,7 +768,12 @@ public class createMapScreenController implements Initializable {
 
                 if (nameField.getText().equalsIgnoreCase("")||
                         controlNumber.getText().equalsIgnoreCase("")) {
-                    showAlertDialog("Continent");
+                    showAlertDialog("Enter Continent Name");
+                    return null;
+                }
+
+                if(gameMap.getContinents().containsKey(nameField.getText())){
+                    showAlertDialog("Continent Already Added");
                     return null;
                 }
 
