@@ -46,4 +46,68 @@
     <Label fx:id="lblPlayer8" font="$x1" layoutX="14.0" layoutY="530.0" text="Player 8" translateY="-30.0" />
     <Button fx:id="btnSave" layoutX="-431.0" layoutY="637.0" minHeight="30.0" mnemonicParsing="false" onAction="#clickButtonSave" prefHeight="30.0" prefWidth="93.0" text="Save" translateX="530.0" translateY="-80.0" />
   </children>
+
+  <VBox layoutX="511.0" layoutY="64.0" prefHeight="465.0"
+        prefWidth="385.0" style="-fx-border-color: #36149d;">
+    <children>
+      <Label style="-fx-background-color: #ffffff;" text="  Game Tips  ">
+        <font>
+          <Font name="System Bold Italic" size="18.0" fx:id="x3" />
+        </font>
+        <VBox.margin>
+          <Insets left="30.0" top="-8.0" />
+        </VBox.margin>
+      </Label>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 2 are playing, each player counts out 45 Infantry;" >
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 3 are playing, each player counts out 35 Infantry;">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 4 are playing, each player counts out 30 Infantry;">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 5 are playing, each player counts out 25 Infantry;">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 6 are playing, each player counts out 20 Infantry;">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 7 are playing, each player counts out 15 Infantry;">
+        <font>
+          <Font name="System Bold" size="18.0" />
+        </font>
+      </Text>
+      <Text text=""/>
+      <Text text=""/>
+      <Text text="   If 8 are playing, each player counts out 10 Infantry.">
+        <font>
+          <Font name="System Bold" size="18.0" />
+        </font>
+      </Text>
+    </children>
+  </VBox>
+
 </AnchorPane>
