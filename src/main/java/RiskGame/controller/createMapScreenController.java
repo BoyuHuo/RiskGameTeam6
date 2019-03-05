@@ -55,6 +55,9 @@ public class createMapScreenController implements Initializable {
     @FXML
     private ChoiceBox<String> cbContinents;
 
+    @FXML
+    private TextField authorTextArea;
+
     int mode;
 
     private File mapFile;
@@ -93,15 +96,67 @@ public class createMapScreenController implements Initializable {
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         mapFile = mapFileChooser.showOpenDialog(null);
+
         if (mapFile != null) {
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
+            cbContinents.getItems().clear();
+            for(Map.Entry<String,Continent> entery: gameMap.getContinents().entrySet())
+            cbContinents.getItems().add(entery.getKey());
+            drawMap();
         }
-        drawMap();
+
+
     }
 
 
+    @FXML
+    private void deleteTerrotory(ActionEvent event) throws IOException {
+
+        mode=4;
+        if(mode==4){
+
+            createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                    if(checkCoordinates(event.getX(), event.getY())) {
+
+                        double x= event.getX();
+                        double y=event.getY();
+
+
+                        for(Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet()) {
+
+                            double _x = entry.getValue().getX();
+                            double _y = entry.getValue().getY();
+                            if (x >= _x && y >= _y &&
+                                    x <= _x + 55 && y <= _y + 40){
+                                gameMap.removeTerrtory(entry.getKey());
+                                drawMap();
+                                break;
+                            }
+
+
+                        }
+
+                    } else{
+                        showAlertDialog("Click inside a valid terrotory!!");
+                    }
+
+
+
+                }
+            });
+        }
+
+    }
+
+
+
     private void drawMap() {
+
+        clearAllLabels();
       //  createMapPane.getChildren().clear();
         rectangleGroups.getChildren().clear();
         //rectangleGroups = new Group();
@@ -131,6 +186,17 @@ public class createMapScreenController implements Initializable {
         //rectangleGroups=new Group();
     }
 
+    private void clearAllLabels() {
+
+        for (Node node : createMapPane.getChildren()) {
+            if (node instanceof Label) {
+                // clear
+                ((Label)node).setText("");
+            }
+        }
+
+    }
+
 
     private Color generateRandomColor() {
         Random random = new Random();
@@ -148,6 +214,7 @@ public class createMapScreenController implements Initializable {
         square.setArcWidth(10);
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
+        square.setFill(Color.TRANSPARENT);
         square.setWidth( 55 ) ;
         square.setHeight( 40 ) ;
         square.setStroke( Color.BLACK ) ;
@@ -164,7 +231,7 @@ public class createMapScreenController implements Initializable {
         rectangle.setWidth( 55 ) ;
         rectangle.setHeight( 20 ) ;
         rectangle.setFill( color) ;
-        rectangle.setStroke( Color.BLACK ) ;
+        rectangle.setStroke( Color.TRANSPARENT ) ;
         rectangleGroups.getChildren().add( rectangle ) ;
     }
 
@@ -173,7 +240,7 @@ public class createMapScreenController implements Initializable {
         continentName.setLayoutX((entry.getValue().getX() + 5));
         continentName.setLayoutY((entry.getValue().getY() - 20));
         continentName.setText(entry.getValue().getName());
-        continentName.setTextFill(Color.WHITE);
+        continentName.setTextFill(Color.BLACK);
         continentName.setStyle("-fx-font-weight: bold;");
 
 
@@ -487,31 +554,46 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     public void saveMap(ActionEvent event) throws IOException {
+
+        if(authorTextArea.getText().equalsIgnoreCase("")){
+
+            showAlertDialog("Enter author name");
+        } else {
             MapManager mapManager=new MapManager();
 
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
             File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
-
+            gameMap.setAuthor(authorTextArea.getText());
+            gameMap.setImage("Dummy Image");
             if (file != null) {
-                mapManager.CreateMap(file.getPath(),gameMap);
+
+                if(gameMap.getContinents().size()>0){
+
+                    if(mapManager.CreateMap(file.getPath(),gameMap)) {
+                        showAlertDialog("Please create a valid map");
+                    }
+                }
+                else {
+                        showAlertDialog("Add atleast one continent!!");
+                }
             }
+        }
     }
 
     private boolean showInputTextDialog(Double x, Double y) {
 
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter Country Name");
+        dialog.setTitle("Enter Terrotory Name");
         dialog.setHeaderText(null);
-        dialog.setContentText("Name:");
-        dialog.setContentText("Control Number");
+        dialog.setContentText("Terrotory Name");
 
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
 
             if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog("Country");
+                showAlertDialog("Enter Country name");
                 return false;
             }
            /* Label label = new Label();
@@ -526,7 +608,7 @@ public class createMapScreenController implements Initializable {
             continentName.setLayoutX((x + 5));
             continentName.setLayoutY((y - 20));
             continentName.setText(result.get());
-            continentName.setTextFill(Color.WHITE);
+            continentName.setTextFill(Color.BLACK);
             continentName.setStyle("-fx-font-weight: bold;");
 
             createMapPane.getChildren().add(continentName);
@@ -547,7 +629,7 @@ public class createMapScreenController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
-        alert.setContentText("Enter "+alertType+" name");
+        alert.setContentText(alertType);
         alert.showAndWait();
     }
 
@@ -582,7 +664,7 @@ public class createMapScreenController implements Initializable {
 
                 if (nameField.getText().equalsIgnoreCase("")||
                         controlNumber.getText().equalsIgnoreCase("")) {
-                    showAlertDialog("Continent");
+                    showAlertDialog("Enter Continent name");
                     return null;
                 }
 
@@ -653,13 +735,8 @@ public class createMapScreenController implements Initializable {
 
                             double _x = entry.getValue().getX();
                             double _y = entry.getValue().getY();
-
-
-
-
-
                             if (x >= _x && y >= _y &&
-                                    x <= _x + 75 && y <= _y + 75){
+                                    x <= _x + 55 && y <= _y + 40){
 
                                 continent.setName(newVal);
                                 entry.getValue().setContinent(continent);
