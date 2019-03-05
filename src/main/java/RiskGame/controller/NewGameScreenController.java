@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * playing the game.
  *
  * @author Karan Sharma
- * @version v.0.0
+ * @version v1.0.0
  */
 
 public class NewGameScreenController implements Initializable {
