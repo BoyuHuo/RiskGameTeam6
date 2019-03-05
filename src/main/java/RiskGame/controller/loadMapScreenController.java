@@ -21,6 +21,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ *
+ * This is the implementation for the load map screen controller.
+ *
+ */
+
+
+
 public class loadMapScreenController implements Initializable {
 
     private GameMap gameMap;

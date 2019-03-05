@@ -34,6 +34,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ *
+ * <p>
+ * This is the implementation of controller for map screen.
+ * </p>
+ *
+ * <p>
+ * It implements all the required methods that takes care user interaction to get the desired results.
+ * </p>
+ *
+ * @author Sudhanva Muralidhar
+ * @version 1v.0.0
+ */
+
 public class createMapScreenController implements Initializable {
 
 
@@ -78,11 +92,9 @@ public class createMapScreenController implements Initializable {
     Line l1;
 
     /**
-     * This is the implementation for New Game Button.
-     * <p>
-     * Please note that I've used a depricated method call .toURL() below. Please provide your inputs in helping me
-     * write this code better.
-     *
+     *<p>
+     * This method is responsible for loading an existing map from the user's system.
+     *</p>
      * @param event
      * @throws IOException
      */
@@ -100,7 +112,11 @@ public class createMapScreenController implements Initializable {
         drawMap();
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for drawing loading an existing map from the user's system.
+     *</p>
+     */
     private void drawMap() {
       //  createMapPane.getChildren().clear();
         rectangleGroups.getChildren().clear();
@@ -131,6 +147,12 @@ public class createMapScreenController implements Initializable {
         //rectangleGroups=new Group();
     }
 
+    /**
+     *<p>
+     * This method is responsible for generating random color.
+     *</p>
+
+     */
 
     private Color generateRandomColor() {
         Random random = new Random();
@@ -141,6 +163,15 @@ public class createMapScreenController implements Initializable {
         return Color.rgb(r,g,b);
     }
 
+
+    /**
+     *<p>
+     * This method is responsible for setting the properties pertaining to the square drawn for territories during create map screen.
+     *</p>
+     * @param starting_point_x x coordinate of mouse position
+     * @param starting_point_y y coordinate of mouse position
+     * @param square object of class rectangle
+     */
     private void setTerrotorySquareProperties( double starting_point_x, double starting_point_y,Rectangle square)
     {
 
@@ -155,6 +186,15 @@ public class createMapScreenController implements Initializable {
 
     }
 
+
+    /**
+     *<p>
+     * This method is responsible for setting the properties pertaining to the square drawn fot continents during create map screen.
+     *</p>
+     * @param x x coordinate of mouse position
+     * @param y y coordinate of mouse position
+     * @param color object of class rectangle
+     */
     private void setContinentSquareProperties(int x, int y, Color color) {
         Rectangle rectangle=new Rectangle();
         rectangle.setArcHeight(10);
@@ -168,6 +208,12 @@ public class createMapScreenController implements Initializable {
         rectangleGroups.getChildren().add( rectangle ) ;
     }
 
+    /**
+     *<p>
+     * This method is responsible for setting the label properties.
+     *</p>
+     * @param entry x map entry list
+     */
     private void setLabelProperties(Map.Entry<String, Territory> entry) {
         Label continentName = new Label();
         continentName.setLayoutX((entry.getValue().getX() + 5));
@@ -188,7 +234,13 @@ public class createMapScreenController implements Initializable {
         createMapPane.getChildren().add(continentName);
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for implementing Depth First Search algorithm logic.
+     *</p>
+     * @param t object of the class Territory
+     * @param connectedTerrs contains a list of connected territories
+     */
     private void DFS(Territory t, ArrayList<String> connectedTerrs) {
         for (String key : t.getNeighbors().keySet()) {
             Territory neightbor = t.getNeighbors().get(key);
@@ -209,6 +261,13 @@ public class createMapScreenController implements Initializable {
         }
     }
 
+    /**
+     *<p>
+     * This method is responsible for implementing new game button.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickNewGameButton(ActionEvent event) throws IOException {
         Parent newGameScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
@@ -219,6 +278,11 @@ public class createMapScreenController implements Initializable {
     }
 
 
+    /**
+     *<p>
+     * This method helps user to select maps from system.
+     *</p>
+     */
     @FXML
     private void mapFileChooser() {
         FileChooser mapFileChooser = new FileChooser();
@@ -230,6 +294,13 @@ public class createMapScreenController implements Initializable {
         //return mapFile;
     }
 
+    /**
+     *<p>
+     * This method is responsible for implementing create map button.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
         Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
@@ -241,18 +312,11 @@ public class createMapScreenController implements Initializable {
     }
 
     /**
-     * This is a redundant class which prints the co-ordinates of the mouse clicked event.
-     * <p>
-     * Whenever user clicks on the Build Map button a new blank stage opens up.
-     * When you Click on this blank screen, in the previous screen (where you clicked the Build Map button) I'm displaying
-     * the co-ordinates of the mouse click.
-     * - Sudhanva Muralidhar
-     * 19 February 2019
-     *
-     * @param event Ignore
+     *<p>
+     * This method is responsible for implementing creating territory squares on the map screen.
+     *</p>
+     * @param event ActionEvent
      */
-
-
     @FXML
     public void createTerrotory(ActionEvent event) {
 
@@ -290,7 +354,14 @@ public class createMapScreenController implements Initializable {
 
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for creating sqaure shape to create map.
+     *</p>
+     * @param starting_point_x x coordinate of mouse pointer.
+     * @param starting_point_y  y coordinate of mouse pointer.
+     * @param square Object of rectangle class.
+     */
     private void setSquareProperties(double starting_point_x, double starting_point_y, Rectangle square) {
         square.setArcHeight(10);
         square.setArcWidth(10);
@@ -330,7 +401,12 @@ public class createMapScreenController implements Initializable {
 
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for connecting the territories by dragging mouse from one territory to other.
+     *</p>
+     * @param event ActionEvent
+     */
     @FXML
     public void connectTerrotory(ActionEvent event) {
 
@@ -443,6 +519,14 @@ public class createMapScreenController implements Initializable {
         }
     }
 
+
+    /**
+     *<p>
+     * This method is responsible for implementing back button.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickBack(ActionEvent event) throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
@@ -463,6 +547,14 @@ public class createMapScreenController implements Initializable {
     }
 
 
+    /**
+     *<p>
+     * This method is responsible for implementing back button.
+     *</p>
+     * @param x x-coordinate of mouse pointer.
+     * @param y y-coordinate of mouse pointer.
+     * @return checks if the mouse click is in the required limits and returns true or false.
+     */
     private boolean checkCoordinates(double x, double y) {
 
 
@@ -484,7 +576,13 @@ public class createMapScreenController implements Initializable {
         showContinentAlertDialog();
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for saving the created map.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException throws input output exception
+     */
     @FXML
     public void saveMap(ActionEvent event) throws IOException {
             MapManager mapManager=new MapManager();
@@ -552,7 +650,12 @@ public class createMapScreenController implements Initializable {
     }
 
 
-
+    /**
+     *<p>
+     * This method implements a dialog box for user to input country details and control number.
+     *</p>
+     * @return returns the Result class object containing continent name and control number.
+     */
     private Results showContinentAlertDialog() {
 
         Dialog<Results> dialog = new Dialog<>();
@@ -609,7 +712,13 @@ public class createMapScreenController implements Initializable {
 
 
 
-
+    /**
+     *<p>
+     * This method gets the coordinates for the mouse click on the create map screen.
+     *</p>
+     * @param event ActionEvent
+     *
+     */
     @FXML
     public void getMouseClick(ActionEvent event) {
         myPanel = new AnchorPane();
@@ -683,7 +792,12 @@ public class createMapScreenController implements Initializable {
 
     }
 
-
+    /**
+     *<p>
+     * This is nested classes that is responsible for creating an object that contains
+     * conitent name and control number.
+     *</p>
+     */
     private static class Results {
 
         String continentName;

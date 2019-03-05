@@ -28,6 +28,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * This class contains implementation for the load map, create map, edit player details and start game buttons functionality.
+ * It contains all the methods that are used to load a map from local system, or create a map using the game screen and start
+ * playing the game.
+ *
+ * @author Karan Sharma
+ * @version 1v.0.0
+ */
+
 public class newGameScreenController implements Initializable {
     @FXML
     private Text mapName;
@@ -47,11 +57,25 @@ public class newGameScreenController implements Initializable {
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
     private StringBuilder playersName=new StringBuilder();
+    File mapFile;
 
+    /**
+     *<p>
+     * This method sets the player.
+     *</p>
+     * @param playersList list of player.
+     */
     public void setPlayers(Map<String, Player> playersList ){
         this.players=players;
     }
-    File mapFile;
+
+
+    /**
+     *<p>
+     * This method allows user to load map from the local device.
+     *</p>
+     * @throws IOException
+     */
     @FXML
     private void mapFileChooser() throws IOException {
         FileChooser mapFileChooser = new FileChooser();
@@ -67,6 +91,14 @@ public class newGameScreenController implements Initializable {
 
         }
     }
+
+    /**
+     *<p>
+     * This method sets the player details.
+     *</p>
+     * @param playersList list of playera.
+     * @param gameMapfile File class object
+     */
     public void setPlayersDetails(HashMap<String,Player> playersList,File gameMapfile) {
 
         players=playersList;
@@ -104,6 +136,14 @@ public class newGameScreenController implements Initializable {
         createMapSceneStage.show();
     }
 
+
+    /**
+     *<p>
+     * This method implements the functionality for create map button, navigates user to create map screen.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
         Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
@@ -114,6 +154,8 @@ public class newGameScreenController implements Initializable {
         createMapSceneStage.show();
 
     }
+
+
 
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
         /*Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
@@ -148,6 +190,13 @@ public class newGameScreenController implements Initializable {
 
     }
 
+
+    /**
+     *<p>
+     * This method implements the back functionality to navigate user back to the main screen.
+     *</p>
+     * @throws IOException
+     */
     @FXML
     private void hyperBack() throws IOException {
         Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
@@ -162,6 +211,13 @@ public class newGameScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    /**
+     *<p>
+     * This method implements the functionality for the start button, navigates user to the game screen.
+     *</p>
+     * @param event Action Event
+     * @throws IOException throws input output exceptions
+     */
     @FXML
     public void clickStartButton(ActionEvent event) throws IOException {
 

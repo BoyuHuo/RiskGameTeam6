@@ -1,5 +1,6 @@
+package test;
+
 import RiskGame.model.entity.Player;
-import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
 import org.junit.Before;
@@ -7,8 +8,6 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class TestTerritory {
     MapManager mapManager;

@@ -1,3 +1,5 @@
+package test;
+
 import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
@@ -5,12 +7,11 @@ import RiskGame.model.service.imp.MapManager;
 import org.junit.*;
 
 import java.io.File;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
 /**
- * This is a Junit Test Class, used for testing <b> Map Creation </b> function
+ * This is a Junit test Class, used for testing <b> Map Creation </b> function
  * It contains all test cases which is related to map creation.
  *
  * @author Baiyu Huo, Hao Ma
@@ -38,7 +39,7 @@ public class TestMapCreator {
             String encodeUrl = java.net.URLDecoder.decode(getClass().getResource("/map/").getPath()+"NewMap1.map", "utf-8");
             File file = new File(encodeUrl);
             if(file.delete()){
-                System.out.println("OK! Test file: "+file.getName() + " has been cleaned");
+                System.out.println("OK! test file: "+file.getName() + " has been cleaned");
             }else{
                 System.out.println("Fail to delete the test file");
             }
@@ -48,7 +49,7 @@ public class TestMapCreator {
     }
 
     /**
-     * Test case 1
+     * test case 1
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -62,7 +63,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreate() {
-        System.out.println("Test case: Test Map Create has been start...");
+        System.out.println("test case: test Map Create has been start...");
         GameMap map = new GameMap();
 
 
@@ -107,7 +108,7 @@ public class TestMapCreator {
     }
 
     /**
-     * Test case 2
+     * test case 2
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -121,7 +122,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreateTwo() {
-        System.out.println("Test case 2: Test Map Create has been start...");
+        System.out.println("test case 2: test Map Create has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -165,7 +166,7 @@ public class TestMapCreator {
     }
 
     /**
-     * Test case 3
+     * test case 3
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -179,7 +180,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreateThree() {
-        System.out.println("Test case 3: Test Map Create has been start...");
+        System.out.println("test case 3: test Map Create has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -212,7 +213,7 @@ public class TestMapCreator {
     }
 
     /**
-     * Test case 4
+     * test case 4
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -226,7 +227,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreateFour() {
-        System.out.println("Test case 4: Test Map Create has been start...");
+        System.out.println("test case 4: test Map Create has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -259,12 +260,12 @@ public class TestMapCreator {
         assertFalse(result);
     }
     /**
-     * Test case 5
+     * test case 5
      * Purpose: testing the function of remove a territory from a map
      */
     @Test
     public void testRemove() {
-        System.out.println("Test case 5: Test Map Remove has been start...");
+        System.out.println("test case 5: test Map Remove has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");

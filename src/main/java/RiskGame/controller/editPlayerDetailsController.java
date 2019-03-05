@@ -19,6 +19,15 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * This is the implementation of controller for player screen. It implements the functionality to edit
+ * player details. *
+ *
+ * @author Sudhanva Muralidhar
+ * @version 1v.0.0
+ */
+
 public class editPlayerDetailsController implements Initializable {
     private ObservableList noOfPlayers = FXCollections.observableArrayList();
     @FXML
@@ -30,7 +39,11 @@ public class editPlayerDetailsController implements Initializable {
     public static int numberOfPlayers;
     private File gameMapFile;
 
-
+    /**
+     *<p>
+     * This method loads the choice box.
+     *</p>
+     */
     @FXML
     private void loadChoiceBox()
     {
@@ -40,6 +53,13 @@ public class editPlayerDetailsController implements Initializable {
     }
 
 
+    /**
+     *<p>
+     * This method implements Next Button to move to edit player screen.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickNext(ActionEvent event) throws IOException
     {
@@ -75,6 +95,13 @@ public class editPlayerDetailsController implements Initializable {
     }
 
 
+    /**
+     *<p>
+     * This method implements Back Button to get to new game screen.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickHyperBack(ActionEvent event) throws IOException
     {
@@ -85,37 +112,20 @@ public class editPlayerDetailsController implements Initializable {
         editPlayerStage.show();
     }
 
+
     /**
-     *
-     * Just an alert box to confirm the number of players selected by the user.
-     *
-     * However unable to invoke this function with btnNext.setOnAction(event1 -> confirmChoice(numberOfPlayers));
-     * in the clickNext() function above. Need to check. Could be ignored.
-     * @param numberOfPlayers
-     *
-     * Sudhanva Muralidhar
-     * 02/23/2019
+     *<p>
+     * This method sets map details.
+     *</p>
+     * @param  gameMapFile File class object
      */
-    @FXML
-    private void confirmChoice(Integer numberOfPlayers)
+
+
+    public  void setMapDetails(File gameMapFile)
     {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Number of Players: "+numberOfPlayers);
-        alert.setContentText("Click OK to Proceed");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-
-        } else {
-
-            alert.close();
-        }
-    }
-
-    public  void setMapDetails(File gameMapFile) {
         this.gameMapFile=gameMapFile;
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
