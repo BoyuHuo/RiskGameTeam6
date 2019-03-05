@@ -533,7 +533,6 @@ public class createMapScreenController implements Initializable {
             showAlertDialog("Enter author name");
         } else {
             MapManager mapManager=new MapManager();
-
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
             File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
@@ -543,7 +542,7 @@ public class createMapScreenController implements Initializable {
 
                 if(gameMap.getContinents().size()>0){
 
-                    if(mapManager.CreateMap(file.getPath(),gameMap)) {
+                    if(!mapManager.CreateMap(file.getPath(),gameMap)) {
                         showAlertDialog("Please create a valid map");
                     }
                 }
