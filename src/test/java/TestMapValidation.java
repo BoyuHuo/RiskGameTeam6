@@ -75,7 +75,7 @@ public class TestMapValidation {
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>
-     *     <li>load a test map(There are not only some disconnected Continents but also some disconnected Territories)</li>
+     *     <li>load a test map(There are some mistakes for the control number of continents)</li>
      *     <li>check if the map is not valided</li>
      * </ul>
      *
