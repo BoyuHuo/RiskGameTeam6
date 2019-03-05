@@ -170,7 +170,10 @@ public class MapManager implements IMapManager {
     public boolean IsValided(GameMap gameMap) {
         boolean validedTerritories = false;
         boolean validedContinent = true;
+
         validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
+
+
         for (Continent continent : gameMap.getContinents().values()) {
             if(continent.getCtrNum()<0){
                 return false;
@@ -190,11 +193,15 @@ public class MapManager implements IMapManager {
      */
     private boolean IsConnectedTerritories(HashMap<String, Territory> graph) {
         ArrayList<String> territoriesTag = new ArrayList<String>();
-        Iterator iterator = graph.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = (String)iterator.next();
-            DFS(graph.get(key), territoriesTag);
+        Iterator iterator = graph.values().iterator();
+        if (iterator.hasNext()) {
+            Territory territory = (Territory)iterator.next();
+
+            DFS(territory, territoriesTag);
+        } else{
+            return false;
         }
+        System.out.println(territoriesTag.size()+" and "+graph.size());
         if (territoriesTag.size() == graph.size()) {
             return true;
         }
@@ -212,14 +219,12 @@ public class MapManager implements IMapManager {
         ArrayList<String> territoriesTag = new ArrayList<String>();
         Iterator cIterator = continent.getTerritories().keySet().iterator();
 
-        while (cIterator.hasNext()) {
+        if (cIterator.hasNext()) {
             String key = (String)cIterator.next();
-            System.out.println(key);
-            DFS_Continent(continent.getTerritories().get(key), territoriesTag, continent.getName());
             DFS_Continent(continent.getTerritories().get(key), territoriesTag, continent.getName());
         }
-       System.out.println(territoriesTag.size()/2+":"+continent.getTerritories().size());
-        if (territoriesTag.size()/2 == continent.getTerritories().size()) {
+        System.out.println(territoriesTag.size()+" vs "+continent.getTerritories().size());
+        if (territoriesTag.size() == continent.getTerritories().size()) {
             return true;
         }
         return false;
@@ -233,10 +238,10 @@ public class MapManager implements IMapManager {
      * @param connectedTerrs key of all Territories
      */
     private void DFS(Territory t, ArrayList<String> connectedTerrs) {
+        connectedTerrs.add(t.getName());
         for (String key : t.getNeighbors().keySet()) {
             Territory neightbor = t.getNeighbors().get(key);
             if (!connectedTerrs.contains(neightbor.getName())) {
-                connectedTerrs.add(neightbor.getName());
                 DFS(neightbor, connectedTerrs);
             }
 
