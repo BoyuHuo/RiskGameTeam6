@@ -7,6 +7,8 @@ import RiskGame.model.service.imp.MapManager;
 import org.junit.*;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -79,9 +81,9 @@ public class TestMapCreator {
         Territory t3 = new Territory("Ter3",80,80);
 
 
-        t1.getNeighbors().put(t2.getName(),t2);
-        t2.getNeighbors().put(t3.getName(),t3);
-        t3.getNeighbors().put(t1.getName(),t1);
+        t1.addNeibor(t2);
+        t2.addNeibor(t3);
+        t3.addNeibor(t1);
 
 
         Continent c1= new Continent("C1",5);
@@ -99,7 +101,9 @@ public class TestMapCreator {
         map.getTerritories().put(t2.getName(),t2);
         map.getTerritories().put(t3.getName(),t3);
 
-        mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+
+        boolean resultboolean=  mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        System.out.println(resultboolean);
         GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
         assertEquals("Baiyu Huo",result.getAuthor());
         assertEquals(3,result.getTerritories().size());
@@ -134,11 +138,11 @@ public class TestMapCreator {
         Territory w1 = new Territory("Water1",200,150);
         Territory w2= new Territory("Water2",200,200);
         Territory i1= new Territory("Ice1",300,100);
-        f1.getNeighbors().put(f2.getName(),f2);
-        f2.getNeighbors().put(w1.getName(),w1);
-        w1.getNeighbors().put(w2.getName(),w2);
-        w2.getNeighbors().put(i1.getName(),i1);
-        i1.getNeighbors().put(f1.getName(),f1);
+        f1.addNeibor(f2);
+        f2.addNeibor(w1);
+        w1.addNeibor(w2);
+        w2.addNeibor(i1);
+        i1.addNeibor(f1);
         Continent c = new Continent("Canada",22);
         Continent m = new Continent("Montrea",16);
         Continent q = new Continent("Quebec",18);
@@ -166,7 +170,7 @@ public class TestMapCreator {
     }
 
     /**
-     * test case 3
+     * Test case 3
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -180,7 +184,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreateThree() {
-        System.out.println("test case 3: test Map Create has been start...");
+        System.out.println("Test case 3: Test Map Create has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -191,8 +195,8 @@ public class TestMapCreator {
         Territory w2 = new Territory("Wind2",125,175);
         Territory s1 = new Territory("Sun1",225,175);
         Territory m1= new Territory("Moon1",325,125);
-        w1.getNeighbors().put(w2.getName(),w2);
-        s1.getNeighbors().put(m1.getName(),m1);
+        w1.addNeibor(w2);
+        s1.addNeibor(m1);
         Continent a = new Continent("Apple",23);
         Continent b = new Continent("Banana",12);
         Continent p = new Continent("Peach",16);
@@ -213,7 +217,7 @@ public class TestMapCreator {
     }
 
     /**
-     * test case 4
+     * Test case 4
      * Purpose: testing the function of creating a map
      * Process:
      * <ul>
@@ -227,7 +231,7 @@ public class TestMapCreator {
      */
     @Test
     public void testCreateFour() {
-        System.out.println("test case 4: test Map Create has been start...");
+        System.out.println("Test case 4: Test Map Create has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -238,9 +242,9 @@ public class TestMapCreator {
         Territory b2 = new Territory("Basketball2",225,275);
         Territory f1 = new Territory("Football1",325,275);
         Territory s1= new Territory("Swimming1",425,225);
-        b2.getNeighbors().put(f1.getName(),f1);
-        f1.getNeighbors().put(s1.getName(),s1);
-        s1.getNeighbors().put(b1.getName(),b1);
+        b2.addNeibor(f1);
+        f1.addNeibor(s1);
+        s1.addNeibor(b1);
         Continent r = new Continent("Red",16);
         Continent y = new Continent("Yellow",19);
         Continent d = new Continent("Darkness",18);
@@ -260,12 +264,12 @@ public class TestMapCreator {
         assertFalse(result);
     }
     /**
-     * test case 5
+     * Test case 5
      * Purpose: testing the function of remove a territory from a map
      */
     @Test
     public void testRemove() {
-        System.out.println("test case 5: test Map Remove has been start...");
+        System.out.println("Test case 5: Test Map Remove has been start...");
         GameMap map = new GameMap();
         map.setAuthor("Hao Ma");
         map.setScroll("vertical");
@@ -276,9 +280,9 @@ public class TestMapCreator {
         Territory b2 = new Territory("Basketball2",225,275);
         Territory f1 = new Territory("Football1",325,275);
         Territory s1= new Territory("Swimming1",425,225);
-        b2.getNeighbors().put(f1.getName(),f1);
-        f1.getNeighbors().put(s1.getName(),s1);
-        s1.getNeighbors().put(b1.getName(),b1);
+        b2.addNeibor(f1);
+        f1.addNeibor(s1);
+        s1.addNeibor(b1);
         Continent r = new Continent("Red",16);
         Continent y = new Continent("Yellow",19);
         Continent d = new Continent("Darkness",18);
@@ -301,6 +305,36 @@ public class TestMapCreator {
         assertEquals(3,map.getTerritories().size());
         assertEquals(1,map.getContinents().get("Red").getTerritories().size());
         assertEquals(0,map.getTerritories().get(s1.getName()).getNeighbors().size());
+
+    }
+
+    @Test
+    public void testCreationOne() {
+        System.out.println("Test case 5: Test Map Remove has been start...");
+        GameMap map = new GameMap();
+        map.setAuthor("Hao Ma");
+        map.setScroll("vertical");
+        map.setWarn("no");
+        map.setImage("null");
+        map.setWrap("no");
+        Map<String,Territory> territoryMap = new HashMap<>();
+        Territory t1 = new Territory("t1",100,101);
+        Territory t2 = new Territory("t2" , 102,103);
+        Territory t3 = new Territory("t3",103,104);
+        Continent c1 = new Continent("c1",10);
+        Continent c2 = new Continent("c2", 12);
+
+
+        t1.setContinent(c1);
+        t2.setContinent(c2);
+        t3.setContinent(c2);
+
+        t1.addNeibor(t2);
+        t2.addNeibor(t3);
+
+        System.out.println(mapManager.IsValided(map));
+
+
 
     }
 }

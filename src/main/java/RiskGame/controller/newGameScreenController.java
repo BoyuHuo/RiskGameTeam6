@@ -1,6 +1,5 @@
 package RiskGame.controller;
 
-import RiskGame.Main;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.service.imp.GameManager;
@@ -9,18 +8,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -46,10 +40,6 @@ public class newGameScreenController implements Initializable {
     @FXML
     private Hyperlink hyperLinkBack;
 
-/*
-    @FXML
-    private Text mapName;
-*/
 
     @FXML
     private Text playerList;
@@ -57,8 +47,7 @@ public class newGameScreenController implements Initializable {
     private GameMap gameMap = new GameMap();
     private Map<String, Player> players = new HashMap<>();
     private StringBuilder playersName=new StringBuilder();
-    File mapFile;
-
+    private File mapFile;
     /**
      *<p>
      * This method sets the player.
@@ -68,6 +57,8 @@ public class newGameScreenController implements Initializable {
     public void setPlayers(Map<String, Player> playersList ){
         this.players=players;
     }
+
+
 
 
     /**
@@ -82,14 +73,26 @@ public class newGameScreenController implements Initializable {
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         mapFile = mapFileChooser.showOpenDialog(null);
         if (mapFile != null) {
-            mapName.setText(mapFile.getName().toString());
+
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
-   /*         mapName.setText(mapFile.getName());*/
-/*
-            showMap(gameMap);*/
+            if(gameMap!=null){
+                mapName.setText(mapFile.getName().toString());
+            } else{
+                showAlertDialog("Please load a valid map");
+
+            }
 
         }
+    }
+
+    private void showAlertDialog(String alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(null);
+        alert.setContentText(alertType);
+        alert.showAndWait();
     }
 
     /**
@@ -136,45 +139,7 @@ public class newGameScreenController implements Initializable {
         createMapSceneStage.show();
     }
 
-
-    /**
-     *<p>
-     * This method implements the functionality for create map button, navigates user to create map screen.
-     *</p>
-     * @param event ActionEvent
-     * @throws IOException
-     */
-    @FXML
-    private void clickCreateMapButton(ActionEvent event) throws IOException {
-        Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
-        createMapScene = new Scene(createMap, 1000,600);
-        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
-        createMapSceneStage.setScene(createMapScene);
-        createMapSceneStage.show();
-
-    }
-
-
-
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
-        /*Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
-        Stage editPlayerStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        editPlayerStage.setScene(editPlayerScene);
-        editPlayerStage.show();*/
-
-        //AnchorPane root = new AnchorPane();
-        //Scene scene = new Scene(root,650,800);
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
-        //editPlayerScene.setRoot((Parent)fxmlLoader.load());
-        /*Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
-        Scene editPlayerScene = new Scene(editPlayerScreen, 1000,600);
-        Stage stage=new Stage();
-        stage.setScene(editPlayerScene);
-        stage.show();*/
-
-
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
@@ -224,9 +189,6 @@ public class newGameScreenController implements Initializable {
         GameManager.getInstance().setMap(this.gameMap);
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().NewGame();
-
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
         Scene gameScene = new Scene(gameScreen, 1000,900);

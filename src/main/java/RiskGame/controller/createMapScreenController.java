@@ -34,20 +34,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-/**
- *
- * <p>
- * This is the implementation of controller for map screen.
- * </p>
- *
- * <p>
- * It implements all the required methods that takes care user interaction to get the desired results.
- * </p>
- *
- * @author Sudhanva Muralidhar
- * @version 1v.0.0
- */
-
 public class createMapScreenController implements Initializable {
 
 
@@ -57,19 +43,22 @@ public class createMapScreenController implements Initializable {
     AnchorPane createMapPane;
     @FXML
     private Button createTerrotoryBt, connectTerrotoryBt, createContinentsBt, saveBt, backBt, loadExistMapbt;
-    Scene createMapScene;
-    AnchorPane myPanel;
-    Group rectangleGroups = new Group();
-    Rectangle square = null;
+    private Scene createMapScene;
+    private AnchorPane myPanel;
+    private Group rectangleGroups = new Group();
+    private Rectangle square = null;
 
-    ArrayList<String> continentArray= new ArrayList<>();
+    private ArrayList<String> continentArray= new ArrayList<>();
 
     private ObservableList<String> continentsNames = FXCollections.observableArrayList();
 
     @FXML
     private ChoiceBox<String> cbContinents;
 
-    int mode;
+    @FXML
+    private TextField authorTextArea;
+
+    private int mode;
 
     private File mapFile;
 
@@ -78,18 +67,18 @@ public class createMapScreenController implements Initializable {
     private HashMap<String,Color> continentColor=new HashMap<String,Color>();
 
 
-    boolean isvalidlineStart, isValidlineEnd;
+    private boolean isvalidlineStart, isValidlineEnd;
 
-    Territory sourceT;
-    Territory destT;
-    String sourceName;
-    String destName;
-    GameMap gameMap =new GameMap();
-    ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
+    private Territory sourceT;
+    private Territory destT;
+    private String sourceName;
+    private String destName;
+    private GameMap gameMap =new GameMap();
+    private ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
 
-    ArrayList<Territory> territoryArrayList = new ArrayList<>();
+    private ArrayList<Territory> territoryArrayList = new ArrayList<>();
 
-    Line l1;
+    private Line l1;
 
     /**
      *<p>
@@ -105,12 +94,62 @@ public class createMapScreenController implements Initializable {
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         mapFile = mapFileChooser.showOpenDialog(null);
+
         if (mapFile != null) {
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
+            cbContinents.getItems().clear();
+            for(Map.Entry<String,Continent> entery: gameMap.getContinents().entrySet())
+            cbContinents.getItems().add(entery.getKey());
+            drawMap();
         }
-        drawMap();
+
+
     }
+
+
+    @FXML
+    private void deleteTerrotory(ActionEvent event) throws IOException {
+
+        mode=4;
+        if(mode==4){
+
+            createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                    if(checkCoordinates(event.getX(), event.getY())) {
+
+                        double x= event.getX();
+                        double y=event.getY();
+
+
+                        for(Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet()) {
+
+                            double _x = entry.getValue().getX();
+                            double _y = entry.getValue().getY();
+                            if (x >= _x && y >= _y &&
+                                    x <= _x + 55 && y <= _y + 40){
+                                gameMap.removeTerrtory(entry.getKey());
+                                drawMap();
+                                break;
+                            }
+
+
+                        }
+
+                    } else{
+                        showAlertDialog("Click inside a valid terrotory!!");
+                    }
+
+
+
+                }
+            });
+        }
+
+    }
+
 
     /**
      *<p>
@@ -118,10 +157,9 @@ public class createMapScreenController implements Initializable {
      *</p>
      */
     private void drawMap() {
-      //  createMapPane.getChildren().clear();
+
+        clearAllLabels();
         rectangleGroups.getChildren().clear();
-        //rectangleGroups = new Group();
-        //createMapPane.getChildren().add(rectangleGroups);
 
         for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
             DFS(entry.getValue(), new ArrayList<>());
@@ -144,7 +182,17 @@ public class createMapScreenController implements Initializable {
             //setLine(entry);
             territorySquare=null;
         }
-        //rectangleGroups=new Group();
+    }
+
+    private void clearAllLabels() {
+
+        for (Node node : createMapPane.getChildren()) {
+            if (node instanceof Label) {
+                // clear
+                ((Label)node).setText("");
+            }
+        }
+
     }
 
     /**
@@ -179,6 +227,7 @@ public class createMapScreenController implements Initializable {
         square.setArcWidth(10);
         square.setX( starting_point_x ) ;
         square.setY( starting_point_y ) ;
+        square.setFill(Color.TRANSPARENT);
         square.setWidth( 55 ) ;
         square.setHeight( 40 ) ;
         square.setStroke( Color.BLACK ) ;
@@ -204,7 +253,7 @@ public class createMapScreenController implements Initializable {
         rectangle.setWidth( 55 ) ;
         rectangle.setHeight( 20 ) ;
         rectangle.setFill( color) ;
-        rectangle.setStroke( Color.BLACK ) ;
+        rectangle.setStroke( Color.TRANSPARENT ) ;
         rectangleGroups.getChildren().add( rectangle ) ;
     }
 
@@ -219,18 +268,8 @@ public class createMapScreenController implements Initializable {
         continentName.setLayoutX((entry.getValue().getX() + 5));
         continentName.setLayoutY((entry.getValue().getY() - 20));
         continentName.setText(entry.getValue().getName());
-        continentName.setTextFill(Color.WHITE);
+        continentName.setTextFill(Color.BLACK);
         continentName.setStyle("-fx-font-weight: bold;");
-
-
-       /* Label armyAssigned = new Label();
-        armyAssigned.setLayoutX((entry.getValue().getX() + 22.5));
-        armyAssigned.setLayoutY((entry.getValue().getY() + 15));
-        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
-        armyAssigned.setTextFill(Color.BLACK);
-        armyAssigned.setStyle("-fx-font-weight: bold;");*/
-
-        //createMapPane.getChildren().add(armyAssigned);
         createMapPane.getChildren().add(continentName);
     }
 
@@ -436,7 +475,7 @@ public class createMapScreenController implements Initializable {
                         double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
-                                x <= _x + 75 && y <= _y + 75){
+                                x <= _x + 55 && y <= _y + 40){
                             sourceT=new Territory();
                             sourceT.setX((int) Math.round(_x));
                             sourceT.setY((int) Math.round(_y));
@@ -529,21 +568,11 @@ public class createMapScreenController implements Initializable {
      */
     @FXML
     private void clickBack(ActionEvent event) throws IOException {
-        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
+        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
         Scene editPlayerScene = new Scene(editPlayerScreen, 1000, 600);
         Stage editPlayerStage = (Stage) backBt.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
-       /* FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
-        loader.load();
-        loadMapScreenController controller = loader.getController();
-        controller.checkMap(map);
-        createMapScene = new Scene(loader.getRoot(), 600,400);
-
-        Stage createMapSceneStage = (Stage)backBt.getScene().getWindow();
-        createMapSceneStage.setScene(createMapScene);
-        createMapSceneStage.show();*/
     }
 
 
@@ -563,7 +592,7 @@ public class createMapScreenController implements Initializable {
             double _y = entry.getValue().getY();
 
             if (x >= _x && y >= _y &&
-                    x <= _x + 75 && y <= _y + 75)
+                    x <= _x + 55 && y <= _y + 40)
                 return true;
         }
         return false;
@@ -585,46 +614,53 @@ public class createMapScreenController implements Initializable {
      */
     @FXML
     public void saveMap(ActionEvent event) throws IOException {
-            MapManager mapManager=new MapManager();
 
+        if(authorTextArea.getText().equalsIgnoreCase("")){
+
+            showAlertDialog("Enter author name");
+        } else {
+            MapManager mapManager=new MapManager();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
             File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
-
+            gameMap.setAuthor(authorTextArea.getText());
+            gameMap.setImage("Dummy Image");
             if (file != null) {
-                mapManager.CreateMap(file.getPath(),gameMap);
+
+                if(gameMap.getContinents().size()>0){
+
+                    if(!mapManager.CreateMap(file.getPath(),gameMap)) {
+                        showAlertDialog("Please create a valid map");
+                    }
+                }
+                else {
+                        showAlertDialog("Add atleast one continent!!");
+                }
             }
+        }
     }
 
     private boolean showInputTextDialog(Double x, Double y) {
 
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Enter Country Name");
+        dialog.setTitle("Enter Terrotory Name");
         dialog.setHeaderText(null);
-        dialog.setContentText("Name:");
-        dialog.setContentText("Control Number");
+        dialog.setContentText("Terrotory Name");
 
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
 
             if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog("Country");
+                showAlertDialog("Enter Country name");
                 return false;
             }
-           /* Label label = new Label();
-            label.setLayoutX((x + 25) - 12.5);
-            label.setLayoutY((y + 25) - 12.5);
-            label.setText(result.get());
-
-            createMapPane.getChildren().add(label);*/
-
 
             Label continentName = new Label();
             continentName.setLayoutX((x + 5));
             continentName.setLayoutY((y - 20));
             continentName.setText(result.get());
-            continentName.setTextFill(Color.WHITE);
+            continentName.setTextFill(Color.BLACK);
             continentName.setStyle("-fx-font-weight: bold;");
 
             createMapPane.getChildren().add(continentName);

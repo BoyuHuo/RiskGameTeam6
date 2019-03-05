@@ -65,12 +65,6 @@ public class editPlayerDetailsController implements Initializable {
     {
         if(cbSelectPlayers.getValue()!=null) {
             numberOfPlayers = cbSelectPlayers.getValue();
-            /*Parent editPlayerScreen2 = FXMLLoader.load(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
-            Scene editPlayerScene2 = new Scene(editPlayerScreen2, 1000, 600);
-            Stage editPlayerStage2 = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            editPlayerStage2.setScene(editPlayerScene2);
-            editPlayerStage2.show();*/
-
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));

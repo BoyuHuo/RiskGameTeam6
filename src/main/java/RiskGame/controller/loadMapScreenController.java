@@ -33,14 +33,15 @@ public class loadMapScreenController implements Initializable {
 
     private GameMap gameMap;
     private Group rectangleGroups = new Group() ;
-    Rectangle square = null ;
+    private Rectangle square = null ;
+    private Line l1;
 
     @FXML
     AnchorPane createMapPane;
     @FXML
     Button btBack;
 
-    HashMap<String,Color> continentColor=new HashMap<String,Color>();
+    private HashMap<String,Color> continentColor=new HashMap<String,Color>();
 
 
     public void setMap(GameMap gameMap) {
@@ -86,38 +87,13 @@ public class loadMapScreenController implements Initializable {
                 continentColor.put(territory.getContinent().getName(),generateRandomColor());
             }
 
-
-
             setSquareProperties( territory.getX(),territory.getY(),square,continentColor.get(territory.getContinent().getName())) ;
-            //connectNeighbours(territory);
             DFS(territory,new ArrayList<>());
 
             rectangleGroups.getChildren().add( square ) ;
             square=null;
         }
 
-
-
-       /* for (int i=0; i<territories.size();i++) {
-
-            Territory territory=territories.get(i);
-            //territory.getContinent();
-            square = new Rectangle();
-
-            *//*if(!continentColor.containsKey(territory.getContinent().getName())){
-                continentColor.put(territory.getContinent().getName(),generateRandomColor());
-            }*//*
-
-
-            //setSquareProperties( territory.getX()*.60,territory.getY()*.40,square,continentColor.get(territory.getContinent().getName()) ) ;
-
-            setSquareProperties( territory.getX(),territory.getY(),square ) ;
-            //connectNeighbours(territory);
-            DFS(territory,new ArrayList<>());
-
-            rectangleGroups.getChildren().add( square ) ;
-            square=null;
-        }*/
     }
 
     private Color generateRandomColor() {
@@ -130,10 +106,6 @@ public class loadMapScreenController implements Initializable {
         return Color.rgb(r,g,b);
     }
 
-
-
-
-    Line l1;
     @FXML
     private void clickBack(ActionEvent event) throws IOException
     {

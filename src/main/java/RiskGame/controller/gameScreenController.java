@@ -1,20 +1,18 @@
 package RiskGame.controller;
+
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
-
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,13 +22,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.awt.TextField;
-import java.io.IOException;
+import javafx.util.Callback;
 import java.net.URL;
 import java.util.*;
 /**
@@ -71,6 +65,10 @@ public class gameScreenController implements Initializable {
 
         @FXML
         private Button endRound;
+        @FXML
+        private ListView<String> continentList;
+
+        private final ObservableList<String> continentData= FXCollections.observableArrayList();
 
         private Group rectangleGroups = new Group() ;
 
@@ -82,7 +80,7 @@ public class gameScreenController implements Initializable {
 
         private int mode=0;
 
-        Territory sourceTerrotory=null;
+        private Territory sourceTerrotory=null;
         int armyNumber=0;
 
         private HashMap<String,Color> continentColor=new HashMap<String,Color>();
@@ -228,7 +226,7 @@ public class gameScreenController implements Initializable {
             highLightActivePlayer();
         }
 
-    /**
+        /**
      *<p>
      * This method implements the functionality that highlights the text of the active player's name.
      *</p>
@@ -310,7 +308,10 @@ public class gameScreenController implements Initializable {
 
                     if(!sourceTerrotory.immigrantArimies(armyNumber,territory)){
                         showAlertDialog(sourceTerrotory.getName()+" can't move armies to  "+territory.getName());
-                    };
+                    } else{
+                        GameManager.getInstance().nextRound();
+                    }
+
                     Update();
                     mode=0;
 
@@ -446,16 +447,43 @@ public class gameScreenController implements Initializable {
 
                 gameMap=GameManager.getInstance().getMap();
                 initGameWindow();
+                setContinentList();
         }
 
+    private void setContinentList() {
+        continentData.clear();
+        for (int i = 0; i <continent.size() ; i++) {
+            continentData.add(continent.get(i));
+        }
 
+        continentList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                ListCell<String> cell=new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String continent, boolean b) {
+
+                        if(continent!=null) {
+                            ListData data=new ListData();
+                            data.setInfo(continent,continentColor.get(continent));
+                            setGraphic(data.getBox());
+                        }
+
+                    }
+                };
+                return cell;
+            }
+        });
+
+        continentList.setItems(continentData);
+    }
+    ArrayList<String> continent=new ArrayList<>();
     /**
      *<p>
      * This method renders the created map on the game screen view.
      *</p>
      */
-
-        private void drawMap() {
+    private void drawMap() {
 
                 gameMapPane.getChildren().add(rectangleGroups);
 
@@ -471,12 +499,12 @@ public class gameScreenController implements Initializable {
                         rectangleGroups.getChildren().add( territorySquare ) ;
                         if(!continentColor.containsKey(territory.getContinent().getName())){
                             continentColor.put(territory.getContinent().getName(),generateRandomColor());
+                            continent.add(territory.getContinent().getName());
                         }
 
                         setContinentSquareProperties( territory.getX(),territory.getY(),continentColor.get(territory.getContinent().getName()));
                         setLabelProperties(entry);
 
-                        //setLine(entry);
                         territorySquare=null;
                 }
                 rectangleGroups=new Group();

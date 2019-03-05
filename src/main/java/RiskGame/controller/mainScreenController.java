@@ -27,7 +27,7 @@ public class mainScreenController implements Initializable {
 
     @FXML
     private Button btnExit;
-
+    private Scene createMapScene;
 
     /**
      *<p>
@@ -57,5 +57,16 @@ public class mainScreenController implements Initializable {
 
     }
 
+
+    @FXML
+    private void clickCreateMapButton(ActionEvent event) throws IOException {
+        Parent createMap = FXMLLoader.load(getClass().getResource("/view/createMapScreen.fxml"));
+        createMapScene = new Scene(createMap, 1000,600);
+        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        createMapSceneStage.setScene(createMapScene);
+        createMapSceneStage.show();
+
+    }
 
 }

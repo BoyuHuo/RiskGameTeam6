@@ -8,6 +8,7 @@ import RiskGame.model.service.IMapManager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * This is implement class for map manager interface, which contains all the implementation of map related logic function.
@@ -60,21 +61,26 @@ public class MapManager implements IMapManager {
                 GenerateTheRelationshipOfTerr(gameMap);
 
                 bufferedReader.close();
-                read.close();
             } else {
                 System.out.println("Can't find the file in this url");
             }
         } catch (Exception e) {
             System.out.println("Wrong content");
-            e.printStackTrace();
+            return null;
         } finally {
             try {
-                read.close();
+                if(read!=null){
+                    read.close();
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                return null;
             }
         }
-        return gameMap;
+        if(IsValided(gameMap)){
+            return gameMap;
+        }else {
+            return null;
+        }
     }
 
     /**
@@ -120,6 +126,9 @@ public class MapManager implements IMapManager {
             out.write("[Continents]\r\n");
             if (gameMap.getContinents().size() > 0) {
                 for (Continent c : gameMap.getContinents().values()) {
+                    if(c.getCtrNum()<0){
+                        return false;
+                    }
                     out.write(c.getName() + "=" + c.getCtrNum() + "\r\n");
                 }
             }
@@ -127,6 +136,9 @@ public class MapManager implements IMapManager {
             out.write("[Territories]\r\n");
             if (gameMap.getTerritories().size() > 0) {
                 for (Territory t : gameMap.getTerritories().values()) {
+                    if(t.getContinent()==null){
+                        return false;
+                    }
                     out.write(t.getName() + "," + t.getX() + "," + t.getY() + "," + t.getContinent().getName());
                     for (Territory neibor : t.getNeighbors().values()) {
                         out.write("," + neibor.getName());
@@ -144,7 +156,7 @@ public class MapManager implements IMapManager {
             }
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -160,10 +172,13 @@ public class MapManager implements IMapManager {
         boolean validedContinent = true;
         validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
         for (Continent continent : gameMap.getContinents().values()) {
+            if(continent.getCtrNum()<0){
+                return false;
+            }
             validedContinent = IsConnectedContinents(continent) && validedContinent;
         }
-
-        return validedContinent || validedTerritories;
+        System.out.println(validedTerritories+":"+validedContinent);
+        return validedContinent && validedTerritories;
     }
 
     /**
@@ -175,9 +190,9 @@ public class MapManager implements IMapManager {
      */
     private boolean IsConnectedTerritories(HashMap<String, Territory> graph) {
         ArrayList<String> territoriesTag = new ArrayList<String>();
-
-        if (graph.keySet().iterator().hasNext()) {
-            String key = graph.keySet().iterator().next();
+        Iterator iterator = graph.keySet().iterator();
+        while (iterator.hasNext()) {
+            String key = (String)iterator.next();
             DFS(graph.get(key), territoriesTag);
         }
         if (territoriesTag.size() == graph.size()) {
@@ -195,12 +210,16 @@ public class MapManager implements IMapManager {
      */
     private boolean IsConnectedContinents(Continent continent) {
         ArrayList<String> territoriesTag = new ArrayList<String>();
-        continent.getTerritories();
-        if (continent.getTerritories().keySet().iterator().hasNext()) {
-            String key = continent.getTerritories().keySet().iterator().next();
+        Iterator cIterator = continent.getTerritories().keySet().iterator();
+
+        while (cIterator.hasNext()) {
+            String key = (String)cIterator.next();
+            System.out.println(key);
+            DFS_Continent(continent.getTerritories().get(key), territoriesTag, continent.getName());
             DFS_Continent(continent.getTerritories().get(key), territoriesTag, continent.getName());
         }
-        if (territoriesTag.size() == continent.getTerritories().size()) {
+       System.out.println(territoriesTag.size()/2+":"+continent.getTerritories().size());
+        if (territoriesTag.size()/2 == continent.getTerritories().size()) {
             return true;
         }
         return false;
@@ -233,12 +252,12 @@ public class MapManager implements IMapManager {
      * @param continentName the name of under testing continent
      */
     private void DFS_Continent(Territory t, ArrayList<String> connectedTerrs, String continentName) {
+        connectedTerrs.add(t.getName());
         for (String key : t.getNeighbors().keySet()) {
             Territory neightbor = t.getNeighbors().get(key);
             if (continentName.equals(neightbor.getContinent().getName())) {
                 if (!connectedTerrs.contains(neightbor.getName())) {
-                    connectedTerrs.add(neightbor.getName());
-                    DFS(neightbor, connectedTerrs);
+                    DFS_Continent(neightbor, connectedTerrs,continentName);
                 }
             }
         }
@@ -253,9 +272,9 @@ public class MapManager implements IMapManager {
      * @param mode which stage of reading now
      * @param gameMap the gameMap instance that need to be fulfilled
      */
-    private void TranslateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
+    private boolean TranslateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
         if (mode == 0) {
-            return;
+            return true;
         }
         if (mode == 1) {
             if (lineTxt.contains("=")) {
@@ -301,6 +320,7 @@ public class MapManager implements IMapManager {
                 gameMap.getContinents().get(valuePair[3]).getTerritories().put(territory.getName(), territory);
             }
         }
+        return true;
 
     }
 
