@@ -6,7 +6,7 @@ package RiskGame.controller;
  * that allows user to interact the card related function.
  *
  * @author Karan Sharma
- * @version 1.0.0
+ * @version v1.0.0
  */
 public class CardScreenController {
 }

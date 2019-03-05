@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  * being saved.
  *
  * @author Sudhanva Muralidhar
- * @version v.0.0
+ * @version v1.0.0
  */
 public class PlayerDetailsController implements Initializable {
 

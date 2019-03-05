@@ -33,7 +33,7 @@ import java.util.*;
  * for the game play including startup, reinforcement, attack, fortification phases.
  *
  * @author Karan Sharma
- * @version v.0.0
+ * @version v1.0.0
  */
 public class GameScreenController implements Initializable {
 
