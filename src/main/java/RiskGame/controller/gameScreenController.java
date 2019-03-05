@@ -380,6 +380,7 @@ public class gameScreenController implements Initializable {
      * territory to other.
      *</p>
      * @param territory Territory class object.
+     * @return returns if it's a valid army assignment.
      */
     private boolean transferArmyNumberDialog(Territory territory) {
 
@@ -495,6 +496,12 @@ public class gameScreenController implements Initializable {
 
         }
 
+    /**
+     *<p>
+     * This method initializes the continent list.
+     *</p>
+     */
+
     private void setContinentList() {
         continentData.clear();
         continentData.addAll(continent);
@@ -579,6 +586,7 @@ public class gameScreenController implements Initializable {
      *<p>
      * This method sets the continentName and armyAssigned labels.
      *</p>
+     * @param entry territory list
      */
     private void setLabelProperties(Map.Entry<String, Territory> entry) {
         Label continentName = new Label();
@@ -619,7 +627,7 @@ public class gameScreenController implements Initializable {
      *<p>
      * This method implements the DFS algorithm.
      *</p>
-     * @param t Territory obect
+     * @param t Territory object
      * @param connectedTerrs list of connected territory
      */
 

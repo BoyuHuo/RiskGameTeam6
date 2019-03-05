@@ -34,6 +34,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ *
+ * This is the implementation of the create map screen controller. It implements all the functionality
+ * that allows user to create a new map on the local device.
+ *
+ * @author Karan Sharma
+ * @version v1.0.0
+ */
+
 public class createMapScreenController implements Initializable {
 
 
@@ -80,16 +89,15 @@ public class createMapScreenController implements Initializable {
     private ArrayList<Territory> territoryArrayList = new ArrayList<>();
 
     private Line l1;
+    private Continent continent;
 
     /**
      *<p>
      * This method is responsible for loading an existing map from the user's system.
      *</p>
-     * @param event
-     * @throws IOException
+     * @param event Action Event
+     * @throws IOException throws input out exception
      */
-
-
     @FXML
     private void loadExistMap(ActionEvent event) throws IOException {
         FileChooser mapFileChooser = new FileChooser();
@@ -108,7 +116,13 @@ public class createMapScreenController implements Initializable {
 
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for deleting the territory.
+     *</p>
+     * @param event Action Event
+     * @throws IOException throws input out exception
+     */
     @FXML
     private void deleteTerrotory(ActionEvent event) throws IOException {
 
@@ -185,6 +199,11 @@ public class createMapScreenController implements Initializable {
         }
     }
 
+    /**
+     *<p>
+     * This method is responsible for clearing all the labels on the screen.
+     *</p>
+     */
     private void clearAllLabels() {
 
         for (Node node : createMapPane.getChildren()) {
@@ -202,7 +221,6 @@ public class createMapScreenController implements Initializable {
      *</p>
 
      */
-
     private Color generateRandomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
@@ -306,7 +324,7 @@ public class createMapScreenController implements Initializable {
      * This method is responsible for implementing new game button.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException throws input output exception
      */
     @FXML
     private void clickNewGameButton(ActionEvent event) throws IOException {
@@ -599,6 +617,12 @@ public class createMapScreenController implements Initializable {
         return false;
     }
 
+    /**
+     *<p>
+     * This method is responsible for adding continents to the map.
+     *</p>
+     * @param event Action Event
+     */
     @FXML
     public void addContinents(ActionEvent event) {
         mode=3;
@@ -641,6 +665,15 @@ public class createMapScreenController implements Initializable {
         }
     }
 
+
+    /**
+     *<p>
+     * This method is responsible for opening an dialog box to input territory details.
+     *</p>
+     * @param x x-coordinate of mouse pointer.
+     * @param y y-coordinate of mouse pointer.
+     * @return returns true if it is a valid territory.
+     */
     private boolean showInputTextDialog(Double x, Double y) {
 
         TextInputDialog dialog = new TextInputDialog();
@@ -676,6 +709,13 @@ public class createMapScreenController implements Initializable {
         }
 
     }
+
+    /**
+     *<p>
+     * This method is responsible for opening an dialog box.
+     *</p>
+     * @param alertType message for the alert dialog box
+     */
 
     private void showAlertDialog(String alertType) {
 
@@ -777,7 +817,7 @@ public class createMapScreenController implements Initializable {
 
     }
 
-    Continent continent;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

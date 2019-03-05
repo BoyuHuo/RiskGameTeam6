@@ -113,8 +113,6 @@ public class editPlayerDetailsController implements Initializable {
      *</p>
      * @param  gameMapFile File class object
      */
-
-
     public  void setMapDetails(File gameMapFile)
     {
         this.gameMapFile=gameMapFile;

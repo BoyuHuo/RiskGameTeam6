@@ -86,6 +86,10 @@ public class newGameScreenController implements Initializable {
         }
     }
 
+    /**
+     * This method implements the alert box.
+     * @param alertType sets the text for the alert box.
+     */
     private void showAlertDialog(String alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -117,6 +121,12 @@ public class newGameScreenController implements Initializable {
         gameMap = mapManager.LoadMap(mapFile.toString());
     }
 
+    /**
+     * This method implements the needs to be deleeted
+     * @param gameMap
+     * @throws IOException
+     */
+
     private void showMap(GameMap gameMap) throws IOException {
 
         Player p1=new Player();
@@ -139,6 +149,11 @@ public class newGameScreenController implements Initializable {
         createMapSceneStage.show();
     }
 
+    /**
+     * This method implements the functionality to navigate to the edit player details screen.
+     * @param event Action Even
+     * @throws IOException input output exception
+     */
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
