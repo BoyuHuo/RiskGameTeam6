@@ -60,49 +60,49 @@
       </Label>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 2 are playing, each player counts out 45 Infantry;" >
+      <Text text="  If 2 are playing, each player counts out 45 Infantry;" >
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 3 are playing, each player counts out 35 Infantry;">
+      <Text text="  If 3 are playing, each player counts out 35 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 4 are playing, each player counts out 30 Infantry;">
+      <Text text="  If 4 are playing, each player counts out 30 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 5 are playing, each player counts out 25 Infantry;">
+      <Text text="  If 5 are playing, each player counts out 25 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 6 are playing, each player counts out 20 Infantry;">
+      <Text text="  If 6 are playing, each player counts out 20 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 7 are playing, each player counts out 15 Infantry;">
+      <Text text="  If 7 are playing, each player counts out 15 Infantry;">
         <font>
           <Font name="System Bold" size="18.0" />
         </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 8 are playing, each player counts out 10 Infantry.">
+      <Text text="  If 8 are playing, each player counts out 10 Infantry.">
         <font>
           <Font name="System Bold" size="18.0" />
         </font>
