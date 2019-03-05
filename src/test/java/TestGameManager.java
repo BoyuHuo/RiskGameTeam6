@@ -122,13 +122,12 @@ public class TestGameManager {
          * </ul>
          *
          */
-/*    @Test
+    @Test
     public void testNextRound(){
         for(int i=0;i<7;i++) {
             GameManager.getInstance().nextRound();
         }
         assertEquals("Attack",GameManager.getInstance().getGamePhase());
         assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
-        assertEquals(15,GameManager.getInstance().getActivePlayer().getArmies();
-    }*/
+    }
 }
