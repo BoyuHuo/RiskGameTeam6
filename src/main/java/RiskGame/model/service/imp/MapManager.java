@@ -273,9 +273,6 @@ public class MapManager implements IMapManager {
         if (mode == 1) {
             if (lineTxt.contains("=")) {
                 String[] valuePair = lineTxt.split("=");
-                if(valuePair.length!=2||Integer.parseInt(valuePair[1])<0){
-                    return false;
-                }
                 switch (valuePair[0]) {
                     case "image":
                         gameMap.setImage(valuePair[1]);

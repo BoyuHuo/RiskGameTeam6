@@ -53,7 +53,7 @@ public class TestMapValidation {
     @Test
     public void testMapWithDisconnectedContientsIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandOne.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
     /**
      * Test case 3
@@ -68,7 +68,7 @@ public class TestMapValidation {
     @Test
     public void testMapWithDisconnectedTerritoriesIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandTwo.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
     /**
      * Test case 4
@@ -81,8 +81,8 @@ public class TestMapValidation {
      *
      */
     @Test
-    public void testMapWithMixedProblemsIsNotValided(){
+    public void testMapWithIllegalCtrNumIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandMix.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
 }
