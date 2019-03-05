@@ -175,6 +175,9 @@ public class MapManager implements IMapManager {
 
 
         for (Continent continent : gameMap.getContinents().values()) {
+            if(continent.getTerritories().size()<=0){
+                return false;
+            }
             if(continent.getCtrNum()<0){
                 return false;
             }
