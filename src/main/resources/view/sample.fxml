@@ -3,7 +3,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="RiskGame.controller.mainScreenController"
+<GridPane fx:controller="RiskGame.controller.MainScreenController"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
     <Button>hello</Button>
 </GridPane>

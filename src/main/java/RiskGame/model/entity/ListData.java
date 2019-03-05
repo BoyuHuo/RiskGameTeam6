@@ -1,4 +1,4 @@
-package RiskGame.controller;
+package RiskGame.model.entity;
 
 
 import javafx.fxml.FXML;

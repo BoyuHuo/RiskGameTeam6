@@ -21,9 +21,7 @@ import java.util.ResourceBundle;
  * @author Sudhanva Muralidhar
  * @version 1v.0.0
  */
-
-
-public class mainScreenController implements Initializable {
+public class MainScreenController implements Initializable {
 
     @FXML
     private Button btnExit;
@@ -74,7 +72,5 @@ public class mainScreenController implements Initializable {
 
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
-
     }
-
 }
