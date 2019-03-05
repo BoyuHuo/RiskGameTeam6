@@ -1,6 +1,5 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
 import javafx.event.ActionEvent;
@@ -16,35 +15,26 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-/**
- *
- * This is the implementation for the load map screen controller.
- *
- */
 
-
-
-public class loadMapScreenController implements Initializable {
-
-    private GameMap gameMap;
-    private Group rectangleGroups = new Group() ;
-    private Rectangle square = null ;
-    private Line l1;
+public class LoadMapScreenController implements Initializable {
 
     @FXML
     AnchorPane createMapPane;
     @FXML
     Button btBack;
 
+    private GameMap gameMap;
+    private Group rectangleGroups = new Group() ;
+    private Rectangle square = null ;
+    private Line l1;
     private HashMap<String,Color> continentColor=new HashMap<String,Color>();
 
 
-    public void setMap(GameMap gameMap) {
+     public void setMap(GameMap gameMap) {
         this.gameMap = gameMap;
         createMapPane.getChildren().add(rectangleGroups);
 

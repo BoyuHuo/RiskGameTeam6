@@ -21,9 +21,7 @@ import java.util.ResourceBundle;
  * @author Sudhanva Muralidhar
  * @version 1v.0.0
  */
-
-
-public class mainScreenController implements Initializable {
+public class MainScreenController implements Initializable {
 
     @FXML
     private Button btnExit;
@@ -45,6 +43,9 @@ public class mainScreenController implements Initializable {
         newGameScreenStage.show();
    }
 
+    /**
+     * Method implements to exit the game safely.
+     */
    @FXML
    private void clickButtonExit()
    {
@@ -57,6 +58,11 @@ public class mainScreenController implements Initializable {
 
     }
 
+    /**
+     * This method implements the functionality to navigate the scene to create map screen
+     * @param event Action Event
+     * @throws IOException input output exception
+     */
 
     @FXML
     private void clickCreateMapButton(ActionEvent event) throws IOException {
@@ -66,7 +72,5 @@ public class mainScreenController implements Initializable {
 
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
-
     }
-
 }

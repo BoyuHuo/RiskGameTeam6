@@ -5,8 +5,6 @@ import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.MapManager;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,13 +26,21 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class createMapScreenController implements Initializable {
+/**
+ *
+ * This is the implementation of the create map screen controller. It implements all the functionality
+ * that allows user to create a new map on the local device.
+ *
+ * @author Karan Sharma
+ * @version v1.0.0
+ */
+
+public class CreateMapScreenController implements Initializable {
 
 
     @FXML
@@ -43,53 +49,37 @@ public class createMapScreenController implements Initializable {
     AnchorPane createMapPane;
     @FXML
     private Button createTerrotoryBt, connectTerrotoryBt, createContinentsBt, saveBt, backBt, loadExistMapbt;
+    @FXML
+    private ChoiceBox<String> cbContinents;
+    @FXML
+    private TextField authorTextArea;
+
     private Scene createMapScene;
     private AnchorPane myPanel;
     private Group rectangleGroups = new Group();
     private Rectangle square = null;
-
-    private ArrayList<String> continentArray= new ArrayList<>();
-
-    private ObservableList<String> continentsNames = FXCollections.observableArrayList();
-
-    @FXML
-    private ChoiceBox<String> cbContinents;
-
-    @FXML
-    private TextField authorTextArea;
-
     private int mode;
-
     private File mapFile;
-
     private Rectangle territorySquare = null ;
-
     private HashMap<String,Color> continentColor=new HashMap<String,Color>();
-
-
     private boolean isvalidlineStart, isValidlineEnd;
-
     private Territory sourceT;
     private Territory destT;
     private String sourceName;
     private String destName;
     private GameMap gameMap =new GameMap();
-
     private ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
-
     private ArrayList<Territory> territoryArrayList = new ArrayList<>();
-
     private Line l1;
+    private Continent continent;
 
     /**
      *<p>
      * This method is responsible for loading an existing map from the user's system.
      *</p>
-     * @param event
-     * @throws IOException
+     * @param event Action Event
+     * @throws IOException throws input out exception
      */
-
-
     @FXML
     private void loadExistMap(ActionEvent event) throws IOException {
         FileChooser mapFileChooser = new FileChooser();
@@ -104,14 +94,17 @@ public class createMapScreenController implements Initializable {
             cbContinents.getItems().add(entery.getKey());
             drawMap();
         }
-
-
     }
 
-
+    /**
+     *<p>
+     * This method is responsible for deleting the territory.
+     *</p>
+     * @param event Action Event
+     * @throws IOException throws input out exception
+     */
     @FXML
     private void deleteTerrotory(ActionEvent event) throws IOException {
-
         mode=4;
         if(mode==4){
 
@@ -140,7 +133,7 @@ public class createMapScreenController implements Initializable {
                         }
 
                     } else{
-                        showAlertDialog("Click inside a valid terrotory!!");
+                        showAlertDialog("Click inside a valid territory!!");
                     }
 
 
@@ -150,8 +143,6 @@ public class createMapScreenController implements Initializable {
         }
 
     }
-
-
     /**
      *<p>
      * This method is responsible for drawing loading an existing map from the user's system.
@@ -185,6 +176,11 @@ public class createMapScreenController implements Initializable {
         }
     }
 
+    /**
+     *<p>
+     * This method is responsible for clearing all the labels on the screen.
+     *</p>
+     */
     private void clearAllLabels() {
 
         for (Node node : createMapPane.getChildren()) {
@@ -202,7 +198,6 @@ public class createMapScreenController implements Initializable {
      *</p>
 
      */
-
     private Color generateRandomColor() {
         Random random = new Random();
         int r = random.nextInt(255);
@@ -232,11 +227,7 @@ public class createMapScreenController implements Initializable {
         square.setWidth( 55 ) ;
         square.setHeight( 40 ) ;
         square.setStroke( Color.BLACK ) ;
-
-
     }
-
-
     /**
      *<p>
      * This method is responsible for setting the properties pertaining to the square drawn fot continents during create map screen.
@@ -257,7 +248,6 @@ public class createMapScreenController implements Initializable {
         rectangle.setStroke( Color.TRANSPARENT ) ;
         rectangleGroups.getChildren().add( rectangle ) ;
     }
-
     /**
      *<p>
      * This method is responsible for setting the label properties.
@@ -273,7 +263,6 @@ public class createMapScreenController implements Initializable {
         continentName.setStyle("-fx-font-weight: bold;");
         createMapPane.getChildren().add(continentName);
     }
-
     /**
      *<p>
      * This method is responsible for implementing Depth First Search algorithm logic.
@@ -306,7 +295,7 @@ public class createMapScreenController implements Initializable {
      * This method is responsible for implementing new game button.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException throws input output exception
      */
     @FXML
     private void clickNewGameButton(ActionEvent event) throws IOException {
@@ -316,8 +305,6 @@ public class createMapScreenController implements Initializable {
         newGameScreenStage.setScene(newGameScene);
         newGameScreenStage.show();
     }
-
-
     /**
      *<p>
      * This method helps user to select maps from system.
@@ -333,7 +320,6 @@ public class createMapScreenController implements Initializable {
         }
         //return mapFile;
     }
-
     /**
      *<p>
      * This method is responsible for implementing create map button.
@@ -350,7 +336,6 @@ public class createMapScreenController implements Initializable {
         createMapSceneStage.show();
 
     }
-
     /**
      *<p>
      * This method is responsible for implementing creating territory squares on the map screen.
@@ -359,7 +344,6 @@ public class createMapScreenController implements Initializable {
      */
     @FXML
     public void createTerrotory(ActionEvent event) {
-
         mode=0;
         if(mode==0) {
 
@@ -393,7 +377,6 @@ public class createMapScreenController implements Initializable {
         }
 
     }
-
     /**
      *<p>
      * This method is responsible for creating sqaure shape to create map.
@@ -429,18 +412,10 @@ public class createMapScreenController implements Initializable {
         newHash.put("y", starting_point_y);
 
         countries.add(newHash);
-
-
     }
     @FXML
     public void cbChangeContinent(ActionEvent event) {
-
-
-
-
-
     }
-
     /**
      *<p>
      * This method is responsible for connecting the territories by dragging mouse from one territory to other.
@@ -449,9 +424,7 @@ public class createMapScreenController implements Initializable {
      */
     @FXML
     public void connectTerrotory(ActionEvent event) {
-
         mode=1;
-
         if(mode==1) {
             createMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
@@ -484,26 +457,16 @@ public class createMapScreenController implements Initializable {
                             sourceName=entry.getValue().getName();
 
                         }
-
                     }
-
-
                     System.out.println("IsValid" + isvalidlineStart);
                     event.setDragDetect(true);
-
                 }
-
-
             });
-
-
             createMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                 }
             });
-
-
             createMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -524,42 +487,23 @@ public class createMapScreenController implements Initializable {
                         if (x >= _x && y >= _y &&
                                 x <= _x + 55 && y <= _y + 40){
                             destT=entry.getValue();
-                            //destT.setX((int) Math.round(_x));
-                            //destT.setY((int) Math.round(_y));
-                            //destT.setName(entry.getValue().getName());
                             destName=entry.getValue().getName();
-
                         }
-
                     }
-
-
-
                     if (isvalidlineStart && isValidlineEnd) {
                         l1.setEndX(event.getX());
                         l1.setEndY(event.getY());
                         rectangleGroups.getChildren().add(l1);
-                        //System.out.println(sourceT.getName()+"->"+destT.getName());
                         gameMap.getTerritories().get(destName).addNeibor(sourceT);
-                       // System.out.println(destT.getName()+"->"+sourceT.getName());
                         gameMap.getTerritories().get(sourceName).addNeibor(destT);
-
-
-
                     }
-
                     l1 = null;
                     event.setDragDetect(false);
-
                 }
-
                 }
             });
-
         }
     }
-
-
     /**
      *<p>
      * This method is responsible for implementing back button.
@@ -575,8 +519,6 @@ public class createMapScreenController implements Initializable {
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
     }
-
-
     /**
      *<p>
      * This method is responsible for implementing back button.
@@ -599,6 +541,12 @@ public class createMapScreenController implements Initializable {
         return false;
     }
 
+    /**
+     *<p>
+     * This method is responsible for adding continents to the map.
+     *</p>
+     * @param event Action Event
+     */
     @FXML
     public void addContinents(ActionEvent event) {
         mode=3;
@@ -623,6 +571,7 @@ public class createMapScreenController implements Initializable {
             MapManager mapManager=new MapManager();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
             File file = fileChooser.showSaveDialog((Stage)backBt.getScene().getWindow());
             gameMap.setAuthor(authorTextArea.getText());
             gameMap.setImage("Dummy Image");
@@ -640,7 +589,14 @@ public class createMapScreenController implements Initializable {
             }
         }
     }
-
+    /**
+     *<p>
+     * This method is responsible for opening an dialog box to input territory details.
+     *</p>
+     * @param x x-coordinate of mouse pointer.
+     * @param y y-coordinate of mouse pointer.
+     * @return returns true if it is a valid territory.
+     */
     private boolean showInputTextDialog(Double x, Double y) {
 
         TextInputDialog dialog = new TextInputDialog();
@@ -653,8 +609,14 @@ public class createMapScreenController implements Initializable {
         if (result.isPresent()) {
 
             if (result.get().equalsIgnoreCase("")) {
-                showAlertDialog("Enter Country name");
+                showAlertDialog("Enter Territory name");
                 return false;
+            }
+
+
+            if(gameMap.getTerritories().containsKey(result.get())) {
+                showAlertDialog("Territory already added!");
+                return  false;
             }
 
             Label continentName = new Label();
@@ -677,16 +639,21 @@ public class createMapScreenController implements Initializable {
 
     }
 
+    /**
+     *<p>
+     * This method is responsible for opening an dialog box.
+     *</p>
+     * @param alertType message for the alert dialog box
+     */
+
     private void showAlertDialog(String alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
-        alert.setContentText("Enter "+alertType+" name");
+        alert.setContentText(alertType);
         alert.showAndWait();
     }
-
-
     /**
      *<p>
      * This method implements a dialog box for user to input country details and control number.
@@ -704,25 +671,21 @@ public class createMapScreenController implements Initializable {
         TextField controlNumber = new TextField("");
         Label  nameLabel = new Label("Name");
         Label  controlLabel = new Label("Control Number");
-
-        //dialogPane.setContent();
-
-
         dialogPane.setContent(new HBox(8,new VBox(16, nameLabel, controlLabel),new VBox(8, nameField, controlNumber)));
-
-
         Platform.runLater(nameField::requestFocus);
         dialog.setResultConverter((ButtonType button) -> {
-
-
-
 
             if (button == ButtonType.OK) {
 
 
                 if (nameField.getText().equalsIgnoreCase("")||
                         controlNumber.getText().equalsIgnoreCase("")) {
-                    showAlertDialog("Continent");
+                    showAlertDialog("Enter Continent Name");
+                    return null;
+                }
+
+                if(gameMap.getContinents().containsKey(nameField.getText())){
+                    showAlertDialog("Continent Already Added");
                     return null;
                 }
 
@@ -746,9 +709,6 @@ public class createMapScreenController implements Initializable {
 
         return  null;
     }
-
-
-
     /**
      *<p>
      * This method gets the coordinates for the mouse click on the create map screen.
@@ -773,11 +733,7 @@ public class createMapScreenController implements Initializable {
         Stage newStage = new Stage();
         newStage.setScene(sc);
         newStage.show();
-
-
     }
-
-    Continent continent;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.editPlayerDetailsController2">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.PlayerDetailsController">
   <children>
     <ImageView fitHeight="600.0" fitWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <image>
@@ -60,49 +60,49 @@
       </Label>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 2 are playing, each player counts out 45 Infantry;" >
+      <Text text="  If 2 are playing, each player counts out 45 Infantry;" >
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 3 are playing, each player counts out 35 Infantry;">
+      <Text text="  If 3 are playing, each player counts out 35 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 4 are playing, each player counts out 30 Infantry;">
+      <Text text="  If 4 are playing, each player counts out 30 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 5 are playing, each player counts out 25 Infantry;">
+      <Text text="  If 5 are playing, each player counts out 25 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 6 are playing, each player counts out 20 Infantry;">
+      <Text text="  If 6 are playing, each player counts out 20 Infantry;">
       <font>
         <Font name="System Bold" size="18.0" />
       </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 7 are playing, each player counts out 15 Infantry;">
+      <Text text="  If 7 are playing, each player counts out 15 Infantry;">
         <font>
           <Font name="System Bold" size="18.0" />
         </font>
       </Text>
       <Text text=""/>
       <Text text=""/>
-      <Text text="   If 8 are playing, each player counts out 10 Infantry.">
+      <Text text="  If 8 are playing, each player counts out 10 Infantry.">
         <font>
           <Font name="System Bold" size="18.0" />
         </font>
