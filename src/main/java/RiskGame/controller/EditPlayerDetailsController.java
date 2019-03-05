@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * player details. *
  *
  * @author Sudhanva Muralidhar
- * @version 1v.0.0
+ * @version v1.0.0
  */
 public class EditPlayerDetailsController implements Initializable {
 
