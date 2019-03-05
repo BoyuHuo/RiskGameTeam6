@@ -165,7 +165,7 @@ public class TestGameManager {
             mapManager = new MapManager();
             Map<String, Player> players = new HashMap<>();
             Player p1 = new Player("Player1", 16);
-            Player p2 = new Player("Player2", 22;
+            Player p2 = new Player("Player2", 22);
             Player p3 = new Player("Player3", 18);
             players.put(p1.getName(), p1);
             players.put(p2.getName(), p2);
