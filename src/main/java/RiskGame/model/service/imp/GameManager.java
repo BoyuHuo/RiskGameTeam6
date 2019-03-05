@@ -1,7 +1,9 @@
 package RiskGame.model.service.imp;
 
+import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
+import RiskGame.model.entity.Territory;
 import RiskGame.model.service.IGameManager;
 import java.util.*;
 /**
@@ -331,5 +333,22 @@ public class GameManager extends Observable implements IGameManager {
         return arrNew;
     }
 
+    public boolean reignforceArmies(Player p){
+        int reignforceNum= 0 ;
+        if(p.getName().equals(getActivePlayer().getName())){
+            for(Continent c:map.getContinents().values()){
+                int countBelongs=0;
+                for(Territory t:c.getTerritories().values()){
+                    if(t.getBelongs().getName().equals(p.getName())){
+                        countBelongs++;
+                    }
+                }
+                if(countBelongs==c.getTerritories().size()){
+
+                }
+            }
+        }
+        return false;
+    }
 
 }

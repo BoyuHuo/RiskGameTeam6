@@ -6,19 +6,18 @@ scroll=vertical
 warn=no
 
 [Continents]
-FireLand=1
-WaterLand=2
-WindLand=3
-IceLand=6
+FireLand=5
+WaterLand=4
+WindLand=-4
+IceLand=3
 
 [Territories]
 FireDragon,100,200,FireLand,FireHorse,FireBird,WaterDragon
 FireHorse,100,400,FireLand,FireDragon,FireBird,WaterDragon,WaterElephant
 FireBird,100,600,FireLand,FireDragon,FireHorse,WaterElephant
 WaterDragon,200,300,WaterLand,FireDragon,FireHorse,WaterElephant
-WaterElephant,200,475,WaterLand,FireHorse,FireBird,WaterDragon,WindDragon,WindHorse
-WindDragon,225,525,WindLand,WaterElephant
-WindHorse,275,525,WindLand,WaterElephant
-IceDragon,275,300,IceLand,IceHorse
+WaterElephant,200,475,WaterLand,FireHorse,FireBird,WaterDragon,WindDragon
+WindDragon,225,525,WindLand,WindHorse,WaterElephant
+WindHorse,275,525,WindLand,WindDragon,IceDragon
+IceDragon,275,300,IceLand,WindHorse,IceHorse
 IceHorse,275,175,IceLand,IceDragon
-
