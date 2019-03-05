@@ -55,7 +55,9 @@ public class MapManager implements IMapManager {
                             mode = 3;
                             break;
                     }
-                    TranslateTxt2Map(lineTxt, mode, gameMap);
+                    if (!TranslateTxt2Map(lineTxt, mode, gameMap)){
+                        return null;
+                    };
                 }
                 GenerateTheRelationshipOfTerr(gameMap);
 
@@ -270,7 +272,7 @@ public class MapManager implements IMapManager {
         if (mode == 1) {
             if (lineTxt.contains("=")) {
                 String[] valuePair = lineTxt.split("=");
-                if(valuePair.length!=2){
+                if(valuePair.length!=2||Integer.parseInt(valuePair[1])<0){
                     return false;
                 }
                 switch (valuePair[0]) {
