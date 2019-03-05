@@ -1,7 +1,9 @@
+package test;
 
 import RiskGame.model.entity.Player;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +13,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
     /**
-    * This is a Junit Test Class, used for testing <b> Game Operating </b> function
+    * This is a Junit test Class, used for testing <b> Game Operating </b> function
     * It contains all test cases which is related to game operating.
     *
     * @author Hao Ma
@@ -51,8 +53,9 @@ public class TestGameManager {
         gameManager.NewGame(mapManager.LoadMap());*/
         }
 
+
         /**
-         * Test case 1
+         * test case 1
          * Purpose: testing the operating sequence of the players
          * Process:
          * <ul>
@@ -80,7 +83,7 @@ public class TestGameManager {
         }
 
         /**
-         * Test case 2
+         * test case 2
          * Purpose: testing the operating sequence of the GamePhase
          * Process:
          * <ul>
@@ -115,7 +118,7 @@ public class TestGameManager {
         }
 
         /**
-         * Test case 3
+         * test case 3
          * Purpose: testing the operating result of the NextRound
          * Process:
          * <ul>
@@ -156,34 +159,7 @@ public class TestGameManager {
             System.out.println(GameManager.getInstance().getGamePhase());
             System.out.println(GameManager.getInstance().getActivePlayer().getName());
             GameManager.getInstance().nextRound();
-            assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
-            //System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
-        }
-
-        @Test
-        public void testReignforcementNumPlus() {
-            mapManager = new MapManager();
-            Map<String, Player> players = new HashMap<>();
-            Player p1 = new Player("Player1", 16);
-            Player p2 = new Player("Player2", 22);
-            Player p3 = new Player("Player3", 18);
-            players.put(p1.getName(), p1);
-            players.put(p2.getName(), p2);
-            players.put(p3.getName(), p3);
-
-            GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/IceWorld.map").getPath()));
-            GameManager.getInstance().NewGame();
-
-            //System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
-            assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
-            GameManager.getInstance().nextRound();
-            GameManager.getInstance().nextRound();
-            GameManager.getInstance().nextRound();
-            System.out.println(GameManager.getInstance().getGamePhase());
-            System.out.println(GameManager.getInstance().getActivePlayer().getName());
-            GameManager.getInstance().nextRound();
-            assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
+            assertEquals(38, GameManager.getInstance().getPlayers().get("Player2").getArmies());
             //System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
         }
     }

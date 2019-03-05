@@ -58,6 +58,7 @@ public class GameManager extends Observable implements IGameManager {
     public void NewGame() {
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
         initArmies();
+        playerIterator=players.values().iterator();
         start();
     }
 

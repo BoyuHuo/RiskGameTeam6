@@ -20,6 +20,8 @@ public class Player {
 
     /**
      * A constructor for player which can initial the player's name and player's armies.
+     * @param name name of the player.
+     * @param armies number of armies.
      */
     public Player(String name, int armies){
         this.name = name;
