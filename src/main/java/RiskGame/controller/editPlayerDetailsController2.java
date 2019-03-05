@@ -19,6 +19,15 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * This is the implementation of controller for second player screen that implements the logic for player details
+ * being saved.
+ *
+ * @author Sudhanva Muralidhar
+ * @version 1v.0.0
+ */
+
 public class editPlayerDetailsController2 implements Initializable {
 
     @FXML
@@ -35,6 +44,13 @@ public class editPlayerDetailsController2 implements Initializable {
     private Scene newGameSceenScene;
     private File gameMapFile;
 
+    /**
+     *<p>
+     * This method implements Save Button to save player details.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickButtonSave(ActionEvent event) throws IOException
     {
@@ -142,7 +158,12 @@ public class editPlayerDetailsController2 implements Initializable {
         showGameScreen();
     }
 
-
+    /**
+     *<p>
+     * This method loads the new game screen.
+     *</p>
+     * @throws IOException
+     */
     private void showGameScreen() throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
@@ -158,10 +179,24 @@ public class editPlayerDetailsController2 implements Initializable {
     }
 
 
+
+    /**
+     *<p>
+     * This method sets the game map file.
+     *</p>
+     * @param gameMapFile File class object
+     */
     public  void setMapDetails(File gameMapFile) {
+
         this.gameMapFile=gameMapFile;
     }
 
+    /**
+     *<p>
+     * This method creates a player and populate the playerList.
+     *</p>
+     * @param text PLayer Name
+     */
     private void createPlayer(String text) {
          player=new Player();
          player.setName(text);
@@ -170,6 +205,12 @@ public class editPlayerDetailsController2 implements Initializable {
 
     }
 
+    /**
+     *<p>
+     * This method generates random color.
+     *</p>
+     * @return color code
+     */
     private String randomColor(){
         Random random = new Random();
 
@@ -182,8 +223,13 @@ public class editPlayerDetailsController2 implements Initializable {
         return colorCode;
     }
 
-
-
+    /**
+     *<p>
+     * This method implements back Button to go back to new game screen.
+     *</p>
+     * @param event ActionEvent
+     * @throws IOException
+     */
     @FXML
     private void clickButtonBack(ActionEvent event) throws IOException
     {

@@ -1,3 +1,5 @@
+package test;
+
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.service.imp.MapManager;
 import org.junit.Before;
@@ -6,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * This is a Junit Test Class, used for testing <b> Map Validation </b> function
+ * This is a Junit test Class, used for testing <b> Map Validation </b> function
  * It contains all test cases which is related to map validation.
  *
  * @author Hao Ma
@@ -26,7 +28,7 @@ public class TestMapValidation {
         mapManager = new MapManager();
     }
     /**
-     * Test case 1
+     * test case 1
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>
@@ -41,7 +43,7 @@ public class TestMapValidation {
         assertTrue(mapManager.IsValided(map));
     }
     /**
-     * Test case 2
+     * test case 2
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>
@@ -56,7 +58,7 @@ public class TestMapValidation {
         assertNull(map);
     }
     /**
-     * Test case 3
+     * test case 3
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>
@@ -71,7 +73,7 @@ public class TestMapValidation {
         assertNull(map);
     }
     /**
-     * Test case 4
+     * test case 4
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>

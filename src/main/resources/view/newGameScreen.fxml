@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -23,14 +24,14 @@
       <Image url="/images/newGameBackground.png" />
     </image>
   </ImageView>
-  <Button layoutX="89.0" layoutY="81.0" mnemonicParsing="false" onAction="#mapFileChooser" prefHeight="47.0" prefWidth="149.0" text="Load Map">
+  <Button layoutX="89.0" layoutY="129.0" mnemonicParsing="false" onAction="#mapFileChooser" prefHeight="47.0" prefWidth="149.0" text="Load Map">
     <font>
       <Font size="19.0" fx:id="x1" />
     </font>
   </Button>
- <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="89.0" layoutY="200.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="149.0" text="Player Details" />
-  <Button font="$x1" layoutX="89.0" layoutY="300.0" mnemonicParsing="false" onAction="#clickStartButton" prefHeight="47.0" prefWidth="149.0" text="Start" />
-  <Hyperlink fx:id="hyperLinkBack" layoutX="30.0" layoutY="483.0" onAction="#hyperBack" prefHeight="47.0" prefWidth="66.0" text="Back" textFill="#141313">
+  <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="89.0" layoutY="238.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="149.0" text="Player Details" />
+  <Button font="$x1" layoutX="89.0" layoutY="348.0" mnemonicParsing="false" onAction="#clickStartButton" prefHeight="47.0" prefWidth="149.0" text="Start" />
+  <Hyperlink fx:id="hyperLinkBack" layoutX="25.0" layoutY="446.0" onAction="#hyperBack" prefHeight="47.0" prefWidth="66.0" text="Back" textFill="#141313">
     <font>
       <Font size="21.0" />
     </font>
@@ -46,7 +47,11 @@
         </VBox.margin>
       </Label>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
-      <Text fill="#606060" font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="    Maps:" />
+      <Text font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="    Maps:">
+        <fill>
+          <Color blue="0.376" green="0.376" red="0.376" fx:id="x4" />
+        </fill>
+      </Text>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
       <Text fx:id="mapName" strokeType="OUTSIDE" strokeWidth="0.0" text="" translateX="25.0">
         <font>
@@ -56,7 +61,7 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
-      <Text fill="#606060" font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="    Players:" />
+      <Text fill="$x4" font="$x3" strokeType="OUTSIDE" strokeWidth="0.0" text="    Players:" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
       <Text fx:id="playerList" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="" translateX="25.0" />
     </children>
