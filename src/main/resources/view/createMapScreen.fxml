@@ -17,7 +17,7 @@
 
 <BorderPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.createMapScreenController">
   <center>
-    <SplitPane dividerPositions="0.779559118236473" prefHeight="240.0" prefWidth="333.0" BorderPane.alignment="CENTER">
+    <SplitPane style="-fx-background-image: url('images/gameBC.png');" dividerPositions="0.779559118236473" prefHeight="240.0" prefWidth="333.0" BorderPane.alignment="CENTER">
       <items>
         <AnchorPane fx:id="createMapPane"  minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="167.0">
           <children>
@@ -42,7 +42,7 @@
             <ChoiceBox fx:id="cbContinents"  layoutY="500.0"
                        AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
                        AnchorPane.topAnchor="205.0" onAction="#cbChangeContinent"/>
-            <ImageView fitHeight="200.0" fitWidth="220.0" translateY="380" AnchorPane.bottomAnchor="0.0"
+            <ImageView fitHeight="170.0" fitWidth="220.0" translateY="410" AnchorPane.bottomAnchor="0.0"
                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                        AnchorPane.topAnchor="0.0">
               <image>
