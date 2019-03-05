@@ -101,6 +101,9 @@ public class Territory {
      */
     public void setContinent(Continent continent) {
         this.continent = continent;
+        if(this.getContinent()!=null){
+            this.continent.getTerritories().remove(this.getName());
+        }
         continent.getTerritories().put(name, this);
     }
 
