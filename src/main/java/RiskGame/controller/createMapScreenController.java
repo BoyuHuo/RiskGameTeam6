@@ -43,12 +43,12 @@ public class createMapScreenController implements Initializable {
     AnchorPane createMapPane;
     @FXML
     private Button createTerrotoryBt, connectTerrotoryBt, createContinentsBt, saveBt, backBt, loadExistMapbt;
-    Scene createMapScene;
-    AnchorPane myPanel;
-    Group rectangleGroups = new Group();
-    Rectangle square = null;
+    private Scene createMapScene;
+    private AnchorPane myPanel;
+    private Group rectangleGroups = new Group();
+    private Rectangle square = null;
 
-    ArrayList<String> continentArray= new ArrayList<>();
+    private ArrayList<String> continentArray= new ArrayList<>();
 
     private ObservableList<String> continentsNames = FXCollections.observableArrayList();
 
@@ -58,7 +58,7 @@ public class createMapScreenController implements Initializable {
     @FXML
     private TextField authorTextArea;
 
-    int mode;
+    private int mode;
 
     private File mapFile;
 
@@ -67,18 +67,18 @@ public class createMapScreenController implements Initializable {
     private HashMap<String,Color> continentColor=new HashMap<String,Color>();
 
 
-    boolean isvalidlineStart, isValidlineEnd;
+    private boolean isvalidlineStart, isValidlineEnd;
 
-    Territory sourceT;
-    Territory destT;
-    String sourceName;
-    String destName;
-    GameMap gameMap =new GameMap();
-    ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
+    private Territory sourceT;
+    private Territory destT;
+    private String sourceName;
+    private String destName;
+    private GameMap gameMap =new GameMap();
+    private ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
 
-    ArrayList<Territory> territoryArrayList = new ArrayList<>();
+    private ArrayList<Territory> territoryArrayList = new ArrayList<>();
 
-    Line l1;
+    private Line l1;
 
     /**
      * This is the implementation for New Game Button.
@@ -157,10 +157,7 @@ public class createMapScreenController implements Initializable {
     private void drawMap() {
 
         clearAllLabels();
-      //  createMapPane.getChildren().clear();
         rectangleGroups.getChildren().clear();
-        //rectangleGroups = new Group();
-        //createMapPane.getChildren().add(rectangleGroups);
 
         for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
             DFS(entry.getValue(), new ArrayList<>());
@@ -180,10 +177,8 @@ public class createMapScreenController implements Initializable {
             setContinentSquareProperties( territory.getX(),territory.getY(),continentColor.get(territory.getContinent().getName()));
             setLabelProperties(entry);
 
-            //setLine(entry);
             territorySquare=null;
         }
-        //rectangleGroups=new Group();
     }
 
     private void clearAllLabels() {
@@ -242,16 +237,6 @@ public class createMapScreenController implements Initializable {
         continentName.setText(entry.getValue().getName());
         continentName.setTextFill(Color.BLACK);
         continentName.setStyle("-fx-font-weight: bold;");
-
-
-       /* Label armyAssigned = new Label();
-        armyAssigned.setLayoutX((entry.getValue().getX() + 22.5));
-        armyAssigned.setLayoutY((entry.getValue().getY() + 15));
-        armyAssigned.setText(String.valueOf(entry.getValue().getArmies()));
-        armyAssigned.setTextFill(Color.BLACK);
-        armyAssigned.setStyle("-fx-font-weight: bold;");*/
-
-        //createMapPane.getChildren().add(armyAssigned);
         createMapPane.getChildren().add(continentName);
     }
 
@@ -490,9 +475,7 @@ public class createMapScreenController implements Initializable {
                         l1.setEndX(event.getX());
                         l1.setEndY(event.getY());
                         rectangleGroups.getChildren().add(l1);
-                        //System.out.println(sourceT.getName()+"->"+destT.getName());
                         gameMap.getTerritories().get(destName).addNeibor(sourceT);
-                       // System.out.println(destT.getName()+"->"+sourceT.getName());
                         gameMap.getTerritories().get(sourceName).addNeibor(destT);
 
 
@@ -512,21 +495,11 @@ public class createMapScreenController implements Initializable {
 
     @FXML
     private void clickBack(ActionEvent event) throws IOException {
-        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/newGameScreen.fxml"));
+        Parent editPlayerScreen = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
         Scene editPlayerScene = new Scene(editPlayerScreen, 1000, 600);
         Stage editPlayerStage = (Stage) backBt.getScene().getWindow();
         editPlayerStage.setScene(editPlayerScene);
         editPlayerStage.show();
-       /* FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
-        loader.load();
-        loadMapScreenController controller = loader.getController();
-        controller.checkMap(map);
-        createMapScene = new Scene(loader.getRoot(), 600,400);
-
-        Stage createMapSceneStage = (Stage)backBt.getScene().getWindow();
-        createMapSceneStage.setScene(createMapScene);
-        createMapSceneStage.show();*/
     }
 
 
@@ -595,13 +568,6 @@ public class createMapScreenController implements Initializable {
                 showAlertDialog("Enter Country name");
                 return false;
             }
-           /* Label label = new Label();
-            label.setLayoutX((x + 25) - 12.5);
-            label.setLayoutY((y + 25) - 12.5);
-            label.setText(result.get());
-
-            createMapPane.getChildren().add(label);*/
-
 
             Label continentName = new Label();
             continentName.setLayoutX((x + 5));
@@ -638,16 +604,12 @@ public class createMapScreenController implements Initializable {
 
         Dialog<Results> dialog = new Dialog<>();
         dialog.setTitle("Enter Country Details");
-        //dialog.setHeaderText("Please specify");
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField nameField = new TextField("");
         TextField controlNumber = new TextField("");
         Label  nameLabel = new Label("Name");
         Label  controlLabel = new Label("Control Number");
-
-        //dialogPane.setContent();
-
 
         dialogPane.setContent(new HBox(8,new VBox(16, nameLabel, controlLabel),new VBox(8, nameField, controlNumber)));
 
