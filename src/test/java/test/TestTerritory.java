@@ -52,7 +52,7 @@ public class TestTerritory {
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        GameManager.getInstance().getMap().getTerritories().get("FireElephant").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
 
     }

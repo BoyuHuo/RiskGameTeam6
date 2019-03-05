@@ -308,10 +308,14 @@ public class TestMapCreator {
         map.removeTerrtory(b1.getName());
         assertEquals(3,map.getTerritories().size());
         assertEquals(1,map.getContinents().get("Red").getTerritories().size());
-        assertEquals(0,map.getTerritories().get(s1.getName()).getNeighbors().size());
+        assertEquals(1,map.getTerritories().get(s1.getName()).getNeighbors().size());
 
     }
-
+    /**
+     * Test case 6
+     * Purpose: testing creating the invalided map which is because of
+     * one of the continent didn't assign any territory
+     */
     @Test
     public void testCreationOne() {
         System.out.println("Test case 5: Test Map Remove has been start...");
@@ -329,16 +333,49 @@ public class TestMapCreator {
         Continent c2 = new Continent("c2", 12);
 
 
-        t1.setContinent(c1);
+        t1.setContinent(c2);
         t2.setContinent(c2);
         t3.setContinent(c2);
 
         t1.addNeibor(t2);
         t2.addNeibor(t3);
 
-        System.out.println(mapManager.IsValided(map));
+       assertEquals(false,mapManager.IsValided(map));
+
+    }
+
+    /**
+     * Test case 7
+     * Purpose: testing creating the invalided map which is because of
+     * one of the continent has the control value which is less than 0
+     */
+    @Test
+    public void testCreationTwo() {
+        System.out.println("Test case 5: Test Map Remove has been start...");
+        GameMap map = new GameMap();
+        map.setAuthor("Hao Ma");
+        map.setScroll("vertical");
+        map.setWarn("no");
+        map.setImage("null");
+        map.setWrap("no");
+        Map<String,Territory> territoryMap = new HashMap<>();
+        Territory t1 = new Territory("t1",100,101);
+        Territory t2 = new Territory("t2" , 102,103);
+        Territory t3 = new Territory("t3",103,104);
+        Continent c1 = new Continent("c1",10);
+
+        Continent c2 = new Continent("c2", -5);
 
 
+        t1.setContinent(c1);
+        t2.setContinent(c2);
+        t3.setContinent(c2);
+
+        t1.addNeibor(t2);
+        t2.addNeibor(t3);
+        t3.addNeibor(t1);
+
+        assertEquals(false,mapManager.IsValided(map));
 
     }
 }
