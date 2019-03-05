@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * It contains implementation for the New Game, Load Game and exit buttons.
  *
  * @author Sudhanva Muralidhar
- * @version 1v.0.0
+ * @version v.0.0
  */
 public class MainScreenController implements Initializable {
 
