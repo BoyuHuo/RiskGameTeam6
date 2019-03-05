@@ -37,7 +37,7 @@ import java.util.*;
  * that allows user to create a new map on the local device.
  *
  * @author Karan Sharma
- * @version v1.0.0
+ * @version 1.0.0
  */
 
 public class CreateMapScreenController implements Initializable {

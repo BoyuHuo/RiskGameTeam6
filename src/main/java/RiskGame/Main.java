@@ -9,8 +9,22 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * This is the main class which is the starting point of the Risk Game.
+ *
+ * @author Sudhanva Muralidhar
+ * @version 1.0.0
+ */
+
 public class Main extends Application {
 
+    /**
+     *
+     * This method loads the main screen of the risk game.
+     *
+     * @param primaryStage the first screen user is exposed to.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -21,7 +35,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     *
+     * This methid launches the application.
+     * @param args command line argument
+     */
     public static void main(String[] args) {
         launch(args);
     }
