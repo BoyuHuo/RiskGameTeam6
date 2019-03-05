@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.mainScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.MainScreenController">
   <center>
     <SplitPane dividerPositions="0.7170818505338078" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
       <items>
@@ -40,7 +40,7 @@
                 </Glow>
               </effect>
               <items>
-                <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" prefHeight="51.0" prefWidth="143.0" text="New Game" textAlignment="JUSTIFY" translateX="30.0">
+                <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" mnemonicParsing="false" onAction="#clickNewGameButton" prefHeight="51.0" prefWidth="143.0" text="New Game" textAlignment="JUSTIFY" translateX="30.0">
                   <font>
                     <Font size="19.0" fx:id="x1" />
                   </font>

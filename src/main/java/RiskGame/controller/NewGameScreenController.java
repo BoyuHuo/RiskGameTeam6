@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @version 1v.0.0
  */
 
-public class newGameScreenController implements Initializable {
+public class NewGameScreenController implements Initializable {
     @FXML
     private Text mapName;
     private Scene createMapScene;
@@ -48,6 +48,8 @@ public class newGameScreenController implements Initializable {
     private Map<String, Player> players = new HashMap<>();
     private StringBuilder playersName=new StringBuilder();
     private File mapFile;
+
+
     /**
      *<p>
      * This method sets the player.
@@ -57,9 +59,6 @@ public class newGameScreenController implements Initializable {
     public void setPlayers(Map<String, Player> playersList ){
         this.players=players;
     }
-
-
-
 
     /**
      *<p>
@@ -86,6 +85,10 @@ public class newGameScreenController implements Initializable {
         }
     }
 
+    /**
+     * This method implements the alert box.
+     * @param alertType sets the text for the alert box.
+     */
     private void showAlertDialog(String alertType) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -117,42 +120,23 @@ public class newGameScreenController implements Initializable {
         gameMap = mapManager.LoadMap(mapFile.toString());
     }
 
-    private void showMap(GameMap gameMap) throws IOException {
-
-        Player p1=new Player();
-        Player p2 = new Player();
-        p1.setName("Peter");
-        p2.setName("Lee");
-        players=new HashMap<>();
-        players.put(p1.getName(),p1);
-        players.put(p2.getName(),p2);
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/loadMapScreen.fxml"));
-        loader.load();
-        loadMapScreenController controller = loader.getController();
-        controller.setMap(gameMap);
-        createMapScene = new Scene(loader.getRoot(), 1000,600);
-
-        Stage createMapSceneStage = (Stage) mapName.getScene().getWindow();
-        createMapSceneStage.setScene(createMapScene);
-        createMapSceneStage.show();
-    }
-
+    /**
+     * This method implements the functionality to navigate to the edit player details screen.
+     * @param event Action Even
+     * @throws IOException input output exception
+     */
     public void clickEditPlayerDetails(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/editPlayerDetailsScreen1.fxml"));
         loader.load();
-        editPlayerDetailsController controller = loader.getController();
+        EditPlayerDetailsController controller = loader.getController();
         controller.setMapDetails(mapFile);
         Scene editPlayerScene = new Scene(loader.getRoot(), 1000,600);
 
         Stage newGameScreenStage = (Stage)mapName.getScene().getWindow();
         newGameScreenStage.setScene(editPlayerScene);
         newGameScreenStage.show();
-
-
     }
 
 

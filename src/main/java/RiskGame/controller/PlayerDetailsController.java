@@ -1,6 +1,5 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,8 +25,7 @@ import java.util.ResourceBundle;
  * @author Sudhanva Muralidhar
  * @version 1v.0.0
  */
-
-public class editPlayerDetailsController2 implements Initializable {
+public class PlayerDetailsController implements Initializable {
 
     @FXML
     TextField txtPlayer1,txtPlayer2,txtPlayer3,txtPlayer4,txtPlayer5,txtPlayer6,txtPlayer7,txtPlayer8;
@@ -37,7 +34,7 @@ public class editPlayerDetailsController2 implements Initializable {
     @FXML
     Button btnBack, btnSave;
 
-    private editPlayerDetailsController playerDetails = new editPlayerDetailsController();
+    private EditPlayerDetailsController playerDetails = new EditPlayerDetailsController();
     private ArrayList<String> playerName = new ArrayList();
     private HashMap<String, Player> playerList=new HashMap<>();
     private Player player;
@@ -54,7 +51,7 @@ public class editPlayerDetailsController2 implements Initializable {
     @FXML
     private void clickButtonSave(ActionEvent event) throws IOException
     {
-        switch (editPlayerDetailsController.numberOfPlayers)
+        switch (EditPlayerDetailsController.numberOfPlayers)
         {
             case 1: playerName.add(0,txtPlayer1.getText());
                     createPlayer(txtPlayer1.getText());
@@ -169,7 +166,7 @@ public class editPlayerDetailsController2 implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/newGameScreen.fxml"));
         loader.load();
-        newGameScreenController controller = loader.getController();
+        NewGameScreenController controller = loader.getController();
         controller.setPlayersDetails(playerList,gameMapFile);
         newGameSceenScene = new Scene(loader.getRoot(), 1000,600);
 
@@ -177,8 +174,6 @@ public class editPlayerDetailsController2 implements Initializable {
         newGameScreenStage.setScene(newGameSceenScene);
         newGameScreenStage.show();
     }
-
-
 
     /**
      *<p>
@@ -244,7 +239,7 @@ public class editPlayerDetailsController2 implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         btnBack.setDisable(true);
-        switch (editPlayerDetailsController.numberOfPlayers)
+        switch (EditPlayerDetailsController.numberOfPlayers)
         {
             case 1: txtPlayer2.setDisable(true);
                     txtPlayer3.setDisable(true);
