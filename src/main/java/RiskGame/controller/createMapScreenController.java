@@ -412,7 +412,7 @@ public class createMapScreenController implements Initializable {
                         double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
-                                x <= _x + 75 && y <= _y + 75){
+                                x <= _x + 55 && y <= _y + 40){
                             sourceT=new Territory();
                             sourceT.setX((int) Math.round(_x));
                             sourceT.setY((int) Math.round(_y));
@@ -458,7 +458,7 @@ public class createMapScreenController implements Initializable {
                         double _y = entry.getValue().getY();
 
                         if (x >= _x && y >= _y &&
-                                x <= _x + 75 && y <= _y + 75){
+                                x <= _x + 50 && y <= _y + 40){
                             destT=new Territory();
                             destT.setX((int) Math.round(_x));
                             destT.setY((int) Math.round(_y));
@@ -511,7 +511,7 @@ public class createMapScreenController implements Initializable {
             double _y = entry.getValue().getY();
 
             if (x >= _x && y >= _y &&
-                    x <= _x + 75 && y <= _y + 75)
+                    x <= _x + 55 && y <= _y + 40)
                 return true;
         }
         return false;
