@@ -74,6 +74,7 @@ public class createMapScreenController implements Initializable {
     private String sourceName;
     private String destName;
     private GameMap gameMap =new GameMap();
+
     private ArrayList<HashMap<String, Double>> countries = new ArrayList<>();
 
     private ArrayList<Territory> territoryArrayList = new ArrayList<>();

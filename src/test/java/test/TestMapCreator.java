@@ -95,7 +95,7 @@ public class TestMapCreator {
         t1.setContinent(c1);
         t2.setContinent(c2);
         t3.setContinent(c2);
-        t4.setContinent(c1);
+        t4.setContinent(c2);
 
         map.getContinents().put(c1.getName(),c1);
         map.getContinents().put(c2.getName(),c2);
@@ -108,10 +108,10 @@ public class TestMapCreator {
 
         boolean resultboolean=  mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         System.out.println(resultboolean);
-/*        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");*/
-/*        assertEquals("Baiyu Huo",result.getAuthor());*/
-/*        assertEquals(3,result.getTerritories().size());
-        assertEquals(2,result.getContinents().size());*/
+        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
+        assertEquals("Baiyu Huo",result.getAuthor());
+        assertEquals(4,result.getTerritories().size());
+        assertEquals(2,result.getContinents().size());
 
     }
 
