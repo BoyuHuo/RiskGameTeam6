@@ -13,6 +13,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -58,15 +59,28 @@ public class newGameScreenController implements Initializable {
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         mapFile = mapFileChooser.showOpenDialog(null);
         if (mapFile != null) {
-            mapName.setText(mapFile.getName().toString());
+
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
-   /*         mapName.setText(mapFile.getName());*/
-/*
-            showMap(gameMap);*/
+            if(gameMap!=null){
+                mapName.setText(mapFile.getName().toString());
+            } else{
+                showAlertDialog("Please load a valid map");
+
+            }
 
         }
     }
+
+    private void showAlertDialog(String alertType) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText(null);
+        alert.setContentText(alertType);
+        alert.showAndWait();
+    }
+
     public void setPlayersDetails(HashMap<String,Player> playersList,File gameMapfile) {
 
         players=playersList;
