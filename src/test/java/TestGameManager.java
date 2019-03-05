@@ -131,4 +131,18 @@ public class TestGameManager {
         assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
         assertEquals(15,GameManager.getInstance().getActivePlayer().getArmies();
     }*/
+        @Test
+        public void testReignforcementNum() {
+            System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
+            GameManager.getInstance().nextRound();
+            GameManager.getInstance().nextRound();
+            GameManager.getInstance().nextRound();
+            System.out.println(GameManager.getInstance().getGamePhase());
+            System.out.println(GameManager.getInstance().getActivePlayer().getName());
+            GameManager.getInstance().nextRound();
+            System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
+
+        }
+
+
 }
