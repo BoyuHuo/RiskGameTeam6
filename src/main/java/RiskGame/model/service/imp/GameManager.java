@@ -1,9 +1,13 @@
 package RiskGame.model.service.imp;
 
+import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
+import RiskGame.model.entity.Territory;
 import RiskGame.model.service.IGameManager;
+
 import java.util.*;
+
 /**
  * This is implement class for game manager interface, which contains all the implementation of game related logic function.
  * It is a singleton instance, which can be used in globle scope.
@@ -38,6 +42,7 @@ public class GameManager extends Observable implements IGameManager {
         }
         return instance;
     }
+
     /**
      * It is an empty constructor.
      */
@@ -46,6 +51,7 @@ public class GameManager extends Observable implements IGameManager {
 
     /**
      * It used for initial a new game, it will ramdomly assign territory to players and give players the initial armies, and start with start up phase.
+     *
      * @see GameManager#initArmies()
      * @see GameManager#start()
      */
@@ -67,7 +73,7 @@ public class GameManager extends Observable implements IGameManager {
      * <li>8 players: 10</li>
      * </ul>
      */
-    private void initArmies(){
+    private void initArmies() {
         int armiesNum = 0;
         switch (players.values().size()) {
             case 2:
@@ -94,7 +100,7 @@ public class GameManager extends Observable implements IGameManager {
             default:
                 break;
         }
-        for(Player p: players.values()){
+        for (Player p : players.values()) {
             p.setArmies(armiesNum);
         }
     }
@@ -125,30 +131,37 @@ public class GameManager extends Observable implements IGameManager {
 
     /**
      * It use for forward the game process, it will decided if it is move to next phase or it should move to next player
+     *
      * @see GameManager#nextPlayer()
      * @see GameManager#nextPhase()
      */
     public void nextRound() {
-        switch (gamePhase){
+        switch (gamePhase) {
             case STARTUP:
-                Player p = (Player) players.values().toArray()[players.values().size()-1];
-                if(p.equals(activePlayer)){
-                    nextPhase();
+                Player p = (Player) players.values().toArray()[players.values().size() - 1];
+                if (p.equals(activePlayer)) {
                     nextPlayer();
-                }
-                else{
+                    nextPhase();
+                } else {
                     nextPlayer();
                 }
                 break;
-            case ATTACK:case REINFORCEMENTS: nextPhase();break;
-            case FORTIFICATION: nextPhase();nextPlayer(); break;
-            default:break;
+            case ATTACK:
+            case REINFORCEMENTS:
+                nextPhase();
+                break;
+            case FORTIFICATION:
+                nextPlayer();
+                nextPhase();
+                break;
+            default:
+                break;
         }
     }
 
 
     /**
-     *  it uses for moving to next player's turn.
+     * it uses for moving to next player's turn.
      */
     public void nextPlayer() {
         if (playerIterator == null || !playerIterator.hasNext()) {
@@ -156,8 +169,9 @@ public class GameManager extends Observable implements IGameManager {
         }
         activePlayer = (Player) playerIterator.next();
     }
+
     /**
-     *  it uses for moving to phase.
+     * it uses for moving to phase.
      */
     public void nextPhase() {
         int tag = gamePhase.ordinal();
@@ -166,10 +180,14 @@ public class GameManager extends Observable implements IGameManager {
             tag = 1;
         }
         gamePhase = phase.values()[tag];
+        if(getGamePhase().equals("Reinforcements")){
+            reignforceArmies(activePlayer);
+        }
     }
 
     /**
-     *  getter for map
+     * getter for map
+     *
      * @return map get a map from game, used for checking the map status.
      */
     public GameMap getMap() {
@@ -177,7 +195,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  setter for map
+     * setter for map
+     *
      * @param map set a map in the game.
      */
     public void setMap(GameMap map) {
@@ -185,7 +204,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  setter for players
+     * setter for players
+     *
      * @param players set up a list of players for the game.
      */
     public void setPlayers(Map<String, Player> players) {
@@ -193,7 +213,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  getter for players
+     * getter for players
+     *
      * @return players get a list of players from the game.
      */
     public Map<String, Player> getPlayers() {
@@ -201,7 +222,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  Add a new player in the game.
+     * Add a new player in the game.
+     *
      * @param p players instance which needs to be added in the game.
      */
     public void addPlayer(Player p) {
@@ -212,7 +234,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  remove a player from the game.
+     * remove a player from the game.
+     *
      * @param p players instance which needs to be removed from the game.
      */
     public void removePlayer(Player p) {
@@ -220,7 +243,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  To get it is which players turn now.
+     * To get it is which players turn now.
+     *
      * @return activePlayer the player instance which is now his turn.
      */
     public Player getActivePlayer() {
@@ -228,7 +252,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  Used for move to another player's turn
+     * Used for move to another player's turn
+     *
      * @param activePlayer the player who's next.
      */
     public void setActivePlayer(Player activePlayer) {
@@ -236,7 +261,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  To get the game phase.
+     * To get the game phase.
+     *
      * @return result the String description of the phase.
      */
     public String getGamePhase() {
@@ -262,16 +288,18 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  It used to set the game phase
-     * @param  gamePhase the game phase
+     * It used to set the game phase
+     *
+     * @param gamePhase the game phase
      */
     public void setGamePhase(phase gamePhase) {
         this.gamePhase = gamePhase;
     }
 
     /**
-     *  It used to get a iterator from players list. So it can be traveled in a unified way.
-     *  it is a part of Iterator Pattern
+     * It used to get a iterator from players list. So it can be traveled in a unified way.
+     * it is a part of Iterator Pattern
+     *
      * @return playerIterator  the iterator of player list object.
      */
     public Iterator getPlayerIterator() {
@@ -279,7 +307,8 @@ public class GameManager extends Observable implements IGameManager {
     }
 
     /**
-     *  Set up an iterator for player, it is not being used.
+     * Set up an iterator for player, it is not being used.
+     *
      * @param iterator a iterator object for players
      */
     public void setPlayerIterator(Iterator iterator) {
@@ -318,6 +347,7 @@ public class GameManager extends Observable implements IGameManager {
 
     /**
      * It is a tool method, which used for delete an object in array.
+     *
      * @param index the index of the object in array.
      * @param array the array that need to edit.
      * @return arrNew the new array which has already delete the underlying object.
@@ -331,5 +361,36 @@ public class GameManager extends Observable implements IGameManager {
         return arrNew;
     }
 
+    public boolean reignforceArmies(Player p) {
+        int controlNum = 0;
+        int armiesFromTerr = 0;
+        int terrNum = 0;
+        for (Territory t : map.getTerritories().values()) {
+            if (t.getBelongs().getName().equals(p.getName())) {
+                terrNum++;
+            }
+        }
+        if ((terrNum / 3) < 3) {
+            armiesFromTerr = 3;
+        } else {
+            armiesFromTerr = terrNum / 3;
+        }
+        if (p.getName().equals(getActivePlayer().getName())) {
+            for (Continent c : map.getContinents().values()) {
+                int countBelongs = 0;
+                for (Territory t : c.getTerritories().values()) {
+                    if (t.getBelongs().getName().equals(p.getName())) {
+                        countBelongs++;
+                    }
+                }
+                if (countBelongs == c.getTerritories().size()) {
+                    controlNum+=c.getCtrNum();
+                }
+            }
+        }
+        p.setArmies(p.getArmies()+controlNum+armiesFromTerr);
+        System.out.println(p.getName()+" now has "+p.getArmies());
+        return true;
+    }
 
 }

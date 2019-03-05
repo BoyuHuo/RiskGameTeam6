@@ -122,12 +122,27 @@ public class TestGameManager {
          * </ul>
          *
          */
-    @Test
+/*    @Test
     public void testNextRound(){
         for(int i=0;i<7;i++) {
             GameManager.getInstance().nextRound();
         }
         assertEquals("Attack",GameManager.getInstance().getGamePhase());
         assertEquals("Player1",GameManager.getInstance().getActivePlayer().getName());
-    }
+        assertEquals(15,GameManager.getInstance().getActivePlayer().getArmies();
+    }*/
+        @Test
+        public void testReignforcementNum() {
+            System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
+            GameManager.getInstance().nextRound();
+            GameManager.getInstance().nextRound();
+            GameManager.getInstance().nextRound();
+            System.out.println(GameManager.getInstance().getGamePhase());
+            System.out.println(GameManager.getInstance().getActivePlayer().getName());
+            GameManager.getInstance().nextRound();
+            System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
+
+        }
+
+
 }

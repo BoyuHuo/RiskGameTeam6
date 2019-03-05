@@ -40,7 +40,7 @@
     <TextField fx:id="txtPlayer6" layoutX="-9.0" layoutY="354.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="333.0" translateX="100.0" translateY="20.0" />
     <Label fx:id="lblPlayer6" font="$x1" layoutX="14.0" layoutY="377.0" text="Player 6" />
     <TextField fx:id="txtPlayer7" layoutX="-9.0" layoutY="416.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="333.0" translateX="100.0" translateY="20.0" />
-    <Label fx:id="lblPlayer7" font="$x1" layoutX="14.0" layoutY="439.0" text="PLayer 7" />
+    <Label fx:id="lblPlayer7" font="$x1" layoutX="14.0" layoutY="439.0" text="Player 7" />
     <Button fx:id="btnBack" layoutX="-266.0" layoutY="525.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="32.0" prefWidth="104.0" text="Back" translateX="530.0" translateY="30.0" />
     <TextField fx:id="txtPlayer8" layoutX="-9.0" layoutY="504.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="333.0" translateX="100.0" translateY="-5.0" />
     <Label fx:id="lblPlayer8" font="$x1" layoutX="14.0" layoutY="530.0" text="Player 8" translateY="-30.0" />

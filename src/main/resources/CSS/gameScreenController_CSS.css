@@ -1,8 +1,13 @@
+/**
 .root {
     -fx-font-size: 16px;
-    -fx-background-color: white;
+    -fx-background-color: green;
 }
+*/
 
+.background-color{
+    -fx-background-color: black;
+}
 .button {
     -fx-background-color: #668B8B;
 }
@@ -11,9 +16,11 @@
     -fx-background-color: grey;
 }
 
+/**
 #fancytext {
     -fx-font: 100px Tahoma;
     -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%);
     -fx-stroke: black;
     -fx-stroke-width: 1;
 }
+*/

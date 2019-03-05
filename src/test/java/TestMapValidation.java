@@ -53,7 +53,7 @@ public class TestMapValidation {
     @Test
     public void testMapWithDisconnectedContientsIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandOne.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
     /**
      * Test case 3
@@ -68,21 +68,21 @@ public class TestMapValidation {
     @Test
     public void testMapWithDisconnectedTerritoriesIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandTwo.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
     /**
      * Test case 4
      * Purpose: testing the Validation of a loaded map
      * Process:
      * <ul>
-     *     <li>load a test map(There are not only some disconnected Continents but also some disconnected Territories)</li>
+     *     <li>load a test map(There are some mistakes for the control number of continents)</li>
      *     <li>check if the map is not valided</li>
      * </ul>
      *
      */
     @Test
-    public void testMapWithMixedProblemsIsNotValided(){
+    public void testMapWithIllegalCtrNumIsNotValided(){
         GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandMix.map").getPath());
-        assertFalse(mapManager.IsValided(map));
+        assertNull(map);
     }
 }
