@@ -100,10 +100,10 @@ public class Territory {
      * @param  continent the continent that this territory belongs.
      */
     public void setContinent(Continent continent) {
-        this.continent = continent;
         if(this.getContinent()!=null){
             this.continent.getTerritories().remove(this.getName());
         }
+        this.continent = continent;
         continent.getTerritories().put(name, this);
     }
 
