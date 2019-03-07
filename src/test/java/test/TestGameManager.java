@@ -136,6 +136,10 @@ public class TestGameManager {
         }
 
 
+        /**
+         * test case 4
+         * Purpose: testing the reinforcement number
+         */
         @Test
         public void testReignforcementNum() {
             mapManager = new MapManager();
@@ -151,7 +155,6 @@ public class TestGameManager {
             GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/FireWorld.map").getPath()));
             GameManager.getInstance().NewGame();
 
-            //System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
             assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
             GameManager.getInstance().nextRound();
             GameManager.getInstance().nextRound();
@@ -160,6 +163,5 @@ public class TestGameManager {
             System.out.println(GameManager.getInstance().getActivePlayer().getName());
             GameManager.getInstance().nextRound();
             assertEquals(38, GameManager.getInstance().getPlayers().get("Player2").getArmies());
-            //System.out.println(GameManager.getInstance().getPlayers().get("Player2").getArmies());
         }
     }

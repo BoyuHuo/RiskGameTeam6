@@ -89,6 +89,10 @@ public class CreateMapScreenController implements Initializable {
         if (mapFile != null) {
             MapManager mapManager = new MapManager();
             gameMap = mapManager.LoadMap(mapFile.toString());
+            if(gameMap==null){
+                showAlertDialog("This is an invalided map!! Please choose a valided map");
+                return;
+            }
             cbContinents.getItems().clear();
             for(Map.Entry<String,Continent> entery: gameMap.getContinents().entrySet())
             cbContinents.getItems().add(entery.getKey());
