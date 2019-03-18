@@ -1,7 +1,10 @@
 package RiskGame.model.entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import RiskGame.model.service.imp.GameManager;
+import RiskGame.model.service.imp.RiskUtil;
+
+import java.sql.SQLOutput;
+import java.util.*;
 
 /**
  * This is the Territory class, it is a java bean, use for store the territory's information
@@ -22,9 +25,10 @@ public class Territory {
 
     /**
      * A constructor for territory which can initial the territory's name and it position.
-     * @param  name name of territory
-     * @param x x-coordinate of territory.
-     * @param y y-coordinate of territory.
+     *
+     * @param name name of territory
+     * @param x    x-coordinate of territory.
+     * @param y    y-coordinate of territory.
      */
     public Territory(String name, int x, int y) {
         this.name = name;
@@ -41,6 +45,7 @@ public class Territory {
 
     /**
      * getter function for name, it will return the name of territory in this map.
+     *
      * @return name the name of the territory.
      */
     public String getName() {
@@ -49,6 +54,7 @@ public class Territory {
 
     /**
      * setter function for the territory's name.
+     *
      * @param name the name of the territory.
      */
     public void setName(String name) {
@@ -57,6 +63,7 @@ public class Territory {
 
     /**
      * getter function for x position of the territory , it will return the value of x position of thi territory.
+     *
      * @return x the x position of the territory.
      */
     public int getX() {
@@ -65,6 +72,7 @@ public class Territory {
 
     /**
      * setter function for setup the X position of this territory.
+     *
      * @param x the x position of this territory.
      */
     public void setX(int x) {
@@ -73,6 +81,7 @@ public class Territory {
 
     /**
      * getter function for y position of the territory , it will return the value of y position of thi territory.
+     *
      * @return y the y position of the territory.
      */
     public int getY() {
@@ -81,6 +90,7 @@ public class Territory {
 
     /**
      * setter function for setup the Y position of this territory.
+     *
      * @param y the x position of this territory.
      */
     public void setY(int y) {
@@ -89,6 +99,7 @@ public class Territory {
 
     /**
      * getter function for continent , it will return which continent this territory belongs to.
+     *
      * @return continent the continent that this territory belongs.
      */
     public Continent getContinent() {
@@ -97,10 +108,11 @@ public class Territory {
 
     /**
      * setter function for continent , it will set up which continent this territory belongs to.
-     * @param  continent the continent that this territory belongs.
+     *
+     * @param continent the continent that this territory belongs.
      */
     public void setContinent(Continent continent) {
-        if(this.getContinent()!=null){
+        if (this.getContinent() != null) {
             this.continent.getTerritories().remove(this.getName());
         }
         this.continent = continent;
@@ -109,6 +121,7 @@ public class Territory {
 
     /**
      * getter function for neighbors territories , it will return a list of territories which is directly connected to this territory.
+     *
      * @return neighbors a list of directly connected territories.
      */
     public HashMap<String, Territory> getNeighbors() {
@@ -117,7 +130,8 @@ public class Territory {
 
     /**
      * setter function for neighbors territories , it will set up a list of territories which is directly connected to this territory.
-     * @param  neighbors a list of directly connected territories.
+     *
+     * @param neighbors a list of directly connected territories.
      */
     public void setNeighbors(HashMap neighbors) {
         this.neighbors = neighbors;
@@ -125,6 +139,7 @@ public class Territory {
 
     /**
      * getter function for the number of armies, it will return a number of armies tha this territory's has.
+     *
      * @return armies the number of armies.
      */
     public int getArmies() {
@@ -133,6 +148,7 @@ public class Territory {
 
     /**
      * getter function for the number of armies, it will return a number of armies tha this territory's has.
+     *
      * @param armies the number of armies.
      */
     public void setArmies(int armies) {
@@ -141,6 +157,7 @@ public class Territory {
 
     /**
      * it used for increase the number of armies of this territory from a player.
+     *
      * @param p which player now assigning the armies to the territory.
      */
     public void increaseArmies(Player p) {
@@ -157,6 +174,7 @@ public class Territory {
 
     /**
      * getter function for getting the instance of the player who own this territory.
+     *
      * @return belongs the player instance which has the ownership of this territories.
      */
     public Player getBelongs() {
@@ -165,6 +183,7 @@ public class Territory {
 
     /**
      * setter function for setting the instance of the player who own this territory.
+     *
      * @param belongs the player instance which has the ownership of this territories.
      */
     public void setBelongs(Player belongs) {
@@ -173,15 +192,17 @@ public class Territory {
 
     /**
      * It is used for add a connected territory to this territory.
+     *
      * @param t the territory which will be directly connect to this territory.
      */
     public void addNeibor(Territory t) {
         this.neighbors.put(t.getName(), t);
-        t.getNeighbors().put(this.name,this);
+        t.getNeighbors().put(this.name, this);
     }
 
     /**
      * It is used for remove a connected territory from this territory.
+     *
      * @param t the territory which will be disconnected from this territory.
      */
     public void removeNeibor(Territory t) {
@@ -190,15 +211,16 @@ public class Territory {
 
     /**
      * It is used in fortification phase which will be move armies from one territory to another territory
-     * @param num the number of armies tha need to be move from one territory to another territory.
+     *
+     * @param num         the number of armies tha need to be move from one territory to another territory.
      * @param destination the destination territory
-     * @see Territory#validedToImmgrant(Territory)
      * @return returns if its valid to immgigrate armies.
+     * @see Territory#validedToImmgrant(Territory)
      */
     public boolean immigrantArimies(int num, Territory destination) {
-        if(!validedToImmgrant(destination)){
+        if (!validedToImmgrant(destination)) {
             return false;
-        }else {
+        } else {
             if (num <= this.armies) {
                 this.armies -= num;
                 destination.setArmies(num + destination.getArmies());
@@ -210,41 +232,104 @@ public class Territory {
 
     /**
      * It is used to valided if the territory allows to move the arimies to another territory.
+     *
      * @param destionation the destination territory.
-     * @see Territory#DFS(Territory, Territory, ArrayList)
      * @return returns true if its valid army transfer or not.
+     * @see Territory#DFS(Territory, Territory, ArrayList)
      */
-    public boolean validedToImmgrant(Territory destionation){
-        if(!belongs.getName().equals(destionation.getBelongs().getName()))
-           return false;
-        else{
-            return DFS(this,destionation,new ArrayList<String>());
+    public boolean validedToImmgrant(Territory destionation) {
+        if (!belongs.getName().equals(destionation.getBelongs().getName()))
+            return false;
+        else {
+            return DFS(this, destionation, new ArrayList<String>());
         }
     }
 
     /**
      * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
-     * @param current the current territory.
-     * @param destination the destination territory.
+     *
+     * @param current        the current territory.
+     * @param destination    the destination territory.
      * @param connectedTerrs the territory list which is already passed.
      */
-    private boolean DFS(Territory current, Territory destination,ArrayList<String> connectedTerrs) {
+    private boolean DFS(Territory current, Territory destination, ArrayList<String> connectedTerrs) {
         boolean result = false;
 
-            for (String key : current.getNeighbors().keySet()) {
-                Territory neightbor = current.getNeighbors().get(key);
-                if (neightbor.getBelongs().equals(destination.getBelongs())) {
-                    if(neightbor.getName().equals(destination.getName())){
-                        return true;
-                    }
-                    if (!connectedTerrs.contains(neightbor.getName())) {
-                        connectedTerrs.add(neightbor.getName());
-                       result=result||DFS(neightbor,destination, connectedTerrs);
-                    }
+        for (String key : current.getNeighbors().keySet()) {
+            Territory neightbor = current.getNeighbors().get(key);
+            if (neightbor.getBelongs().equals(destination.getBelongs())) {
+                if (neightbor.getName().equals(destination.getName())) {
+                    return true;
                 }
-
+                if (!connectedTerrs.contains(neightbor.getName())) {
+                    connectedTerrs.add(neightbor.getName());
+                    result = result || DFS(neightbor, destination, connectedTerrs);
+                }
             }
-            return result;
+
+        }
+        return result;
+    }
+
+    public boolean launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
+        if (this.getArmies() <= 0 || target.getBelongs() == this.getBelongs()) {
+            return false;
+        } else if (this.getNeighbors().get(target.getName()) == null) {
+            return false;
+        } else {
+
+            int[] diceValueAtt = new int[diceNumAtt];
+            int[] diceValueDef = new int[diceNumDef];
+
+            System.out.print("[Attacker] "+this.getName()+"'s dices: ");
+
+            for (int i = 0; i < diceValueAtt.length; i++) {
+                diceValueAtt[i] = randomRoll();
+                System.out.print(diceValueAtt[i]+" ");
+            }
+
+
+            System.out.println();
+            System.out.print("[Defender] "+target.getName()+"'s dices: ");
+
+            for (int j = 0; j < diceValueDef.length; j++) {
+                diceValueDef[j] = randomRoll();
+                System.out.print(diceValueDef[j]+" ");
+            }
+
+            System.out.println();
+
+            String result = compareDiceSet(diceValueAtt, diceValueDef);
+            String[] resInt = result.split(":");
+
+            System.out.println("[Attacker] "+this.getName()+"'s Total toll: "+resInt[0]);
+            System.out.println("[Defender] "+target.getName()+"'s Total toll:" + resInt[1]);
+
+            this.setArmies(armies - Integer.parseInt(resInt[0]));
+            target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
+            return true;
+        }
+    }
+
+    private int randomRoll() {
+        Random r = new Random();
+        return r.nextInt(6) + 1;
+    }
+
+    private String compareDiceSet(int[] att, int[] def) {
+        int compareNum = att.length > def.length ? def.length : att.length;
+        int attDeath = 0;
+        int defDeath = 0;
+        Arrays.sort(att);
+        Arrays.sort(def);
+        for (int i = 0; i < compareNum; i++) {
+            if (att[att.length-i-1] > def[def.length-i-1]) {
+                defDeath++;
+            } else {
+                attDeath++;
+            }
+        }
+        return attDeath + ":" + defDeath;
     }
 
 }
