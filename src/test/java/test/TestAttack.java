@@ -15,7 +15,7 @@ import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class TestAttack {
     @Before
@@ -78,32 +78,41 @@ public class TestAttack {
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
         t1.setArmies(20);
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t2.setArmies(2);
+        t2.setArmies(1);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        System.out.println("Now T1's belongs: "+t1.getBelongs().getName());
-        System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
-        t1.launchAttack(t2,5,2);
-        System.out.println("T1:"+t1.getArmies());
-        System.out.println("T2:"+t2.getArmies());
+        t1.launchAttack(t2,2,1);
+        int result = t2.getArmies();
+        assertTrue(result == 0||result == 1);
+        //System.out.println("T1:"+t1.getArmies());
+        //System.out.println("T2:"+t2.getArmies());
 
-        System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
-        t1.captureTerritory(t2,7);
-        System.out.println("Now T1's Armies: " +t1.getArmies());
-        System.out.println("Now T2's Armies: " +t2.getArmies());
-        System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
+        //System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
+        //t1.captureTerritory(t2,7);
+        //System.out.println("Now T1's Armies: " +t1.getArmies());
+        //System.out.println("Now T2's Armies: " +t2.getArmies());
+        //System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
     }
-
+    @Test
+    public void testAttackTwo() {
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
+        t3.setArmies(18);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t4.setArmies(16);
+        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t3.launchAttack(t4,3,2);
+        assertFalse(t3.launchAttack(t4,3,2));
+    }
     @Test
     public void testAttackAllInMode(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
-        t1.setArmies(20);
+        t1.setArmies(26);
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t2.setArmies(10);
+        t2.setArmies(22);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         t1.allInMode(t2);
-        System.out.println("t1's armies: "+t1.getArmies());
-        System.out.println("t2's armies: "+t2.getArmies());
+        assertTrue(t1.getArmies()==0||t2.getArmies()==0);
     }
 
 
