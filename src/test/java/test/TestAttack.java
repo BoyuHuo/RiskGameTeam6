@@ -80,11 +80,14 @@ public class TestAttack {
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         t2.setArmies(2);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.launchAttack(t2,3,2);
+        System.out.println("Now T1's belongs: "+t1.getBelongs().getName());
+        System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
+        t1.launchAttack(t2,5,2);
         System.out.println("T1:"+t1.getArmies());
         System.out.println("T2:"+t2.getArmies());
         System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
-        t1.captureTerritory(t2,3);
+        t1.captureTerritory(t2,7);
+        System.out.println("Now T1's Armies: " +t1.getArmies());
         System.out.println("Now T2's Armies: " +t2.getArmies());
         System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
 
