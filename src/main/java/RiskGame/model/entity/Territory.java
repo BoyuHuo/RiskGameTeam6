@@ -22,6 +22,8 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
+    private int captureDiceNum=0;
+
 
     /**
      * A constructor for territory which can initial the territory's name and it position.
@@ -271,6 +273,21 @@ public class Territory {
         return result;
     }
 
+    public boolean captureTerritory(Territory target,int moveArmy){
+        if (moveArmy>this.armies){
+            return false;
+        }else if(target.getArmies()!=0){
+            return false;
+        }else{
+            target.setBelongs(this.getBelongs());
+            this.armies-=moveArmy;
+            target.setArmies(moveArmy);
+
+            target.setCaptureDiceNum(0);
+            return true;
+        }
+    }
+
     public boolean launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
         if (this.getArmies() <= 0 || target.getBelongs() == this.getBelongs()) {
             return false;
@@ -307,6 +324,10 @@ public class Territory {
 
             this.setArmies(armies - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
+
+            if(target.getArmies()==0){
+                target.setCaptureDiceNum(diceNumAtt);
+            }
             return true;
         }
     }
@@ -332,4 +353,11 @@ public class Territory {
         return attDeath + ":" + defDeath;
     }
 
+    public int getCaptureDiceNum() {
+        return captureDiceNum;
+    }
+
+    public void setCaptureDiceNum(int captureDiceNum) {
+        this.captureDiceNum = captureDiceNum;
+    }
 }
