@@ -85,13 +85,25 @@ public class TestAttack {
         t1.launchAttack(t2,5,2);
         System.out.println("T1:"+t1.getArmies());
         System.out.println("T2:"+t2.getArmies());
+
         System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
         t1.captureTerritory(t2,7);
         System.out.println("Now T1's Armies: " +t1.getArmies());
         System.out.println("Now T2's Armies: " +t2.getArmies());
         System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
+    }
 
-
+    @Test
+    public void testAttackAllInMode(){
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
+        t1.setArmies(20);
+        t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t2.setArmies(10);
+        t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t1.allInMode(t2);
+        System.out.println("t1's armies: "+t1.getArmies());
+        System.out.println("t2's armies: "+t2.getArmies());
     }
 
 

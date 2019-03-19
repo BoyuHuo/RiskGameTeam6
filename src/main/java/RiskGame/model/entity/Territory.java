@@ -22,7 +22,7 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
-    private int captureDiceNum=0;
+    private int captureDiceNum = 0;
 
 
     /**
@@ -273,14 +273,14 @@ public class Territory {
         return result;
     }
 
-    public boolean captureTerritory(Territory target,int moveArmy){
-        if (moveArmy>this.armies){
+    public boolean captureTerritory(Territory target, int moveArmy) {
+        if (moveArmy > this.armies) {
             return false;
-        }else if(target.getArmies()!=0){
+        } else if (target.getArmies() != 0) {
             return false;
-        }else{
+        } else {
             target.setBelongs(this.getBelongs());
-            this.armies-=moveArmy;
+            this.armies -= moveArmy;
             target.setArmies(moveArmy);
 
             target.setCaptureDiceNum(0);
@@ -298,20 +298,20 @@ public class Territory {
             int[] diceValueAtt = new int[diceNumAtt];
             int[] diceValueDef = new int[diceNumDef];
 
-            System.out.print("[Attacker] "+this.getName()+"'s dices: ");
+            System.out.print("[Attacker] " + this.getName() + "'s dices: ");
 
             for (int i = 0; i < diceValueAtt.length; i++) {
                 diceValueAtt[i] = randomRoll();
-                System.out.print(diceValueAtt[i]+" ");
+                System.out.print(diceValueAtt[i] + " ");
             }
 
 
             System.out.println();
-            System.out.print("[Defender] "+target.getName()+"'s dices: ");
+            System.out.print("[Defender] " + target.getName() + "'s dices: ");
 
             for (int j = 0; j < diceValueDef.length; j++) {
                 diceValueDef[j] = randomRoll();
-                System.out.print(diceValueDef[j]+" ");
+                System.out.print(diceValueDef[j] + " ");
             }
 
             System.out.println();
@@ -319,17 +319,32 @@ public class Territory {
             String result = compareDiceSet(diceValueAtt, diceValueDef);
             String[] resInt = result.split(":");
 
-            System.out.println("[Attacker] "+this.getName()+"'s Total toll: "+resInt[0]);
-            System.out.println("[Defender] "+target.getName()+"'s Total toll:" + resInt[1]);
+            System.out.println("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]);
+            System.out.println("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]);
 
             this.setArmies(armies - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
 
-            if(target.getArmies()==0){
+            if (target.getArmies() == 0) {
                 target.setCaptureDiceNum(diceNumAtt);
             }
             return true;
         }
+    }
+
+    public boolean allInMode(Territory target) {
+        while (this.armies > 0 && target.getArmies() > 0) {
+            int attackDiceNum = 3;
+            int defDiceNum = 2;
+            if (attackDiceNum > this.armies) {
+                attackDiceNum = this.armies;
+            }
+            if (defDiceNum > target.getArmies()) {
+                defDiceNum = target.getArmies();
+            }
+            launchAttack(target, attackDiceNum, defDiceNum);
+        }
+        return true;
     }
 
     private int randomRoll() {
@@ -344,7 +359,7 @@ public class Territory {
         Arrays.sort(att);
         Arrays.sort(def);
         for (int i = 0; i < compareNum; i++) {
-            if (att[att.length-i-1] > def[def.length-i-1]) {
+            if (att[att.length - i - 1] > def[def.length - i - 1]) {
                 defDeath++;
             } else {
                 attDeath++;
