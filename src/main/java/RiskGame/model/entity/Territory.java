@@ -288,11 +288,28 @@ public class Territory {
         }
     }
 
-    public boolean launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 || target.getBelongs() == this.getBelongs()) {
-            return false;
-        } else if (this.getNeighbors().get(target.getName()) == null) {
-            return false;
+
+
+    /**
+     * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
+     *
+     *
+     * @param target      your attacking target.
+     * @param diceNumAtt  the dice number of the attacker.
+     * @param diceNumDef  the dice number of the defender.
+     * @return int   0: successful
+     *               1: you dont have enough arimies to attack
+     *               2: attacking your own territory
+     *               3: attacking a Ter which is not a direct neibor
+     */
+    public int launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
+        if (this.getArmies() <= 0 ) {
+            return 1;
+        } else if(target.getBelongs() == this.getBelongs()){
+            return 2;
+        }
+        else if (this.getNeighbors().get(target.getName()) == null) {
+            return 3;
         } else {
 
             int[] diceValueAtt = new int[diceNumAtt];
@@ -328,7 +345,7 @@ public class Territory {
             if (target.getArmies() == 0) {
                 target.setCaptureDiceNum(diceNumAtt);
             }
-            return true;
+            return 0;
         }
     }
 
