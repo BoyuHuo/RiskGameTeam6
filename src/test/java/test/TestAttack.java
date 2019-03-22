@@ -22,29 +22,24 @@ public class TestAttack {
     public void setUp() {
         GameMap map = new GameMap();
 
-
         map.setAuthor("Baiyu Huo");
         map.setScroll("vertical");
         map.setWarn("no");
         map.setImage("null");
         map.setWrap("no");
 
-
         Territory t1 = new Territory("Ter1", 100, 100);
         Territory t2 = new Territory("Ter2", 50, 50);
         Territory t3 = new Territory("Ter3", 80, 80);
         Territory t4 = new Territory("Ter4", 120, 110);
-
 
         t1.addNeibor(t2);
         t2.addNeibor(t3);
         t3.addNeibor(t4);
         t4.addNeibor(t2);
 
-
         Continent c1 = new Continent("C1", 5);
         Continent c2 = new Continent("C2", 15);
-
 
         t1.setContinent(c1);
         t2.setContinent(c2);
@@ -83,14 +78,6 @@ public class TestAttack {
         t1.launchAttack(t2,2,1);
         int result = t2.getArmies();
         assertTrue(result == 0||result == 1);
-        //System.out.println("T1:"+t1.getArmies());
-        //System.out.println("T2:"+t2.getArmies());
-
-        //System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
-        //t1.captureTerritory(t2,7);
-        //System.out.println("Now T1's Armies: " +t1.getArmies());
-        //System.out.println("Now T2's Armies: " +t2.getArmies());
-        //System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
     }
     @Test
     public void testAttackTwo() {
@@ -114,6 +101,16 @@ public class TestAttack {
         t1.allInMode(t2);
         assertTrue(t1.getArmies()==0||t2.getArmies()==0);
     }
-
-
+    @Test
+    public void testOwnerOfTerritoryAfterAttack() {
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
+        t1.setArmies(222);
+        t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t2.setArmies(1);
+        t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t1.allInMode(t2);
+        t1.captureTerritory(t2,22);
+        assertEquals("Player1",t2.getBelongs().getName());
+    }
 }
