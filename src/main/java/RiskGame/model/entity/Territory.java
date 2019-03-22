@@ -22,7 +22,7 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
-    private int captureDiceNum=0;
+    private int captureDiceNum = 0;
 
 
     /**
@@ -273,14 +273,14 @@ public class Territory {
         return result;
     }
 
-    public boolean captureTerritory(Territory target,int moveArmy){
-        if (moveArmy>this.armies){
+    public boolean captureTerritory(Territory target, int moveArmy) {
+        if (moveArmy > this.armies) {
             return false;
-        }else if(target.getArmies()!=0){
+        } else if (target.getArmies() != 0) {
             return false;
-        }else{
+        } else {
             target.setBelongs(this.getBelongs());
-            this.armies-=moveArmy;
+            this.armies -= moveArmy;
             target.setArmies(moveArmy);
 
             target.setCaptureDiceNum(0);
@@ -288,30 +288,47 @@ public class Territory {
         }
     }
 
-    public boolean launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 || target.getBelongs() == this.getBelongs()) {
-            return false;
-        } else if (this.getNeighbors().get(target.getName()) == null) {
-            return false;
+
+
+    /**
+     * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
+     *
+     *
+     * @param target      your attacking target.
+     * @param diceNumAtt  the dice number of the attacker.
+     * @param diceNumDef  the dice number of the defender.
+     * @return int   0: successful
+     *               1: you dont have enough arimies to attack
+     *               2: attacking your own territory
+     *               3: attacking a Ter which is not a direct neibor
+     */
+    public int launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
+        if (this.getArmies() <= 0 ) {
+            return 1;
+        } else if(target.getBelongs() == this.getBelongs()){
+            return 2;
+        }
+        else if (this.getNeighbors().get(target.getName()) == null) {
+            return 3;
         } else {
 
             int[] diceValueAtt = new int[diceNumAtt];
             int[] diceValueDef = new int[diceNumDef];
 
-            System.out.print("[Attacker] "+this.getName()+"'s dices: ");
+            System.out.print("[Attacker] " + this.getName() + "'s dices: ");
 
             for (int i = 0; i < diceValueAtt.length; i++) {
                 diceValueAtt[i] = randomRoll();
-                System.out.print(diceValueAtt[i]+" ");
+                System.out.print(diceValueAtt[i] + " ");
             }
 
 
             System.out.println();
-            System.out.print("[Defender] "+target.getName()+"'s dices: ");
+            System.out.print("[Defender] " + target.getName() + "'s dices: ");
 
             for (int j = 0; j < diceValueDef.length; j++) {
                 diceValueDef[j] = randomRoll();
-                System.out.print(diceValueDef[j]+" ");
+                System.out.print(diceValueDef[j] + " ");
             }
 
             System.out.println();
@@ -319,17 +336,32 @@ public class Territory {
             String result = compareDiceSet(diceValueAtt, diceValueDef);
             String[] resInt = result.split(":");
 
-            System.out.println("[Attacker] "+this.getName()+"'s Total toll: "+resInt[0]);
-            System.out.println("[Defender] "+target.getName()+"'s Total toll:" + resInt[1]);
+            System.out.println("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]);
+            System.out.println("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]);
 
             this.setArmies(armies - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
 
-            if(target.getArmies()==0){
+            if (target.getArmies() == 0) {
                 target.setCaptureDiceNum(diceNumAtt);
             }
-            return true;
+            return 0;
         }
+    }
+
+    public boolean allInMode(Territory target) {
+        while (this.armies > 0 && target.getArmies() > 0) {
+            int attackDiceNum = 3;
+            int defDiceNum = 2;
+            if (attackDiceNum > this.armies) {
+                attackDiceNum = this.armies;
+            }
+            if (defDiceNum > target.getArmies()) {
+                defDiceNum = target.getArmies();
+            }
+            launchAttack(target, attackDiceNum, defDiceNum);
+        }
+        return true;
     }
 
     private int randomRoll() {
@@ -344,7 +376,7 @@ public class Territory {
         Arrays.sort(att);
         Arrays.sort(def);
         for (int i = 0; i < compareNum; i++) {
-            if (att[att.length-i-1] > def[def.length-i-1]) {
+            if (att[att.length - i - 1] > def[def.length - i - 1]) {
                 defDeath++;
             } else {
                 attDeath++;
