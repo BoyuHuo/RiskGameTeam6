@@ -5,8 +5,10 @@ import RiskGame.model.entity.ListData;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,6 +71,23 @@ public class GameScreenController implements Initializable {
         @FXML
         private ListView<String> playerListView;
 
+        @FXML
+        private ChoiceBox<Integer> cbAttacker;
+
+        @FXML
+        private  ChoiceBox<Integer> cbDefend;
+
+        @FXML
+        private Button btnOK;
+        @FXML
+        private Button btnAllIn;
+        @FXML
+        private  Button Attack;
+
+        @FXML
+        private TextArea txtAreaStatus;
+
+
         private final ObservableList<String> playerData= FXCollections.observableArrayList();
 
         private final ObservableList<String> continentData= FXCollections.observableArrayList();
@@ -88,6 +107,16 @@ public class GameScreenController implements Initializable {
 
         private HashMap<String,Color> continentColor=new HashMap<String,Color>();
         private ArrayList<String> continent=new ArrayList<>();
+        boolean isvalidlineStart=false;
+        boolean isValidlineEnd=false;
+        Territory destT;
+        String destName;
+        Territory sourceTerritory;
+        String sourceTerritoryName;
+
+        private ObservableList attackDice = FXCollections.observableArrayList();
+        private ObservableList defendDice = FXCollections.observableArrayList();
+    private int r;
 
     /**
      *<p>
@@ -252,8 +281,8 @@ public class GameScreenController implements Initializable {
                                         case "Reinforcements":
                                                 setupArmyTerrotory(event.getX(),event.getY());
                                                 break;
-                                        case "Attack":
-
+                                    case "Attack":
+                                                attackTerritory();
                                                 break;
                                         case "Fortification":
 
@@ -415,7 +444,7 @@ public class GameScreenController implements Initializable {
         private void showAlertDialog(String message) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Alert");
+                alert.setTitle("Update");
                 alert.setHeaderText(null);
                 alert.setContentText(message);
                 alert.showAndWait();
@@ -431,15 +460,20 @@ public class GameScreenController implements Initializable {
                 //updatePlayers();
                 initPlayers();
                 drawMap();
+                btnOK.setDisable(true);
         }
 
-
+    @FXML
+    TextArea textAreaStatus;
         @Override
         public void initialize(URL location, ResourceBundle resources) {
 
                 gameMap=GameManager.getInstance().getMap();
                 initGameWindow();
                 setContinentList();
+                diceDropDownLoad();
+                txtAreaStatus.setText("HELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\n");
+
 
         }
 
@@ -481,7 +515,7 @@ public class GameScreenController implements Initializable {
      */
     private void drawMap() {
 
-
+        rectangleGroups=new Group();
         gameMapPane.getChildren().add(rectangleGroups);
 
         for (Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet() ) {
@@ -614,5 +648,222 @@ public class GameScreenController implements Initializable {
 
         return Color.rgb(r,g,b);
     }
+
+    /**
+     *<p>
+     * This method is responsible for implementing back button.
+     *</p>
+     * @param x x-coordinate of mouse pointer.
+     * @param y y-coordinate of mouse pointer.
+     * @return checks if the mouse click is in the required limits and returns true or false.
+     */
+    private boolean checkCoordinates(double x, double y) {
+
+
+        for(Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet()) {
+            double _x = entry.getValue().getX();
+            double _y = entry.getValue().getY();
+
+            if (x >= _x && y >= _y &&
+                    x <= _x + 55 && y <= _y + 40)
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
+     *
+     * This is method Build 2
+     */
+
+    Line newLine;
+
+    public void attackTerritory() {
+
+        gameMapPane.getChildren().add(rectangleGroups);
+            gameMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                    newLine = new Line();
+
+                    System.out.println("Pressed" + "X:" + event.getX() + " Y: " + event.getY());
+                    newLine.setStartX(event.getX());
+                    newLine.setStartY(event.getY());
+
+                    isvalidlineStart = checkCoordinates(event.getX(), event.getY());
+
+                    double x= event.getX();
+                    double y=event.getY();
+
+                    for(Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet()) {
+
+                        double _x = entry.getValue().getX();
+                        double _y = entry.getValue().getY();
+
+                        if (x >= _x && y >= _y &&
+                                x <= _x + 55 && y <= _y + 40){
+                            sourceTerritory=entry.getValue();
+
+                        }
+                    }
+                    System.out.println("IsValid SUh" + isvalidlineStart);
+
+                    event.setDragDetect(true);
+                }
+            });
+                 gameMapPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                }
+            });
+                 gameMapPane.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+                        isValidlineEnd = checkCoordinates(event.getX(), event.getY());
+
+
+                        double x= event.getX();
+                        double y=event.getY();
+
+                        for(Map.Entry<String, Territory> entry :gameMap.getTerritories().entrySet()) {
+
+                            double _x = entry.getValue().getX();
+                            double _y = entry.getValue().getY();
+
+                            if (x >= _x && y >= _y &&
+                                    x <= _x + 55 && y <= _y + 40){
+                                destT=entry.getValue();
+                            }
+                        }
+                    System.out.println("IsValidEnf SUh" + isvalidlineStart);
+                        if (isvalidlineStart && isValidlineEnd) {
+                            newLine.setEndX(event.getX());
+                            newLine.setEndY(event.getY());
+                            newLine.setStroke(Color.RED);
+                            if(destT.getArmies()==0) {
+                                List<Integer> choices = new ArrayList<>();
+
+                                for(int i=1;i<=sourceTerritory.getArmies();i++)
+                                {
+                                    choices.add(i);
+                                }
+
+                                ChoiceDialog<Integer> dialog = new ChoiceDialog<>(1, choices);
+                                dialog.setTitle("Attack Status");
+                                dialog.setHeaderText("You have attacked: "+destT.getName()+"\n"+"Minimum number of armies you can deploy: "+destT.getCaptureDiceNum());
+
+                                 dialog.setContentText("Choose number of armies to deploy");
+
+                                Optional<Integer> noOfArmies = dialog.showAndWait();
+
+                                System.out.println(noOfArmies);
+                                if (noOfArmies.isPresent()){
+                                    boolean result= sourceTerritory.captureTerritory(destT,noOfArmies.get());
+
+                                    if(result)
+                                    {
+                                        showAlertDialog("Attack was Successful");
+                                    }
+                                    else
+                                    {
+                                        showAlertDialog("Attack was not successful");
+                                    }
+                                }
+                                Update();
+                            }
+                            else {
+                                    rectangleGroups.getChildren().add(newLine);
+                                    btnOK.setDisable(false);
+                            }
+
+                            System.out.println("Draw line" );
+
+
+                        }
+                    newLine = null;
+                        event.setDragDetect(false);
+
+                }
+            });
+
+    }
+
+
+    public void diceDropDownLoad()
+    {
+        attackDice.removeAll(attackDice);
+        attackDice.addAll(0,1,2,3);
+        cbAttacker.getItems().addAll(attackDice);
+        cbAttacker.getSelectionModel().selectFirst();
+        defendDice.removeAll(defendDice);
+        defendDice.addAll(0,1,2);
+        cbDefend.getItems().addAll(defendDice);
+        cbDefend.getSelectionModel().selectFirst();
+
+    }
+    @FXML
+    public void clickOKButton(ActionEvent event)
+    {
+        boolean result=false;
+        int attackerDiceNumber=cbAttacker.getValue();
+        int defenderDiceNumber=cbAttacker.getValue();
+        int sourceArmyCount = sourceTerritory.getArmies();
+
+        if(attackerDiceNumber>0 && defenderDiceNumber>0)
+        {
+            if(sourceArmyCount<3)
+            {
+                result = sourceTerritory.launchAttack(destT, attackerDiceNumber, defenderDiceNumber);
+                if(result) {
+                    showAlertDialog("Attack Successful");
+                }
+                else
+                {
+                    showAlertDialog("Attack Unsuccessful");
+                }
+            }
+            else
+            {
+                result = sourceTerritory.launchAttack(destT, sourceArmyCount, defenderDiceNumber);
+                if(result) {
+                    showAlertDialog("Attack Successful");
+                }
+                else
+                {
+                    showAlertDialog("Attack Unsuccessful");
+                }
+            }
+
+
+        }
+        else
+        {
+            showAlertDialog("Not a valid attack. Select Armies again!");
+        }
+    }
+
+   /* @FXML
+    public void txtAreaStatus()throws
+    {
+        txtAreaStatus.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableList<String> observable, Object oldValue,
+                                Object newValue) {
+                txtAreaStatus.setScrollTop(Double.MAX_VALUE); //this will scroll to the bottom
+                //use Double.MIN_VALUE to scroll to the top
+            }
+        });
+
+    }
+    */
+    @FXML
+    public void  clickBtnAllInButton(ActionEvent event)
+    {
+        //sourceTerritory.ALLIN();
+    }
+
 
 }
