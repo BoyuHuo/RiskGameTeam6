@@ -19,6 +19,14 @@ import java.util.*;
  */
 public class GameManager extends Observable implements IGameManager {
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message += message;
+    }
+
     enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
 
 
@@ -28,6 +36,7 @@ public class GameManager extends Observable implements IGameManager {
     private GameMap map;
     private phase gamePhase;
     private static GameManager instance;
+    private String message;
 
 
     /**
@@ -392,6 +401,10 @@ public class GameManager extends Observable implements IGameManager {
         p.setArmies(p.getArmies()+controlNum+armiesFromTerr);
         System.out.println(p.getName()+" now has "+p.getArmies());
         return true;
+    }
+
+    public void clearMessate(){
+        message ="";
     }
 
 

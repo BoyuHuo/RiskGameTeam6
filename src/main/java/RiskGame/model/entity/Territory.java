@@ -298,18 +298,18 @@ public class Territory {
      * @param diceNumAtt  the dice number of the attacker.
      * @param diceNumDef  the dice number of the defender.
      * @return int   0: successful
-     *               1: you dont have enough arimies to attack
-     *               2: attacking your own territory
-     *               3: attacking a Ter which is not a direct neibor
+     *               -1: you dont have enough arimies to attack
+     *               -2: attacking your own territory
+     *               -3: attacking a Ter which is not a direct neibor
      */
     public int launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
         if (this.getArmies() <= 0 ) {
-            return 1;
+            return -1;
         } else if(target.getBelongs() == this.getBelongs()){
-            return 2;
+            return -2;
         }
         else if (this.getNeighbors().get(target.getName()) == null) {
-            return 3;
+            return -3;
         } else {
 
             int[] diceValueAtt = new int[diceNumAtt];
