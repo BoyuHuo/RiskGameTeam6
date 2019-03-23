@@ -22,7 +22,8 @@ public class TestAttack {
     public void setUp() {
         GameMap map = new GameMap();
 
-        map.setAuthor("Hao Ma");
+
+        map.setAuthor("Baiyu Huo");
         map.setScroll("vertical");
         map.setWarn("no");
         map.setImage("null");
@@ -73,50 +74,16 @@ public class TestAttack {
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
         t1.setArmies(20);
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t2.setArmies(1);
+        t2.setArmies(2);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.launchAttack(t2,2,1);
-        int result = t2.getArmies();
-        assertTrue(result == 0||result == 1);
-    }
+        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t1,t2,3,2);
+        System.out.println("T1:"+t1.getArmies());
+        System.out.println("T2:"+t2.getArmies());
 
-    @Test
-    public void testAttackTwo() {
-        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
-        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
-        t3.setArmies(0);
-        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t4.setArmies(16);
-        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t3.launchAttack(t4,3,2);
-        assertEquals(-1,t3.launchAttack(t4,3,2));
-    }
-
-    @Test
-    public void testAttackThree() {
-        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
-        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
-        t3.setArmies(18);
-        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t4.setArmies(16);
-        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t3.launchAttack(t4, 3, 2);
-        assertEquals(-2, t3.launchAttack(t4, 3, 2));
-    }
-
-    @Test
-    public void testAttackFour() {
-        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
-        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
-        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
-        t1.setArmies(25);
-        t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t2.setArmies(16);
-        t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t3.setArmies(19);
-        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.launchAttack(t3, 3, 2);
-        assertEquals(-3, t1.launchAttack(t3, 3, 2));
+        System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
+        t1.captureTerritory(t2,3);
+        System.out.println("Now T2's Armies: " +t2.getArmies());
+        System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
     }
 
     @Test
@@ -127,7 +94,7 @@ public class TestAttack {
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         t2.setArmies(22);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.allInMode(t2);
+        GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
         assertTrue(t1.getArmies()==0||t2.getArmies()==0);
     }
 
@@ -139,8 +106,14 @@ public class TestAttack {
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         t2.setArmies(1);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.allInMode(t2);
+        GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
+        System.out.println("t1's armies: "+t1.getArmies());
+        System.out.println("t2's armies: "+t2.getArmies());
+        System.out.println(GameManager.getInstance().getMessage());
+        GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
         t1.captureTerritory(t2,22);
         assertEquals("Player1",t2.getBelongs().getName());
     }
+
+
 }
