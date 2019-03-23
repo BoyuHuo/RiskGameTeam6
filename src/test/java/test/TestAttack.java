@@ -80,7 +80,7 @@ public class TestAttack {
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         t2.setArmies(2);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.launchAttack(t2,3,2);
+        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t1,t2,3,2);
         System.out.println("T1:"+t1.getArmies());
         System.out.println("T2:"+t2.getArmies());
 
@@ -98,9 +98,10 @@ public class TestAttack {
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
         t2.setArmies(10);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t1.allInMode(t2);
+        GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
         System.out.println("t1's armies: "+t1.getArmies());
         System.out.println("t2's armies: "+t2.getArmies());
+        System.out.println(GameManager.getInstance().getMessage());
     }
 
 
