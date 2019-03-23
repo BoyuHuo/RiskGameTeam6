@@ -79,17 +79,46 @@ public class TestAttack {
         int result = t2.getArmies();
         assertTrue(result == 0||result == 1);
     }
+
     @Test
     public void testAttackTwo() {
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
+        t3.setArmies(0);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t4.setArmies(16);
+        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t3.launchAttack(t4,3,2);
+        assertEquals(-1,t3.launchAttack(t4,3,2));
+    }
+
+    @Test
+    public void testAttackThree() {
         Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
         Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
         t3.setArmies(18);
         t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         t4.setArmies(16);
         t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        t3.launchAttack(t4,3,2);
-        assertFalse(t3.launchAttack(t4,3,2));
+        t3.launchAttack(t4, 3, 2);
+        assertEquals(-2, t3.launchAttack(t4, 3, 2));
     }
+
+    @Test
+    public void testAttackFour() {
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        t1.setArmies(25);
+        t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t2.setArmies(16);
+        t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t3.setArmies(19);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t1.launchAttack(t3, 3, 2);
+        assertEquals(-3, t1.launchAttack(t3, 3, 2));
+    }
+
     @Test
     public void testAttackAllInMode(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
@@ -101,8 +130,9 @@ public class TestAttack {
         t1.allInMode(t2);
         assertTrue(t1.getArmies()==0||t2.getArmies()==0);
     }
+
     @Test
-    public void testOwnerOfTerritoryAfterAttack() {
+    public void testOwnershipOfTerritoryAfterAttack() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
         t1.setArmies(222);
