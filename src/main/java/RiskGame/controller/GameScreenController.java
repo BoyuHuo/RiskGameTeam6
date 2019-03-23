@@ -303,7 +303,7 @@ public class GameScreenController implements Initializable, Observer {
 
                 if(territory.getBelongs().equals(activePlayer)){
 
-                    if(!sourceTerrotory.immigrantArimies(armyNumber,territory)){
+                    if(!activePlayer.immigrantArimies(armyNumber,sourceTerrotory,territory)){
                         showAlertDialog(sourceTerrotory.getName()+" can't move armies to  "+territory.getName());
                     } else{
                         GameManager.getInstance().nextRound();
