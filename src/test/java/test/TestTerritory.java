@@ -98,7 +98,7 @@ public class TestTerritory {
         w2.setBelongs(p2);
         f1.setArmies(12);
         f2.setArmies(16);
-        boolean result = f1.immigrantArimies(2, f2);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,f1, f2);
         assertTrue(result);
     }
 
@@ -139,7 +139,7 @@ public class TestTerritory {
         s2.setBelongs(p2);
         m1.setArmies(20);
         m3.setArmies(16);
-        boolean result = m1.immigrantArimies(2, m3);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,m1, m3);
         assertFalse(result);
     }
 
@@ -181,7 +181,7 @@ public class TestTerritory {
         b2.setBelongs(p2);
         a1.setArmies(22);
         b1.setArmies(20);
-        boolean result = a1.immigrantArimies(2, b1);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2, a1, b1);
         assertFalse(result);
     }
 }
