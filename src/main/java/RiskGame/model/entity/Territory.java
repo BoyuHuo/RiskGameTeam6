@@ -315,29 +315,29 @@ public class Territory {
             int[] diceValueAtt = new int[diceNumAtt];
             int[] diceValueDef = new int[diceNumDef];
 
-            System.out.print("[Attacker] " + this.getName() + "'s dices: ");
+            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s dices: ");
 
             for (int i = 0; i < diceValueAtt.length; i++) {
                 diceValueAtt[i] = randomRoll();
-                System.out.print(diceValueAtt[i] + " ");
+
+                GameManager.getInstance().setMessage(diceValueAtt[i] + " ");
             }
 
-
-            System.out.println();
-            System.out.print("[Defender] " + target.getName() + "'s dices: ");
+            GameManager.getInstance().setMessage("\n");
+            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s dices: ");
 
             for (int j = 0; j < diceValueDef.length; j++) {
                 diceValueDef[j] = randomRoll();
-                System.out.print(diceValueDef[j] + " ");
-            }
 
-            System.out.println();
+                GameManager.getInstance().setMessage(diceValueDef[j] + " ");
+            }
+            GameManager.getInstance().setMessage("\n");
 
             String result = compareDiceSet(diceValueAtt, diceValueDef);
             String[] resInt = result.split(":");
 
-            System.out.println("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]);
-            System.out.println("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]);
+            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]+"\n");
+            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]+"\n");
 
             this.setArmies(armies - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));

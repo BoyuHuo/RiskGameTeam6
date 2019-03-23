@@ -101,6 +101,7 @@ public class TestAttack {
         t1.allInMode(t2);
         System.out.println("t1's armies: "+t1.getArmies());
         System.out.println("t2's armies: "+t2.getArmies());
+        System.out.println(GameManager.getInstance().getMessage());
     }
 
 
