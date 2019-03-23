@@ -1,6 +1,10 @@
 package RiskGame.model.entity;
 
+import RiskGame.model.service.imp.GameManager;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * This is the Player class, it is a java bean, use for store the player's information
@@ -172,5 +176,134 @@ public class Player {
         return result;
     }
 
+
+    public boolean reignforceArmies() {
+        int controlNum = 0;
+        int armiesFromTerr = 0;
+        int terrNum = 0;
+        for (Territory t : GameManager.getInstance().getMap().getTerritories().values()) {
+            if (t.getBelongs().getName().equals(this.getName())) {
+                terrNum++;
+            }
+        }
+        if ((terrNum / 3) < 3) {
+            armiesFromTerr = 3;
+        } else {
+            armiesFromTerr = terrNum / 3;
+        }
+        if (this.getName().equals(GameManager.getInstance().getActivePlayer().getName())) {
+            for (Continent c : GameManager.getInstance().getMap().getContinents().values()) {
+                int countBelongs = 0;
+                for (Territory t : c.getTerritories().values()) {
+                    if (t.getBelongs().getName().equals(this.getName())) {
+                        countBelongs++;
+                    }
+                }
+                if (countBelongs == c.getTerritories().size()) {
+                    controlNum+=c.getCtrNum();
+                }
+            }
+        }
+        this.setArmies(this.getArmies()+controlNum+armiesFromTerr);
+        GameManager.getInstance().setMessage(this.getName()+" get "+controlNum+armiesFromTerr+" reinfocement armies!");
+        return true;
+    }
+
+
+
+    /**
+     * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
+     *
+     *
+     * @param target      your attacking target.
+     * @param diceNumAtt  the dice number of the attacker.
+     * @param diceNumDef  the dice number of the defender.
+     * @return int   0: successful
+     *               -1: you dont have enough arimies to attack
+     *               -2: attacking your own territory
+     *               -3: attacking a Ter which is not a direct neibor
+     */
+    public int launchAttack(Territory source, Territory target, int diceNumAtt, int diceNumDef) {
+        if (this.getArmies() <= 0 ) {
+            return -1;
+        } else if(target.getBelongs() == source.getBelongs()){
+            return -2;
+        }
+        else if (source.getNeighbors().get(target.getName()) == null) {
+            return -3;
+        } else {
+
+            int[] diceValueAtt = new int[diceNumAtt];
+            int[] diceValueDef = new int[diceNumDef];
+
+            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s dices: ");
+
+            for (int i = 0; i < diceValueAtt.length; i++) {
+                diceValueAtt[i] = randomRoll();
+
+                GameManager.getInstance().setMessage(diceValueAtt[i] + " ");
+            }
+
+            GameManager.getInstance().setMessage("\n");
+            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s dices: ");
+
+            for (int j = 0; j < diceValueDef.length; j++) {
+                diceValueDef[j] = randomRoll();
+
+                GameManager.getInstance().setMessage(diceValueDef[j] + " ");
+            }
+            GameManager.getInstance().setMessage("\n");
+
+            String result = compareDiceSet(diceValueAtt, diceValueDef);
+            String[] resInt = result.split(":");
+
+            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]+"\n");
+            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]+"\n");
+
+            this.setArmies(armies - Integer.parseInt(resInt[0]));
+            target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
+
+            if (target.getArmies() == 0) {
+                target.setCaptureDiceNum(diceNumAtt);
+            }
+            return 0;
+        }
+    }
+
+    public boolean allInMode(Territory source,Territory target) {
+        while (this.armies > 0 && target.getArmies() > 0) {
+            int attackDiceNum = 3;
+            int defDiceNum = 2;
+            if (attackDiceNum > this.armies) {
+                attackDiceNum = this.armies;
+            }
+            if (defDiceNum > target.getArmies()) {
+                defDiceNum = target.getArmies();
+            }
+            launchAttack(source,target, attackDiceNum, defDiceNum);
+        }
+        return true;
+    }
+
+    private int randomRoll() {
+        Random r = new Random();
+        return r.nextInt(6) + 1;
+    }
+
+    private String compareDiceSet(int[] att, int[] def) {
+        int compareNum = att.length > def.length ? def.length : att.length;
+        int attDeath = 0;
+        int defDeath = 0;
+        Arrays.sort(att);
+        Arrays.sort(def);
+        for (int i = 0; i < compareNum; i++) {
+            if (att[att.length - i - 1] > def[def.length - i - 1]) {
+                defDeath++;
+            } else {
+                attDeath++;
+            }
+        }
+        return attDeath + ":" + defDeath;
+    }
 
 }
