@@ -168,6 +168,8 @@ public class GameManager extends Observable implements IGameManager {
             default:
                 break;
         }
+        clearMessate();
+        setMessage("[Active Player] "+getActivePlayer()+"\n[Phase] "+getGamePhase()+"\n");
     }
 
 
