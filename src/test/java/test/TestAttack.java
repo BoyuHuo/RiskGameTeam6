@@ -22,7 +22,7 @@ public class TestAttack {
     public void setUp() {
         GameMap map = new GameMap();
 
-        map.setAuthor("Baiyu Huo");
+        map.setAuthor("Hao Ma");
         map.setScroll("vertical");
         map.setWarn("no");
         map.setImage("null");
