@@ -1,5 +1,10 @@
 package RiskGame.model.entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 /**
  * This is the Player class, it is a java bean, use for store the player's information
  * it will contain the information such as player's name, player's color, player's cards, player's armies left and etc..
@@ -10,7 +15,7 @@ package RiskGame.model.entity;
 public class Player {
     private String name;
     private String color;
-    private Card cards;
+    private HashMap<CardType,Integer> cards;
     private int armies;
 
     /**
@@ -67,7 +72,7 @@ public class Player {
      * @return cards card information.
      * @see Card
      */
-    public Card getCards() {
+    public HashMap<CardType, Integer> getCards() {
         return cards;
     }
 
@@ -75,7 +80,7 @@ public class Player {
      * setter function for card, it will set up a player's card information.
      * @param cards the card information.
      */
-    public void setCards(Card cards) {
+    public void setCards(HashMap<CardType, Integer> cards) {
         this.cards = cards;
     }
 
@@ -97,6 +102,52 @@ public class Player {
     public void setArmies(int armies) {
         this.armies = armies;
     }
+
+
+    public boolean cardTrade(ArrayList<CardType> cardList,Player player){
+
+        HashMap<CardType,Integer> playerCards=player.getCards();
+        for (CardType card: cardList) {
+
+            if(playerCards.containsKey(card)){
+                playerCards.put(card,playerCards.get(card)-1);
+            }
+
+        }
+
+        return false;
+    }
+
+    public void takeCardFromOthers(Player defenderPlayer){
+
+        Player attackingPlayer=this;
+        for (Map.Entry<CardType,Integer> card: defenderPlayer.getCards().entrySet()) {
+             if(attackingPlayer.getCards().containsKey(card.getKey())){
+                 attackingPlayer.getCards().put(card.getKey(),attackingPlayer.getCards().get(card.getKey())+1);
+             } else {
+                 attackingPlayer.getCards().put(card.getKey(),1);
+             }
+        }
+
+    }
+
+    public void addCard(CardType card){
+
+        Player attackingPlayer=this;
+        if(attackingPlayer.getCards().containsKey(card)){
+            attackingPlayer.getCards().put(card,attackingPlayer.getCards().get(card)+1);
+        } else {
+            attackingPlayer.getCards().put(card,1);
+        }
+    }
+
+    public void addRandomCard(Player player){
+
+        Random random=new Random();
+        CardType randomCard=CardType.values()[random.nextInt(CardType.values().length)];
+        player.addCard(randomCard);
+    }
+
 
 
 }

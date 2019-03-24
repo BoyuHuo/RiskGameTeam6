@@ -22,6 +22,7 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
+
     private int captureDiceNum=0;
 
 
@@ -360,4 +361,6 @@ public class Territory {
     public void setCaptureDiceNum(int captureDiceNum) {
         this.captureDiceNum = captureDiceNum;
     }
+
+
 }
