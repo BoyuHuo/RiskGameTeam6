@@ -332,7 +332,7 @@ public class GameScreenController implements Initializable, Observer {
 
                 if(territory.getBelongs().equals(activePlayer)){
 
-                    if(!sourceTerrotory.immigrantArimies(armyNumber,territory)){
+                    if(!GameManager.getInstance().getActivePlayer().immigrantArimies(armyNumber,sourceTerritory,destT));
                         showAlertDialog(sourceTerrotory.getName()+" can't move armies to  "+territory.getName());
                     } else{
                         GameManager.getInstance().nextRound();
@@ -350,7 +350,7 @@ public class GameScreenController implements Initializable, Observer {
                 mode=0;
             }
         }
-    }
+
 
     /**
      *<p>
@@ -809,7 +809,7 @@ public class GameScreenController implements Initializable, Observer {
     @FXML
     public void clickOKButton(ActionEvent event)
     {
-        boolean result=false;
+        int result=0;
         int attackerDiceNumber=cbAttacker.getValue();
         int defenderDiceNumber=cbAttacker.getValue();
         int sourceArmyCount = sourceTerritory.getArmies();
@@ -818,24 +818,38 @@ public class GameScreenController implements Initializable, Observer {
         {
             if(sourceArmyCount<3)
             {
-                result = sourceTerritory.launchAttack(destT, attackerDiceNumber, defenderDiceNumber);
-                if(result) {
-                    showAlertDialog("Attack Successful");
-                }
-                else
+                result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory,destT, attackerDiceNumber, defenderDiceNumber);
+                switch (result)
                 {
-                    showAlertDialog("Attack Unsuccessful");
+                    case 0: showAlertDialog("Attack Successful");
+                            txtAreaStatus.setText("Attack Successful");
+
+                    case -1: showAlertDialog("Attack Unsuccessful");
+                            txtAreaStatus.setText("Not enough armies to attack");
+
+                    case -2: showAlertDialog("Invalid Attack");
+                            txtAreaStatus.setText("Attacking your own territory!");
+
+                    case -3: showAlertDialog("Invalid Attack");
+                        txtAreaStatus.setText("Not Attacking a neighbouring territory!");
                 }
             }
             else
             {
-                result = sourceTerritory.launchAttack(destT, sourceArmyCount, defenderDiceNumber);
-                if(result) {
-                    showAlertDialog("Attack Successful");
-                }
-                else
+                result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory,destT, sourceArmyCount, defenderDiceNumber);
+                switch (result)
                 {
-                    showAlertDialog("Attack Unsuccessful");
+                    case 0: showAlertDialog("Attack Successful");
+                        txtAreaStatus.setText("Attack Successful");
+
+                    case -1: showAlertDialog("Attack Unsuccessful");
+                        txtAreaStatus.setText("Not enough armies to attack");
+
+                    case -2: showAlertDialog("Invalid Attack");
+                        txtAreaStatus.setText("Attacking your own territory!");
+
+                    case -3: showAlertDialog("Invalid Attack");
+                        txtAreaStatus.setText("Not Attacking a neighbouring territory!");
                 }
             }
 
@@ -865,8 +879,7 @@ public class GameScreenController implements Initializable, Observer {
     public void  clickBtnAllInButton(ActionEvent event)
     {
         boolean result;
-        result=sourceTerritory.allInMode(destT);
-
+        result=GameManager.getInstance().getActivePlayer().allInMode(sourceTerritory,destT);
         if(result)
         {
             showAlertDialog("Attack Successful");
