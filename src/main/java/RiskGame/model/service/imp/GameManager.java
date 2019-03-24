@@ -158,11 +158,12 @@ public class GameManager extends Observable implements IGameManager {
                 }
                 break;
             case ATTACK:
-                if(!possibleAttack())
-                    nextPhase();
-                    break;
+                nextPhase();
+                break;
             case REINFORCEMENTS:
                 nextPhase();
+                if(!possibleAttack())
+                    nextPhase();;
                 break;
             case FORTIFICATION:
                 nextPlayer();

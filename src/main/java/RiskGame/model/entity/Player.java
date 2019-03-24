@@ -2,9 +2,7 @@ package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 /**
  * This is the Player class, it is a java bean, use for store the player's information
@@ -16,7 +14,7 @@ import java.util.Random;
 public class Player {
     private String name;
     private String color;
-    private Card cards;
+    private HashMap<CardType,Integer> cards;
     private int armies;
 
     /**
@@ -27,8 +25,7 @@ public class Player {
 
     /**
      * A constructor for player which can initial the player's name and player's armies.
-     *
-     * @param name   name of the player.
+     * @param name name of the player.
      * @param armies number of armies.
      */
     public Player(String name, int armies) {
@@ -47,7 +44,6 @@ public class Player {
 
     /**
      * setter function for player nickname.
-     *
      * @param name the name of player
      */
     public void setName(String name) {
@@ -57,7 +53,6 @@ public class Player {
     /**
      * getter function for color, it is the color for player while playing the game.
      * It can used for differenciate the player's territory.
-     *
      * @return color the value of the color.
      */
     public String getColor() {
@@ -67,7 +62,6 @@ public class Player {
 
     /**
      * setter function for player color value, it needs a color value like #ffffff as the color code
-     *
      * @param color the value of the color.
      */
     public void setColor(String color) {
@@ -76,27 +70,25 @@ public class Player {
 
     /**
      * getter function for cards, it will return the cards information of this player.
-     *
      * @return cards card information.
      * @see Card
      */
-    public Card getCards() {
+    public HashMap<CardType, Integer> getCards() {
         return cards;
     }
 
     /**
      * setter function for card, it will set up a player's card information.
-     *
      * @param cards the card information.
      */
-    public void setCards(Card cards) {
+    public void setCards(HashMap<CardType, Integer> cards) {
         this.cards = cards;
     }
 
 
+
     /**
      * getter function for the number of arimies that players have.
-     *
      * @return armies the number of armies.
      */
     public int getArmies() {
@@ -106,12 +98,57 @@ public class Player {
 
     /**
      * setter function for the number of armies that players want to set.
-     *
      * @param armies the number of armies.
      */
     public void setArmies(int armies) {
         this.armies = armies;
     }
+
+
+    public boolean cardTrade(ArrayList<CardType> cardList, Player player){
+
+        HashMap<CardType,Integer> playerCards=player.getCards();
+        for (CardType card: cardList) {
+
+            if(playerCards.containsKey(card)){
+                playerCards.put(card,playerCards.get(card)-1);
+            }
+
+        }
+
+        return false;
+    }
+
+    public void takeCardFromOthers(Player defenderPlayer){
+
+        Player attackingPlayer=this;
+        for (Map.Entry<CardType,Integer> card: defenderPlayer.getCards().entrySet()) {
+             if(attackingPlayer.getCards().containsKey(card.getKey())){
+                 attackingPlayer.getCards().put(card.getKey(),attackingPlayer.getCards().get(card.getKey())+1);
+             } else {
+                 attackingPlayer.getCards().put(card.getKey(),1);
+             }
+        }
+
+    }
+
+    public void addCard(CardType card){
+
+        Player attackingPlayer=this;
+        if(attackingPlayer.getCards().containsKey(card)){
+            attackingPlayer.getCards().put(card,attackingPlayer.getCards().get(card)+1);
+        } else {
+            attackingPlayer.getCards().put(card,1);
+        }
+    }
+
+    public void addRandomCard(Player player){
+
+        Random random=new Random();
+        CardType randomCard=CardType.values()[random.nextInt(CardType.values().length)];
+        player.addCard(randomCard);
+    }
+
 
 
     /**
@@ -224,7 +261,7 @@ public class Player {
      *               -3: attacking a Ter which is not a direct neibor
      */
     public int launchAttack(Territory source, Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 ) {
+        if (source.getArmies() <= 0 ) {
             return -1;
         } else if(target.getBelongs() == source.getBelongs()){
             return -2;
