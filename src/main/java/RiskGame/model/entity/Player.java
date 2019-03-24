@@ -308,7 +308,7 @@ public class Player {
     }
 
     public boolean allInMode(Territory source,Territory target) {
-        while (this.armies > 0 && target.getArmies() > 0) {
+        while (source.getArmies() > 0 && target.getArmies() > 0) {
             int attackDiceNum = 3;
             int defDiceNum = 2;
             if (attackDiceNum > this.armies) {
@@ -341,6 +341,24 @@ public class Player {
             }
         }
         return attDeath + ":" + defDeath;
+    }
+
+    public int captureTerritory(Territory source,Territory target,int moveArmy){
+        if(moveArmy<target.getCaptureDiceNum()){
+            return -1;
+        }
+        if (moveArmy>source.getArmies()){
+            return -2;
+        }else if(target.getArmies()!=0){
+            return -3;
+        }else{
+            target.setBelongs(source.getBelongs());
+            this.armies-=moveArmy;
+            target.setArmies(moveArmy);
+
+            target.setCaptureDiceNum(0);
+            return 0;
+        }
     }
 
 }

@@ -761,15 +761,13 @@ public class GameScreenController implements Initializable, Observer {
 
                                 System.out.println(noOfArmies);
                                 if (noOfArmies.isPresent()){
-                                    boolean result= sourceTerritory.captureTerritory(destT,noOfArmies.get());
-
-                                    if(result)
+                                    int result= GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory,destT,noOfArmies.get());
+                                    switch (result)
                                     {
-                                        showAlertDialog("Attack was Successful");
-                                    }
-                                    else
-                                    {
-                                        showAlertDialog("Attack was not successful");
+                                        case 0: showAlertDialog("Successfully captured the territory "+destT.getName());break;
+                                        case -1: showAlertDialog("Sorry! you didn't move enough armies to the destination Territory, you should at least move: "+destT.getCaptureDiceNum());break;
+                                        case -2: showAlertDialog("Oops! you move more than you have!");break;
+                                        case -3: showAlertDialog("Unknown failure!");break;
                                     }
                                 }
                                 Update();
