@@ -46,7 +46,9 @@
                             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
-                        <ListView fx:id="continentList" layoutX="165.0" layoutY="138.0" prefHeight="166.0" prefWidth="142.0" style="-fx-background-image: url('images/gameBC.png');" />
+                        <ListView fx:id="continentList" layoutX="165.0" layoutY="138.0"
+                                  prefHeight="166.0" prefWidth="142.0"
+                                  style="-fx-background-image: url('images/gameBC.png');" />
                         <Text layoutX="9.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players :">
                           <font>
                             <Font name="System Bold Italic" size="17.0" fx:id="x2" />
