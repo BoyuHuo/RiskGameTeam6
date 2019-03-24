@@ -823,15 +823,19 @@ public class GameScreenController implements Initializable, Observer {
                 {
                     case 0: showAlertDialog("Attack Successful");
                             txtAreaStatus.setText("Attack Successful");
+                            break;
 
                     case -1: showAlertDialog("Attack Unsuccessful");
                             txtAreaStatus.setText("Not enough armies to attack");
+                            break;
 
                     case -2: showAlertDialog("Invalid Attack");
                             txtAreaStatus.setText("Attacking your own territory!");
+                            break;
 
                     case -3: showAlertDialog("Invalid Attack");
                         txtAreaStatus.setText("Not Attacking a neighbouring territory!");
+                        break;
                 }
             }
             else
