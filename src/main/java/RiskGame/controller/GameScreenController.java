@@ -37,7 +37,7 @@ import java.util.*;
  * @author Karan Sharma
  * @version v1.0.0
  */
-public class GameScreenController implements Initializable {
+public class GameScreenController implements Initializable, Observer {
 
         @FXML
         private Button myCards;
@@ -475,6 +475,8 @@ public class GameScreenController implements Initializable {
                 txtAreaStatus.setText("HELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\n");
 
 
+                GameManager.getInstance().addObserver(this);
+
         }
 
     /**
@@ -877,4 +879,8 @@ public class GameScreenController implements Initializable {
     }
 
 
+    @Override
+    public void update(Observable observable, Object o) {
+        Update();
+    }
 }
