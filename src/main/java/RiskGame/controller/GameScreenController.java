@@ -862,7 +862,18 @@ public class GameScreenController implements Initializable {
     @FXML
     public void  clickBtnAllInButton(ActionEvent event)
     {
-        //sourceTerritory.ALLIN();
+        boolean result;
+        result=sourceTerritory.allInMode(destT);
+
+        if(result)
+        {
+            showAlertDialog("Attack Successful");
+        }
+        else
+        {
+            showAlertDialog("Attack Unsuccessful");
+        }
+        Update();
     }
 
 
