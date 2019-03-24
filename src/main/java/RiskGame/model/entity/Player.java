@@ -261,7 +261,7 @@ public class Player {
      *               -3: attacking a Ter which is not a direct neibor
      */
     public int launchAttack(Territory source, Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 ) {
+        if (source.getArmies() <= 0 ) {
             return -1;
         } else if(target.getBelongs() == source.getBelongs()){
             return -2;
