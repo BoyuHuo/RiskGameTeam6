@@ -158,6 +158,9 @@ public class GameManager extends Observable implements IGameManager {
                 }
                 break;
             case ATTACK:
+                if(!possibleAttack())
+                    nextPhase();
+                    break;
             case REINFORCEMENTS:
                 nextPhase();
                 break;
@@ -413,6 +416,22 @@ public class GameManager extends Observable implements IGameManager {
     public void clearMessate(){
         message ="";
         notifyObservers();
+    }
+
+    public boolean possibleAttack(){
+        for(Territory t: map.getTerritories().values()){
+            if(t.getBelongs()==activePlayer){
+                for(Territory neibor: t.getNeighbors().values()){
+                    if(neibor.getBelongs()!=activePlayer){
+                        if(t.getArmies()>0){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        setMessage("No possible to Attack, pass the attacking phase!");
+        return false;
     }
 
 
