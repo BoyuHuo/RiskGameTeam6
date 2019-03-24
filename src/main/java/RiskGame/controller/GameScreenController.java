@@ -461,6 +461,7 @@ public class GameScreenController implements Initializable, Observer {
                 initPlayers();
                 drawMap();
                 btnOK.setDisable(true);
+            txtAreaStatus.setText(GameManager.getInstance().getMessage());
         }
 
     @FXML
@@ -472,9 +473,6 @@ public class GameScreenController implements Initializable, Observer {
                 initGameWindow();
                 setContinentList();
                 diceDropDownLoad();
-                txtAreaStatus.setText("HELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\nHELLO\n");
-
-
                 GameManager.getInstance().addObserver(this);
 
         }
@@ -811,54 +809,54 @@ public class GameScreenController implements Initializable, Observer {
     {
         int result=0;
         int attackerDiceNumber=cbAttacker.getValue();
-        int defenderDiceNumber=cbAttacker.getValue();
+        int defenderDiceNumber=cbDefend.getValue();
         int sourceArmyCount = sourceTerritory.getArmies();
+        int defenderArmyCount = destT.getArmies();
 
         if(attackerDiceNumber>0 && defenderDiceNumber>0)
         {
-            if(sourceArmyCount<3)
+            System.out.println("Attack Dice:"+attackerDiceNumber);
+            System.out.println("Defemder Dice:"+defenderDiceNumber);
+            System.out.println("Attack army count:"+sourceArmyCount);
+            System.out.println("D Attack Dice:"+defenderArmyCount);
+
+            if(sourceArmyCount<attackerDiceNumber)
             {
-                result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory,destT, attackerDiceNumber, defenderDiceNumber);
+                showAlertDialog("Invalid Attacker Dice Selection");
+                return;
+            }
+            if(defenderArmyCount<defenderDiceNumber)
+            {
+                showAlertDialog("Invalid Defender Dice Selection");
+                return;
+            }
+
+            result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory,destT, attackerDiceNumber, defenderDiceNumber);
                 switch (result)
                 {
                     case 0: showAlertDialog("Attack Successful");
-                            txtAreaStatus.setText("Attack Successful");
 
-                    case -1: showAlertDialog("Attack Unsuccessful");
-                            txtAreaStatus.setText("Not enough armies to attack");
+                            break;
 
-                    case -2: showAlertDialog("Invalid Attack");
-                            txtAreaStatus.setText("Attacking your own territory!");
+                    case -1: showAlertDialog("you dont have enough arimies to attack");
 
-                    case -3: showAlertDialog("Invalid Attack");
-                        txtAreaStatus.setText("Not Attacking a neighbouring territory!");
+                        break;
+
+                    case -2: showAlertDialog("attacking your own territory");
+
+                        break;
+
+                    case -3: showAlertDialog("attacking a Ter which is not a direct neibor");
+
+                        break;
                 }
-            }
-            else
-            {
-                result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory,destT, sourceArmyCount, defenderDiceNumber);
-                switch (result)
-                {
-                    case 0: showAlertDialog("Attack Successful");
-                        txtAreaStatus.setText("Attack Successful");
-
-                    case -1: showAlertDialog("Attack Unsuccessful");
-                        txtAreaStatus.setText("Not enough armies to attack");
-
-                    case -2: showAlertDialog("Invalid Attack");
-                        txtAreaStatus.setText("Attacking your own territory!");
-
-                    case -3: showAlertDialog("Invalid Attack");
-                        txtAreaStatus.setText("Not Attacking a neighbouring territory!");
-                }
-            }
-
-
         }
         else
         {
             showAlertDialog("Not a valid attack. Select Armies again!");
         }
+
+        Update();
     }
 
    /* @FXML
