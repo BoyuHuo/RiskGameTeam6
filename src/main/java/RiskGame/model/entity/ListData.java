@@ -71,6 +71,15 @@ public class ListData{
             rectangle.setFill(color);
         }
 
+    /**
+     * This method sets the cards visual information.
+     *
+     * @param string sets the label with the text
+     */
+    public void setCardInfo(String string) {
+        label1.setText(string);
+
+    }
 
     /**
      * This method returns the horizontal box present in the layout.

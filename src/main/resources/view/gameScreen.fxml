@@ -66,7 +66,7 @@
                   <children>
                               <Button fx:id="btnOK" layoutX="228.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickOKButton" text="OK" />
                     <!--View the player's cards-->
-                    <Button fx:id="myCards" layoutX="113.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" prefHeight="0.0" prefWidth="78.0" text="My Cards" textFill="WHITE">
+                    <Button fx:id="myCards" layoutX="113.0" layoutY="84.0" mnemonicParsing="false" onAction="#newButtonOnClicked" prefHeight="0.0" prefWidth="78.0" text="My Cards" textFill="WHITE">
                       <font>
                         <Font name="System Bold" size="13.0" fx:id="x1" />
                       </font>

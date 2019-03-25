@@ -404,4 +404,95 @@ public class Player {
         }
 
     }
+
+
+    public boolean cardTrade(ArrayList<CardType> cardList, Player player,int cardSet){
+
+        if(isValidSet(cardList)) {
+
+            HashMap<CardType, Integer> playerCards = player.getCards();
+            for (CardType card : cardList) {
+
+                if (playerCards.containsKey(card)) {
+                    playerCards.put(card, playerCards.get(card) - 1);
+                }
+
+            }
+
+            switch (cardSet) {
+
+                case 1:
+                    player.setArmies(4);
+                    break;
+                case 2:
+                    player.setArmies(6);
+                    break;
+                case 3:
+                    player.setArmies(8);
+                    break;
+                case 4:
+                    player.setArmies(10);
+                    break;
+                case 5:
+                    player.setArmies(12);
+                    break;
+                case 6:
+                    player.setArmies(15);
+                    break;
+            }
+
+            if(cardSet>=7){
+                player.setArmies(((cardSet-6)*5)+15);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isValidSet(ArrayList<CardType> cardList) {
+
+        int infantryCount=0,cavalaryCount=0,artilleryCount=0;
+
+        for (CardType card: cardList) {
+
+            switch (card){
+
+                case CAVALRY:
+                    cavalaryCount++;
+                    break;
+
+                case INFANTRY:
+                    infantryCount++;
+                    break;
+
+                case ARTILLERY:
+                    artilleryCount++;
+                    break;
+
+            }
+
+        }
+
+        if(infantryCount==1&&cavalaryCount==1&&artilleryCount==1)
+            return  true;
+        if(infantryCount==3)
+            return true;
+
+        if(cavalaryCount==3)
+            return true;
+
+        if(artilleryCount==3)
+            return true;
+
+        return false;
+
+    }
+
+
+
+
+
+
 }

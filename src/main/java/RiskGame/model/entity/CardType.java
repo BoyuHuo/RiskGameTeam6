@@ -1,5 +1,5 @@
 package RiskGame.model.entity;
 
-enum CardType{
+public enum CardType{
     INFANTRY, CAVALRY, ARTILLERY, WILDCARD;
 }
