@@ -131,8 +131,8 @@ public class TestGameManager {
             for (int i = 0; i < 7; i++) {
                 GameManager.getInstance().nextRound();
             }
-            assertEquals("Attack", GameManager.getInstance().getGamePhase());
-            assertEquals("Player1", GameManager.getInstance().getActivePlayer().getName());
+            assertEquals("Reinforcements", GameManager.getInstance().getGamePhase());
+            assertEquals("Player3", GameManager.getInstance().getActivePlayer().getName());
         }
 
 
