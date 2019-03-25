@@ -305,7 +305,7 @@ public class Player {
             GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0] + "\n");
             GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1] + "\n");
 
-            this.setArmies(armies - Integer.parseInt(resInt[0]));
+            source.setArmies(source.getArmies() - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
 
             if (target.getArmies() == 0) {
