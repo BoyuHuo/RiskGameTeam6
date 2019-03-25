@@ -501,6 +501,7 @@ public class GameScreenController implements Initializable, Observer {
         initGameWindow();
         setContinentList();
         diceDropDownLoad();
+
         GameManager.getInstance().addObserver(this);
 
     }

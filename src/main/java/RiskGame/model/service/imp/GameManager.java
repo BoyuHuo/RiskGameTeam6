@@ -26,7 +26,8 @@ public class GameManager extends Observable implements IGameManager {
 
     public void setMessage(String message) {
         this.message += message;
-        notifyObservers();
+        setChanged();
+        notifyObservers(this);
     }
 
     public boolean isGameOver() {
@@ -169,6 +170,7 @@ public class GameManager extends Observable implements IGameManager {
      * @see GameManager#nextPhase()
      */
     public void nextRound() {
+        clearMessage();
         switch (gamePhase) {
             case STARTUP:
                 Player p = (Player) players.values().toArray()[players.values().size() - 1];
@@ -195,7 +197,7 @@ public class GameManager extends Observable implements IGameManager {
             default:
                 break;
         }
-        clearMessate();
+
         setMessage("[Active Player] " + getActivePlayer().getName() + "\n[Phase] " + getGamePhase() + "\n");
     }
 
@@ -208,7 +210,7 @@ public class GameManager extends Observable implements IGameManager {
             playerIterator = players.values().iterator();
         }
         activePlayer = (Player) playerIterator.next();
-        setMessage(getActivePlayer() + "'s turn! \n");
+        setMessage(getActivePlayer().getName() + "'s turn! \n");
     }
 
     /**
@@ -222,10 +224,8 @@ public class GameManager extends Observable implements IGameManager {
         }
         gamePhase = phase.values()[tag];
         if (getGamePhase().equals("Reinforcements")) {
-            reignforceArmies(activePlayer);
+            activePlayer.reignforceArmies();
         }
-
-        setMessage(getGamePhase() + "\n");
     }
 
     /**
@@ -406,41 +406,11 @@ public class GameManager extends Observable implements IGameManager {
         return arrNew;
     }
 
-    public boolean reignforceArmies(Player p) {
-        int controlNum = 0;
-        int armiesFromTerr = 0;
-        int terrNum = 0;
-        for (Territory t : map.getTerritories().values()) {
-            if (t.getBelongs().getName().equals(p.getName())) {
-                terrNum++;
-            }
-        }
-        if ((terrNum / 3) < 3) {
-            armiesFromTerr = 3;
-        } else {
-            armiesFromTerr = terrNum / 3;
-        }
-        if (p.getName().equals(getActivePlayer().getName())) {
-            for (Continent c : map.getContinents().values()) {
-                int countBelongs = 0;
-                for (Territory t : c.getTerritories().values()) {
-                    if (t.getBelongs().getName().equals(p.getName())) {
-                        countBelongs++;
-                    }
-                }
-                if (countBelongs == c.getTerritories().size()) {
-                    controlNum += c.getCtrNum();
-                }
-            }
-        }
-        p.setArmies(p.getArmies() + controlNum + armiesFromTerr);
-        setMessage(p.getName() + " get " + controlNum + armiesFromTerr + " reinfocement armies!");
-        return true;
-    }
 
-    public void clearMessate() {
+    public void clearMessage() {
         message = "";
-        notifyObservers();
+        setChanged();
+        notifyObservers(this);
     }
 
     public boolean possibleAttack() {
@@ -455,7 +425,7 @@ public class GameManager extends Observable implements IGameManager {
                 }
             }
         }
-        setMessage("No possible to Attack, pass the attacking phase!");
+        setMessage("No possible to Attack, pass the attacking phase!\n");
         return false;
     }
 

@@ -252,7 +252,8 @@ public class Player {
             }
         }
         this.setArmies(this.getArmies() + controlNum + armiesFromTerr);
-        GameManager.getInstance().setMessage(this.getName() + " get " + controlNum + armiesFromTerr + " reinfocement armies!");
+        int result=controlNum+armiesFromTerr;
+        GameManager.getInstance().setMessage(this.getName() + " get " + result + " reinforce armies!\n");
         return true;
     }
 
@@ -304,7 +305,7 @@ public class Player {
             GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0] + "\n");
             GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1] + "\n");
 
-            this.setArmies(armies - Integer.parseInt(resInt[0]));
+            source.setArmies(source.getArmies() - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
 
             if (target.getArmies() == 0) {
@@ -318,8 +319,8 @@ public class Player {
         while (source.getArmies() > 0 && target.getArmies() > 0) {
             int attackDiceNum = 3;
             int defDiceNum = 2;
-            if (attackDiceNum > this.armies) {
-                attackDiceNum = this.armies;
+            if (attackDiceNum > source.getArmies()) {
+                attackDiceNum = source.getArmies();
             }
             if (defDiceNum > target.getArmies()) {
                 defDiceNum = target.getArmies();
@@ -361,7 +362,7 @@ public class Player {
             return -3;
         } else {
             target.setBelongs(source.getBelongs());
-            this.armies -= moveArmy;
+            source.setArmies(source.getArmies()-moveArmy);
             target.setArmies(moveArmy);
             target.setCaptureDiceNum(0);
             this.updatePrecentageOfMap();

@@ -98,7 +98,9 @@ public class TestTerritory {
         w2.setBelongs(p2);
         f1.setArmies(12);
         f2.setArmies(16);
-        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,f1, f2);
+        f3.setArmies(5);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,f1, f3);
+        System.out.println("f1:"+f1.getArmies()+",f3:"+f3.getArmies());
         assertTrue(result);
     }
 
