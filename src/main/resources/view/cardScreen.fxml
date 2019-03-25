@@ -9,6 +9,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('images/gameBC.png');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.CardScreenController">
   <children>
     <Button id="chooseCard" layoutX="706.0" layoutY="422.0" mnemonicParsing="false" onMouseClicked="#cardButtonOnClicked" prefHeight="57.0" prefWidth="115.0" text="Sure" />
-    <ListView fx:id="cardList" layoutX="132.0" layoutY="104.0" prefHeight="375.0" prefWidth="436.0" />
+
   </children>
+  <ListView fx:id="cardList" layoutX="132.0" layoutY="104.0" prefHeight="375.0" prefWidth="436.0" />
 </AnchorPane>

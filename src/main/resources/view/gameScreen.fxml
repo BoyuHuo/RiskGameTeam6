@@ -72,7 +72,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
                     <!--View the player's cards-->
-                    <Button fx:id="myCards" layoutX="85.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" prefHeight="33.0" prefWidth="171.0" text="My Cards" textFill="WHITE">
+                    <Button fx:id="myCards" layoutX="85.0" layoutY="33.0" mnemonicParsing="false" onAction="#newButtonOnClicked" prefHeight="33.0" prefWidth="171.0" text="My Cards" textFill="WHITE">
                       <font>
                         <Font name="System Bold" size="18.0" fx:id="x1" />
                       </font>
