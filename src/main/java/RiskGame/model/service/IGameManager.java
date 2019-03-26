@@ -57,7 +57,7 @@ public interface IGameManager {
     /**
      * use for end a game, meanwhile clear the game data.
      */
-    public void gameOver();
+    public void checkGameOver();
 
 
 }

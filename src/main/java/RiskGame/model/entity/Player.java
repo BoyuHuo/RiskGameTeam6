@@ -2,9 +2,8 @@ package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.text.DecimalFormat;
+import java.util.*;
 
 /**
  * This is the Player class, it is a java bean, use for store the player's information
@@ -16,8 +15,10 @@ import java.util.Random;
 public class Player {
     private String name;
     private String color;
-    private Card cards;
+    private HashMap<CardType, Integer> cards;
     private int armies;
+    private boolean live;
+    private double percentageOfMap;
 
     /**
      * An empty constructor for Player
@@ -80,7 +81,7 @@ public class Player {
      * @return cards card information.
      * @see Card
      */
-    public Card getCards() {
+    public HashMap<CardType, Integer> getCards() {
         return cards;
     }
 
@@ -89,7 +90,7 @@ public class Player {
      *
      * @param cards the card information.
      */
-    public void setCards(Card cards) {
+    public void setCards(HashMap<CardType, Integer> cards) {
         this.cards = cards;
     }
 
@@ -114,16 +115,61 @@ public class Player {
     }
 
 
+    public boolean cardTrade(ArrayList<CardType> cardList, Player player) {
+
+        HashMap<CardType, Integer> playerCards = player.getCards();
+        for (CardType card : cardList) {
+
+            if (playerCards.containsKey(card)) {
+                playerCards.put(card, playerCards.get(card) - 1);
+            }
+
+        }
+
+        return false;
+    }
+
+    public void takeCardFromOthers(Player defenderPlayer) {
+
+        Player attackingPlayer = this;
+        for (Map.Entry<CardType, Integer> card : defenderPlayer.getCards().entrySet()) {
+            if (attackingPlayer.getCards().containsKey(card.getKey())) {
+                attackingPlayer.getCards().put(card.getKey(), attackingPlayer.getCards().get(card.getKey()) + 1);
+            } else {
+                attackingPlayer.getCards().put(card.getKey(), 1);
+            }
+        }
+
+    }
+
+    public void addCard(CardType card) {
+
+        Player attackingPlayer = this;
+        if (attackingPlayer.getCards().containsKey(card)) {
+            attackingPlayer.getCards().put(card, attackingPlayer.getCards().get(card) + 1);
+        } else {
+            attackingPlayer.getCards().put(card, 1);
+        }
+    }
+
+    public void addRandomCard(Player player) {
+
+        Random random = new Random();
+        CardType randomCard = CardType.values()[random.nextInt(CardType.values().length)];
+        player.addCard(randomCard);
+    }
+
+
     /**
      * It is used in fortification phase which will be move armies from one territory to another territory
      *
      * @param num         the number of armies tha need to be move from one territory to another territory.
      * @param destination the destination territory
      * @return returns if its valid to immgigrate armies.
-     * @see Player#validedToImmgrant(Territory,Territory)
+     * @see Player#validedToImmgrant(Territory, Territory)
      */
     public boolean immigrantArimies(int num, Territory source, Territory destination) {
-        if (!validedToImmgrant(source,destination)) {
+        if (!validedToImmgrant(source, destination)) {
             return false;
         } else {
             if (num <= source.getArmies()) {
@@ -142,9 +188,10 @@ public class Player {
      * @return returns true if its valid army transfer or not.
      * @see Player#DFS(Territory, Territory, ArrayList)
      */
-    public boolean validedToImmgrant(Territory source,Territory destionation) {
-        if (!source.getBelongs().getName().equals(this.getName())||!destionation.getBelongs().getName().equals(this.getName()))
+    public boolean validedToImmgrant(Territory source, Territory destionation) {
+        if (!source.getBelongs().getName().equals(this.getName()) || !destionation.getBelongs().getName().equals(this.getName())){
             return false;
+            }
         else {
             return DFS(source, destionation, new ArrayList<String>());
         }
@@ -200,36 +247,34 @@ public class Player {
                     }
                 }
                 if (countBelongs == c.getTerritories().size()) {
-                    controlNum+=c.getCtrNum();
+                    controlNum += c.getCtrNum();
                 }
             }
         }
-        this.setArmies(this.getArmies()+controlNum+armiesFromTerr);
-        GameManager.getInstance().setMessage(this.getName()+" get "+controlNum+armiesFromTerr+" reinfocement armies!");
+        this.setArmies(this.getArmies() + controlNum + armiesFromTerr);
+        int result=controlNum+armiesFromTerr;
+        GameManager.getInstance().setMessage(this.getName() + " get " + result + " reinforce armies!\n");
         return true;
     }
-
 
 
     /**
      * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
      *
-     *
-     * @param target      your attacking target.
-     * @param diceNumAtt  the dice number of the attacker.
-     * @param diceNumDef  the dice number of the defender.
+     * @param target     your attacking target.
+     * @param diceNumAtt the dice number of the attacker.
+     * @param diceNumDef the dice number of the defender.
      * @return int   0: successful
-     *               -1: you dont have enough arimies to attack
-     *               -2: attacking your own territory
-     *               -3: attacking a Ter which is not a direct neibor
+     * -1: you dont have enough arimies to attack
+     * -2: attacking your own territory
+     * -3: attacking a Ter which is not a direct neibor
      */
     public int launchAttack(Territory source, Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 ) {
+        if (source.getArmies() <= 0) {
             return -1;
-        } else if(target.getBelongs() == source.getBelongs()){
+        } else if (target.getBelongs() == source.getBelongs()) {
             return -2;
-        }
-        else if (source.getNeighbors().get(target.getName()) == null) {
+        } else if (source.getNeighbors().get(target.getName()) == null) {
             return -3;
         } else {
 
@@ -257,10 +302,10 @@ public class Player {
             String result = compareDiceSet(diceValueAtt, diceValueDef);
             String[] resInt = result.split(":");
 
-            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]+"\n");
-            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]+"\n");
+            GameManager.getInstance().setMessage("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0] + "\n");
+            GameManager.getInstance().setMessage("[Defender] " + target.getName() + "'s Total toll:" + resInt[1] + "\n");
 
-            this.setArmies(armies - Integer.parseInt(resInt[0]));
+            source.setArmies(source.getArmies() - Integer.parseInt(resInt[0]));
             target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
 
             if (target.getArmies() == 0) {
@@ -270,17 +315,17 @@ public class Player {
         }
     }
 
-    public boolean allInMode(Territory source,Territory target) {
-        while (this.armies > 0 && target.getArmies() > 0) {
+    public boolean allInMode(Territory source, Territory target) {
+        while (source.getArmies() > 0 && target.getArmies() > 0) {
             int attackDiceNum = 3;
             int defDiceNum = 2;
-            if (attackDiceNum > this.armies) {
-                attackDiceNum = this.armies;
+            if (attackDiceNum > source.getArmies()) {
+                attackDiceNum = source.getArmies();
             }
             if (defDiceNum > target.getArmies()) {
                 defDiceNum = target.getArmies();
             }
-            launchAttack(source,target, attackDiceNum, defDiceNum);
+            launchAttack(source, target, attackDiceNum, defDiceNum);
         }
         return true;
     }
@@ -305,5 +350,150 @@ public class Player {
         }
         return attDeath + ":" + defDeath;
     }
+
+    public int captureTerritory(Territory source, Territory target, int moveArmy) {
+        Player defender= target.getBelongs();
+        if (moveArmy < target.getCaptureDiceNum()) {
+            return -1;
+        }
+        if (moveArmy > source.getArmies()) {
+            return -2;
+        } else if (target.getArmies() != 0) {
+            return -3;
+        } else {
+            target.setBelongs(source.getBelongs());
+            source.setArmies(source.getArmies()-moveArmy);
+            target.setArmies(moveArmy);
+            target.setCaptureDiceNum(0);
+            this.updatePrecentageOfMap();
+            defender.updatePrecentageOfMap();
+            return 0;
+        }
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
+
+    public double getPrecentageOfMap() {
+        return percentageOfMap;
+    }
+
+    public void updatePrecentageOfMap() {
+        if (live == false) {
+            percentageOfMap = 0.0;
+            return;
+        } else {
+            double totalTer = GameManager.getInstance().getMap().getTerritories().size();
+            double myTer = 0.0;
+            for (Territory t : GameManager.getInstance().getMap().getTerritories().values()) {
+                if (t.getBelongs() == this) {
+                    myTer++;
+                }
+            }
+            percentageOfMap = myTer / totalTer * 100;
+            DecimalFormat fmt = new DecimalFormat("##0.0");
+            fmt.format(percentageOfMap);
+            if (percentageOfMap <= 0) {
+                this.live=false;
+            }
+            GameManager.getInstance().checkGameOver();
+        }
+
+    }
+
+
+    public boolean cardTrade(ArrayList<CardType> cardList, Player player,int cardSet){
+
+        if(isValidSet(cardList)) {
+
+            HashMap<CardType, Integer> playerCards = player.getCards();
+            for (CardType card : cardList) {
+
+                if (playerCards.containsKey(card)) {
+                    playerCards.put(card, playerCards.get(card) - 1);
+                }
+
+            }
+
+            switch (cardSet) {
+
+                case 1:
+                    player.setArmies(4);
+                    break;
+                case 2:
+                    player.setArmies(6);
+                    break;
+                case 3:
+                    player.setArmies(8);
+                    break;
+                case 4:
+                    player.setArmies(10);
+                    break;
+                case 5:
+                    player.setArmies(12);
+                    break;
+                case 6:
+                    player.setArmies(15);
+                    break;
+            }
+
+            if(cardSet>=7){
+                player.setArmies(((cardSet-6)*5)+15);
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isValidSet(ArrayList<CardType> cardList) {
+
+        int infantryCount=0,cavalaryCount=0,artilleryCount=0;
+
+        for (CardType card: cardList) {
+
+            switch (card){
+
+                case CAVALRY:
+                    cavalaryCount++;
+                    break;
+
+                case INFANTRY:
+                    infantryCount++;
+                    break;
+
+                case ARTILLERY:
+                    artilleryCount++;
+                    break;
+
+            }
+
+        }
+
+        if(infantryCount==1&&cavalaryCount==1&&artilleryCount==1)
+            return  true;
+        if(infantryCount==3)
+            return true;
+
+        if(cavalaryCount==3)
+            return true;
+
+        if(artilleryCount==3)
+            return true;
+
+        return false;
+
+    }
+
+
+
+
+
 
 }

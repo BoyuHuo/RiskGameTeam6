@@ -6,4 +6,7 @@ package RiskGame.model.entity;
  * @version v1.0.0
  */
 public class Card {
+
+    CardType cardType;
+
 }

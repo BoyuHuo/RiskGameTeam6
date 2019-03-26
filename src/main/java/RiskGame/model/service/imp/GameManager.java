@@ -5,6 +5,7 @@ import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.IGameManager;
+import javafx.application.Preloader;
 
 import java.util.*;
 
@@ -25,7 +26,16 @@ public class GameManager extends Observable implements IGameManager {
 
     public void setMessage(String message) {
         this.message += message;
-        notifyObservers();
+        setChanged();
+        notifyObservers(this);
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
     enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
@@ -38,6 +48,7 @@ public class GameManager extends Observable implements IGameManager {
     private phase gamePhase;
     private static GameManager instance;
     private String message = "";
+    private boolean gameOver;
 
 
     /**
@@ -68,7 +79,11 @@ public class GameManager extends Observable implements IGameManager {
     public void NewGame() {
         GameManager.getInstance().ramdomAssignTerritoryToPlayer();
         initArmies();
-        playerIterator=players.values().iterator();
+        playerIterator = players.values().iterator();
+        for (Player p : players.values()) {
+            p.setLive(true);
+        }
+        gameOver = false;
         start();
     }
 
@@ -128,8 +143,16 @@ public class GameManager extends Observable implements IGameManager {
     /**
      * use for end a game, meanwhile clear the game data.
      */
-    public void gameOver() {
-
+    public void checkGameOver() {
+        int playersNum=0;
+        for(Player p: GameManager.getInstance().getPlayers().values()){
+            if(p.isLive()==true){
+                playersNum++;
+            }
+        }
+        if (playersNum<=1){
+            GameManager.getInstance().setGameOver(true);
+        }
     }
 
     /**
@@ -147,6 +170,7 @@ public class GameManager extends Observable implements IGameManager {
      * @see GameManager#nextPhase()
      */
     public void nextRound() {
+        clearMessage();
         switch (gamePhase) {
             case STARTUP:
                 Player p = (Player) players.values().toArray()[players.values().size() - 1];
@@ -158,11 +182,13 @@ public class GameManager extends Observable implements IGameManager {
                 }
                 break;
             case ATTACK:
-                if(!possibleAttack())
-                    nextPhase();
-                    break;
+                nextPhase();
+                break;
             case REINFORCEMENTS:
                 nextPhase();
+                if (!possibleAttack())
+                    nextPhase();
+                ;
                 break;
             case FORTIFICATION:
                 nextPlayer();
@@ -171,8 +197,8 @@ public class GameManager extends Observable implements IGameManager {
             default:
                 break;
         }
-        clearMessate();
-        setMessage("[Active Player] "+getActivePlayer()+"\n[Phase] "+getGamePhase()+"\n");
+
+        setMessage("[Active Player] " + getActivePlayer().getName() + "\n[Phase] " + getGamePhase() + "\n");
     }
 
 
@@ -184,7 +210,7 @@ public class GameManager extends Observable implements IGameManager {
             playerIterator = players.values().iterator();
         }
         activePlayer = (Player) playerIterator.next();
-        setMessage(getActivePlayer()+"'s turn! \n");
+        setMessage(getActivePlayer().getName() + "'s turn! \n");
     }
 
     /**
@@ -197,11 +223,9 @@ public class GameManager extends Observable implements IGameManager {
             tag = 1;
         }
         gamePhase = phase.values()[tag];
-        if(getGamePhase().equals("Reinforcements")){
-            reignforceArmies(activePlayer);
+        if (getGamePhase().equals("Reinforcements")) {
+            activePlayer.reignforceArmies();
         }
-
-        setMessage(getGamePhase()+"\n");
     }
 
     /**
@@ -340,7 +364,7 @@ public class GameManager extends Observable implements IGameManager {
     public void cleanUp() {
         this.map = new GameMap();
         this.players.clear();
-        this.message="";
+        this.message = "";
     }
 
     /**
@@ -360,8 +384,9 @@ public class GameManager extends Observable implements IGameManager {
 
             map.getTerritories().get(keys[randomTag]).setBelongs(player);
             keys = deleteInArray(randomTag, keys);
-
-
+        }
+        for (Player p : GameManager.getInstance().getPlayers().values()) {
+            p.updatePrecentageOfMap();
         }
     }
 
@@ -381,59 +406,28 @@ public class GameManager extends Observable implements IGameManager {
         return arrNew;
     }
 
-    public boolean reignforceArmies(Player p) {
-        int controlNum = 0;
-        int armiesFromTerr = 0;
-        int terrNum = 0;
+
+    public void clearMessage() {
+        message = "";
+        setChanged();
+        notifyObservers(this);
+    }
+
+    public boolean possibleAttack() {
         for (Territory t : map.getTerritories().values()) {
-            if (t.getBelongs().getName().equals(p.getName())) {
-                terrNum++;
-            }
-        }
-        if ((terrNum / 3) < 3) {
-            armiesFromTerr = 3;
-        } else {
-            armiesFromTerr = terrNum / 3;
-        }
-        if (p.getName().equals(getActivePlayer().getName())) {
-            for (Continent c : map.getContinents().values()) {
-                int countBelongs = 0;
-                for (Territory t : c.getTerritories().values()) {
-                    if (t.getBelongs().getName().equals(p.getName())) {
-                        countBelongs++;
-                    }
-                }
-                if (countBelongs == c.getTerritories().size()) {
-                    controlNum+=c.getCtrNum();
-                }
-            }
-        }
-        p.setArmies(p.getArmies()+controlNum+armiesFromTerr);
-        setMessage(p.getName()+" get "+controlNum+armiesFromTerr+" reinfocement armies!");
-        return true;
-    }
-
-    public void clearMessate(){
-        message ="";
-        notifyObservers();
-    }
-
-    public boolean possibleAttack(){
-        for(Territory t: map.getTerritories().values()){
-            if(t.getBelongs()==activePlayer){
-                for(Territory neibor: t.getNeighbors().values()){
-                    if(neibor.getBelongs()!=activePlayer){
-                        if(t.getArmies()>0){
+            if (t.getBelongs() == activePlayer) {
+                for (Territory neibor : t.getNeighbors().values()) {
+                    if (neibor.getBelongs() != activePlayer) {
+                        if (t.getArmies() > 0) {
                             return true;
                         }
                     }
                 }
             }
         }
-        setMessage("No possible to Attack, pass the attacking phase!");
+        setMessage("No possible to Attack, pass the attacking phase!\n");
         return false;
     }
-
 
 
 }
