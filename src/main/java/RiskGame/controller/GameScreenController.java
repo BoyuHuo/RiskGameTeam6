@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -127,7 +128,7 @@ public class GameScreenController implements Initializable, Observer {
      */
     @FXML
     private void newButtonOnClicked() {
-        try {
+        /*try {
             Parent anotherRoot = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
             Stage anotherStage = new Stage();
             anotherStage.setTitle("My cards");
@@ -139,7 +140,21 @@ public class GameScreenController implements Initializable, Observer {
             anotherStage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }*/
+
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("My New Stage Title");
+            stage.setScene(new Scene(root, 1000, 600));
+            stage.show();
+
         }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
