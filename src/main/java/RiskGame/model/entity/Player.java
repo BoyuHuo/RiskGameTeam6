@@ -116,6 +116,10 @@ public class Player {
     }
 
 
+    /**
+     * take the cards from other players, it only called when defeat a player
+     * @param defenderPlayer the player who has been defeated.
+     */
     public void takeCardFromOthers(Player defenderPlayer) {
 
         Player attackingPlayer = this;
@@ -129,6 +133,10 @@ public class Player {
 
     }
 
+    /**
+     * add a card to player
+     * @param card the card which will given to the player.
+     */
     public void addCard(CardType card) {
 
         Player attackingPlayer = this;
@@ -139,6 +147,10 @@ public class Player {
         }
     }
 
+    /**
+     * add a random card for player
+     * @param player the player who will get the random card
+     */
     public void addRandomCard(Player player) {
 
         Random random = new Random();
@@ -162,6 +174,7 @@ public class Player {
             if (num <= source.getArmies()) {
                 source.setArmies(source.getArmies() - num);
                 destination.setArmies(num + destination.getArmies());
+                GameManager.getInstance().setMessage(source.getName()+" has moved "+num+" army(ies) to "+destination.getName()+"\n");
                 return true;
             }
         }
@@ -210,7 +223,10 @@ public class Player {
         return result;
     }
 
-
+    /**
+     * use for giving the player the curtain number of reinforcement armies.
+     * @return boolean true: function successful calculated false: there are something wrong, player cannot get the reinforcement armies.
+     */
     public boolean reignforceArmies() {
         int controlNum = 0;
         int armiesFromTerr = 0;
@@ -302,6 +318,14 @@ public class Player {
         }
     }
 
+    /**
+     *
+     * all in mode is a method that attacker can use for use all of his arimies to attack the target territory
+     * @param target  your attacking target.
+     * @param source  attacker's territory
+     * @return boolean   true: successful  false: unsuccessful
+     */
+
     public boolean allInMode(Territory source, Territory target) {
         while (source.getArmies() > 0 && target.getArmies() > 0) {
             int attackDiceNum = 3;
@@ -317,11 +341,20 @@ public class Player {
         return true;
     }
 
+    /**
+     *
+     * use for randomly roll a dice
+     * @return int the dice result that you roll
+     */
     private int randomRoll() {
         Random r = new Random();
         return r.nextInt(6) + 1;
     }
 
+    /**
+     * use for comparing 2 sets of dice, and calculate the number of troll in this battle
+     * @return String result will be in "attarcker's troll:defender's troll"
+     */
     private String compareDiceSet(int[] att, int[] def) {
         int compareNum = att.length > def.length ? def.length : att.length;
         int attDeath = 0;
@@ -338,6 +371,13 @@ public class Player {
         return attDeath + ":" + defDeath;
     }
 
+    /**
+     * use for comparing 2 sets of dice, and calculate the number of troll in this battle
+     * @param source the territory which lanuch the attack and want to capture another city
+     * @param target the territory which is about to be captured by another player
+     * @param moveArmy the number of armies that player want to move to new captured territory
+     * @return String result will be in "attarcker's troll:defender's troll"
+     */
     public int captureTerritory(Territory source, Territory target, int moveArmy) {
         Player defender= target.getBelongs();
         if (moveArmy < target.getCaptureDiceNum()) {
@@ -354,22 +394,40 @@ public class Player {
             target.setCaptureDiceNum(0);
             this.updatePrecentageOfMap();
             defender.updatePrecentageOfMap();
+            GameManager.getInstance().setMessage("Player: "+source.getBelongs().getName()+" has captured the territory "+target.getName()+"\n");
             return 0;
         }
     }
 
+    /**
+     * is this player still alive in the game?
+     * @return boolean True: alive False: dead
+     */
     public boolean isLive() {
         return live;
     }
 
+    /**
+     * use for chaning the live status of a player
+     * @param live the status that you wanna set
+     */
     public void setLive(boolean live) {
         this.live = live;
     }
 
+    /**
+     * get the percentage of map this player already covered
+     * @return percentageOfMap the percentage of the map this player already occupied
+     */
     public double getPrecentageOfMap() {
         return percentageOfMap;
     }
 
+
+
+    /**
+     * use for calculate the coverage percentage of the map for this player
+     */
     public void updatePrecentageOfMap() {
         if (live == false) {
             percentageOfMap = 0.0;
@@ -393,6 +451,10 @@ public class Player {
 
     }
 
+    /**
+     * use for get how many continent this player already control
+     * @return  result the list of continent that this player control
+     */
     public List<Continent> getControlContinent(){
         List<Continent> result = new ArrayList<>();
         for(Continent c: GameManager.getInstance().getMap().getContinents().values()){
@@ -411,6 +473,12 @@ public class Player {
     }
 
 
+    /**
+     * use for trading the card for armies
+     * @param cardList the list of card that player wanna trade
+     * @param player the player who wanna trade the card
+     * @return  boolean True：trade successful False: trade unsuccessful
+     */
     public boolean cardTrade(ArrayList<CardType> cardList, Player player){
 
         if(isValidSet(cardList)) {
@@ -456,8 +524,11 @@ public class Player {
         return false;
     }
 
-
-
+    /**
+     * use for checking if the trading cards is valid to trade
+     * @param cardList the list of card that player wanna trade
+     * @return  boolean True：trade successful False: trade unsuccessful
+     */
     public boolean isValidSet(ArrayList<CardType> cardList) {
 
         int infantryCount=0,cavalaryCount=0,artilleryCount=0;
