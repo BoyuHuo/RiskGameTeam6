@@ -18,6 +18,7 @@ import test.*;
         TestMapReader.class,
         TestMapValidation.class,
         TestTerritory.class,
+        TestAttack.class,
 })
 public class testSuitBuildOne {
 }
