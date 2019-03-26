@@ -216,7 +216,7 @@ public class GameScreenController implements Initializable, Observer {
     @FXML
     private void endRoundClick() {
         GameManager.getInstance().nextRound();
-        Update();
+       // Update();
     }
 
 
@@ -461,7 +461,6 @@ public class GameScreenController implements Initializable, Observer {
         } else {
             showAlertDialog("Select a terrotory!");
         }
-        Update();
     }
 
     /**
@@ -493,6 +492,8 @@ public class GameScreenController implements Initializable, Observer {
         drawMap();
         btnOK.setDisable(true);
         txtAreaStatus.setText(GameManager.getInstance().getMessage());
+        txtAreaStatus.selectEnd();
+        txtAreaStatus.deselect();
         onMouseClick();
     }
 

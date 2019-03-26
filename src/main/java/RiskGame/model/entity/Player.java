@@ -162,6 +162,7 @@ public class Player {
             if (num <= source.getArmies()) {
                 source.setArmies(source.getArmies() - num);
                 destination.setArmies(num + destination.getArmies());
+                GameManager.getInstance().setMessage(source.getName()+" has moved "+num+" army(ies) to "+destination.getName()+"\n");
                 return true;
             }
         }
@@ -354,6 +355,7 @@ public class Player {
             target.setCaptureDiceNum(0);
             this.updatePrecentageOfMap();
             defender.updatePrecentageOfMap();
+            GameManager.getInstance().setMessage("Player: "+source.getBelongs().getName()+" has captured the territory "+target.getName()+"\n");
             return 0;
         }
     }
