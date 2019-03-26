@@ -405,12 +405,20 @@ public class GameManager extends Observable implements IGameManager {
         return arrNew;
     }
 
-
+    /**
+     * it will clear all the message which is records in the GameManager instance
+     */
     public void clearMessage() {
         message = "";
         setChanged();
         notifyObservers(this);
     }
+
+
+    /**
+     * it will check if active player can still perform attack behavior in this turn, if not move to next phase automatically.
+     * @return boolean true: possible to attack  false: impossible to attack
+     */
 
     public boolean possibleAttack() {
         for (Territory t : map.getTerritories().values()) {

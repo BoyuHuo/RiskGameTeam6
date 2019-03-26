@@ -273,11 +273,20 @@ public class Territory {
     }
 
 
-
+    /**
+     * getter for captured dice number
+     * @return the number of dice that last fight rolled
+     */
 
     public int getCaptureDiceNum() {
         return captureDiceNum;
     }
+
+
+    /**
+     * setter for captured dice number
+     * @param captureDiceNum the number of dice that you rolled in the last battle.
+     */
 
     public void setCaptureDiceNum(int captureDiceNum) {
         this.captureDiceNum = captureDiceNum;
