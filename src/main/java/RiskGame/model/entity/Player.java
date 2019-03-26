@@ -1,6 +1,7 @@
 package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
+import javafx.scene.control.Alert;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -114,20 +115,6 @@ public class Player {
         this.armies = armies;
     }
 
-
-    public boolean cardTrade(ArrayList<CardType> cardList, Player player) {
-
-        HashMap<CardType, Integer> playerCards = player.getCards();
-        for (CardType card : cardList) {
-
-            if (playerCards.containsKey(card)) {
-                playerCards.put(card, playerCards.get(card) - 1);
-            }
-
-        }
-
-        return false;
-    }
 
     public void takeCardFromOthers(Player defenderPlayer) {
 
@@ -407,10 +394,10 @@ public class Player {
     }
 
 
-    public boolean cardTrade(ArrayList<CardType> cardList, Player player,int cardSet){
+    public boolean cardTrade(ArrayList<CardType> cardList, Player player){
 
         if(isValidSet(cardList)) {
-
+            GameManager.cardSet++;
             HashMap<CardType, Integer> playerCards = player.getCards();
             for (CardType card : cardList) {
 
@@ -420,7 +407,7 @@ public class Player {
 
             }
 
-            switch (cardSet) {
+            switch (GameManager.cardSet) {
 
                 case 1:
                     player.setArmies(4);
@@ -442,8 +429,8 @@ public class Player {
                     break;
             }
 
-            if(cardSet>=7){
-                player.setArmies(((cardSet-6)*5)+15);
+            if(GameManager.cardSet>=7){
+                player.setArmies(((GameManager.cardSet-6)*5)+15);
             }
 
             return true;
@@ -451,6 +438,8 @@ public class Player {
 
         return false;
     }
+
+
 
     public boolean isValidSet(ArrayList<CardType> cardList) {
 

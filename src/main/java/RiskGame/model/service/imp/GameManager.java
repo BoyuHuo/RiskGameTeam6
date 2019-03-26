@@ -49,6 +49,7 @@ public class GameManager extends Observable implements IGameManager {
     private static GameManager instance;
     private String message = "";
     private boolean gameOver;
+    public static int cardSet=0;
 
 
     /**
