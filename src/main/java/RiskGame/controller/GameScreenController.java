@@ -14,7 +14,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +31,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -150,8 +154,7 @@ public class GameScreenController implements Initializable, Observer {
             stage.setScene(new Scene(root, 1000, 600));
             stage.show();
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -265,11 +268,11 @@ public class GameScreenController implements Initializable, Observer {
 
                             if (playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
                                 data.setPlayerInfo(playerName + " :" +
-                                        GameManager.getInstance().getPlayers().get(playerName).getArmies()+"  ("+GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap()+"%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
+                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
                                 );
                             } else {
                                 data.setPlayerInfo(playerName + " :" +
-                                        GameManager.getInstance().getPlayers().get(playerName).getArmies()+"  ("+GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap()+"%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false);
+                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false);
 
                             }
                             setGraphic(data.getBox());
@@ -292,7 +295,7 @@ public class GameScreenController implements Initializable, Observer {
     private void onMouseClick() {
 
 
-        if(GameManager.getInstance().getGamePhase()=="Fortification"){
+        if (GameManager.getInstance().getGamePhase() == "Fortification") {
             gameMapPane.setOnMouseDragged(null);
             gameMapPane.setOnMouseReleased(null);
         }
@@ -359,14 +362,11 @@ public class GameScreenController implements Initializable, Observer {
             if (territory != null) {
 
                 if (territory.getBelongs().equals(activePlayer)) {
-
-
-                    if (!GameManager.getInstance().getActivePlayer().immigrantArimies(armyNumber, sourceTerrotory, territory)){
+                    if (!GameManager.getInstance().getActivePlayer().immigrantArimies(armyNumber, sourceTerrotory, territory)) {
                         showAlertDialog(sourceTerrotory.getName() + " can't move armies to  " + territory.getName());
+                    } else {
+                        GameManager.getInstance().nextRound();
                     }
-
-                } else {
-                    GameManager.getInstance().nextRound();
                 }
 
                 Update();
@@ -491,9 +491,6 @@ public class GameScreenController implements Initializable, Observer {
      */
     public void Update() {
         phase.setText(GameManager.getInstance().getGamePhase());
-        for(Player p:GameManager.getInstance().getPlayers().values()){
-            System.out.println(p.getPrecentageOfMap()+"%%");
-        }
         //updatePlayers();
         gameMapPane.getChildren().remove(rectangleGroups);
         initPlayers();
@@ -798,63 +795,62 @@ public class GameScreenController implements Initializable, Observer {
                             newLine.setEndX(event.getX());
                             newLine.setEndY(event.getY());
                             newLine.setStroke(Color.RED);
-                        if (destT.getArmies() == 0) {
-                            List<Integer> choices = new ArrayList<>();
+                            if (destT.getArmies() == 0) {
+                                List<Integer> choices = new ArrayList<>();
 
-                            for (int i = 1; i <= sourceTerritory.getArmies(); i++) {
-                                choices.add(i);
-                            }
-
-                            ChoiceDialog<Integer> dialog = new ChoiceDialog<>(1, choices);
-                            dialog.setTitle("Attack Status");
-                            dialog.setHeaderText("You have attacked: " + destT.getName() + "\n" + "Minimum number of armies you can deploy: " + destT.getCaptureDiceNum());
-
-                            dialog.setContentText("Choose number of armies to deploy");
-
-                            Optional<Integer> noOfArmies = dialog.showAndWait();
-
-                            System.out.println(noOfArmies);
-                            if (noOfArmies.isPresent()) {
-                                int result = GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
-                                switch (result) {
-                                    case 0:
-                                        showAlertDialog("Successfully captured the territory " + destT.getName());
-                                        if(GameManager.getInstance().isGameOver()){
-                                            showAlertDialog(GameManager.getInstance().getActivePlayer().getName()+" "+ "wins the game");
-                                        }
-                                        break;
-                                    case -1:
-                                        showAlertDialog("Sorry! you didn't move enough armies to the destination Territory, you should at least move: " + destT.getCaptureDiceNum());
-                                        break;
-                                    case -2:
-                                        showAlertDialog("Oops! you move more than you have!");
-                                        break;
-                                    case -3:
-                                        showAlertDialog("Unknown failure!");
-                                        break;
+                                for (int i = 1; i <= sourceTerritory.getArmies(); i++) {
+                                    choices.add(i);
                                 }
+
+                                ChoiceDialog<Integer> dialog = new ChoiceDialog<>(1, choices);
+                                dialog.setTitle("Attack Status");
+                                dialog.setHeaderText("You have attacked: " + destT.getName() + "\n" + "Minimum number of armies you can deploy: " + destT.getCaptureDiceNum());
+
+                                dialog.setContentText("Choose number of armies to deploy");
+
+                                Optional<Integer> noOfArmies = dialog.showAndWait();
+
+                                System.out.println(noOfArmies);
+                                if (noOfArmies.isPresent()) {
+                                    int result = GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+                                    switch (result) {
+                                        case 0:
+                                            showAlertDialog("Successfully captured the territory " + destT.getName());
+                                            if (GameManager.getInstance().isGameOver()) {
+                                                showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
+                                            }
+                                            break;
+                                        case -1:
+                                            showAlertDialog("Sorry! you didn't move enough armies to the destination Territory, you should at least move: " + destT.getCaptureDiceNum());
+                                            break;
+                                        case -2:
+                                            showAlertDialog("Oops! you move more than you have!");
+                                            break;
+                                        case -3:
+                                            showAlertDialog("Unknown failure!");
+                                            break;
+                                    }
+                                }
+                                Update();
+                            } else {
+                                rectangleGroups.getChildren().add(newLine);
+                                btnOK.setDisable(false);
                             }
-                            Update();
-                        } else {
-                            rectangleGroups.getChildren().add(newLine);
-                            btnOK.setDisable(false);
+
+                            System.out.println("Draw line");
+
                         }
-
-                        System.out.println("Draw line");
-
-                    }
-                } catch (Exception o){
+                    } catch (Exception o) {
                         System.out.println("Success");
-                 }
+                    }
 
-            }
+                }
 
                 newLine = null;
                 event.setDragDetect(false);
 
             }
         });
-
 
 
     }
@@ -894,8 +890,7 @@ public class GameScreenController implements Initializable, Observer {
             result = GameManager.getInstance().getActivePlayer().launchAttack(sourceTerritory, destT, attackerDiceNumber, defenderDiceNumber);
 
 
-
-            if(destT.getArmies()==0){
+            if (destT.getArmies() == 0) {
 
                 List<Integer> choices = new ArrayList<>();
 
@@ -917,8 +912,8 @@ public class GameScreenController implements Initializable, Observer {
             switch (result) {
                 case 0:
                     showAlertDialog("Attack Successful");
-                    if(GameManager.getInstance().isGameOver()){
-                        showAlertDialog(GameManager.getInstance().getActivePlayer().getName()+" "+ "wins the game");
+                    if (GameManager.getInstance().isGameOver()) {
+                        showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
                     }
                     break;
 
@@ -964,7 +959,7 @@ public class GameScreenController implements Initializable, Observer {
         result = GameManager.getInstance().getActivePlayer().allInMode(sourceTerritory, destT);
 
 
-        if(destT.getArmies()==0){
+        if (destT.getArmies() == 0) {
 
             List<Integer> choices = new ArrayList<>();
 
@@ -984,13 +979,13 @@ public class GameScreenController implements Initializable, Observer {
 
         if (result) {
             showAlertDialog("Attack Successful");
-            if(GameManager.getInstance().isGameOver()){
-                showAlertDialog(GameManager.getInstance().getActivePlayer().getName()+" "+ "wins the game");
-            }
         } else {
             showAlertDialog("Attack Unsuccessful");
         }
         Update();
+        if (GameManager.getInstance().isGameOver()) {
+            showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
+        }
     }
 
 
