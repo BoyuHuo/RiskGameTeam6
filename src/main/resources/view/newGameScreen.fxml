@@ -18,19 +18,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.NewGameScreenController">
+<AnchorPane stylesheets="@../CSS/newGameScreen_CSS.css" prefHeight="600.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.NewGameScreenController">
   <ImageView fitHeight="600.0" fitWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <image>
       <Image url="/images/newGameBackground.png" />
     </image>
   </ImageView>
-  <Button layoutX="89.0" layoutY="129.0" mnemonicParsing="false" onAction="#mapFileChooser" prefHeight="47.0" prefWidth="149.0" text="Load Map">
+  <Button layoutX="75.0" layoutY="129.0" mnemonicParsing="false" onAction="#mapFileChooser" prefHeight="47.0" prefWidth="177.0" text="Load Map" textFill="WHITE">
     <font>
-      <Font size="19.0" fx:id="x1" />
+      <Font name="System Bold" size="19.0" fx:id="x1" />
     </font>
   </Button>
-  <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="89.0" layoutY="238.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="149.0" text="Player Details" />
-  <Button font="$x1" layoutX="89.0" layoutY="348.0" mnemonicParsing="false" onAction="#clickStartButton" prefHeight="47.0" prefWidth="149.0" text="Start" />
+  <Button fx:id="btnEditPlayerDetails" font="$x1" layoutX="75.0" layoutY="238.0" mnemonicParsing="false" onAction="#clickEditPlayerDetails" prefHeight="47.0" prefWidth="177.0" text="Player Details" textFill="WHITE" />
+  <Button font="$x1" layoutX="75.0" layoutY="348.0" mnemonicParsing="false" onAction="#clickStartButton" prefHeight="47.0" prefWidth="177.0" text="Start" textFill="WHITE" />
   <Hyperlink fx:id="hyperLinkBack" layoutX="25.0" layoutY="446.0" onAction="#hyperBack" prefHeight="47.0" prefWidth="66.0" text="Back" textFill="#141313">
     <font>
       <Font size="21.0" />
