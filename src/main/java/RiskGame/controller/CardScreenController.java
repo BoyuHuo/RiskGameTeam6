@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -44,15 +45,31 @@ public class CardScreenController  implements Initializable {
     @FXML
     private void cardButtonOnClicked() {
 
-        for (int i = 0; i <selectedCards.size() ; i++) {
-            System.out.println(selectedCards.get(i));
+
+        if( GameManager.getInstance().getActivePlayer().cardTrade(selectedCards,GameManager.getInstance().getActivePlayer())){
+
+            showAlertDialog("Not a valid set");
         }
 
 
-
-        System.out.println( GameManager.getInstance().getActivePlayer().isValidSet(selectedCards));
     }
 
+
+    /**
+     * <p>
+     * This is a generic method used for alert dialog boxes.
+     * </p>
+     *
+     * @param message message that needs to be shown in the alert box.
+     */
+    private void showAlertDialog(String message) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -41,8 +41,8 @@ public class TestTerritory {
         players.put(p3.getName(), p3);
 
         GameManager.getInstance().setPlayers(players);
-        GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
+        GameManager.getInstance().newGame();
     }
 
     /**
@@ -51,13 +51,13 @@ public class TestTerritory {
     @Test
     public void testRandomTerritory() {
 
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+        GameManager.getInstance().randomAssignTerritoryToPlayer();
 
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("WindHorse").getBelongs().getName());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getBelongs().getName());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("IceDragon").getBelongs().getName());
 
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+        GameManager.getInstance().randomAssignTerritoryToPlayer();
     }
 
     /**

@@ -5,13 +5,9 @@ import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
-import RiskGame.model.service.imp.MapManager;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +74,7 @@ public class TestAttack {
 
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().setMap(map);
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().newGame();
     }
     /**
      * test case 1

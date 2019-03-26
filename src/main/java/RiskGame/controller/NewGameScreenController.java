@@ -74,7 +74,7 @@ public class NewGameScreenController implements Initializable {
         if (mapFile != null) {
 
             MapManager mapManager = new MapManager();
-            gameMap = mapManager.LoadMap(mapFile.toString());
+            gameMap = mapManager.loadMap(mapFile.toString());
             if(gameMap!=null){
                 mapName.setText(mapFile.getName().toString());
             } else{
@@ -117,7 +117,7 @@ public class NewGameScreenController implements Initializable {
         playerList.setText(playersName.toString());
         mapName.setText(gameMapfile.getName());
         MapManager mapManager = new MapManager();
-        gameMap = mapManager.LoadMap(mapFile.toString());
+        gameMap = mapManager.loadMap(mapFile.toString());
     }
 
     /**
@@ -172,7 +172,7 @@ public class NewGameScreenController implements Initializable {
 
         GameManager.getInstance().setMap(this.gameMap);
         GameManager.getInstance().setPlayers(players);
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().newGame();
 
         Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
         Scene gameScene = new Scene(gameScreen, 1000,900);

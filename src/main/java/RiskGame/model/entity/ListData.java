@@ -3,6 +3,7 @@ package RiskGame.model.entity;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,6 +27,8 @@ public class ListData{
         private Label label1;
         @FXML
         private Rectangle rectangle;
+        @FXML
+        private ChoiceBox<String> cbContinentList;
 
     /**
      * Constructor for the List Data class.
@@ -56,7 +59,11 @@ public class ListData{
             if(activeStatue)
             label1.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
             rectangle.setFill(color);
-        }
+            cbContinentList.setVisible(true);
+           /* noOfPlayers.removeAll(noOfPlayers);
+            noOfPlayers.addAll(2,3,4,5,6,7,8);
+            continentList.getItems().addAll(noOfPlayers);*/
+}
 
     /**
      *
@@ -69,6 +76,8 @@ public class ListData{
             label1.setText(string);
 
             rectangle.setFill(color);
+
+            cbContinentList.setVisible(false);
         }
 
     /**
