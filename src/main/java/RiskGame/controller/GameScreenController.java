@@ -491,6 +491,9 @@ public class GameScreenController implements Initializable, Observer {
      */
     public void Update() {
         phase.setText(GameManager.getInstance().getGamePhase());
+        for(Player p:GameManager.getInstance().getPlayers().values()){
+            System.out.println(p.getPrecentageOfMap()+"%%");
+        }
         //updatePlayers();
         gameMapPane.getChildren().remove(rectangleGroups);
         initPlayers();
@@ -878,10 +881,6 @@ public class GameScreenController implements Initializable, Observer {
         int defenderArmyCount = destT.getArmies();
 
         if (attackerDiceNumber > 0 && defenderDiceNumber > 0) {
-            System.out.println("Attack Dice:" + attackerDiceNumber);
-            System.out.println("Defemder Dice:" + defenderDiceNumber);
-            System.out.println("Attack army count:" + sourceArmyCount);
-            System.out.println("D Attack Dice:" + defenderArmyCount);
 
             if (sourceArmyCount < attackerDiceNumber) {
                 showAlertDialog("Invalid Attacker Dice Selection");
@@ -997,7 +996,6 @@ public class GameScreenController implements Initializable, Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("asdfasdfasdfasdfasdfasdfasdfsadfsadfsadfsadfsdafsdaf");
         Update();
     }
 }

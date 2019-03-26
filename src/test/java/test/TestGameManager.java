@@ -1,5 +1,6 @@
 package test;
 
+import RiskGame.model.entity.Continent;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
@@ -9,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -195,5 +197,64 @@ public class TestGameManager {
             System.out.println(GameManager.getInstance().getActivePlayer().getName());
             GameManager.getInstance().nextRound();
             assertEquals(43, GameManager.getInstance().getPlayers().get("Player2").getArmies());
+        }
+
+        /**
+         * test case 5
+         * Purpose: testing the player map percentage
+         */
+        @Test
+        public void testPercentage() {
+            mapManager = new MapManager();
+            Map<String, Player> players = new HashMap<>();
+            Player p1 = new Player("Player1", 9);
+            Player p2 = new Player("Player2", 10);
+            Player p3 = new Player("Player3", 12);
+            players.put(p1.getName(), p1);
+            players.put(p2.getName(), p2);
+            players.put(p3.getName(), p3);
+
+            GameManager.getInstance().setPlayers(players);
+            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/FireWorld.map").getPath()));
+            GameManager.getInstance().NewGame();
+            GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+
+            for(Player p:GameManager.getInstance().getPlayers().values()){
+                System.out.println(p.getPrecentageOfMap());
+            }
+        }
+
+        /**
+         * test case 6
+         * Purpose: testing the reinforcement number
+         */
+        @Test
+        public void testGetContinentList() {
+            mapManager = new MapManager();
+            Map<String, Player> players = new HashMap<>();
+            Player p1 = new Player("Player1", 9);
+            Player p2 = new Player("Player2", 10);
+            Player p3 = new Player("Player3", 12);
+            players.put(p1.getName(), p1);
+            players.put(p2.getName(), p2);
+            players.put(p3.getName(), p3);
+
+            GameManager.getInstance().setPlayers(players);
+            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/IceWorld.map").getPath()));
+            GameManager.getInstance().NewGame();
+            GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+
+            List<Continent> cs1=p1.getControlContinent();
+            List<Continent> cs2=p2.getControlContinent();
+            System.out.println(cs1.size()+": "+cs1.get(0).getName());
+            System.out.println(cs2.size()+": "+cs2.get(0).getName());
+
+            System.out.println();
+
+            for(Player p:GameManager.getInstance().getPlayers().values()){
+                System.out.println(p.getPrecentageOfMap());
+            }
+
+            assertEquals(1.0/3.0*100,GameManager.getInstance().getPlayers().get("Player1").getPrecentageOfMap(),0);
         }
     }

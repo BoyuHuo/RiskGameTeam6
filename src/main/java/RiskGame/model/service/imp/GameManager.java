@@ -83,6 +83,7 @@ public class GameManager extends Observable implements IGameManager {
         playerIterator = players.values().iterator();
         for (Player p : players.values()) {
             p.setLive(true);
+            p.updatePrecentageOfMap();
         }
         gameOver = false;
         start();
@@ -385,9 +386,6 @@ public class GameManager extends Observable implements IGameManager {
 
             map.getTerritories().get(keys[randomTag]).setBelongs(player);
             keys = deleteInArray(randomTag, keys);
-        }
-        for (Player p : GameManager.getInstance().getPlayers().values()) {
-            p.updatePrecentageOfMap();
         }
     }
 
