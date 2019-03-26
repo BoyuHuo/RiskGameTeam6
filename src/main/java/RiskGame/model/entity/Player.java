@@ -405,4 +405,21 @@ public class Player {
         }
 
     }
+
+    public List<Continent> getControlContinent(){
+        List<Continent> result = new ArrayList<>();
+        for(Continent c: GameManager.getInstance().getMap().getContinents().values()){
+            boolean blongFlag=true;
+            for(Territory t: c.getTerritories().values()){
+                if (t.getBelongs()!=this){
+                    blongFlag = false;
+                    break;
+                }
+                if (blongFlag){
+                    result.add(c);
+                }
+            }
+        }
+        return result;
+    }
 }
