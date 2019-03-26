@@ -5,8 +5,6 @@ import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.MapManager;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -88,7 +86,7 @@ public class CreateMapScreenController implements Initializable {
 
         if (mapFile != null) {
             MapManager mapManager = new MapManager();
-            gameMap = mapManager.LoadMap(mapFile.toString());
+            gameMap = mapManager.loadMap(mapFile.toString());
             if(gameMap==null){
                 showAlertDialog("This is an invalided map!! Please choose a valided map");
                 return;
@@ -583,7 +581,7 @@ public class CreateMapScreenController implements Initializable {
 
                 if(gameMap.getContinents().size()>0){
 
-                    if(!mapManager.CreateMap(file.getPath(),gameMap)) {
+                    if(!mapManager.createMap(file.getPath(),gameMap)) {
                         showAlertDialog("Please create a valid map");
                     }
                 }

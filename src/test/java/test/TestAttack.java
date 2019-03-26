@@ -61,7 +61,7 @@ public class TestAttack {
 
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().setMap(map);
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().newGame();
     }
 
     @Test

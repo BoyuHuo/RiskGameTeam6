@@ -77,8 +77,8 @@ public class GameManager extends Observable implements IGameManager {
      * @see GameManager#initArmies()
      * @see GameManager#start()
      */
-    public void NewGame() {
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+    public void newGame() {
+        GameManager.getInstance().randomAssignTerritoryToPlayer();
         initArmies();
         playerIterator = players.values().iterator();
         for (Player p : players.values()) {
@@ -372,7 +372,7 @@ public class GameManager extends Observable implements IGameManager {
     /**
      * It used for randomly assign Territory to players.
      */
-    public void ramdomAssignTerritoryToPlayer() {
+    public void randomAssignTerritoryToPlayer() {
         Random generator = new Random();
         Object[] keys = map.getTerritories().keySet().toArray();
 

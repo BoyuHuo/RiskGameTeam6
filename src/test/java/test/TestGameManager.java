@@ -5,7 +5,6 @@ import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,8 +41,8 @@ public class TestGameManager {
             players.put(p3.getName(), p3);
 
             GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
-            GameManager.getInstance().NewGame();
+            GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
+            GameManager.getInstance().newGame();
 
             for (String key : GameManager.getInstance().getPlayers().keySet()) {
                 System.out.println(key);
@@ -155,8 +154,8 @@ public class TestGameManager {
             players.put(p3.getName(), p3);
 
             GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/FireWorld.map").getPath()));
-            GameManager.getInstance().NewGame();
+            GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/FireWorld.map").getPath()));
+            GameManager.getInstance().newGame();
 
             assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
             GameManager.getInstance().nextRound();
@@ -183,8 +182,8 @@ public class TestGameManager {
             players.put(p3.getName(), p3);
 
             GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/FireWorld.map").getPath()));
-            GameManager.getInstance().NewGame();
+            GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/FireWorld.map").getPath()));
+            GameManager.getInstance().newGame();
 
             assertEquals(35, GameManager.getInstance().getPlayers().get("Player2").getArmies());
             for(Territory t: GameManager.getInstance().getMap().getTerritories().values()){
@@ -215,9 +214,9 @@ public class TestGameManager {
             players.put(p3.getName(), p3);
 
             GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/FireWorld.map").getPath()));
-            GameManager.getInstance().NewGame();
-            GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+            GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/FireWorld.map").getPath()));
+            GameManager.getInstance().newGame();
+            GameManager.getInstance().randomAssignTerritoryToPlayer();
 
             for(Player p:GameManager.getInstance().getPlayers().values()){
                 System.out.println(p.getPrecentageOfMap());
@@ -240,9 +239,9 @@ public class TestGameManager {
             players.put(p3.getName(), p3);
 
             GameManager.getInstance().setPlayers(players);
-            GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/IceWorld.map").getPath()));
-            GameManager.getInstance().NewGame();
-            GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+            GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/IceWorld.map").getPath()));
+            GameManager.getInstance().newGame();
+            GameManager.getInstance().randomAssignTerritoryToPlayer();
 
             List<Continent> cs1=p1.getControlContinent();
             List<Continent> cs2=p2.getControlContinent();
