@@ -86,7 +86,7 @@ public class TestAttack {
         t4.setArmies(16);
         t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         GameManager.getInstance().getPlayers().get("Player1").launchAttack(t3,t4,3,2);
-        assertEquals(0,GameManager.getInstance().getPlayers().get("Player1").launchAttack(t3,t4,3,2));
+        assertEquals(-1,GameManager.getInstance().getPlayers().get("Player1").launchAttack(t3,t4,3,2));
     }
 
     @Test

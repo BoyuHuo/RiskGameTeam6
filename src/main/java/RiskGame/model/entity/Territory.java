@@ -1,9 +1,6 @@
 package RiskGame.model.entity;
-
 import RiskGame.model.service.imp.GameManager;
-import RiskGame.model.service.imp.RiskUtil;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -170,6 +167,7 @@ public class Territory {
         if (p.getArmies() > 0) {
             p.setArmies(p.getArmies() - 1);
             armies++;
+            GameManager.getInstance().setMessage("Add armies to "+this.getName()+", now it has: "+armies+" armies \n");
         }
 
     }
