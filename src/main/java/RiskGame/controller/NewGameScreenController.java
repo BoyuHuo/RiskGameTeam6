@@ -64,7 +64,7 @@ public class NewGameScreenController implements Initializable {
      *<p>
      * This method allows user to load map from the local device.
      *</p>
-     * @throws IOException
+     * @throws IOException Input Output Exception
      */
     @FXML
     private void mapFileChooser() throws IOException {
@@ -144,7 +144,7 @@ public class NewGameScreenController implements Initializable {
      *<p>
      * This method implements the back functionality to navigate user back to the main screen.
      *</p>
-     * @throws IOException
+     * @throws IOException input output exception
      */
     @FXML
     private void hyperBack() throws IOException {
