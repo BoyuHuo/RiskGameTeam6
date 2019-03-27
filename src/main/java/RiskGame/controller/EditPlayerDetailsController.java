@@ -47,6 +47,7 @@ public class EditPlayerDetailsController implements Initializable {
         noOfPlayers.removeAll(noOfPlayers);
         noOfPlayers.addAll(2,3,4,5,6,7,8);
         cbSelectPlayers.getItems().addAll(noOfPlayers);
+
     }
     /**
      *<p>

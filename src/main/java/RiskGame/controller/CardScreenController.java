@@ -17,6 +17,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
@@ -46,9 +47,12 @@ public class CardScreenController  implements Initializable {
     private void cardButtonOnClicked() {
 
 
-        if( GameManager.getInstance().getActivePlayer().cardTrade(selectedCards,GameManager.getInstance().getActivePlayer())){
+        if(!GameManager.getInstance().getActivePlayer().cardTrade(selectedCards,GameManager.getInstance().getActivePlayer())){
 
             showAlertDialog("Not a valid set");
+        } else{
+            Stage stage = (Stage) cardList.getScene().getWindow();
+            stage.close();
         }
 
 
@@ -85,6 +89,7 @@ public class CardScreenController  implements Initializable {
 
         HashMap<CardType,Integer> playerCardList=GameManager.getInstance().getActivePlayer().getCards();
 
+        if(playerCardList!=null){
 
         for (Map.Entry<CardType,Integer> card: playerCardList.entrySet() ) {
 
@@ -101,14 +106,13 @@ public class CardScreenController  implements Initializable {
             }
 
         }
-
-
+        }
 
     }
 
     public void addStringDataToList(String cardName, int count){
         for (int i = 0; i <count ; i++) {
-            cardData.add(cardName+" "+i+1);
+            cardData.add(cardName+" "+(i+1));
         }
     }
 
@@ -128,12 +132,14 @@ public class CardScreenController  implements Initializable {
                     for (String name : selectedItems) {
 
                         builder.append(name + "\n");
-                        if(name.toLowerCase().contains("cavalry"))
-                            selectedCards.add(CardType.CAVALRY);
-                        if(name.toLowerCase().contains("artillery"))
-                            selectedCards.add(CardType.ARTILLERY);
-                        if(name.toLowerCase().contains("infantry"))
-                            selectedCards.add(CardType.INFANTRY);
+                        if(name!=null) {
+                            if (name.toLowerCase().contains("cavalry"))
+                                selectedCards.add(CardType.CAVALRY);
+                            if (name.toLowerCase().contains("artillery"))
+                                selectedCards.add(CardType.ARTILLERY);
+                            if (name.toLowerCase().contains("infantry"))
+                                selectedCards.add(CardType.INFANTRY);
+                        }
                     }
 
 

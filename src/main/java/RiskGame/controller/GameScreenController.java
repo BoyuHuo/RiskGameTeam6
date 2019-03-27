@@ -1,9 +1,6 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.GameMap;
-import RiskGame.model.entity.ListData;
-import RiskGame.model.entity.Player;
-import RiskGame.model.entity.Territory;
+import RiskGame.model.entity.*;
 import RiskGame.model.service.imp.GameManager;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -262,13 +259,15 @@ public class GameScreenController implements Initializable, Observer {
                         if (playerName != null) {
                             ListData data = new ListData();
 
+
                             if (playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
                                 data.setPlayerInfo(playerName + " :" +
                                         GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
-                                );
+                                ,GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
                             } else {
                                 data.setPlayerInfo(playerName + " :" +
-                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false);
+                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false,
+                                        GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
 
                             }
                             setGraphic(data.getBox());
@@ -508,7 +507,18 @@ public class GameScreenController implements Initializable, Observer {
         setContinentList();
         diceDropDownLoad();
 
+
         GameManager.getInstance().addObserver(this);
+        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
+        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
+
+        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
+
+        GameManager.getInstance().getActivePlayer().addCard(CardType.CAVALRY);
+
+        GameManager.getInstance().getActivePlayer().addCard(CardType.CAVALRY);
+
+        GameManager.getInstance().getActivePlayer().addCard(CardType.ARTILLERY);
 
     }
 
@@ -792,6 +802,7 @@ public class GameScreenController implements Initializable, Observer {
                             newLine.setEndX(event.getX());
                             newLine.setEndY(event.getY());
                             newLine.setStroke(Color.RED);
+                            Player defender=destT.getBelongs();
                             if (destT.getArmies() == 0) {
                                 List<Integer> choices = new ArrayList<>();
 
@@ -810,9 +821,15 @@ public class GameScreenController implements Initializable, Observer {
                                 System.out.println(noOfArmies);
                                 if (noOfArmies.isPresent()) {
                                     int result = GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+
                                     switch (result) {
                                         case 0:
                                             showAlertDialog("Successfully captured the territory " + destT.getName());
+                                            GameManager.getInstance().getActivePlayer().addRandomCard();
+                                            GameManager.getInstance().getActivePlayer().addRandomCard();
+                                            if(!defender.isLive()){
+                                                GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+                                            }
                                             if (GameManager.getInstance().isGameOver()) {
                                                 showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
                                             }
@@ -867,6 +884,7 @@ public class GameScreenController implements Initializable, Observer {
 
     @FXML
     public void clickOKButton(ActionEvent event) {
+        Player defender=destT.getBelongs();
         int result = 0;
         int attackerDiceNumber = cbAttacker.getValue();
         int defenderDiceNumber = cbDefend.getValue();
@@ -903,12 +921,19 @@ public class GameScreenController implements Initializable, Observer {
 
                 Optional<Integer> noOfArmies = dialog.showAndWait();
                 GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+                GameManager.getInstance().getActivePlayer().addRandomCard();
+                GameManager.getInstance().getActivePlayer().addRandomCard();
+                if(!defender.isLive()){
+                    GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+                }
+
 
             }
 
             switch (result) {
                 case 0:
                     showAlertDialog("Attack Successful");
+
                     if (GameManager.getInstance().isGameOver()) {
                         showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
                     }
@@ -954,7 +979,7 @@ public class GameScreenController implements Initializable, Observer {
     public void clickBtnAllInButton(ActionEvent event) {
         boolean result;
         result = GameManager.getInstance().getActivePlayer().allInMode(sourceTerritory, destT);
-
+        Player defender=destT.getBelongs();
 
         if (destT.getArmies() == 0) {
 
@@ -972,6 +997,10 @@ public class GameScreenController implements Initializable, Observer {
 
             Optional<Integer> noOfArmies = dialog.showAndWait();
             GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+            GameManager.getInstance().getActivePlayer().addRandomCard();
+            if(!defender.isLive()){
+                GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+            }
         }
 
         if (result) {

@@ -16,7 +16,7 @@ import java.util.*;
 public class Player {
     private String name;
     private String color;
-    private HashMap<CardType, Integer> cards;
+    private HashMap<CardType, Integer> cards=new HashMap<>();
     private int armies;
     private boolean live;
     private double percentageOfMap;
@@ -148,14 +148,32 @@ public class Player {
     }
 
     /**
-     * add a random card for player
-     * @param player the player who will get the random card
+     * add a cards to player
+     * @param cardlist the card which will given to the player.
      */
-    public void addRandomCard(Player player) {
+    public void addCard(HashMap<CardType,Integer> cardlist) {
+
+        Player attackingPlayer = this;
+        for (Map.Entry<CardType,Integer> card: cardlist.entrySet()) {
+
+            if (attackingPlayer.getCards().containsKey(card.getKey())) {
+                attackingPlayer.getCards().put(card.getKey(), attackingPlayer.getCards().get(card.getKey()) + card.getValue());
+            } else {
+                attackingPlayer.getCards().put(card.getKey(), 1);
+            }
+
+        }
+
+    }
+
+    /**
+     * add a random card for player
+     */
+    public void addRandomCard() {
 
         Random random = new Random();
         CardType randomCard = CardType.values()[random.nextInt(CardType.values().length)];
-        player.addCard(randomCard);
+        this.addCard(randomCard);
     }
 
 
@@ -495,27 +513,27 @@ public class Player {
             switch (GameManager.cardSet) {
 
                 case 1:
-                    player.setArmies(4);
+                    player.setArmies(player.getArmies()+4);
                     break;
                 case 2:
-                    player.setArmies(6);
+                    player.setArmies(player.getArmies()+6);
                     break;
                 case 3:
-                    player.setArmies(8);
+                    player.setArmies(player.getArmies()+8);
                     break;
                 case 4:
-                    player.setArmies(10);
+                    player.setArmies(player.getArmies()+10);
                     break;
                 case 5:
-                    player.setArmies(12);
+                    player.setArmies(player.getArmies()+12);
                     break;
                 case 6:
-                    player.setArmies(15);
+                    player.setArmies(player.getArmies()+15);
                     break;
             }
 
             if(GameManager.cardSet>=7){
-                player.setArmies(((GameManager.cardSet-6)*5)+15);
+                player.setArmies(player.getArmies()+((GameManager.cardSet-6)*5)+15);
             }
 
             return true;

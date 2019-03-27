@@ -1,6 +1,8 @@
 package RiskGame.model.entity;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
@@ -10,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -28,7 +32,10 @@ public class ListData{
         @FXML
         private Rectangle rectangle;
         @FXML
-        private ChoiceBox<String> cbContinentList;
+        private Label continentList;
+
+        List<String> continents=new ArrayList<>();
+        ObservableList<String> list = FXCollections.observableArrayList();
 
     /**
      * Constructor for the List Data class.
@@ -54,16 +61,34 @@ public class ListData{
      * @param color sets the color of the player text
      * @param activeStatue indicates if the player is active
      */
-    public void setPlayerInfo(String string, Color color,boolean activeStatue) {
+    public void setPlayerInfo(String string, Color color, boolean activeStatue, List<Continent> continentList) {
             label1.setText(string);
             if(activeStatue)
             label1.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));
             rectangle.setFill(color);
-            cbContinentList.setVisible(true);
-           /* noOfPlayers.removeAll(noOfPlayers);
-            noOfPlayers.addAll(2,3,4,5,6,7,8);
-            continentList.getItems().addAll(noOfPlayers);*/
-}
+            updateCotinentList(continentList);
+    }
+
+    /**
+     *
+     * This method updates the information for the continent list to string list.
+     * @param continentLists sets the label with the passed string.
+     */
+
+    private void updateCotinentList(List<Continent> continentLists) {
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int i=0;i<continentLists.size();i++) {
+            continents.add(continentLists.get(i).getName());
+
+            if(i==continentLists.size()-1){
+                stringBuilder.append(continentLists.get(i).getName());
+            }
+            else{
+                stringBuilder.append(continentLists.get(i).getName()+",");
+            }
+        }
+        continentList.setText(stringBuilder.toString());
+    }
 
     /**
      *
@@ -76,8 +101,6 @@ public class ListData{
             label1.setText(string);
 
             rectangle.setFill(color);
-
-            cbContinentList.setVisible(false);
         }
 
     /**
