@@ -720,11 +720,12 @@ public class GameScreenController implements Initializable, Observer {
     }
 
 
-
+    /**
+     * This is the implementation for the attack phase of the game.
+     */
     public void attackTerritory() {
 
-
-        System.out.println("here i come again");
+//        System.out.println("here i come again");
         gameMapPane.getChildren().add(rectangleGroups);
 
         gameMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -853,8 +854,9 @@ public class GameScreenController implements Initializable, Observer {
 
 
     }
-
-
+    /**
+     * This is the implementation for the loading the drop downs for
+     */
     public void diceDropDownLoad() {
         attackDice.removeAll(attackDice);
         attackDice.addAll(0, 1, 2, 3);
@@ -866,6 +868,12 @@ public class GameScreenController implements Initializable, Observer {
         cbDefend.getSelectionModel().selectFirst();
 
     }
+
+    /**
+     * This method contains the implementation for the attack phase when the number of armies
+     * is non zero on the destination territory.
+     * @param event mouse click event on OK button click.
+     * */
 
     @FXML
     public void clickOKButton(ActionEvent event) {
@@ -938,19 +946,11 @@ public class GameScreenController implements Initializable, Observer {
         Update();
     }
 
-    /* @FXML
-     public void txtAreaStatus()throws
-     {
-         txtAreaStatus.textProperty().addListener(new ChangeListener<String>() {
-             @Override
-             public void changed(ObservableList<String> observable, Object oldValue,
-                                 Object newValue) {
-                 txtAreaStatus.setScrollTop(Double.MAX_VALUE); //this will scroll to the bottom
-                 //use Double.MIN_VALUE to scroll to the top
-             }
-         });
 
-     }
+    /**
+     * This method provides the implementation for the All in button. This button is used when
+     * attack is performed from source to destination territories in one go.
+     * @param event All in button click event
      */
     @FXML
     public void clickBtnAllInButton(ActionEvent event) {
@@ -987,7 +987,11 @@ public class GameScreenController implements Initializable, Observer {
         }
     }
 
-
+    /**
+     * Implementation for the update method using observable pattern.
+     * @param observable Observable object
+     * @param o Object
+     */
     @Override
     public void update(Observable observable, Object o) {
         Update();
