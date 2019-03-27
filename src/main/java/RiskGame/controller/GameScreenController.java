@@ -810,7 +810,6 @@ public class GameScreenController implements Initializable, Observer {
                                         case 0:
                                             showAlertDialog("Successfully captured the territory " + destT.getName());
                                             GameManager.getInstance().getActivePlayer().addRandomCard();
-                                            GameManager.getInstance().getActivePlayer().addRandomCard();
                                             if(!defender.isLive()){
                                                 GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
                                             }
@@ -912,7 +911,6 @@ public class GameScreenController implements Initializable, Observer {
 
                 Optional<Integer> noOfArmies = dialog.showAndWait();
                 GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
-                GameManager.getInstance().getActivePlayer().addRandomCard();
                 GameManager.getInstance().getActivePlayer().addRandomCard();
                 if(!defender.isLive()){
                     GameManager.getInstance().getActivePlayer().addCard(defender.getCards());

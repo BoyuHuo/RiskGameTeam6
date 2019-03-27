@@ -7,5 +7,5 @@ package RiskGame.model.entity;
  * @version v1.0.0
  */
 public enum CardType{
-    INFANTRY, CAVALRY, ARTILLERY, WILDCARD;
+    INFANTRY, CAVALRY, ARTILLERY
 }
