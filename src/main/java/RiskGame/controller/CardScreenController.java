@@ -42,6 +42,10 @@ public class CardScreenController  implements Initializable {
     private final ObservableList<String> cardData= FXCollections.observableArrayList();
 
 
+    /**
+     * This implements the functionality for Card button click.
+     */
+
     @FXML
     private void cardButtonOnClicked() {
 
@@ -71,6 +75,11 @@ public class CardScreenController  implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Initialize method, first method called when screen is loaded.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -81,6 +90,9 @@ public class CardScreenController  implements Initializable {
 
     StringBuilder builder;
 
+    /**
+     * This method is responsible for populating values corresponding to type of cards.
+     */
     private void populateList() {
 
         HashMap<CardType,Integer> playerCardList=GameManager.getInstance().getActivePlayer().getCards();
@@ -106,13 +118,21 @@ public class CardScreenController  implements Initializable {
 
     }
 
+    /**
+     *
+     * This is method is responsible for adding card details to the observable list.
+     * @param cardName Name of the card
+     * @param count card count
+     */
     public void addStringDataToList(String cardName, int count){
         for (int i = 0; i <count ; i++) {
             cardData.add(cardName+" "+i+1);
         }
     }
 
-
+    /**
+     * This method is responsible for initializing the the card list.
+     */
     private void initializeList() {
 
         cardList.setItems(cardData);
