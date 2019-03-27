@@ -135,16 +135,6 @@ public class GameScreenController implements Initializable, Observer {
      */
     @FXML
     private void newButtonOnClicked() {
-/*        try {
-            Parent anotherRoot = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
-            Stage anotherStage = new Stage();
-            anotherStage.setTitle("My cards");
-            anotherStage.setScene(new Scene(anotherRoot, 1000.0, 600.0));
-            anotherStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
