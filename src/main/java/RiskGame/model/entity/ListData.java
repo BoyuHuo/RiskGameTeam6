@@ -60,6 +60,7 @@ public class ListData{
      * @param string sets the label with the text
      * @param color sets the color of the player text
      * @param activeStatue indicates if the player is active
+     * @param continentList the list of continent that player control
      */
     public void setPlayerInfo(String string, Color color, boolean activeStatue, List<Continent> continentList) {
             label1.setText(string);

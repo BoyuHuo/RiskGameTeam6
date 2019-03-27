@@ -180,6 +180,7 @@ public class Player {
     /**
      * It is used in fortification phase which will be move armies from one territory to another territory
      *
+     * @param source     the source territory
      * @param num         the number of armies tha need to be move from one territory to another territory.
      * @param destination the destination territory
      * @return returns if its valid to immgigrate armies.
@@ -203,6 +204,7 @@ public class Player {
      * It is used to valided if the territory allows to move the arimies to another territory.
      *
      * @param destionation the destination territory.
+     * @param source the source city that wanna move the armies
      * @return returns true if its valid army transfer or not.
      * @see Player#DFS(Territory, Territory, ArrayList)
      */
@@ -283,6 +285,7 @@ public class Player {
      * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
      *
      * @param target     your attacking target.
+     * @param source  the attacker's territory
      * @param diceNumAtt the dice number of the attacker.
      * @param diceNumDef the dice number of the defender.
      * @return int   0: successful
@@ -476,15 +479,15 @@ public class Player {
     public List<Continent> getControlContinent(){
         List<Continent> result = new ArrayList<>();
         for(Continent c: GameManager.getInstance().getMap().getContinents().values()){
-            boolean blongFlag=true;
+            boolean blongFlag = true;
             for(Territory t: c.getTerritories().values()){
                 if (t.getBelongs()!=this){
                     blongFlag = false;
                     break;
                 }
-                if (blongFlag){
-                    result.add(c);
-                }
+            }
+            if (blongFlag){
+                result.add(c);
             }
         }
         return result;
