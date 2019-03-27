@@ -251,8 +251,6 @@ public class GameScreenController implements Initializable, Observer {
                         //System.out.println(playerName);
                         if (playerName != null) {
                             ListData data = new ListData();
-
-                            System.out.println("Player "+playerName+":"+GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
                             if (playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
                                 data.setPlayerInfo(playerName + " :" +
                                         GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
@@ -716,7 +714,6 @@ public class GameScreenController implements Initializable, Observer {
      */
     public void attackTerritory() {
 
-//        System.out.println("here i come again");
         gameMapPane.getChildren().add(rectangleGroups);
 
         gameMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -745,7 +742,6 @@ public class GameScreenController implements Initializable, Observer {
 
                     }
                 }
-                System.out.println("IsValid SUh" + isvalidlineStart);
 
                 event.setDragDetect(true);
             }
@@ -802,7 +798,6 @@ public class GameScreenController implements Initializable, Observer {
 
                                 Optional<Integer> noOfArmies = dialog.showAndWait();
 
-                                System.out.println(noOfArmies);
                                 if (noOfArmies.isPresent()) {
                                     int result = GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
 
@@ -835,7 +830,6 @@ public class GameScreenController implements Initializable, Observer {
                                 btnOK.setDisable(false);
                             }
 
-                            System.out.println("Draw line");
 
                         }
                     } catch (Exception o) {
