@@ -62,6 +62,7 @@ public class ListData{
      * @param activeStatue indicates if the player is active
      */
     public void setPlayerInfo(String string, Color color, boolean activeStatue, List<Continent> continentList) {
+        System.out.println("!!!!!!!!!!"+continents.size());
             label1.setText(string);
             if(activeStatue)
             label1.setBorder(new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, new BorderWidths(2))));

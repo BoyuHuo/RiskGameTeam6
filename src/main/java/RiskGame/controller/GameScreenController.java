@@ -252,7 +252,7 @@ public class GameScreenController implements Initializable, Observer {
                         if (playerName != null) {
                             ListData data = new ListData();
 
-
+                            System.out.println("Player "+playerName+":"+GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
                             if (playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
                                 data.setPlayerInfo(playerName + " :" +
                                         GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
