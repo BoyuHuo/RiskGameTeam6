@@ -506,16 +506,7 @@ public class GameScreenController implements Initializable, Observer {
 
 
         GameManager.getInstance().addObserver(this);
-        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
-        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
 
-        GameManager.getInstance().getActivePlayer().addCard(CardType.INFANTRY);
-
-        GameManager.getInstance().getActivePlayer().addCard(CardType.CAVALRY);
-
-        GameManager.getInstance().getActivePlayer().addCard(CardType.CAVALRY);
-
-        GameManager.getInstance().getActivePlayer().addCard(CardType.ARTILLERY);
 
     }
 
