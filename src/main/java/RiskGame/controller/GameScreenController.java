@@ -94,6 +94,9 @@ public class GameScreenController implements Initializable, Observer {
     @FXML
     private TextArea txtAreaStatus;
 
+    @FXML
+    TextArea textAreaStatus;
+
 
     private final ObservableList<String> playerData = FXCollections.observableArrayList();
 
@@ -124,7 +127,7 @@ public class GameScreenController implements Initializable, Observer {
     private ObservableList attackDice = FXCollections.observableArrayList();
     private ObservableList defendDice = FXCollections.observableArrayList();
     private int r;
-
+    private Line newLine;
     /**
      * <p>
      * This method implements New Button button that loads the card screen.
@@ -497,8 +500,12 @@ public class GameScreenController implements Initializable, Observer {
         onMouseClick();
     }
 
-    @FXML
-    TextArea textAreaStatus;
+    /**
+     * This is the initialize method which contains the functionality to be first executed
+     * when the screen is loaded.
+     * @param location location of the URL
+     * @param resources all the associated resources
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -713,11 +720,6 @@ public class GameScreenController implements Initializable, Observer {
     }
 
 
-    /**
-     * This is method Build 2
-     */
-
-    Line newLine;
 
     public void attackTerritory() {
 
