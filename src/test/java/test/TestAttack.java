@@ -5,19 +5,28 @@ import RiskGame.model.entity.GameMap;
 import RiskGame.model.entity.Player;
 import RiskGame.model.entity.Territory;
 import RiskGame.model.service.imp.GameManager;
-import RiskGame.model.service.imp.MapManager;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * This is a Junit test Class, used for testing <b> Attack </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
+
 public class TestAttack {
+
+    /**
+     * Set up method for every test cases
+     */
+
     @Before
     public void setUp() {
         GameMap map = new GameMap();
@@ -65,27 +74,108 @@ public class TestAttack {
 
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().setMap(map);
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().newGame();
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function of a normal Attack action
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackOne() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("Ter2");
         t1.setArmies(20);
         t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
-        t2.setArmies(2);
+        t2.setArmies(1);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
-        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t1,t2,3,2);
-        System.out.println("T1:"+t1.getArmies());
-        System.out.println("T2:"+t2.getArmies());
-
-        System.out.println("Last Capture armies num: "+t2.getCaptureDiceNum());
-        t1.captureTerritory(t2,3);
-        System.out.println("Now T2's Armies: " +t2.getArmies());
-        System.out.println("Now T2's belongs: "+t2.getBelongs().getName());
+        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t1,t2,2,1);
+        int result = t2.getArmies();
+        assertTrue(result == 0||result == 1);
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function of a normal Attack action
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2(The t1 has no army)</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
+    @Test
+    public void testAttackTwo() {
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
+        t3.setArmies(0);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t4.setArmies(16);
+        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t3,t4,3,2);
+        assertEquals(-1,GameManager.getInstance().getPlayers().get("Player1").launchAttack(t3,t4,3,2));
+    }
+    /**
+     * test case 3
+     * Purpose: testing the function of a normal Attack action
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2（t1 and t2 are all belonged to Player2）</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
+    @Test
+    public void testAttackThree() {
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("Ter4");
+        t3.setArmies(18);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        t4.setArmies(16);
+        t4.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().getPlayers().get("Player2").launchAttack(t3,t4, 3, 2);
+        assertEquals(-2, GameManager.getInstance().getPlayers().get("Player2").launchAttack(t3,t4, 3, 2));
+    }
+    /**
+     * test case 4
+     * Purpose: testing the function of a normal Attack action
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2（t1 and t2 are not connected）</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
+    @Test
+    public void testAttackFour() {
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("Ter3");
+        t1.setArmies(25);
+        t1.setBelongs(GameManager.getInstance().getPlayers().get("Player1"));
+        t3.setArmies(16);
+        t3.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
+        GameManager.getInstance().getPlayers().get("Player1").launchAttack(t1,t3,3,2);
+        assertEquals(-3, GameManager.getInstance().getPlayers().get("Player2").launchAttack(t1,t3, 3, 2));
+    }
+    /**
+     * test case 5
+     * Purpose: testing the function of AllInMode
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2 by AllInMode</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackAllInMode(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
@@ -97,7 +187,17 @@ public class TestAttack {
         GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
         assertTrue(t1.getArmies()==0||t2.getArmies()==0);
     }
-
+    /**
+     * test case 6
+     * Purpose: testing the Ownership of Territory after Attack
+     * Process:
+     * <ul>
+     *     <li>Set up two territories and their ownership</li>
+     *     <li>Let t1 attack t2 by AllInMode</li>
+     *     <li>Check if the result of the ownership after attack is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testOwnershipOfTerritoryAfterAttack() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("Ter1");
@@ -107,13 +207,9 @@ public class TestAttack {
         t2.setArmies(1);
         t2.setBelongs(GameManager.getInstance().getPlayers().get("Player2"));
         GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
-        System.out.println("t1's armies: "+t1.getArmies());
-        System.out.println("t2's armies: "+t2.getArmies());
-        System.out.println(GameManager.getInstance().getMessage());
         GameManager.getInstance().getPlayers().get("Player1").allInMode(t1,t2);
-        t1.captureTerritory(t2,22);
+        GameManager.getInstance().getPlayers().get("Player1").captureTerritory(t1,t2,22);
         assertEquals("Player1",t2.getBelongs().getName());
     }
-
 
 }
