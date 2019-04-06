@@ -40,7 +40,7 @@ public class TestMapReader {
 
     @Test
     public void testMapLoadNotNull() {
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/1.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/1.map").getPath());
         assertNotNull(map);
     }
 
@@ -57,7 +57,7 @@ public class TestMapReader {
      */
     @Test
     public void testMapLoadContinentCtrNum() {
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
         Continent c = map.getContinents().get("FireLand");
         assertEquals(5, c.getCtrNum());
     }
@@ -74,7 +74,7 @@ public class TestMapReader {
      */
     @Test
     public void testMapContinentNotNull(){
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
         Continent d = map.getContinents().get("WindLand");
         assertNotNull(d.getTerritories());
     }
@@ -92,7 +92,7 @@ public class TestMapReader {
      */
     @Test
     public void testMapContinentSize(){
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
         int m = map.getContinents().size();
         int h = map.getContinents().get("WindLand").getTerritories().size();
         assertEquals(4,m);

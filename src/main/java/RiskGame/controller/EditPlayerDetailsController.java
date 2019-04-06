@@ -47,13 +47,14 @@ public class EditPlayerDetailsController implements Initializable {
         noOfPlayers.removeAll(noOfPlayers);
         noOfPlayers.addAll(2,3,4,5,6,7,8);
         cbSelectPlayers.getItems().addAll(noOfPlayers);
+
     }
     /**
      *<p>
      * This method implements Next Button to move to edit player screen.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException Input out exception
      */
     @FXML
     private void clickNext(ActionEvent event) throws IOException
@@ -87,7 +88,7 @@ public class EditPlayerDetailsController implements Initializable {
      * This method implements Back Button to get to new game screen.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException Input out exception
      */
     @FXML
     private void clickHyperBack(ActionEvent event) throws IOException
@@ -109,6 +110,12 @@ public class EditPlayerDetailsController implements Initializable {
         this.gameMapFile=gameMapFile;
     }
 
+
+    /**
+     * Initialize method, first method called when screen is loaded.
+     * @param location URL Location
+     * @param resources Associated resources.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {

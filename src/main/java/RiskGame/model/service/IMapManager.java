@@ -19,7 +19,7 @@ public interface IMapManager {
      * @param url the path of map file
      * @return gameMap the instance in the game, which represent the whole relationship between territories and continents within the map.
      */
-    public GameMap LoadMap(String url);
+    public GameMap loadMap(String url);
     /**
      * This is use for creating a map file from a GameMap instance
      * It will convert a java instance into map file (*.map), which is in a formal Risk format.
@@ -28,7 +28,7 @@ public interface IMapManager {
      * @param gameMap the instance that need to be saved
      * @return boolean  True: Create successful  False: Create fail
      */
-    public boolean CreateMap(String url,GameMap gameMap);
+    public boolean createMap(String url,GameMap gameMap);
 
     /**
      * This is use for tell if the map is a valid map.
@@ -36,5 +36,5 @@ public interface IMapManager {
      * @param gameMap the instance that need to be saved
      * @return boolean  True: A valid map  False: A invalid map
      */
-    boolean IsValided(GameMap gameMap);
+    boolean isValided(GameMap gameMap);
 }

@@ -1,9 +1,6 @@
 package RiskGame.model.entity;
-
 import RiskGame.model.service.imp.GameManager;
-import RiskGame.model.service.imp.RiskUtil;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -22,7 +19,8 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
-    private int captureDiceNum = 0;
+
+    private int captureDiceNum=0;
 
 
     /**
@@ -169,6 +167,7 @@ public class Territory {
         if (p.getArmies() > 0) {
             p.setArmies(p.getArmies() - 1);
             armies++;
+            GameManager.getInstance().setMessage("Add armies to "+this.getName()+", now it has: "+armies+" armies \n");
         }
 
     }
@@ -211,29 +210,87 @@ public class Territory {
         this.neighbors.remove(t.getName());
     }
 
-
-    public boolean captureTerritory(Territory target, int moveArmy) {
-        if (moveArmy > this.armies) {
-            return false;
-        } else if (target.getArmies() != 0) {
+    /**
+     * It is used in fortification phase which will be move armies from one territory to another territory
+     *
+     * @param num         the number of armies tha need to be move from one territory to another territory.
+     * @param destination the destination territory
+     * @return returns if its valid to immgigrate armies.
+     * @see Territory#validedToImmgrant(Territory)
+     */
+    public boolean immigrantArimies(int num, Territory destination) {
+        if (!validedToImmgrant(destination)) {
             return false;
         } else {
-            target.setBelongs(this.getBelongs());
-            this.armies -= moveArmy;
-            target.setArmies(moveArmy);
+            if (num <= this.armies) {
+                this.armies -= num;
+                destination.setArmies(num + destination.getArmies());
+                return true;
+            }
+        }
+        return false;
+    }
 
-            target.setCaptureDiceNum(0);
-            return true;
+    /**
+     * It is used to valided if the territory allows to move the arimies to another territory.
+     *
+     * @param destionation the destination territory.
+     * @return returns true if its valid army transfer or not.
+     * @see Territory#DFS(Territory, Territory, ArrayList)
+     */
+    public boolean validedToImmgrant(Territory destionation) {
+        if (!belongs.getName().equals(destionation.getBelongs().getName()))
+            return false;
+        else {
+            return DFS(this, destionation, new ArrayList<String>());
         }
     }
 
+    /**
+     * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
+     *
+     * @param current        the current territory.
+     * @param destination    the destination territory.
+     * @param connectedTerrs the territory list which is already passed.
+     */
+    private boolean DFS(Territory current, Territory destination, ArrayList<String> connectedTerrs) {
+        boolean result = false;
 
+        for (String key : current.getNeighbors().keySet()) {
+            Territory neightbor = current.getNeighbors().get(key);
+            if (neightbor.getBelongs().equals(destination.getBelongs())) {
+                if (neightbor.getName().equals(destination.getName())) {
+                    return true;
+                }
+                if (!connectedTerrs.contains(neightbor.getName())) {
+                    connectedTerrs.add(neightbor.getName());
+                    result = result || DFS(neightbor, destination, connectedTerrs);
+                }
+            }
+
+        }
+        return result;
+    }
+
+
+    /**
+     * getter for captured dice number
+     * @return the number of dice that last fight rolled
+     */
 
     public int getCaptureDiceNum() {
         return captureDiceNum;
     }
 
+
+    /**
+     * setter for captured dice number
+     * @param captureDiceNum the number of dice that you rolled in the last battle.
+     */
+
     public void setCaptureDiceNum(int captureDiceNum) {
         this.captureDiceNum = captureDiceNum;
     }
+
+
 }
