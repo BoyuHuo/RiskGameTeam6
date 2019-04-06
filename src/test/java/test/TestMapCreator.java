@@ -106,9 +106,9 @@ public class TestMapCreator {
         map.getTerritories().put(t4.getName(),t4);
 
 
-        boolean resultboolean=  mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        boolean resultboolean=  mapManager.createMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         System.out.println(resultboolean);
-        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
+        GameMap result = mapManager.loadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
         assertEquals("Baiyu Huo",result.getAuthor());
         assertEquals(4,result.getTerritories().size());
         assertEquals(2,result.getContinents().size());
@@ -164,8 +164,8 @@ public class TestMapCreator {
         map.getTerritories().put(w2.getName(),w2);
         map.getTerritories().put(i1.getName(),i1);
 
-        mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
-        GameMap result = mapManager.LoadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
+        mapManager.createMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        GameMap result = mapManager.loadMap(getClass().getResource("/map/").getPath()+"NewMap1.map");
         assertEquals("Hao Ma",result.getAuthor());
         assertEquals(3,result.getContinents().size());
         assertEquals(5,result.getTerritories().size());
@@ -216,7 +216,7 @@ public class TestMapCreator {
         map.getTerritories().put(s1.getName(),s1);
         map.getTerritories().put(m1.getName(),m1);
 
-        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        boolean result = mapManager.createMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         assertFalse(result);
     }
 
@@ -264,7 +264,7 @@ public class TestMapCreator {
         map.getTerritories().put(f1.getName(),f1);
         map.getTerritories().put(s1.getName(),s1);
 
-        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        boolean result = mapManager.createMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         assertFalse(result);
     }
     /**
@@ -302,7 +302,7 @@ public class TestMapCreator {
         map.getTerritories().put(f1.getName(),f1);
         map.getTerritories().put(s1.getName(),s1);
 
-        boolean result = mapManager.CreateMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
+        boolean result = mapManager.createMap(getClass().getResource("/map/").getPath()+"NewMap1.map", map);
         assertFalse(result);
 
         map.removeTerrtory(b1.getName());
@@ -340,7 +340,7 @@ public class TestMapCreator {
         t1.addNeibor(t2);
         t2.addNeibor(t3);
 
-       assertEquals(false,mapManager.IsValided(map));
+       assertEquals(false,mapManager.isValided(map));
 
     }
 
@@ -375,7 +375,7 @@ public class TestMapCreator {
         t2.addNeibor(t3);
         t3.addNeibor(t1);
 
-        assertEquals(false,mapManager.IsValided(map));
+        assertEquals(false,mapManager.isValided(map));
 
     }
 }

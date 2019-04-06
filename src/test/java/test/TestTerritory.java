@@ -41,8 +41,8 @@ public class TestTerritory {
         players.put(p3.getName(), p3);
 
         GameManager.getInstance().setPlayers(players);
-        GameManager.getInstance().setMap(mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
-        GameManager.getInstance().NewGame();
+        GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
+        GameManager.getInstance().newGame();
     }
 
     /**
@@ -51,13 +51,13 @@ public class TestTerritory {
     @Test
     public void testRandomTerritory() {
 
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+        GameManager.getInstance().randomAssignTerritoryToPlayer();
 
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("WindHorse").getBelongs().getName());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getBelongs().getName());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("IceDragon").getBelongs().getName());
 
-        GameManager.getInstance().ramdomAssignTerritoryToPlayer();
+        GameManager.getInstance().randomAssignTerritoryToPlayer();
     }
 
     /**
@@ -98,7 +98,9 @@ public class TestTerritory {
         w2.setBelongs(p2);
         f1.setArmies(12);
         f2.setArmies(16);
-        boolean result = f1.immigrantArimies(2, f2);
+        f3.setArmies(5);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,f1, f3);
+        System.out.println("f1:"+f1.getArmies()+",f3:"+f3.getArmies());
         assertTrue(result);
     }
 
@@ -139,7 +141,7 @@ public class TestTerritory {
         s2.setBelongs(p2);
         m1.setArmies(20);
         m3.setArmies(16);
-        boolean result = m1.immigrantArimies(2, m3);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2,m1, m3);
         assertFalse(result);
     }
 
@@ -181,7 +183,7 @@ public class TestTerritory {
         b2.setBelongs(p2);
         a1.setArmies(22);
         b1.setArmies(20);
-        boolean result = a1.immigrantArimies(2, b1);
+        boolean result = GameManager.getInstance().getPlayers().get("Player1").immigrantArimies(2, a1, b1);
         assertFalse(result);
     }
 }

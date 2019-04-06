@@ -19,7 +19,7 @@ public interface IGameManager {
      * It used for initial a new game, it will ramdomly assign territory to players and give players the initial armies, and start with start up phase.
      * @see GameManager#start()
      */
-    public void NewGame();
+    public void newGame();
     /**
      *  setter for players
      * @param players set up a list of players for the game.
@@ -53,11 +53,11 @@ public interface IGameManager {
     /**
      * It used for randomly assign Territory to players.
      */
-    public void ramdomAssignTerritoryToPlayer();
+    public void randomAssignTerritoryToPlayer();
     /**
      * use for end a game, meanwhile clear the game data.
      */
-    public void gameOver();
+    public void checkGameOver();
 
 
 }

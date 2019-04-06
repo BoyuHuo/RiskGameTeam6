@@ -29,7 +29,7 @@ public class MapManager implements IMapManager {
      * @return gameMap the instance in the game, which represent the whole relationship between territories and continents within the map.
      */
     @Override
-    public GameMap LoadMap(String url) {
+    public GameMap loadMap(String url) {
         String encoding = "GBK";
         String encodePath;
         GameMap gameMap = new GameMap();
@@ -56,9 +56,9 @@ public class MapManager implements IMapManager {
                             mode = 3;
                             break;
                     }
-                    TranslateTxt2Map(lineTxt, mode, gameMap);
+                    translateTxt2Map(lineTxt, mode, gameMap);
                 }
-                GenerateTheRelationshipOfTerr(gameMap);
+                generateTheRelationshipOfTerr(gameMap);
 
                 bufferedReader.close();
             } else {
@@ -76,7 +76,7 @@ public class MapManager implements IMapManager {
                 return null;
             }
         }
-        if(IsValided(gameMap)){
+        if(isValided(gameMap)){
             return gameMap;
         }else {
             return null;
@@ -93,8 +93,8 @@ public class MapManager implements IMapManager {
      * @return boolean  True: Create successful  False: Create fail
      */
     @Override
-    public boolean CreateMap(String url, GameMap gameMap) {
-        boolean validate = IsValided(gameMap);
+    public boolean createMap(String url, GameMap gameMap) {
+        boolean validate = isValided(gameMap);
         if(validate == false){
             return false;
         }
@@ -167,11 +167,11 @@ public class MapManager implements IMapManager {
      * @return boolean  True: A valid map  False: A invalid map
      */
     @Override
-    public boolean IsValided(GameMap gameMap) {
+    public boolean isValided(GameMap gameMap) {
         boolean validedTerritories = false;
         boolean validedContinent = true;
 
-        validedTerritories = IsConnectedTerritories(gameMap.getTerritories());
+        validedTerritories = isConnectedTerritories(gameMap.getTerritories());
 
 
         for (Continent continent : gameMap.getContinents().values()) {
@@ -181,7 +181,7 @@ public class MapManager implements IMapManager {
             if(continent.getCtrNum()<0){
                 return false;
             }
-            validedContinent = IsConnectedContinents(continent) && validedContinent;
+            validedContinent = isConnectedContinents(continent) && validedContinent;
         }
         System.out.println(validedTerritories+":"+validedContinent);
         return validedContinent && validedTerritories;
@@ -194,7 +194,7 @@ public class MapManager implements IMapManager {
      * @param graph all the territories in the map
      * @return boolean  True: A connected graph  False: A unconnected graph
      */
-    private boolean IsConnectedTerritories(HashMap<String, Territory> graph) {
+    private boolean isConnectedTerritories(HashMap<String, Territory> graph) {
         ArrayList<String> territoriesTag = new ArrayList<String>();
         Iterator iterator = graph.values().iterator();
         if (iterator.hasNext()) {
@@ -218,7 +218,7 @@ public class MapManager implements IMapManager {
      * @param continent the continent which contains a sub-graph
      * @return boolean  True: A connected graph  False: A unconnected graph
      */
-    private boolean IsConnectedContinents(Continent continent) {
+    private boolean isConnectedContinents(Continent continent) {
         ArrayList<String> territoriesTag = new ArrayList<String>();
         Iterator cIterator = continent.getTerritories().keySet().iterator();
 
@@ -280,7 +280,7 @@ public class MapManager implements IMapManager {
      * @param mode which stage of reading now
      * @param gameMap the gameMap instance that need to be fulfilled
      */
-    private boolean TranslateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
+    private boolean translateTxt2Map(String lineTxt, int mode, GameMap gameMap) {
         if (mode == 0) {
             return true;
         }
@@ -339,7 +339,7 @@ public class MapManager implements IMapManager {
      *
      * @param gameMap the gameMap instance that need to be fulfilled
      */
-    private void GenerateTheRelationshipOfTerr(GameMap gameMap) {
+    private void generateTheRelationshipOfTerr(GameMap gameMap) {
         for (String key : gameMap.getTerritories().keySet()) {
             for (String neighborKey : gameMap.getTerritories().get(key).getNeighbors().keySet()) {
                 gameMap.getTerritories().get(key).getNeighbors().put(neighborKey, gameMap.getTerritories().get(neighborKey));

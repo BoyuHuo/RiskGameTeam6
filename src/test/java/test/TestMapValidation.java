@@ -39,8 +39,8 @@ public class TestMapValidation {
      */
     @Test
     public void testMapIsValided() {
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekmonLand.map").getPath());
-        assertTrue(mapManager.IsValided(map));
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
+        assertTrue(mapManager.isValided(map));
     }
     /**
      * test case 2
@@ -54,7 +54,7 @@ public class TestMapValidation {
      */
     @Test
     public void testMapWithDisconnectedContientsIsNotValided(){
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandOne.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekwrongLandOne.map").getPath());
         assertNull(map);
     }
     /**
@@ -69,7 +69,7 @@ public class TestMapValidation {
      */
     @Test
     public void testMapWithDisconnectedTerritoriesIsNotValided(){
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandTwo.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekwrongLandTwo.map").getPath());
         assertNull(map);
     }
     /**
@@ -84,7 +84,7 @@ public class TestMapValidation {
      */
     @Test
     public void testMapWithIllegalCtrNumIsNotValided(){
-        GameMap map = mapManager.LoadMap(getClass().getResource("/map/PekwrongLandMix.map").getPath());
+        GameMap map = mapManager.loadMap(getClass().getResource("/map/PekwrongLandMix.map").getPath());
         assertNull(map);
     }
 }

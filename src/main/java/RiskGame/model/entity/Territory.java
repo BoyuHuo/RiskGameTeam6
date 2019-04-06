@@ -1,9 +1,6 @@
 package RiskGame.model.entity;
-
 import RiskGame.model.service.imp.GameManager;
-import RiskGame.model.service.imp.RiskUtil;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -22,7 +19,8 @@ public class Territory {
     private Player belongs;
     private HashMap<String, Territory> neighbors = new HashMap<String, Territory>();
 
-    private int captureDiceNum = 0;
+
+    private int captureDiceNum=0;
 
 
     /**
@@ -169,6 +167,7 @@ public class Territory {
         if (p.getArmies() > 0) {
             p.setArmies(p.getArmies() - 1);
             armies++;
+            GameManager.getInstance().setMessage("Add armies to "+this.getName()+", now it has: "+armies+" armies \n");
         }
 
     }
@@ -273,106 +272,25 @@ public class Territory {
         return result;
     }
 
-    public boolean captureTerritory(Territory target, int moveArmy) {
-        if (moveArmy > this.armies) {
-            return false;
-        } else if (target.getArmies() != 0) {
-            return false;
-        } else {
-            target.setBelongs(this.getBelongs());
-            this.armies -= moveArmy;
-            target.setArmies(moveArmy);
 
-            target.setCaptureDiceNum(0);
-            return true;
-        }
-    }
-
-    public boolean launchAttack(Territory target, int diceNumAtt, int diceNumDef) {
-        if (this.getArmies() <= 0 || target.getBelongs() == this.getBelongs()) {
-            return false;
-        } else if (this.getNeighbors().get(target.getName()) == null) {
-            return false;
-        } else {
-
-            int[] diceValueAtt = new int[diceNumAtt];
-            int[] diceValueDef = new int[diceNumDef];
-
-            System.out.print("[Attacker] " + this.getName() + "'s dices: ");
-
-            for (int i = 0; i < diceValueAtt.length; i++) {
-                diceValueAtt[i] = randomRoll();
-                System.out.print(diceValueAtt[i] + " ");
-            }
-
-
-            System.out.println();
-            System.out.print("[Defender] " + target.getName() + "'s dices: ");
-
-            for (int j = 0; j < diceValueDef.length; j++) {
-                diceValueDef[j] = randomRoll();
-                System.out.print(diceValueDef[j] + " ");
-            }
-
-            System.out.println();
-
-            String result = compareDiceSet(diceValueAtt, diceValueDef);
-            String[] resInt = result.split(":");
-
-            System.out.println("[Attacker] " + this.getName() + "'s Total toll: " + resInt[0]);
-            System.out.println("[Defender] " + target.getName() + "'s Total toll:" + resInt[1]);
-
-            this.setArmies(armies - Integer.parseInt(resInt[0]));
-            target.setArmies(target.getArmies() - Integer.parseInt(resInt[1]));
-
-            if (target.getArmies() == 0) {
-                target.setCaptureDiceNum(diceNumAtt);
-            }
-            return true;
-        }
-    }
-
-    public boolean allInMode(Territory target) {
-        while (this.armies > 0 && target.getArmies() > 0) {
-            int attackDiceNum = 3;
-            int defDiceNum = 2;
-            if (attackDiceNum > this.armies) {
-                attackDiceNum = this.armies;
-            }
-            if (defDiceNum > target.getArmies()) {
-                defDiceNum = target.getArmies();
-            }
-            launchAttack(target, attackDiceNum, defDiceNum);
-        }
-        return true;
-    }
-
-    private int randomRoll() {
-        Random r = new Random();
-        return r.nextInt(6) + 1;
-    }
-
-    private String compareDiceSet(int[] att, int[] def) {
-        int compareNum = att.length > def.length ? def.length : att.length;
-        int attDeath = 0;
-        int defDeath = 0;
-        Arrays.sort(att);
-        Arrays.sort(def);
-        for (int i = 0; i < compareNum; i++) {
-            if (att[att.length - i - 1] > def[def.length - i - 1]) {
-                defDeath++;
-            } else {
-                attDeath++;
-            }
-        }
-        return attDeath + ":" + defDeath;
-    }
+    /**
+     * getter for captured dice number
+     * @return the number of dice that last fight rolled
+     */
 
     public int getCaptureDiceNum() {
         return captureDiceNum;
     }
 
+
+    /**
+     * setter for captured dice number
+     * @param captureDiceNum the number of dice that you rolled in the last battle.
+     */
+
     public void setCaptureDiceNum(int captureDiceNum) {
         this.captureDiceNum = captureDiceNum;
     }
+
+
 }

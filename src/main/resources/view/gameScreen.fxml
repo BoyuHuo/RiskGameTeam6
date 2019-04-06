@@ -1,59 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.GameScreenController">
+<AnchorPane prefHeight="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.GameScreenController">
   <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../CSS/gameScreenController_CSS.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.GameScreenController">-->
   <children>
-    <SplitPane dividerPositions="0.6603206412825652" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('images/gameBC.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane dividerPositions="0.6172344689378757" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-image: url('images/gameBC.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
         <AnchorPane fx:id="gameMapPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
-            <SplitPane dividerPositions="0.3624161073825503" orientation="VERTICAL" prefHeight="458.0" prefWidth="368.0" style="-fx-background-image: url('images/gameBC2.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.43288590604026844" orientation="VERTICAL" prefHeight="458.0" prefWidth="368.0" style="-fx-background-image: url('images/gameBC2.png');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
-                    <AnchorPane prefHeight="242.0" prefWidth="334.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <AnchorPane prefHeight="241.0" prefWidth="377.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <children>
                         <Text text=" " translateX="30.0" translateY="80.0" />
-                        <!--Show information of players-->
-                        <GridPane fx:id="players" layoutX="-48.0" layoutY="62.0" prefHeight="153.0" prefWidth="121.517578125" translateX="50.0" translateY="80.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <ListView fx:id="continentList" layoutX="165.0" layoutY="77.0" prefHeight="126.0" prefWidth="142.0" style="-fx-background-image: url('images/gameBC.png');" />
-                        <Text layoutX="9.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players :">
+                        <ListView fx:id="continentList" layoutX="203.0" layoutY="77.0" prefHeight="175.0" prefWidth="131.0" style="-fx-background-image: url('images/gameBC.png');" />
+                        <Text layoutX="6.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Players :">
                           <font>
                             <Font name="System Bold Italic" size="17.0" fx:id="x2" />
                           </font>
                         </Text>
-                        <ListView fx:id="playerListView" layoutX="6.0" layoutY="77.0" prefHeight="126.0" prefWidth="147.0" />
-                        <Text layoutX="167.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Continent List :">
-                          <font>
-                            <Font name="System Bold Italic" size="18.0" />
-                          </font>
-                        </Text>
-                        <Text fx:id="phase" fontSmoothingType="LCD" layoutX="-22.0" layoutY="207.0" text="Phase" translateX="30.0" translateY="-170.0">
+                        <ListView fx:id="playerListView" layoutX="6.0" layoutY="77.0" prefHeight="175.0" prefWidth="177.0" />
+                        <Text font="$x2" layoutX="203.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Continent List :" />
+                        <Text fx:id="phase" fontSmoothingType="LCD" layoutX="65.0" layoutY="206.0" text="Phase" translateX="30.0" translateY="-170.0">
                           <font>
                             <Font name="System Bold Italic" size="28.0" />
                           </font>
@@ -62,52 +50,35 @@
                     </AnchorPane>
                   </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="328.0" prefWidth="377.0">
                   <children>
-                              <Button fx:id="btnOK" layoutX="228.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickOKButton" text="OK" />
-                    <!--View the player's cards-->
-                    <Button fx:id="myCards" layoutX="113.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#newButtonOnClicked" prefHeight="0.0" prefWidth="78.0" text="My Cards" textFill="WHITE">
+                    <Button fx:id="btnOK" layoutX="64.0" layoutY="90.0" mnemonicParsing="false" onAction="#clickOKButton" prefHeight="33.0" prefWidth="69.00009999999747" text="OK" textFill="WHITE">
                       <font>
-                        <Font name="System Bold" size="13.0" fx:id="x1" />
+                        <Font name="System Bold" size="14.0" fx:id="x1" />
                       </font>
                     </Button>
-                    <!--Show the dices number-->
-                    <Text layoutX="20.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attacker Dice" translateY="-15.0" wrappingWidth="77.83399522304535" />
-                    <ChoiceBox fx:id="cbAttacker" layoutX="107.0" layoutY="28.0" minWidth="49.0" prefHeight="23.0" prefWidth="68.0" translateY="-15.0">
+                    <!--View the player's cards-->
+                    <Button fx:id="myCards" font="$x1" layoutX="48.0" layoutY="143.0" mnemonicParsing="false" onAction="#newButtonOnClicked" prefHeight="33.0" prefWidth="102.00009999999747" text="My Cards" textFill="WHITE" />
+                    <ChoiceBox fx:id="cbAttacker" layoutX="186.0" layoutY="26.0" minHeight="23.94140625" minWidth="49.0" prefHeight="33.0" prefWidth="69.0" translateY="-15.0">
                       <items>
-                        <FXCollections fx:factory="observableArrayList">
-                        </FXCollections>
+                        <FXCollections fx:factory="observableArrayList" />
                       </items>
                     </ChoiceBox>
-                    <!--Certify dices number-->
-                    <Button fx:id="certifyDicesNumber" layoutX="31.0" layoutY="103.0" minHeight="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="68.0" text="Sure" textFill="WHITE" translateY="-20.0">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Button>
                     <!--End this round of game-->
-                    <Button fx:id="endRound" layoutX="92.0" layoutY="153.0" mnemonicParsing="false" onAction="#endRoundClick" prefHeight="40.0" prefWidth="171.0" text="End Round" textFill="WHITE" translateY="-20.0">
-                                 <font>
-                                    <Font name="System Bold" size="17.0" />
-                                 </font></Button>
-                              <Text layoutX="22.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Defender Dice" wrappingWidth="71.99999392032623">
-                                 <font>
-                                    <Font size="11.0" />
-                                 </font>
-                              </Text>
-                              <ChoiceBox fx:id="cbDefend" layoutX="107.0" layoutY="46.0" minWidth="49.0" prefHeight="17.0" prefWidth="68.0">
-                                 <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                    </FXCollections>
-                                 </items>
-                              </ChoiceBox>
-
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" translateX="10.0" translateY="220.0">
-                                 <children>
-                                          <TextArea fx:id="txtAreaStatus" prefHeight="200.0" prefWidth="297.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                                    </AnchorPane>
-                              <Button mnemonicParsing="false" text="All In" layoutX="280.0" layoutY="34.0" onAction="#clickBtnAllInButton"/>
-
+                    <Button fx:id="endRound" font="$x1" layoutX="178.0" layoutY="163.0" mnemonicParsing="false" onAction="#endRoundClick" prefHeight="32.000099999997474" prefWidth="122.1767578125" text="End Round" textFill="WHITE" translateY="-20.0" />
+                    <ChoiceBox fx:id="cbDefend" layoutX="186.0" layoutY="49.0" minHeight="24.0" minWidth="49.0" prefHeight="33.0" prefWidth="69.0">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList" />
+                      </items>
+                    </ChoiceBox>
+                    <AnchorPane layoutX="25.0" layoutY="-19.0" minHeight="0.0" minWidth="0.0" prefHeight="175.0" prefWidth="314.0" translateX="10.0" translateY="220.0">
+                      <children>
+                        <TextArea fx:id="txtAreaStatus" prefHeight="175.0" prefWidth="281.25" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="33.75" AnchorPane.topAnchor="0.0" />
+                      </children>
+                    </AnchorPane>
+                    <Button font="$x1" layoutX="187.0" layoutY="90.0" minHeight="23.0" mnemonicParsing="false" onAction="#clickBtnAllInButton" prefHeight="33.0" prefWidth="103.0" text="All In" textFill="WHITE" />
+                    <Text layoutX="67.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attacker Dice：" />
+                    <Text layoutX="65.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Defender Dice：" />
                   </children>
                 </AnchorPane>
               </items>
