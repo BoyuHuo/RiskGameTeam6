@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.TournamentMapSelection">
    <children>
       <TabPane layoutX="132.0" layoutY="134.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -38,12 +42,12 @@
                               <TextField fx:id="txtLoadMap5" layoutX="205.0" layoutY="305.0" prefHeight="25.0" prefWidth="450.0" />
                            </children>
                         </AnchorPane>
-                        <Button fx:id="btnSubmitMapSelection" layoutX="461.0" layoutY="83.0" mnemonicParsing="false" text="Submit" />
+                        <Button fx:id="btnSubmitMapSelection" layoutX="461.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnClickSubmit" text="Submit" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Player Selection">
+          <Tab fx:id="tbPlayerSelection" text="Player Selection">
             <content>
               <AnchorPane fx:id="anchorPlayerSelection" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -87,7 +91,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Game Selection">
+            <Tab fx:id="tbGameSelection" text="Game Selection">
               <content>
                 <AnchorPane fx:id="anchorGameSelection" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
