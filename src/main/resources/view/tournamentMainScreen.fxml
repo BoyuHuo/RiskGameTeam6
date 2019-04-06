@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane layoutX="132.0" layoutY="134.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Map Selection">
+            <content>
+              <AnchorPane fx:id="anchorMapSelection" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="39.0" layoutY="85.0" prefHeight="21.0" prefWidth="190.0" text="Select the number of Maps:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="cbMapSelection" layoutX="229.0" layoutY="83.0" prefWidth="150.0" />
+                        <AnchorPane fx:id="anchorChildMapSelection" layoutY="139.0" prefHeight="433.0" prefWidth="1000.0">
+                           <children>
+                              <Button fx:id="btnloadMap1" layoutX="96.0" layoutY="38.0" mnemonicParsing="false" text="Load Map 1" />
+                              <Button fx:id="btnloadMap2" layoutX="96.0" layoutY="105.0" mnemonicParsing="false" text="Load Map 2" />
+                              <Button fx:id="btnloadMap3" layoutX="96.0" layoutY="169.0" mnemonicParsing="false" text="Load Map 3" />
+                              <Button fx:id="btnloadMap4" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" text="Load Map 4" />
+                              <Button fx:id="btnloadMap5" layoutX="96.0" layoutY="305.0" mnemonicParsing="false" text="Load Map 5" />
+                              <Button fx:id="btnNextMapSelection" layoutX="872.0" layoutY="380.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="83.0" text="Next" />
+                              <TextField fx:id="txtLoadMap1" layoutX="205.0" layoutY="38.0" prefHeight="25.0" prefWidth="450.0" />
+                              <TextField fx:id="txtLoadMap2" layoutX="205.0" layoutY="105.0" prefHeight="25.0" prefWidth="450.0" />
+                              <TextField fx:id="txtLoadMap3" layoutX="205.0" layoutY="169.0" prefHeight="25.0" prefWidth="450.0" />
+                              <TextField fx:id="txtLoadMap4" layoutX="205.0" layoutY="235.0" prefHeight="25.0" prefWidth="450.0" />
+                              <TextField fx:id="txtLoadMap5" layoutX="205.0" layoutY="305.0" prefHeight="25.0" prefWidth="450.0" />
+                           </children>
+                        </AnchorPane>
+                        <Button fx:id="btnSubmitMapSelection" layoutX="461.0" layoutY="83.0" mnemonicParsing="false" text="Submit" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Player Selection">
+            <content>
+              <AnchorPane fx:id="anchorPlayerSelection" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="41.0" layoutY="59.0" text="Select the Number of Player:">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="cbPlayerSelection" layoutX="254.0" layoutY="57.0" prefWidth="150.0" />
+                        <Button fx:id="btnSubmitPlayerSelection" layoutX="474.0" layoutY="57.0" mnemonicParsing="false" text="Submit" />
+                        <AnchorPane fx:id="anchorChildPlayerSelection" layoutY="141.0" prefHeight="428.0" prefWidth="1000.0">
+                           <children>
+                              <Label layoutX="108.0" layoutY="96.0" text="Computer 1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="108.0" layoutY="191.0" text="Computer 2">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="539.0" layoutY="96.0" text="Computer 3">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="539.0" layoutY="191.0" text="Computer 4">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="cbComp1PlayerSelection" layoutX="226.0" layoutY="94.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="cbComp2PlayerSelection" layoutX="226.0" layoutY="189.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="cbComp3PlayerSelection" layoutX="657.0" layoutY="94.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="cbComp4PlayerSelection" layoutX="657.0" layoutY="189.0" prefWidth="150.0" />
+                              <Button fx:id="btnNextPlayerSelection" layoutX="861.0" layoutY="364.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="82.0" text="Next" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Game Selection">
+              <content>
+                <AnchorPane fx:id="anchorGameSelection" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="216.0" layoutY="210.0" text="Enter the number of games played for each map :">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="259.0" layoutY="279.0" prefHeight="21.0" prefWidth="309.0" text="Maximum number of turns for each game :">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtGGameSelection" layoutX="601.0" layoutY="208.0" promptText="Range 1 - 5" />
+                        <TextField fx:id="txtDGameSelection" layoutX="601.0" layoutY="277.0" promptText="Range 10 - 50" />
+                        <Button fx:id="btnPlay" layoutX="434.0" layoutY="369.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="131.0" text="Play">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Button>
+                        <Label layoutX="62.0" layoutY="63.0" prefHeight="51.0" prefWidth="330.0" text="Enter the details below to start the game: ">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
