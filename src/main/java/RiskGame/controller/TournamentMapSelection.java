@@ -5,9 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,7 +37,13 @@ public class TournamentMapSelection implements Initializable {
     @FXML
     Tab tbGameSelection,tbPlayerSelection;
 
+    @FXML
+    TabPane tpTournament;
+
     private ObservableList numberOfMaps = FXCollections.observableArrayList();
+    private File mapFile1,mapFile2,mapFile3,mapFile4,mapFile5;
+    private Scene playerSelectionScene;
+    private boolean goingBack;
 
 
         /**
@@ -49,9 +57,12 @@ public class TournamentMapSelection implements Initializable {
         anchorChildMapSelection.setVisible(false);
         loadCbNumberOfMaps();
         disableChildPanelItems();
+        tbPlayerSelection.setDisable(false);
+        tbGameSelection.setDisable(false);
         tbPlayerSelection.setDisable(true);
         tbGameSelection.setDisable(true);
         cbMapSelection.getSelectionModel().selectFirst();
+        goingBack=false;
 
 
     }
@@ -84,10 +95,8 @@ public class TournamentMapSelection implements Initializable {
     private void btnClickSubmit(ActionEvent event) throws IOException
     {
         anchorChildMapSelection.setVisible(true);
-
         disableChildPanelItems();
         int mapNumber=cbMapSelection.getValue();
-
 
         switch (mapNumber)
         {
@@ -95,7 +104,6 @@ public class TournamentMapSelection implements Initializable {
                 btnloadMap1.setVisible(true);
                 txtLoadMap1.setVisible(true);
                 txtLoadMap1.setDisable(true);
-
 
                 btnloadMap2.setVisible(false);
                 txtLoadMap2.setVisible(false);
@@ -116,7 +124,6 @@ public class TournamentMapSelection implements Initializable {
                 txtLoadMap2.setVisible(true);
                 txtLoadMap2.setDisable(true);
 
-
                 btnloadMap3.setVisible(false);
                 txtLoadMap3.setVisible(false);
                 btnloadMap4.setVisible(false);
@@ -134,7 +141,6 @@ public class TournamentMapSelection implements Initializable {
                 btnloadMap3.setVisible(true);
                 txtLoadMap3.setVisible(true);
                 txtLoadMap3.setDisable(true);
-
 
                 btnloadMap4.setVisible(false);
                 txtLoadMap4.setVisible(false);
@@ -179,6 +185,63 @@ public class TournamentMapSelection implements Initializable {
 
     }
 
+    @FXML
+    private void clickBtnLoadMap1(ActionEvent event) throws IOException{
+
+        FileChooser mapFileChooser = new FileChooser();
+        mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
+        mapFile1 = mapFileChooser.showOpenDialog(null);
+
+        txtLoadMap1.setText(mapFile1.toString());
+
+    }
+
+    @FXML
+    private void clickBtnLoadMap2(ActionEvent event) throws IOException{
+
+        FileChooser mapFileChooser = new FileChooser();
+        mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
+        mapFile2 = mapFileChooser.showOpenDialog(null);
+
+        txtLoadMap2.setText(mapFile2.toString());
+
+    }
+
+    @FXML
+    private void clickBtnLoadMap3(ActionEvent event) throws IOException{
+
+        FileChooser mapFileChooser = new FileChooser();
+        mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
+        mapFile3 = mapFileChooser.showOpenDialog(null);
+
+        txtLoadMap3.setText(mapFile3.toString());
+
+    }
+
+    @FXML
+    private void clickBtnLoadMap4(ActionEvent event) throws IOException{
+
+        FileChooser mapFileChooser = new FileChooser();
+        mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
+        mapFile4 = mapFileChooser.showOpenDialog(null);
+
+        txtLoadMap4.setText(mapFile4.toString());
+
+    }
+
+
+    @FXML
+    private void clickBtnLoadMap5(ActionEvent event) throws IOException{
+
+        FileChooser mapFileChooser = new FileChooser();
+        mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
+        mapFile5 = mapFileChooser.showOpenDialog(null);
+
+        txtLoadMap5.setText(mapFile5.toString());
+
+    }
+
+
     private void AlertDialog(String message) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -187,6 +250,14 @@ public class TournamentMapSelection implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void clickBtnNext(ActionEvent event) throws IOException{
+
+      // goingBack=true;
+       tpTournament.getSelectionModel().select(tbPlayerSelection);
+    }
+
 
 
 

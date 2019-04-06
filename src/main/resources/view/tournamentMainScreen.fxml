@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.TournamentMapSelection">
    <children>
-      <TabPane layoutX="132.0" layoutY="134.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="tpTournament" layoutX="132.0" layoutY="134.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Map Selection">
             <content>
@@ -29,12 +29,12 @@
                         <ChoiceBox fx:id="cbMapSelection" layoutX="229.0" layoutY="83.0" prefWidth="150.0" />
                         <AnchorPane fx:id="anchorChildMapSelection" layoutY="139.0" prefHeight="433.0" prefWidth="1000.0">
                            <children>
-                              <Button fx:id="btnloadMap1" layoutX="96.0" layoutY="38.0" mnemonicParsing="false" text="Load Map 1" />
-                              <Button fx:id="btnloadMap2" layoutX="96.0" layoutY="105.0" mnemonicParsing="false" text="Load Map 2" />
-                              <Button fx:id="btnloadMap3" layoutX="96.0" layoutY="169.0" mnemonicParsing="false" text="Load Map 3" />
-                              <Button fx:id="btnloadMap4" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" text="Load Map 4" />
-                              <Button fx:id="btnloadMap5" layoutX="96.0" layoutY="305.0" mnemonicParsing="false" text="Load Map 5" />
-                              <Button fx:id="btnNextMapSelection" layoutX="872.0" layoutY="380.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="83.0" text="Next" />
+                              <Button fx:id="btnloadMap1" layoutX="96.0" layoutY="38.0" mnemonicParsing="false" onAction="#clickBtnLoadMap1" text="Load Map 1" />
+                              <Button fx:id="btnloadMap2" layoutX="96.0" layoutY="105.0" mnemonicParsing="false" onAction="#clickBtnLoadMap2" text="Load Map 2" />
+                              <Button fx:id="btnloadMap3" layoutX="96.0" layoutY="169.0" mnemonicParsing="false" onAction="#clickBtnLoadMap3" text="Load Map 3" />
+                              <Button fx:id="btnloadMap4" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" onAction="#clickBtnLoadMap4" text="Load Map 4" />
+                              <Button fx:id="btnloadMap5" layoutX="96.0" layoutY="305.0" mnemonicParsing="false" onAction="#clickBtnLoadMap5" text="Load Map 5" />
+                              <Button fx:id="btnNextMapSelection" layoutX="872.0" layoutY="380.0" mnemonicParsing="false" onAction="#clickBtnNext" prefHeight="37.0" prefWidth="83.0" text="Next" />
                               <TextField fx:id="txtLoadMap1" layoutX="205.0" layoutY="38.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap2" layoutX="205.0" layoutY="105.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap3" layoutX="205.0" layoutY="169.0" prefHeight="25.0" prefWidth="450.0" />
