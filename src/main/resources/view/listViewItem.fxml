@@ -9,6 +9,7 @@
     <children>
         <Rectangle fx:id="rectangle" height="10" translateY="3.0" width="10" />
         <Label fx:id="label1" translateX="5.0" />
-        <ChoiceBox fx:id="cbContinentList" translateX="15.0"  prefHeight="1.0" prefWidth="50.0" />
+        <Label fx:id="continentList" translateX="15.0" />
+
     </children>
 </HBox>

@@ -736,6 +736,12 @@ public class CreateMapScreenController implements Initializable {
         newStage.setScene(sc);
         newStage.show();
     }
+
+    /**
+     * Initialize method, first method called on page load.
+     * @param location location of URL
+     * @param resources Associated resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -1,9 +1,6 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.GameMap;
-import RiskGame.model.entity.ListData;
-import RiskGame.model.entity.Player;
-import RiskGame.model.entity.Territory;
+import RiskGame.model.entity.*;
 import RiskGame.model.service.imp.GameManager;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -94,6 +91,9 @@ public class GameScreenController implements Initializable, Observer {
     @FXML
     private TextArea txtAreaStatus;
 
+    @FXML
+    TextArea textAreaStatus;
+
 
     private final ObservableList<String> playerData = FXCollections.observableArrayList();
 
@@ -124,7 +124,7 @@ public class GameScreenController implements Initializable, Observer {
     private ObservableList attackDice = FXCollections.observableArrayList();
     private ObservableList defendDice = FXCollections.observableArrayList();
     private int r;
-
+    private Line newLine;
     /**
      * <p>
      * This method implements New Button button that loads the card screen.
@@ -132,16 +132,6 @@ public class GameScreenController implements Initializable, Observer {
      */
     @FXML
     private void newButtonOnClicked() {
-/*        try {
-            Parent anotherRoot = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
-            Stage anotherStage = new Stage();
-            anotherStage.setTitle("My cards");
-            anotherStage.setScene(new Scene(anotherRoot, 1000.0, 600.0));
-            anotherStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("/view/cardScreen.fxml"));
@@ -261,14 +251,14 @@ public class GameScreenController implements Initializable, Observer {
                         //System.out.println(playerName);
                         if (playerName != null) {
                             ListData data = new ListData();
-
                             if (playerName.equalsIgnoreCase(GameManager.getInstance().getActivePlayer().getName())) {
                                 data.setPlayerInfo(playerName + " :" +
                                         GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getActivePlayer().getColor()), true
-                                );
+                                ,GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
                             } else {
                                 data.setPlayerInfo(playerName + " :" +
-                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false);
+                                        GameManager.getInstance().getPlayers().get(playerName).getArmies() + "  (" + GameManager.getInstance().getPlayers().get(playerName).getPrecentageOfMap() + "%)", Color.valueOf(GameManager.getInstance().getPlayers().get(playerName).getColor()), false,
+                                        GameManager.getInstance().getPlayers().get(playerName).getControlContinent());
 
                             }
                             setGraphic(data.getBox());
@@ -497,8 +487,12 @@ public class GameScreenController implements Initializable, Observer {
         onMouseClick();
     }
 
-    @FXML
-    TextArea textAreaStatus;
+    /**
+     * This is the initialize method which contains the functionality to be first executed
+     * when the screen is loaded.
+     * @param location location of the URL
+     * @param resources all the associated resources
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -508,7 +502,9 @@ public class GameScreenController implements Initializable, Observer {
         setContinentList();
         diceDropDownLoad();
 
+
         GameManager.getInstance().addObserver(this);
+
 
     }
 
@@ -714,15 +710,10 @@ public class GameScreenController implements Initializable, Observer {
 
 
     /**
-     * This is method Build 2
+     * This is the implementation for the attack phase of the game.
      */
-
-    Line newLine;
-
     public void attackTerritory() {
 
-
-        System.out.println("here i come again");
         gameMapPane.getChildren().add(rectangleGroups);
 
         gameMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -751,7 +742,6 @@ public class GameScreenController implements Initializable, Observer {
 
                     }
                 }
-                System.out.println("IsValid SUh" + isvalidlineStart);
 
                 event.setDragDetect(true);
             }
@@ -792,6 +782,7 @@ public class GameScreenController implements Initializable, Observer {
                             newLine.setEndX(event.getX());
                             newLine.setEndY(event.getY());
                             newLine.setStroke(Color.RED);
+                            Player defender=destT.getBelongs();
                             if (destT.getArmies() == 0) {
                                 List<Integer> choices = new ArrayList<>();
 
@@ -807,12 +798,16 @@ public class GameScreenController implements Initializable, Observer {
 
                                 Optional<Integer> noOfArmies = dialog.showAndWait();
 
-                                System.out.println(noOfArmies);
                                 if (noOfArmies.isPresent()) {
                                     int result = GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+
                                     switch (result) {
                                         case 0:
                                             showAlertDialog("Successfully captured the territory " + destT.getName());
+                                            GameManager.getInstance().getActivePlayer().addRandomCard();
+                                            if(!defender.isLive()){
+                                                GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+                                            }
                                             if (GameManager.getInstance().isGameOver()) {
                                                 showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
                                             }
@@ -834,7 +829,6 @@ public class GameScreenController implements Initializable, Observer {
                                 btnOK.setDisable(false);
                             }
 
-                            System.out.println("Draw line");
 
                         }
                     } catch (Exception o) {
@@ -851,8 +845,9 @@ public class GameScreenController implements Initializable, Observer {
 
 
     }
-
-
+    /**
+     * This is the implementation for the loading the drop downs for
+     */
     public void diceDropDownLoad() {
         attackDice.removeAll(attackDice);
         attackDice.addAll(0, 1, 2, 3);
@@ -865,8 +860,15 @@ public class GameScreenController implements Initializable, Observer {
 
     }
 
+    /**
+     * This method contains the implementation for the attack phase when the number of armies
+     * is non zero on the destination territory.
+     * @param event mouse click event on OK button click.
+     * */
+
     @FXML
     public void clickOKButton(ActionEvent event) {
+        Player defender=destT.getBelongs();
         int result = 0;
         int attackerDiceNumber = cbAttacker.getValue();
         int defenderDiceNumber = cbDefend.getValue();
@@ -903,12 +905,18 @@ public class GameScreenController implements Initializable, Observer {
 
                 Optional<Integer> noOfArmies = dialog.showAndWait();
                 GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+                GameManager.getInstance().getActivePlayer().addRandomCard();
+                if(!defender.isLive()){
+                    GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+                }
+
 
             }
 
             switch (result) {
                 case 0:
                     showAlertDialog("Attack Successful");
+
                     if (GameManager.getInstance().isGameOver()) {
                         showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
                     }
@@ -936,25 +944,17 @@ public class GameScreenController implements Initializable, Observer {
         Update();
     }
 
-    /* @FXML
-     public void txtAreaStatus()throws
-     {
-         txtAreaStatus.textProperty().addListener(new ChangeListener<String>() {
-             @Override
-             public void changed(ObservableList<String> observable, Object oldValue,
-                                 Object newValue) {
-                 txtAreaStatus.setScrollTop(Double.MAX_VALUE); //this will scroll to the bottom
-                 //use Double.MIN_VALUE to scroll to the top
-             }
-         });
 
-     }
+    /**
+     * This method provides the implementation for the All in button. This button is used when
+     * attack is performed from source to destination territories in one go.
+     * @param event All in button click event
      */
     @FXML
     public void clickBtnAllInButton(ActionEvent event) {
         boolean result;
         result = GameManager.getInstance().getActivePlayer().allInMode(sourceTerritory, destT);
-
+        Player defender=destT.getBelongs();
 
         if (destT.getArmies() == 0) {
 
@@ -972,6 +972,10 @@ public class GameScreenController implements Initializable, Observer {
 
             Optional<Integer> noOfArmies = dialog.showAndWait();
             GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
+            GameManager.getInstance().getActivePlayer().addRandomCard();
+            if(!defender.isLive()){
+                GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
+            }
         }
 
         if (result) {
@@ -985,7 +989,11 @@ public class GameScreenController implements Initializable, Observer {
         }
     }
 
-
+    /**
+     * Implementation for the update method using observable pattern.
+     * @param observable Observable object
+     * @param o Object
+     */
     @Override
     public void update(Observable observable, Object o) {
         Update();

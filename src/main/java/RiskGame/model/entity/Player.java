@@ -16,7 +16,7 @@ import java.util.*;
 public class Player {
     private String name;
     private String color;
-    private HashMap<CardType, Integer> cards;
+    private HashMap<CardType, Integer> cards=new HashMap<>();
     private int armies;
     private boolean live;
     private double percentageOfMap;
@@ -148,20 +148,39 @@ public class Player {
     }
 
     /**
-     * add a random card for player
-     * @param player the player who will get the random card
+     * add a cards to player
+     * @param cardlist the card which will given to the player.
      */
-    public void addRandomCard(Player player) {
+    public void addCard(HashMap<CardType,Integer> cardlist) {
+
+        Player attackingPlayer = this;
+        for (Map.Entry<CardType,Integer> card: cardlist.entrySet()) {
+
+            if (attackingPlayer.getCards().containsKey(card.getKey())) {
+                attackingPlayer.getCards().put(card.getKey(), attackingPlayer.getCards().get(card.getKey()) + card.getValue());
+            } else {
+                attackingPlayer.getCards().put(card.getKey(), 1);
+            }
+
+        }
+
+    }
+
+    /**
+     * add a random card for player
+     */
+    public void addRandomCard() {
 
         Random random = new Random();
         CardType randomCard = CardType.values()[random.nextInt(CardType.values().length)];
-        player.addCard(randomCard);
+        this.addCard(randomCard);
     }
 
 
     /**
      * It is used in fortification phase which will be move armies from one territory to another territory
      *
+     * @param source     the source territory
      * @param num         the number of armies tha need to be move from one territory to another territory.
      * @param destination the destination territory
      * @return returns if its valid to immgigrate armies.
@@ -185,6 +204,7 @@ public class Player {
      * It is used to valided if the territory allows to move the arimies to another territory.
      *
      * @param destionation the destination territory.
+     * @param source the source city that wanna move the armies
      * @return returns true if its valid army transfer or not.
      * @see Player#DFS(Territory, Territory, ArrayList)
      */
@@ -265,6 +285,7 @@ public class Player {
      * It is used to travel the neibors territory in a DFS way, while all the territory that may passed by must from the same player.
      *
      * @param target     your attacking target.
+     * @param source  the attacker's territory
      * @param diceNumAtt the dice number of the attacker.
      * @param diceNumDef the dice number of the defender.
      * @return int   0: successful
@@ -458,15 +479,15 @@ public class Player {
     public List<Continent> getControlContinent(){
         List<Continent> result = new ArrayList<>();
         for(Continent c: GameManager.getInstance().getMap().getContinents().values()){
-            boolean blongFlag=true;
+            boolean blongFlag = true;
             for(Territory t: c.getTerritories().values()){
                 if (t.getBelongs()!=this){
                     blongFlag = false;
                     break;
                 }
-                if (blongFlag){
-                    result.add(c);
-                }
+            }
+            if (blongFlag){
+                result.add(c);
             }
         }
         return result;
@@ -495,27 +516,27 @@ public class Player {
             switch (GameManager.cardSet) {
 
                 case 1:
-                    player.setArmies(4);
+                    player.setArmies(player.getArmies()+4);
                     break;
                 case 2:
-                    player.setArmies(6);
+                    player.setArmies(player.getArmies()+6);
                     break;
                 case 3:
-                    player.setArmies(8);
+                    player.setArmies(player.getArmies()+8);
                     break;
                 case 4:
-                    player.setArmies(10);
+                    player.setArmies(player.getArmies()+10);
                     break;
                 case 5:
-                    player.setArmies(12);
+                    player.setArmies(player.getArmies()+12);
                     break;
                 case 6:
-                    player.setArmies(15);
+                    player.setArmies(player.getArmies()+15);
                     break;
             }
 
             if(GameManager.cardSet>=7){
-                player.setArmies(((GameManager.cardSet-6)*5)+15);
+                player.setArmies(player.getArmies()+((GameManager.cardSet-6)*5)+15);
             }
 
             return true;

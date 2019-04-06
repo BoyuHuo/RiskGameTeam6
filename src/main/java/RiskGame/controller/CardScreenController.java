@@ -17,6 +17,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
@@ -42,13 +43,20 @@ public class CardScreenController  implements Initializable {
     private final ObservableList<String> cardData= FXCollections.observableArrayList();
 
 
+    /**
+     * This implements the functionality for Card button click.
+     */
+
     @FXML
     private void cardButtonOnClicked() {
 
 
-        if( GameManager.getInstance().getActivePlayer().cardTrade(selectedCards,GameManager.getInstance().getActivePlayer())){
+        if(!GameManager.getInstance().getActivePlayer().cardTrade(selectedCards,GameManager.getInstance().getActivePlayer())){
 
             showAlertDialog("Not a valid set");
+        } else{
+            Stage stage = (Stage) cardList.getScene().getWindow();
+            stage.close();
         }
 
 
@@ -71,6 +79,11 @@ public class CardScreenController  implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Initialize method, first method called when screen is loaded.
+     * @param location URL Location
+     * @param resources Associated resources.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -81,10 +94,14 @@ public class CardScreenController  implements Initializable {
 
     StringBuilder builder;
 
+    /**
+     * This method is responsible for populating values corresponding to type of cards.
+     */
     private void populateList() {
 
         HashMap<CardType,Integer> playerCardList=GameManager.getInstance().getActivePlayer().getCards();
 
+        if(playerCardList!=null){
 
         for (Map.Entry<CardType,Integer> card: playerCardList.entrySet() ) {
 
@@ -101,18 +118,25 @@ public class CardScreenController  implements Initializable {
             }
 
         }
-
-
+        }
 
     }
 
+    /**
+     *
+     * This is method is responsible for adding card details to the observable list.
+     * @param cardName Name of the card
+     * @param count card count
+     */
     public void addStringDataToList(String cardName, int count){
         for (int i = 0; i <count ; i++) {
-            cardData.add(cardName+" "+i+1);
+            cardData.add(cardName+" "+(i+1));
         }
     }
 
-
+    /**
+     * This method is responsible for initializing the the card list.
+     */
     private void initializeList() {
 
         cardList.setItems(cardData);
@@ -128,12 +152,14 @@ public class CardScreenController  implements Initializable {
                     for (String name : selectedItems) {
 
                         builder.append(name + "\n");
-                        if(name.toLowerCase().contains("cavalry"))
-                            selectedCards.add(CardType.CAVALRY);
-                        if(name.toLowerCase().contains("artillery"))
-                            selectedCards.add(CardType.ARTILLERY);
-                        if(name.toLowerCase().contains("infantry"))
-                            selectedCards.add(CardType.INFANTRY);
+                        if(name!=null) {
+                            if (name.toLowerCase().contains("cavalry"))
+                                selectedCards.add(CardType.CAVALRY);
+                            if (name.toLowerCase().contains("artillery"))
+                                selectedCards.add(CardType.ARTILLERY);
+                            if (name.toLowerCase().contains("infantry"))
+                                selectedCards.add(CardType.INFANTRY);
+                        }
                     }
 
 
