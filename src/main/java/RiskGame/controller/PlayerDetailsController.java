@@ -46,7 +46,7 @@ public class PlayerDetailsController implements Initializable {
      * This method implements Save Button to save player details.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException input output exception
      */
     @FXML
     private void clickButtonSave(ActionEvent event) throws IOException
@@ -159,7 +159,7 @@ public class PlayerDetailsController implements Initializable {
      *<p>
      * This method loads the new game screen.
      *</p>
-     * @throws IOException
+     * @throws IOException input output exception
      */
     private void showGameScreen() throws IOException {
 
@@ -223,7 +223,7 @@ public class PlayerDetailsController implements Initializable {
      * This method implements back Button to go back to new game screen.
      *</p>
      * @param event ActionEvent
-     * @throws IOException
+     * @throws IOException input output exception
      */
     @FXML
     private void clickButtonBack(ActionEvent event) throws IOException
@@ -235,6 +235,12 @@ public class PlayerDetailsController implements Initializable {
         editPlayerStage2.show();
     }
 
+
+    /**
+     * First method called when the pages is loaded.
+     * @param location URL location
+     * @param resources Associated resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {

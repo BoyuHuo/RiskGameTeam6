@@ -1,0 +1,10 @@
+.background-color{
+    -fx-background-color: darkgrey;
+}
+.button {
+    -fx-background-color: darkgrey;
+}
+
+.button:hover {
+    -fx-background-color: #607B8B;
+}

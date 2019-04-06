@@ -23,7 +23,7 @@ public class Main extends Application {
      * This method loads the main screen of the risk game.
      *
      * @param primaryStage the first screen user is exposed to.
-     * @throws Exception
+     * @throws Exception all the exceiptions that didnt't handle within the functions
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
