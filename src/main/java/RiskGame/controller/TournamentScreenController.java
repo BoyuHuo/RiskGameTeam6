@@ -6,11 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -51,6 +57,7 @@ public class TournamentScreenController implements Initializable {
     private ObservableList numberOfMaps = FXCollections.observableArrayList();
     private ObservableList numberOfPlayers = FXCollections.observableArrayList();
     private ObservableList playerBehaviour = FXCollections.observableArrayList();
+    private Scene tournamentScene;
 
     private File mapFile1, mapFile2, mapFile3, mapFile4, mapFile5;
     private GameMap gameMap1, gameMap2, gameMap3, gameMap4, gameMap5;
@@ -359,8 +366,13 @@ public class TournamentScreenController implements Initializable {
     }
 
     @FXML
-    private void clickBtnPlay(ActionEvent event){
-        return;
+    private void clickBtnPlay(ActionEvent event) throws IOException {
+        Parent tournamentMode = FXMLLoader.load(getClass().getResource("/view/tournamentResultScreen.fxml"));
+        tournamentScene = new Scene(tournamentMode, 1000,600);
+        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        createMapSceneStage.setScene(tournamentScene);
+        createMapSceneStage.show();
 
     }
 
