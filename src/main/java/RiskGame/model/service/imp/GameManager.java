@@ -38,7 +38,7 @@ public class GameManager extends Observable implements IGameManager {
         this.gameOver = gameOver;
     }
 
-    enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
+    public enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
 
 
     private Map<String, Player> players;

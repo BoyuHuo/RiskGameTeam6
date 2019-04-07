@@ -57,6 +57,11 @@
                         <Font name="System Bold" size="14.0" fx:id="x1" />
                       </font>
                     </Button>
+                    <Button fx:id="btnSave" layoutX="280.0" layoutY="50.0" mnemonicParsing="false" onAction="#clickSaveButton" prefHeight="33.0" prefWidth="69.00009999999747" text="Save" textFill="WHITE">
+                      <font>
+                        <Font name="System Bold" size="14.0" fx:id="x" />
+                      </font>
+                    </Button>
                     <!--View the player's cards-->
                     <Button fx:id="myCards" font="$x1" layoutX="48.0" layoutY="143.0" mnemonicParsing="false" onAction="#newButtonOnClicked" prefHeight="33.0" prefWidth="102.00009999999747" text="My Cards" textFill="WHITE" />
                     <ChoiceBox fx:id="cbAttacker" layoutX="186.0" layoutY="26.0" minHeight="23.94140625" minWidth="49.0" prefHeight="33.0" prefWidth="69.0" translateY="-15.0">
