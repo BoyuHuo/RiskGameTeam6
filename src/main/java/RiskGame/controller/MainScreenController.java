@@ -26,6 +26,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button btnExit;
     private Scene createMapScene;
+    private Scene tournamentScene;
 
     /**
      *<p>
@@ -73,4 +74,17 @@ public class MainScreenController implements Initializable {
         createMapSceneStage.setScene(createMapScene);
         createMapSceneStage.show();
     }
+
+
+    @FXML
+    private void clickBtnTournamentMode(ActionEvent event) throws IOException {
+
+        Parent tournamentMode = FXMLLoader.load(getClass().getResource("/view/tournamentMainScreen.fxml"));
+        tournamentScene = new Scene(tournamentMode, 1000,600);
+        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        createMapSceneStage.setScene(tournamentScene);
+        createMapSceneStage.show();
+    }
+
 }
