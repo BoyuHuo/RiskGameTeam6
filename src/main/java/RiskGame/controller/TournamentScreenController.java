@@ -448,7 +448,35 @@ public class TournamentScreenController implements Initializable {
     private void clickBtnSubmitGameConfig()
     {
 
-
+        if(txtDGameSelection.getText().isEmpty() || txtGGameSelection.getText().isEmpty())
+        {
+            AlertDialog("Game Selection Configuration Empty!");
+            return;
+        }
+        if((Integer.parseInt(txtGGameSelection.getText())>5 || Integer.parseInt(txtGGameSelection.getText())<0)
+                && (Integer.parseInt(txtDGameSelection.getText())>50 || (Integer.parseInt(txtDGameSelection.getText())<10)))
+        {
+            AlertDialog("Game Selection Configuration Invalid!");
+            return;
+        }
+        if(mapValid)
+        {
+            if(playerScreenValid) {
+                if ((txtGGameSelection.getText().isEmpty()) && (txtDGameSelection.getText().isEmpty())) {
+                    AlertDialog("Game Selection Configuration not completed!");
+                } else {
+                    btnPlay.setDisable(false);
+                }
+            }
+            else
+            {
+                AlertDialog("Player Behaviour Selection not completed!");
+            }
+        }
+        else
+        {
+            AlertDialog("Map Validation not done!");
+        }
     }
 
 }
