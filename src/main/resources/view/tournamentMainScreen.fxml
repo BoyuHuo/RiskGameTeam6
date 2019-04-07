@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.TournamentMapSelection">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="RiskGame.controller.TournamentScreenController">
    <children>
       <TabPane fx:id="tpTournament" layoutX="132.0" layoutY="134.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -34,12 +34,17 @@
                               <Button fx:id="btnloadMap3" layoutX="96.0" layoutY="169.0" mnemonicParsing="false" onAction="#clickBtnLoadMap3" text="Load Map 3" />
                               <Button fx:id="btnloadMap4" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" onAction="#clickBtnLoadMap4" text="Load Map 4" />
                               <Button fx:id="btnloadMap5" layoutX="96.0" layoutY="305.0" mnemonicParsing="false" onAction="#clickBtnLoadMap5" text="Load Map 5" />
-                              <Button fx:id="btnNextMapSelection" layoutX="872.0" layoutY="380.0" mnemonicParsing="false" onAction="#clickBtnNext" prefHeight="37.0" prefWidth="83.0" text="Next" />
                               <TextField fx:id="txtLoadMap1" layoutX="205.0" layoutY="38.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap2" layoutX="205.0" layoutY="105.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap3" layoutX="205.0" layoutY="169.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap4" layoutX="205.0" layoutY="235.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap5" layoutX="205.0" layoutY="305.0" prefHeight="25.0" prefWidth="450.0" />
+                              <Button fx:id="btnValidateMap" layoutX="385.0" layoutY="367.0" mnemonicParsing="false" onAction="#clickBtnValidMap" prefHeight="42.0" prefWidth="112.0" text="Validate Maps" />
+                              <Label fx:id="lblValidLoadMap1" layoutX="712.0" layoutY="42.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap2" layoutX="712.0" layoutY="109.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap3" layoutX="712.0" layoutY="173.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap4" layoutX="712.0" layoutY="239.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap5" layoutX="712.0" layoutY="309.0" text="Valid/Invalid" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="btnSubmitMapSelection" layoutX="461.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnClickSubmit" text="Submit" />
@@ -57,7 +62,7 @@
                            </font>
                         </Label>
                         <ChoiceBox fx:id="cbPlayerSelection" layoutX="254.0" layoutY="57.0" prefWidth="150.0" />
-                        <Button fx:id="btnSubmitPlayerSelection" layoutX="474.0" layoutY="57.0" mnemonicParsing="false" text="Submit" />
+                        <Button fx:id="btnSubmitPlayerSelection" layoutX="474.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnSubmitPlayerSelection" text="Submit" />
                         <AnchorPane fx:id="anchorChildPlayerSelection" layoutY="141.0" prefHeight="428.0" prefWidth="1000.0">
                            <children>
                               <Label layoutX="108.0" layoutY="96.0" text="Computer 1">
@@ -70,12 +75,12 @@
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="539.0" layoutY="96.0" text="Computer 3">
+                              <Label fx:id="lblComp3" layoutX="539.0" layoutY="96.0" text="Computer 3">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="539.0" layoutY="191.0" text="Computer 4">
+                              <Label fx:id="lblComp4" layoutX="539.0" layoutY="191.0" text="Computer 4">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -84,7 +89,6 @@
                               <ChoiceBox fx:id="cbComp2PlayerSelection" layoutX="226.0" layoutY="189.0" prefWidth="150.0" />
                               <ChoiceBox fx:id="cbComp3PlayerSelection" layoutX="657.0" layoutY="94.0" prefWidth="150.0" />
                               <ChoiceBox fx:id="cbComp4PlayerSelection" layoutX="657.0" layoutY="189.0" prefWidth="150.0" />
-                              <Button fx:id="btnNextPlayerSelection" layoutX="861.0" layoutY="364.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="82.0" text="Next" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -107,7 +111,7 @@
                         </Label>
                         <TextField fx:id="txtGGameSelection" layoutX="601.0" layoutY="208.0" promptText="Range 1 - 5" />
                         <TextField fx:id="txtDGameSelection" layoutX="601.0" layoutY="277.0" promptText="Range 10 - 50" />
-                        <Button fx:id="btnPlay" layoutX="434.0" layoutY="369.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="131.0" text="Play">
+                        <Button fx:id="btnPlay" layoutX="434.0" layoutY="430.0" mnemonicParsing="false" onAction="#clickBtnPlay" prefHeight="55.0" prefWidth="131.0" text="Play">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
@@ -117,6 +121,7 @@
                               <Font size="17.0" />
                            </font>
                         </Label>
+                        <Button layoutX="415.0" layoutY="352.0" mnemonicParsing="false" text="Submit Game Configuration" />
                      </children>
                   </AnchorPane>
               </content>

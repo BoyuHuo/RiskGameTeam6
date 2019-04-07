@@ -1,74 +1,92 @@
 package RiskGame.controller;
 
+import RiskGame.model.entity.GameMap;
+import RiskGame.model.service.imp.MapManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TournamentMapSelection implements Initializable {
+public class TournamentScreenController implements Initializable {
 
     @FXML
-    ChoiceBox<Integer> cbMapSelection;
+    ChoiceBox<Integer> cbMapSelection, cbPlayerSelection;
 
     @FXML
-    Button btnSubmitMapSelection;
+    ChoiceBox<String> cbComp1PlayerSelection, cbComp2PlayerSelection, cbComp3PlayerSelection, cbComp4PlayerSelection;
 
     @FXML
-    Button btnloadMap1,btnloadMap2,btnloadMap3,btnloadMap4,btnloadMap5;
+    Button btnSubmitMapSelection, btnSubmitPlayerSelection;
 
     @FXML
-    TextField txtLoadMap1,txtLoadMap2,txtLoadMap3,txtLoadMap4,txtLoadMap5;
+    Button btnloadMap1, btnloadMap2, btnloadMap3, btnloadMap4, btnloadMap5;
 
     @FXML
-    Button btnNextMapSelection;
+    TextField txtLoadMap1, txtLoadMap2, txtLoadMap3, txtLoadMap4, txtLoadMap5;
 
     @FXML
-    AnchorPane anchorMapSelection,anchorChildMapSelection;
+    Button btnNextMapSelection, btnNextPlayerSelection;
 
     @FXML
-    Tab tbGameSelection,tbPlayerSelection;
+    AnchorPane anchorMapSelection, anchorChildMapSelection, anchorPlayerSelection, anchorChildPlayerSelection;
+
+    @FXML
+    Tab tbGameSelection, tbPlayerSelection;
 
     @FXML
     TabPane tpTournament;
 
+    @FXML
+    Label lblComp3, lblComp4, lblValidLoadMap1, lblValidLoadMap2, lblValidLoadMap3, lblValidLoadMap4, lblValidLoadMap5;
+
     private ObservableList numberOfMaps = FXCollections.observableArrayList();
-    private File mapFile1,mapFile2,mapFile3,mapFile4,mapFile5;
-    private Scene playerSelectionScene;
-    private boolean goingBack;
+    private ObservableList numberOfPlayers = FXCollections.observableArrayList();
+    private ObservableList playerBehaviour = FXCollections.observableArrayList();
+
+    private File mapFile1, mapFile2, mapFile3, mapFile4, mapFile5;
+    private GameMap gameMap1, gameMap2, gameMap3, gameMap4, gameMap5;
+    int mapNumber;
+    // private int tournamentScreenNumber=1;
 
 
-        /**
+    /**
      * First method called when the pages is loaded.
-     * @param location URL location
+     *
+     * @param location  URL location
      * @param resources Associated resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        gameMap1 = new GameMap();
+        gameMap2 = new GameMap();
+        gameMap3 = new GameMap();
+        gameMap4 = new GameMap();
+        gameMap5 = new GameMap();
+        tbPlayerSelection.setDisable(false);
+        anchorPlayerSelection.setDisable(false);
+        anchorChildPlayerSelection.setVisible(false);
+        loadCbPlayerBehaviour();
         anchorChildMapSelection.setVisible(false);
         loadCbNumberOfMaps();
-        disableChildPanelItems();
-        tbPlayerSelection.setDisable(false);
-        tbGameSelection.setDisable(false);
-        tbPlayerSelection.setDisable(true);
-        tbGameSelection.setDisable(true);
+        disableMapChildPanelItems();
         cbMapSelection.getSelectionModel().selectFirst();
-        goingBack=false;
+        cbPlayerSelection.getSelectionModel().selectFirst();
+        initializePlayerBehavior();
 
 
     }
 
-    private void disableChildPanelItems()
-    {
+    private void disableMapChildPanelItems() {
         btnloadMap1.setVisible(false);
         txtLoadMap1.setVisible(false);
         btnloadMap2.setVisible(false);
@@ -83,23 +101,20 @@ public class TournamentMapSelection implements Initializable {
         txtLoadMap1.setDisable(true);
     }
 
-    private void loadCbNumberOfMaps()
-    {
+    private void loadCbNumberOfMaps() {
         numberOfMaps.removeAll(numberOfMaps);
-        numberOfMaps.addAll(1,2,3,4,5);
+        numberOfMaps.addAll(1, 2, 3, 4, 5);
         cbMapSelection.getItems().addAll(numberOfMaps);
     }
 
 
     @FXML
-    private void btnClickSubmit(ActionEvent event) throws IOException
-    {
+    private void btnClickSubmit(ActionEvent event) throws IOException {
         anchorChildMapSelection.setVisible(true);
-        disableChildPanelItems();
-        int mapNumber=cbMapSelection.getValue();
+        disableMapChildPanelItems();
+        mapNumber = cbMapSelection.getValue();
 
-        switch (mapNumber)
-        {
+        switch (mapNumber) {
             case 1:
                 btnloadMap1.setVisible(true);
                 txtLoadMap1.setVisible(true);
@@ -186,7 +201,7 @@ public class TournamentMapSelection implements Initializable {
     }
 
     @FXML
-    private void clickBtnLoadMap1(ActionEvent event) throws IOException{
+    private void clickBtnLoadMap1(ActionEvent event) throws IOException {
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -194,10 +209,15 @@ public class TournamentMapSelection implements Initializable {
 
         txtLoadMap1.setText(mapFile1.toString());
 
+        // else
+        // {
+        //  txtLoadMap1.setText("Error");
+        //  }
+
     }
 
     @FXML
-    private void clickBtnLoadMap2(ActionEvent event) throws IOException{
+    private void clickBtnLoadMap2(ActionEvent event) throws IOException {
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -208,7 +228,7 @@ public class TournamentMapSelection implements Initializable {
     }
 
     @FXML
-    private void clickBtnLoadMap3(ActionEvent event) throws IOException{
+    private void clickBtnLoadMap3(ActionEvent event) throws IOException {
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -219,7 +239,7 @@ public class TournamentMapSelection implements Initializable {
     }
 
     @FXML
-    private void clickBtnLoadMap4(ActionEvent event) throws IOException{
+    private void clickBtnLoadMap4(ActionEvent event) throws IOException {
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -231,7 +251,7 @@ public class TournamentMapSelection implements Initializable {
 
 
     @FXML
-    private void clickBtnLoadMap5(ActionEvent event) throws IOException{
+    private void clickBtnLoadMap5(ActionEvent event) throws IOException {
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -252,13 +272,99 @@ public class TournamentMapSelection implements Initializable {
     }
 
     @FXML
-    private void clickBtnNext(ActionEvent event) throws IOException{
+    private void clickBtnNext(ActionEvent event) throws IOException {
 
-      // goingBack=true;
-       tpTournament.getSelectionModel().select(tbPlayerSelection);
+        tpTournament.getSelectionModel().select(tbPlayerSelection);
     }
 
 
+    //Tab Player Selection Section
 
+    private void loadCbPlayerBehaviour() {
+        numberOfPlayers.removeAll(numberOfPlayers);
+        numberOfPlayers.addAll(2, 3, 4);
+        cbPlayerSelection.getItems().addAll(numberOfPlayers);
+    }
+
+    private void initializePlayerBehavior() {
+        playerBehaviour.removeAll(playerBehaviour);
+        playerBehaviour.addAll("Aggressive", "Benevolent", "Random", "Cheater");
+        cbComp1PlayerSelection.getItems().addAll(playerBehaviour);
+        cbComp2PlayerSelection.getItems().addAll(playerBehaviour);
+        cbComp3PlayerSelection.getItems().addAll(playerBehaviour);
+        cbComp4PlayerSelection.getItems().addAll(playerBehaviour);
+    }
+
+    @FXML
+    private void btnSubmitPlayerSelection(ActionEvent event) throws IOException {
+
+
+        int playerSelected = cbPlayerSelection.getValue();
+
+        switch (playerSelected) {
+            case 2:
+                anchorChildPlayerSelection.setVisible(true);
+                cbComp1PlayerSelection.setVisible(true);
+                cbComp2PlayerSelection.setVisible(true);
+
+                cbComp3PlayerSelection.setVisible(false);
+                cbComp4PlayerSelection.setVisible(false);
+                lblComp3.setVisible(false);
+                lblComp4.setVisible(false);
+
+                break;
+
+            case 3:
+                anchorChildPlayerSelection.setVisible(true);
+                cbComp1PlayerSelection.setVisible(true);
+                cbComp2PlayerSelection.setVisible(true);
+                cbComp3PlayerSelection.setVisible(true);
+
+                cbComp4PlayerSelection.setVisible(false);
+                lblComp3.setVisible(true);
+                lblComp4.setVisible(false);
+                break;
+
+            case 4:
+                anchorChildPlayerSelection.setVisible(true);
+                cbComp1PlayerSelection.setVisible(true);
+                cbComp2PlayerSelection.setVisible(true);
+                cbComp3PlayerSelection.setVisible(true);
+                cbComp4PlayerSelection.setVisible(true);
+                lblComp3.setVisible(true);
+                lblComp4.setVisible(true);
+        }
+    }
+
+    @FXML
+    private void clickBtnPlayerNext(ActionEvent event) {
+
+        tbGameSelection.setDisable(false);
+        tpTournament.getSelectionModel().select(tbGameSelection);
+    }
+
+    @FXML
+    private void clickBtnValidMap(ActionEvent event) {
+
+        if (mapFile1 != null) {
+            MapManager mapManager = new MapManager();
+            gameMap1 = mapManager.loadMap(mapFile1.toString());
+            if (gameMap1 == null) {
+                lblValidLoadMap1.setText("INVALID");
+                lblValidLoadMap1.setTextFill(Color.RED);
+                return;
+            }
+
+        }
+    }
+
+    @FXML
+    private void clickBtnPlay(ActionEvent event){
+        return;
+
+    }
 
 }
+
+
+
