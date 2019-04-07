@@ -1,4 +1,6 @@
 package RiskGame.controller;
+import RiskGame.model.entity.Game;
+import RiskGame.model.service.imp.GameManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -87,4 +94,52 @@ public class MainScreenController implements Initializable {
         createMapSceneStage.show();
     }
 
+    /**
+     * This method implements the functionality to navigate the scene to load game screen
+     * @param event Action Event
+     * @throws IOException input output exception
+     */
+
+    @FXML
+    private void clickLoadMapButton(ActionEvent event) throws IOException {
+
+        FileChooser gameFileChooser = new FileChooser();
+        gameFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".game", "*.game"));
+        File gameFile = gameFileChooser.showOpenDialog(null);
+        Game gameFileObject=null;
+        if (gameFile != null) {
+
+            gameFileObject=(Game) readObjectFromFile(gameFile.getPath());
+        }
+        GameManager.getInstance().setMap(gameFileObject.getMap());
+        GameManager.getInstance().setPlayers(gameFileObject.getPlayers());
+        GameManager.getInstance().setActivePlayer(gameFileObject.getActivePlayer());
+        GameManager.getInstance().setMessage(gameFileObject.getMessage());
+        GameManager.getInstance().setGamePhase(gameFileObject.getGamePhase());
+
+        Parent gameScreen = FXMLLoader.load(getClass().getResource("/view/gameScreen.fxml"));
+        Scene gameScene = new Scene(gameScreen, 1000,900);
+        Stage gameStage = (Stage) btnExit.getScene().getWindow();
+        gameStage.setScene(gameScene);
+        gameStage.show();
+    }
+
+    public Object readObjectFromFile(String filepath) {
+
+        try {
+
+            FileInputStream fileIn = new FileInputStream(filepath);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+            Object obj = objectIn.readObject();
+
+            System.out.println("The Object has been read from the file");
+            objectIn.close();
+            return obj;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
