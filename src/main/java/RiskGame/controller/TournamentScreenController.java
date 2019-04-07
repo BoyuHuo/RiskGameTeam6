@@ -31,10 +31,10 @@ public class TournamentScreenController implements Initializable {
     Button btnloadMap1, btnloadMap2, btnloadMap3, btnloadMap4, btnloadMap5;
 
     @FXML
-    TextField txtLoadMap1, txtLoadMap2, txtLoadMap3, txtLoadMap4, txtLoadMap5;
+    TextField txtLoadMap1, txtLoadMap2, txtLoadMap3, txtLoadMap4, txtLoadMap5,txtGGameSelection,txtDGameSelection;
 
     @FXML
-    Button btnNextMapSelection, btnNextPlayerSelection;
+    Button btnPlay,btnValidateMap;
 
     @FXML
     AnchorPane anchorMapSelection, anchorChildMapSelection, anchorPlayerSelection, anchorChildPlayerSelection;
@@ -55,7 +55,7 @@ public class TournamentScreenController implements Initializable {
     private File mapFile1, mapFile2, mapFile3, mapFile4, mapFile5;
     private GameMap gameMap1, gameMap2, gameMap3, gameMap4, gameMap5;
     int mapNumber;
-    // private int tournamentScreenNumber=1;
+    boolean mapValid=false, playerScreenValid=false;
 
 
     /**
@@ -82,6 +82,9 @@ public class TournamentScreenController implements Initializable {
         cbMapSelection.getSelectionModel().selectFirst();
         cbPlayerSelection.getSelectionModel().selectFirst();
         initializePlayerBehavior();
+        btnPlay.setDisable(true);
+        btnValidateMap.setDisable(true);
+
 
 
     }
@@ -128,6 +131,10 @@ public class TournamentScreenController implements Initializable {
                 txtLoadMap4.setVisible(false);
                 btnloadMap5.setVisible(false);
                 txtLoadMap5.setVisible(false);
+                lblValidLoadMap2.setVisible(false);
+                lblValidLoadMap3.setVisible(false);
+                lblValidLoadMap4.setVisible(false);
+                lblValidLoadMap5.setVisible(false);
                 break;
 
 
@@ -138,6 +145,7 @@ public class TournamentScreenController implements Initializable {
                 btnloadMap2.setVisible(true);
                 txtLoadMap2.setVisible(true);
                 txtLoadMap2.setDisable(true);
+                lblValidLoadMap2.setVisible(true);
 
                 btnloadMap3.setVisible(false);
                 txtLoadMap3.setVisible(false);
@@ -145,6 +153,9 @@ public class TournamentScreenController implements Initializable {
                 txtLoadMap4.setVisible(false);
                 btnloadMap5.setVisible(false);
                 txtLoadMap5.setVisible(false);
+                lblValidLoadMap3.setVisible(false);
+                lblValidLoadMap4.setVisible(false);
+                lblValidLoadMap5.setVisible(false);
                 break;
             case 3:
                 btnloadMap1.setVisible(true);
@@ -156,11 +167,15 @@ public class TournamentScreenController implements Initializable {
                 btnloadMap3.setVisible(true);
                 txtLoadMap3.setVisible(true);
                 txtLoadMap3.setDisable(true);
+                lblValidLoadMap2.setVisible(true);
+                lblValidLoadMap3.setVisible(true);
 
                 btnloadMap4.setVisible(false);
                 txtLoadMap4.setVisible(false);
                 btnloadMap5.setVisible(false);
                 txtLoadMap5.setVisible(false);
+                lblValidLoadMap4.setVisible(false);
+                lblValidLoadMap5.setVisible(false);
                 break;
             case 4:
                 btnloadMap1.setVisible(true);
@@ -175,9 +190,11 @@ public class TournamentScreenController implements Initializable {
                 btnloadMap4.setVisible(true);
                 txtLoadMap4.setVisible(true);
                 txtLoadMap4.setDisable(true);
+                lblValidLoadMap4.setVisible(true);
 
                 btnloadMap5.setVisible(false);
                 txtLoadMap5.setVisible(false);
+                lblValidLoadMap5.setVisible(false);
                 break;
             case 5:
                 btnloadMap1.setVisible(true);
@@ -195,6 +212,10 @@ public class TournamentScreenController implements Initializable {
                 btnloadMap5.setVisible(true);
                 txtLoadMap5.setVisible(true);
                 txtLoadMap5.setDisable(true);
+                lblValidLoadMap2.setVisible(true);
+                lblValidLoadMap3.setVisible(true);
+                lblValidLoadMap4.setVisible(true);
+                lblValidLoadMap5.setVisible(true);
                 break;
         }
 
@@ -206,13 +227,8 @@ public class TournamentScreenController implements Initializable {
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
         mapFile1 = mapFileChooser.showOpenDialog(null);
-
         txtLoadMap1.setText(mapFile1.toString());
-
-        // else
-        // {
-        //  txtLoadMap1.setText("Error");
-        //  }
+        btnValidateMap.setDisable(false);
 
     }
 
@@ -224,7 +240,7 @@ public class TournamentScreenController implements Initializable {
         mapFile2 = mapFileChooser.showOpenDialog(null);
 
         txtLoadMap2.setText(mapFile2.toString());
-
+        btnValidateMap.setDisable(false);
     }
 
     @FXML
@@ -235,7 +251,7 @@ public class TournamentScreenController implements Initializable {
         mapFile3 = mapFileChooser.showOpenDialog(null);
 
         txtLoadMap3.setText(mapFile3.toString());
-
+        btnValidateMap.setDisable(false);
     }
 
     @FXML
@@ -246,7 +262,7 @@ public class TournamentScreenController implements Initializable {
         mapFile4 = mapFileChooser.showOpenDialog(null);
 
         txtLoadMap4.setText(mapFile4.toString());
-
+        btnValidateMap.setDisable(false);
     }
 
 
@@ -258,7 +274,7 @@ public class TournamentScreenController implements Initializable {
         mapFile5 = mapFileChooser.showOpenDialog(null);
 
         txtLoadMap5.setText(mapFile5.toString());
-
+        btnValidateMap.setDisable(false);
     }
 
 
@@ -293,10 +309,15 @@ public class TournamentScreenController implements Initializable {
         cbComp2PlayerSelection.getItems().addAll(playerBehaviour);
         cbComp3PlayerSelection.getItems().addAll(playerBehaviour);
         cbComp4PlayerSelection.getItems().addAll(playerBehaviour);
+
+        cbComp1PlayerSelection.getSelectionModel().selectFirst();
+        cbComp2PlayerSelection.getSelectionModel().selectFirst();
+        cbComp3PlayerSelection.getSelectionModel().selectFirst();
+        cbComp4PlayerSelection.getSelectionModel().selectFirst();
     }
 
     @FXML
-    private void btnSubmitPlayerSelection(ActionEvent event) throws IOException {
+    private void clickBtnSubmitPlayerSelection(ActionEvent event) throws IOException {
 
 
         int playerSelected = cbPlayerSelection.getValue();
@@ -334,6 +355,8 @@ public class TournamentScreenController implements Initializable {
                 lblComp3.setVisible(true);
                 lblComp4.setVisible(true);
         }
+
+        playerScreenValid=true;
     }
 
     @FXML
@@ -346,21 +369,85 @@ public class TournamentScreenController implements Initializable {
     @FXML
     private void clickBtnValidMap(ActionEvent event) {
 
+        MapManager mapManager = new MapManager();
         if (mapFile1 != null) {
-            MapManager mapManager = new MapManager();
+
             gameMap1 = mapManager.loadMap(mapFile1.toString());
             if (gameMap1 == null) {
                 lblValidLoadMap1.setText("INVALID");
                 lblValidLoadMap1.setTextFill(Color.RED);
-                return;
-            }
 
+            } else {
+                lblValidLoadMap1.setText("VALID");
+                lblValidLoadMap1.setTextFill(Color.GREEN);
+            }
         }
+
+        if (mapFile2 != null) {
+            gameMap2 = mapManager.loadMap(mapFile2.toString());
+            if (gameMap2 == null) {
+                lblValidLoadMap2.setText("INVALID");
+                lblValidLoadMap2.setTextFill(Color.RED);
+
+            } else {
+                lblValidLoadMap2.setText("VALID");
+                lblValidLoadMap2.setTextFill(Color.GREEN);
+            }
+        }
+
+        if (mapFile3 != null) {
+            System.out.println("MapFile3 IN");
+            gameMap3 = mapManager.loadMap(mapFile3.toString());
+            if (gameMap3 == null) {
+                lblValidLoadMap3.setText("INVALID");
+                lblValidLoadMap3.setTextFill(Color.RED);
+
+            } else {
+                lblValidLoadMap3.setText("VALID");
+                lblValidLoadMap3.setTextFill(Color.GREEN);
+            }
+        }
+
+        if (mapFile4 != null) {
+            gameMap4 = mapManager.loadMap(mapFile4.toString());
+            if (gameMap4 == null) {
+                lblValidLoadMap4.setText("INVALID");
+                lblValidLoadMap4.setTextFill(Color.RED);
+
+            } else {
+                lblValidLoadMap4.setText("VALID");
+                lblValidLoadMap4.setTextFill(Color.GREEN);
+            }
+        }
+
+
+        if (mapFile5 != null) {
+            gameMap5 = mapManager.loadMap(mapFile5.toString());
+            if (gameMap1 == null) {
+                lblValidLoadMap5.setText("INVALID");
+                lblValidLoadMap5.setTextFill(Color.RED);
+
+            } else {
+                lblValidLoadMap5.setText("VALID");
+                lblValidLoadMap5.setTextFill(Color.GREEN);
+            }
+        }
+
+        mapValid=true;
+
     }
 
     @FXML
     private void clickBtnPlay(ActionEvent event){
-        return;
+
+
+
+    }
+
+    @FXML
+    private void clickBtnSubmitGameConfig()
+    {
+
 
     }
 

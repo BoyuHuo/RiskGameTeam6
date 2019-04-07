@@ -40,11 +40,11 @@
                               <TextField fx:id="txtLoadMap4" layoutX="205.0" layoutY="235.0" prefHeight="25.0" prefWidth="450.0" />
                               <TextField fx:id="txtLoadMap5" layoutX="205.0" layoutY="305.0" prefHeight="25.0" prefWidth="450.0" />
                               <Button fx:id="btnValidateMap" layoutX="385.0" layoutY="367.0" mnemonicParsing="false" onAction="#clickBtnValidMap" prefHeight="42.0" prefWidth="112.0" text="Validate Maps" />
-                              <Label fx:id="lblValidLoadMap1" layoutX="712.0" layoutY="42.0" text="Valid/Invalid" />
-                              <Label fx:id="lblValidLoadMap2" layoutX="712.0" layoutY="109.0" text="Valid/Invalid" />
-                              <Label fx:id="lblValidLoadMap3" layoutX="712.0" layoutY="173.0" text="Valid/Invalid" />
-                              <Label fx:id="lblValidLoadMap4" layoutX="712.0" layoutY="239.0" text="Valid/Invalid" />
-                              <Label fx:id="lblValidLoadMap5" layoutX="712.0" layoutY="309.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap1" layoutX="664.0" layoutY="40.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap2" layoutX="664.0" layoutY="107.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap3" layoutX="664.0" layoutY="171.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap4" layoutX="664.0" layoutY="237.0" text="Valid/Invalid" />
+                              <Label fx:id="lblValidLoadMap5" layoutX="664.0" layoutY="307.0" text="Valid/Invalid" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="btnSubmitMapSelection" layoutX="461.0" layoutY="83.0" mnemonicParsing="false" onAction="#btnClickSubmit" text="Submit" />
@@ -62,7 +62,7 @@
                            </font>
                         </Label>
                         <ChoiceBox fx:id="cbPlayerSelection" layoutX="254.0" layoutY="57.0" prefWidth="150.0" />
-                        <Button fx:id="btnSubmitPlayerSelection" layoutX="474.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnSubmitPlayerSelection" text="Submit" />
+                        <Button fx:id="btnSubmitPlayerSelection" layoutX="474.0" layoutY="57.0" mnemonicParsing="false" onAction="#clickBtnSubmitPlayerSelection" text="Submit" />
                         <AnchorPane fx:id="anchorChildPlayerSelection" layoutY="141.0" prefHeight="428.0" prefWidth="1000.0">
                            <children>
                               <Label layoutX="108.0" layoutY="96.0" text="Computer 1">
@@ -121,7 +121,7 @@
                               <Font size="17.0" />
                            </font>
                         </Label>
-                        <Button layoutX="415.0" layoutY="352.0" mnemonicParsing="false" text="Submit Game Configuration" />
+                        <Button fx:id="btnSubmitGameConfig" layoutX="415.0" layoutY="352.0" mnemonicParsing="false" onAction="#clickBtnSubmitGameConfig" prefHeight="36.0" prefWidth="170.0" text="Submit Game Configuration" />
                      </children>
                   </AnchorPane>
               </content>
