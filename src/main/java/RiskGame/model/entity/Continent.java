@@ -1,5 +1,6 @@
 package RiskGame.model.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Sudhanva Muralidhar
  * @version v1.0.0
  */
-public class Continent {
+public class Continent implements Serializable {
     private String name;
     private int ctrNum;
     private HashMap<String,Territory> territories = new HashMap<String,Territory>();

@@ -1,6 +1,7 @@
 package RiskGame.model.entity;
 import RiskGame.model.service.imp.GameManager;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -10,7 +11,7 @@ import java.util.*;
  * @author Baiyu Huo
  * @version v1.0.0
  */
-public class Territory {
+public class Territory implements Serializable {
     private String name;
     private int x;
     private int y;

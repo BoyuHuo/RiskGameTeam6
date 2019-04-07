@@ -3,6 +3,7 @@ package RiskGame.model.entity;
 import RiskGame.model.service.imp.GameManager;
 import javafx.scene.control.Alert;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -13,7 +14,7 @@ import java.util.*;
  * @author Runsen Tian
  * @version v1.0.0
  */
-public class Player {
+public class Player implements Serializable {
     private String name;
     private String color;
     private HashMap<CardType, Integer> cards=new HashMap<>();

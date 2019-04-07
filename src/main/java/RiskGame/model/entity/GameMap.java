@@ -1,5 +1,6 @@
 package RiskGame.model.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @version v1.0.0
  * @see RiskGame.model.service.imp.MapManager
  */
-public class  GameMap {
+public class  GameMap implements Serializable {
     private String image=" ";
     private String wrap=" ";
     private String scroll=" ";

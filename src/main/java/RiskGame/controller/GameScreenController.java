@@ -2,6 +2,7 @@ package RiskGame.controller;
 
 import RiskGame.model.entity.*;
 import RiskGame.model.service.imp.GameManager;
+import RiskGame.model.service.imp.MapManager;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,11 +27,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.*;
 
@@ -944,6 +949,50 @@ public class GameScreenController implements Initializable, Observer {
         Update();
     }
 
+    /**
+     * This method contains the implementation for saving the game to the file on mouse click.
+     * @param event mouse click event on OK button click.
+     * */
+
+    @FXML
+    public void clickSaveButton(ActionEvent event) {
+
+        MapManager mapManager=new MapManager();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save game");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".game", "*.game"));
+        File file = fileChooser.showSaveDialog((Stage)btnOK.getScene().getWindow());
+
+        Game game=new Game();
+        game.setActivePlayer(GameManager.getInstance().getActivePlayer());
+        game.setGamePhase(GameManager.getInstance().getGamePhase());
+        game.setMap(GameManager.getInstance().getMap());
+        game.setMessage(GameManager.getInstance().getMessage());
+        game.setPlayers(GameManager.getInstance().getPlayers());
+        //game.setPlayerIterator(GameManager.getInstance().getPlayerIterator());
+
+        writeGameObjectToFile(game,file.getPath());
+    }
+
+    /**
+     * This method contains the implementation for writing the object to the file.
+     * @param game object instance to be saved to file
+     * @param filePath path of the file to be saved
+     * */
+    public void writeGameObjectToFile(Game game,String filePath) {
+
+        try {
+
+            FileOutputStream fileOut = new FileOutputStream(filePath);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(game);
+            objectOut.close();
+            System.out.println("The Object  was succesfully written to a file");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * This method provides the implementation for the All in button. This button is used when
