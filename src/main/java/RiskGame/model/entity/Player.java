@@ -539,6 +539,7 @@ public class Player {
                 player.setArmies(player.getArmies()+((GameManager.cardSet-6)*5)+15);
             }
 
+            GameManager.getInstance().setMessage("Trade Successful!");
             return true;
         }
 
