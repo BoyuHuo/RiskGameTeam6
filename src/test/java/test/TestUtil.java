@@ -35,25 +35,86 @@ public class TestUtil {
 
     @Test
     public void testGetActivePlayerStrongestCountry() {
-        GameManager.getInstance().nextRound();
+        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
+
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(19);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(28);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(25);
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(player3);
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(20);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(player3);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(16);
+
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
 
-        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(player2);
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(20);
-        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName()+":"+RiskUtil.getActivePlayerStrongestCountry().getArmies());
+        assertEquals("FireHorse",RiskUtil.getActivePlayerStrongestCountry().getName());
+        assertEquals(20,RiskUtil.getActivePlayerStrongestCountry().getArmies());
+
+        GameManager.getInstance().nextRound();
+
+        assertEquals("WaterDragon",RiskUtil.getActivePlayerStrongestCountry().getName());
+        assertEquals(28,RiskUtil.getActivePlayerStrongestCountry().getArmies());
     }
 
     @Test
     public void testGetActivePlayerWeakestCountry() {
+        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
+        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
 
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(88);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(8);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(28);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(66);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(60);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(6);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(55);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(player3);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setArmies(22);
+        GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(player3);
+        GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(2);
+
+        GameManager.getInstance().nextRound();
+        assertEquals("FireBird",RiskUtil.getActivePlayerWeakestCountry().getName());
+        assertEquals(8,RiskUtil.getActivePlayerWeakestCountry().getArmies());
+        GameManager.getInstance().nextRound();
+        assertEquals("IceHorse",RiskUtil.getActivePlayerWeakestCountry().getName());
+        assertEquals(2,RiskUtil.getActivePlayerWeakestCountry().getArmies());
+        GameManager.getInstance().nextRound();
+        assertEquals("WindDragon",RiskUtil.getActivePlayerWeakestCountry().getName());
+        assertEquals(6,RiskUtil.getActivePlayerWeakestCountry().getArmies());
     }
 
     @Test
     public void testGetAllTerrFromPlayer() {
-        Map<String, Territory> terrs = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getPlayers().get("Player1"));
-        assertEquals(3,terrs.size());
+        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
+        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
+
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(player1);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(player2);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(player3);
+        GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(player3);
+
+        Map<String, Territory> terrs = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getPlayers().get("Player2"));
+        assertEquals(4,terrs.size());
 
     }
 
