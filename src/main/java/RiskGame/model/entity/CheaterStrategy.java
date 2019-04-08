@@ -2,7 +2,6 @@ package RiskGame.model.entity;
 
 import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
-import sun.security.krb5.internal.crypto.RsaMd5CksumType;
 
 import java.util.ArrayList;
 import java.util.List;
