@@ -326,7 +326,7 @@ public class GameScreenController implements Initializable, Observer {
                             if(GameManager.getInstance().getActivePlayer().isHuman()) {
                                 fortifyArmy(event.getX(), event.getY());
                             } else{
-                                GameManager.getInstance().getActivePlayer().excuteFortify(1000);
+                                GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(1000);
                             }
                             break;
                     }
