@@ -32,9 +32,6 @@ public class TestBenevolentStrategy {
 
     @Test
     public void testReinforcement(){
-        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
-        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
-        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
@@ -48,7 +45,7 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(0);
-        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(0);
@@ -59,26 +56,32 @@ public class TestBenevolentStrategy {
 
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
         t1.setArmies(30);
-        p2.setArmies(20);
+        p2.setArmies(21);
 
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
 
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setArmies(0);
+        System.out.println(p2.getArmies());
         p2.excuteReinforceStrategy(0);
+
+        Thread thread = p2.excuteReinforceStrategy(0);
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireDragon").getArmies());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getArmies());
+        System.out.println( GameManager.getInstance().getMap().getTerritories().get("WindDragon").getArmies());
         System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
-        assertEquals(8, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
+        assertEquals(12, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
     }
 
     @Test
-    public  void testAttack(){
-    }
-    @Test
     public void testFortification(){
-        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
-        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
-        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
@@ -109,7 +112,16 @@ public class TestBenevolentStrategy {
 
         p2.excuteFortifyStrategy(0);
 
-        System.out.println(   GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
+        Thread thread1 = p2.excuteReinforceStrategy(0);
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals((20+100+80+50+50)/5+1,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
+        System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
 
 
 

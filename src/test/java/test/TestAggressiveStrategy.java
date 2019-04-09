@@ -168,11 +168,17 @@ public class TestAggressiveStrategy {
         t8.setBelongs(p3);
         t9.setBelongs(p3);
 
-        GameManager.getInstance().nextRound();
-        GameManager.getInstance().nextRound();
-        GameManager.getInstance().nextRound();
-        GameManager.getInstance().nextRound();
+        System.out.println(t1.getArmies());
+        System.out.println(t2.getArmies());
+        System.out.println(t3.getArmies());
+        System.out.println(t4.getArmies());
 
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
+        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getArmies());
         p2.excuteAttackStrategy(0);
 
         Thread thread5 = p2.excuteReinforceStrategy(0);
@@ -183,9 +189,12 @@ public class TestAggressiveStrategy {
         }
 
         assertEquals(2+2, RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        System.out.println(t1.getArmies());
+        System.out.println(t2.getArmies());
+        System.out.println(t3.getArmies());
+        System.out.println(t4.getArmies());
+        p2.captureTerritory(t1,t3,22);
 
-        p2.captureTerritory(t1,t3,18);
-
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
@@ -193,6 +202,8 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
 
+        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
+        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getArmies());
         p2.excuteAttackStrategy(0);
 
         Thread thread3 = p2.excuteReinforceStrategy(0);
@@ -201,6 +212,7 @@ public class TestAggressiveStrategy {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         assertEquals(4+1, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
@@ -216,8 +228,8 @@ public class TestAggressiveStrategy {
 
         t1.setBelongs(p2);
         t2.setBelongs(p2);
-        //t3.setBelongs(p2);
-        //t4.setBelongs(p2);
+        t3.setBelongs(p2);
+        t4.setBelongs(p2);
 
         t1.setArmies(20);
         t2.setArmies(5);
@@ -242,9 +254,9 @@ public class TestAggressiveStrategy {
 
         System.out.println(t1.getArmies());
         System.out.println(t2.getArmies());
-        //System.out.println(t3.getArmies());
-        //System.out.println(t4.getArmies());
-        assertEquals(25,t1.getArmies());
+        System.out.println(t3.getArmies());
+        System.out.println(t4.getArmies());
+        assertEquals(25,RiskUtil.getActivePlayerStrongestCountry().getArmies());
     }
 
 }
