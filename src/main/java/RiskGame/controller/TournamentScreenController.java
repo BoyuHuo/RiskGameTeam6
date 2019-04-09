@@ -332,21 +332,18 @@ public class TournamentScreenController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    private void clickBtnNext(ActionEvent event) throws IOException {
-
-        tpTournament.getSelectionModel().select(tbPlayerSelection);
-    }
-
-
-    //Tab Player Selection Section
-
+    /**
+     * This method is responsible for adding the behaviour of players to the choice box.
+     */
     private void loadCbPlayerBehaviour() {
         numberOfPlayers.removeAll(numberOfPlayers);
         numberOfPlayers.addAll(2, 3, 4);
         cbPlayerSelection.getItems().addAll(numberOfPlayers);
     }
 
+    /**
+     * Responsible for loading the choice boxes with the different behavior of the computer player.
+     */
     private void initializePlayerBehavior() {
         playerBehaviour.removeAll(playerBehaviour);
         playerBehaviour.addAll("Aggressive", "Benevolent", "Random", "Cheater");
@@ -361,8 +358,11 @@ public class TournamentScreenController implements Initializable {
         cbComp4PlayerSelection.getSelectionModel().selectFirst();
     }
 
+    /**
+     *Responsible to display the panel for the selecting the computer player behaviors.
+     */
     @FXML
-    private void clickBtnSubmitPlayerSelection(ActionEvent event) throws IOException {
+    private void clickBtnSubmitPlayerSelection() {
 
 
         int playerSelected = cbPlayerSelection.getValue();
@@ -404,15 +404,12 @@ public class TournamentScreenController implements Initializable {
         playerScreenValid=true;
     }
 
+    /**
+     *This is method is responsible for validating the maps that are selected by the user
+     * to play the game. The validity is indicated with either VALID(in green) or INVALID(in RED).
+     */
     @FXML
-    private void clickBtnPlayerNext(ActionEvent event) {
-
-        tbGameSelection.setDisable(false);
-        tpTournament.getSelectionModel().select(tbGameSelection);
-    }
-
-    @FXML
-    private void clickBtnValidMap(ActionEvent event) {
+    private void clickBtnValidMap() {
 
         MapManager mapManager = new MapManager();
         if (mapFile1 != null) {
@@ -441,7 +438,6 @@ public class TournamentScreenController implements Initializable {
         }
 
         if (mapFile3 != null) {
-            System.out.println("MapFile3 IN");
             gameMap3 = mapManager.loadMap(mapFile3.toString());
             if (gameMap3 == null) {
                 lblValidLoadMap3.setText("INVALID");
@@ -464,8 +460,6 @@ public class TournamentScreenController implements Initializable {
                 lblValidLoadMap4.setTextFill(Color.GREEN);
             }
         }
-
-
         if (mapFile5 != null) {
             gameMap5 = mapManager.loadMap(mapFile5.toString());
             if (gameMap1 == null) {
@@ -479,9 +473,14 @@ public class TournamentScreenController implements Initializable {
         }
 
         mapValid=true;
-
     }
 
+    /**
+     * This is method is responsible for starting the tournament and displaying the result of the game in the new
+     * page.
+     * @param event takes in the event of button click.
+     * @throws IOException Input Output exception
+     */
     @FXML
     private void clickBtnPlay(ActionEvent event) throws IOException {
 
@@ -494,6 +493,11 @@ public class TournamentScreenController implements Initializable {
 
     }
 
+    /**
+     * This method is responsible for validating the game configurations selected by the user to
+     * play the tournament before the game could be started. Only if its valid player is allowed to start the
+     * tournament game play.
+     */
     @FXML
     private void clickBtnSubmitGameConfig()
     {
