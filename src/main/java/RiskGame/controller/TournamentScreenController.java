@@ -16,12 +16,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * This is the implementation for controller of the Tournament mode screen. It includes all the functionality
+ * that is required for the tournament phase of the risk game.
+ *
+ * @author Sudhanva Muralidhar
+ * @version v1.0.0
+ *
+ */
 public class TournamentScreenController implements Initializable {
 
     @FXML
@@ -66,7 +74,7 @@ public class TournamentScreenController implements Initializable {
 
 
     /**
-     * First method called when the pages is loaded.
+     * First method called when the tournament mode is loaded.
      *
      * @param location  URL location
      * @param resources Associated resources
@@ -91,11 +99,13 @@ public class TournamentScreenController implements Initializable {
         initializePlayerBehavior();
         btnPlay.setDisable(true);
         btnValidateMap.setDisable(true);
-
-
-
     }
 
+    /**
+     *
+     * This is the function responsible for disabling the child pane on the Map Selection tab of
+     * tournament mode.
+     * */
     private void disableMapChildPanelItems() {
         btnloadMap1.setVisible(false);
         txtLoadMap1.setVisible(false);
@@ -107,10 +117,13 @@ public class TournamentScreenController implements Initializable {
         txtLoadMap4.setVisible(false);
         btnloadMap5.setVisible(false);
         txtLoadMap5.setVisible(false);
-
         txtLoadMap1.setDisable(true);
     }
 
+    /**
+     * This method is responsible for populating the number of maps choice box
+     * on the Map Selection tab.
+     */
     private void loadCbNumberOfMaps() {
         numberOfMaps.removeAll(numberOfMaps);
         numberOfMaps.addAll(1, 2, 3, 4, 5);
@@ -118,8 +131,12 @@ public class TournamentScreenController implements Initializable {
     }
 
 
+    /**
+     * This method is responsible for displaying the map selection buttons based on the number of
+     * maps selected by the player.
+     */
     @FXML
-    private void btnClickSubmit(ActionEvent event) throws IOException {
+    private void btnClickSubmit(){
         anchorChildMapSelection.setVisible(true);
         disableMapChildPanelItems();
         mapNumber = cbMapSelection.getValue();
@@ -228,8 +245,12 @@ public class TournamentScreenController implements Initializable {
 
     }
 
+    /**
+     * This method is resposible for opening the file chooser window for user to load a pre existing map from
+     * the local device.
+     */
     @FXML
-    private void clickBtnLoadMap1(ActionEvent event) throws IOException {
+    private void clickBtnLoadMap1(){
 
         FileChooser mapFileChooser = new FileChooser();
         mapFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".map", "*.map"));
@@ -238,6 +259,10 @@ public class TournamentScreenController implements Initializable {
         btnValidateMap.setDisable(false);
     }
 
+    /**
+     * This method is resposible for opening the file chooser window for user to load a pre existing map from
+     * the local device.
+     */
     @FXML
     private void clickBtnLoadMap2(ActionEvent event) throws IOException {
 
@@ -249,6 +274,10 @@ public class TournamentScreenController implements Initializable {
         btnValidateMap.setDisable(false);
     }
 
+    /**
+     * This method is resposible for opening the file chooser window for user to load a pre existing map from
+     * the local device.
+     */
     @FXML
     private void clickBtnLoadMap3(ActionEvent event) throws IOException {
 
@@ -260,6 +289,10 @@ public class TournamentScreenController implements Initializable {
         btnValidateMap.setDisable(false);
     }
 
+    /**
+     * This method is resposible for opening the file chooser window for user to load a pre existing map from
+     * the local device.
+     */
     @FXML
     private void clickBtnLoadMap4(ActionEvent event) throws IOException {
 
@@ -271,7 +304,10 @@ public class TournamentScreenController implements Initializable {
         btnValidateMap.setDisable(false);
     }
 
-
+    /**
+     * This method is resposible for opening the file chooser window for user to load a pre existing map from
+     * the local device.
+     */
     @FXML
     private void clickBtnLoadMap5(ActionEvent event) throws IOException {
 
@@ -283,7 +319,10 @@ public class TournamentScreenController implements Initializable {
         btnValidateMap.setDisable(false);
     }
 
-
+    /**
+     * Method responsible for creating the alert box.
+     * @param message the message that needs to be shown the user.
+     */
     private void AlertDialog(String message) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

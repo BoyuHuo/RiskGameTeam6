@@ -79,7 +79,8 @@ public class EditPlayerDetailsController implements Initializable {
     private void clickNext(ActionEvent event) throws IOException
     {
 
-        if((cbNoOfComputerPlayers.getValue()+cbNoOfComputerPlayers.getValue())>8)
+        if((cbSelectPlayers.getValue()+cbNoOfComputerPlayers.getValue())>8 ||
+                (cbSelectPlayers.getValue()+cbNoOfComputerPlayers.getValue())<2)
         {
             AlertDialog("Invalid Player Selection!");
             return;
