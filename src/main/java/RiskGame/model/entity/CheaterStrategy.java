@@ -70,7 +70,8 @@ public class CheaterStrategy implements Strategy{
             GameManager.getInstance().getMap().getTerritories().get(keys[random.nextInt(keys.length)]).increaseArmies(GameManager.getInstance().getActivePlayer());
             RiskUtil.delay(movementTime/2);
         }
-
+        RiskUtil.delay(movementTime * 2);
+        GameManager.getInstance().nextRound();
         return true;
     }
 }

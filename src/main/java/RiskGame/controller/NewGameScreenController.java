@@ -115,7 +115,6 @@ public class NewGameScreenController implements Initializable {
         }
 
         playerList.setText(playersName.toString());
-
         mapName.setText(gameMapfile.getName());
         MapManager mapManager = new MapManager();
         gameMap = mapManager.loadMap(mapFile.toString());

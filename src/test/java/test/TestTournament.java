@@ -20,7 +20,6 @@ public class TestTournament {
     public void setup() {
         mapManager = new MapManager();
     }
-
     @Test
     public void testLunchMatch() {
         Map<String, Player> players = new HashMap<>();
