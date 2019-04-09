@@ -1,9 +1,9 @@
 package test;
 
 import RiskGame.model.entity.*;
+import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,9 +48,70 @@ public class TestAggressiveStrategy {
         p2.excuteReinforceStrategy(0);
         System.out.println(t1.getArmies());
         assertEquals(30+20+3,t1.getArmies());
+        System.out.println(GameManager.getInstance().getGamePhase());
     }
     @Test
     public void testAttackOne(){
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("FireHorse");
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("FireBird");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
+        Player p2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player p1 = GameManager.getInstance().getPlayers().get("Player1");
 
+        t1.setBelongs(p2);
+        t1.setArmies(30);
+
+        t2.setBelongs(p1);
+        t3.setBelongs(p1);
+        t4.setBelongs(p1);
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        int originalNum=RiskUtil.getAllTerritoryFromPlayer(p2).size();
+        p2.excuteAttackStrategy(0);
+        System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        assertEquals(originalNum+3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
+
+
+    @Test
+    public void testFortification(){
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("FireHorse");
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("FireBird");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
+        Player p2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player p1 = GameManager.getInstance().getPlayers().get("Player1");
+
+        t1.setBelongs(p2);
+        t2.setBelongs(p2);
+        t3.setBelongs(p2);
+        t4.setBelongs(p2);
+
+        t1.setArmies(20);
+        t2.setArmies(5);
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+
+        if(GameManager.getInstance().getGamePhase().equals("Attack")) {
+            GameManager.getInstance().nextRound();
+        }
+
+        System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+
+        System.out.println(t1.getArmies());
+        p2.excuteFortifyStrategy(0);
+        System.out.println(t1.getArmies());
+    }
+
 }

@@ -12,11 +12,19 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-
+/**
+ * This is a Junit test Class, used for testing <b> Util </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestUtil {
     MapManager mapManager = new MapManager();
 
-
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setup() {
         mapManager = new MapManager();
@@ -32,7 +40,17 @@ public class TestUtil {
         GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
         GameManager.getInstance().newGame();
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function of showing the Strongest Country for a Player
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Set up Armies to the territories</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testGetActivePlayerStrongestCountry() {
         Player player2 = GameManager.getInstance().getPlayers().get("Player2");
@@ -60,7 +78,17 @@ public class TestUtil {
         assertEquals("WaterDragon",RiskUtil.getActivePlayerStrongestCountry().getName());
         assertEquals(28,RiskUtil.getActivePlayerStrongestCountry().getArmies());
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function of showing the Weakest Country for a Player
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Set up Armies to the territories</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testGetActivePlayerWeakestCountry() {
         Player player1 = GameManager.getInstance().getPlayers().get("Player1");
@@ -96,7 +124,16 @@ public class TestUtil {
         assertEquals("WindDragon",RiskUtil.getActivePlayerWeakestCountry().getName());
         assertEquals(6,RiskUtil.getActivePlayerWeakestCountry().getArmies());
     }
-
+    /**
+     * test case 3
+     * Purpose: testing the function of showing the size of Territories for a Player
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testGetAllTerrFromPlayer() {
         Player player1 = GameManager.getInstance().getPlayers().get("Player1");

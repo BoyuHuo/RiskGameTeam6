@@ -2,34 +2,73 @@ package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Tournament {
     private String[][] result;
     private List<GameMap> maps;
-    private List<Player> players;
+    private Map<String, Player> players;
     private int maximumTurn;
     private int gameLoop;
 
-    public Tournament(List<GameMap> maps,List<Player> players, int gameLoop, int maximumTurn){
+    public Tournament(List<GameMap> maps, Map<String, Player> players, int gameLoop, int maximumTurn) {
         this.maps = maps;
         this.players = players;
         this.gameLoop = gameLoop;
         this.maximumTurn = maximumTurn;
     }
 
-    public boolean luncheTheMatch(){
-        return true;
+    public String luncheTheMatch(int mapNum) {
+        String r = "";
+        GameManager.getInstance().setMap(maps.get(mapNum));
+        GameManager.getInstance().setPlayers(players);
+        GameManager.getInstance().start();
+        while (true) {
+            switch (GameManager.getInstance().getGamePhase()) {
+                case "Reinforcements":
+                    System.out.println("r");
+                    GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(0);
+                    break;
+                case "Attack":
+                    System.out.println("a");
+                    GameManager.getInstance().getActivePlayer().excuteAttackStrategy(0);
+                    break;
+                case "Fortification":
+                    System.out.println("f");
+                    GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(0);
+                    break;
+            }
+            if (GameManager.getInstance().isGameOver()) {
+
+                if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof AggressiveStrategy) {
+                    r = "aggressive";
+                } else if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof BenevolentStrategy) {
+                    r = "benevolent";
+                } else if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof CheaterStrategy) {
+                    r = "cheater";
+                }
+                break;
+            }
+            if (GameManager.getInstance().getTotalTurn() > maximumTurn) {
+                r = "Draw";
+                break;
+            }
+        }
+        return r;
     }
 
-    public boolean start(){
-        for(int i=0;i<result.length;i++){
-            for(int j=0;j<result[i].length;j++){
+    public boolean start() {
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
                 result[i][j] = "aggressive";
             }
         }
         return true;
-    };
+    }
+
+    ;
 
     public String[][] getResult() {
         return result;
@@ -47,11 +86,11 @@ public class Tournament {
         this.maps = maps;
     }
 
-    public List<Player> getPlayers() {
+    public Map<String, Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Map<String, Player> players) {
         this.players = players;
     }
 }

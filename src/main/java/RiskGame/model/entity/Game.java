@@ -55,8 +55,6 @@ public class Game implements Serializable {
     }
 
     public void setGamePhase(String gamePhase) {
-
-
         GameManager.phase result = null;
         switch (gamePhase) {
             case "Start Up":

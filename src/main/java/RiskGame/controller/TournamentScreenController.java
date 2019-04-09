@@ -236,7 +236,6 @@ public class TournamentScreenController implements Initializable {
         mapFile1 = mapFileChooser.showOpenDialog(null);
         txtLoadMap1.setText(mapFile1.toString());
         btnValidateMap.setDisable(false);
-
     }
 
     @FXML
