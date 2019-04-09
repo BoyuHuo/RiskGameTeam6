@@ -97,33 +97,36 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(100);
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(50);
-        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p1);
-        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(80);
-        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(180);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(80);
-        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(40);
-        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
-        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(50);
-        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(100);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setArmies(50);
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(50);
 
+        System.out.println(p2.getArmies());
+        System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
         p2.excuteFortifyStrategy(0);
 
-        Thread thread1 = p2.excuteReinforceStrategy(0);
+        Thread thread1 = p2.excuteFortifyStrategy(0);
         try {
             thread1.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        assertEquals((20+100+80+40)/4,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireBird").getArmies());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WindHorse").getArmies());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
+        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterElephant").getArmies());
+        assertEquals((20+180)/2,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
         System.out.println(GameManager.getInstance().getGamePhase());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
-
-
-
     }
 }
