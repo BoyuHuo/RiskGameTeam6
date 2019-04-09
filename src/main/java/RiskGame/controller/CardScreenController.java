@@ -161,9 +161,6 @@ public class CardScreenController  implements Initializable {
                                 selectedCards.add(CardType.INFANTRY);
                         }
                     }
-
-
-
                 });
 
 
