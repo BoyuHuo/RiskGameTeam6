@@ -267,6 +267,10 @@ public class PlayerDetailsController implements Initializable {
 
         showGameScreen();
     }
+
+    /**
+     * This is method is responsible for loading choice boxes with different player behaviors.
+     */
     private void loadPlayerBehaviour()
     {
         playerBehaviour.removeAll(playerBehaviour);
@@ -279,8 +283,6 @@ public class PlayerDetailsController implements Initializable {
         cbComp6.getItems().addAll(playerBehaviour);
         cbComp7.getItems().addAll(playerBehaviour);
         cbComp8.getItems().addAll(playerBehaviour);
-
-
     }
 
     /**
@@ -329,6 +331,11 @@ public class PlayerDetailsController implements Initializable {
 
     }
 
+    /**
+     * Creates the players along with the kind of behavior player possesses.
+     * @param text Name of the player
+     * @param behaviour Kind of behavior the player beholds
+     */
     private void createPlayer(String text, String behaviour) {
         player=new Player();
         player.setName(text);

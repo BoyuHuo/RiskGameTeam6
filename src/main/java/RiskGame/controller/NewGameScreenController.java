@@ -156,7 +156,11 @@ public class NewGameScreenController implements Initializable {
         editPlayerStage.show();
     }
 
-
+    /**
+     * Initialize method, first method called when screen is loaded.
+     * @param location URL Location
+     * @param resources Associated resources.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
