@@ -90,6 +90,7 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
 
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(p2);
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(20);
@@ -112,6 +113,8 @@ public class TestBenevolentStrategy {
 
         System.out.println(p2.getArmies());
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
         p2.excuteFortifyStrategy(0);
 
         Thread thread1 = p2.excuteFortifyStrategy(0);
@@ -127,6 +130,7 @@ public class TestBenevolentStrategy {
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterElephant").getArmies());
         assertEquals((20+180)/2,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
         System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
     }
 }
