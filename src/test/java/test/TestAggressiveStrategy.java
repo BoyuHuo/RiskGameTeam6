@@ -38,12 +38,11 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
-        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
-        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
-        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
+
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
+
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p1);
@@ -67,10 +66,6 @@ public class TestAggressiveStrategy {
         t1.setArmies(30);
         p2.setArmies(20);
 
-
-        //System.out.println(GameManager.getInstance().getGamePhase());
-        //System.out.println(GameManager.getInstance().getActivePlayer().getName());
-
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
         System.out.println(GameManager.getInstance().getGamePhase());
 
@@ -81,10 +76,11 @@ public class TestAggressiveStrategy {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         assertEquals(30 + 20 , t1.getArmies());
 
 
-      /*  GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
@@ -93,11 +89,18 @@ public class TestAggressiveStrategy {
 
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
         t1.immigrantArimies(36,t2);
-        //t2.setArmies(66);
+        p2.setArmies(30);
         p2.excuteReinforceStrategy(0);
-        assertEquals(36 + 3, t2.getArmies());
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(36 + 30, t2.getArmies());
         System.out.println(t2.getArmies());
-        //System.out.println(t2.getArmies());*/
+
     }
 
     @Test
@@ -125,6 +128,13 @@ public class TestAggressiveStrategy {
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
         int originalNum = RiskUtil.getAllTerritoryFromPlayer(p2).size();
         p2.excuteAttackStrategy(0);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
         assertEquals(originalNum + 3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
@@ -161,6 +171,13 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
 
         p2.excuteAttackStrategy(0);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         assertEquals(2+2, RiskUtil.getAllTerritoryFromPlayer(p2).size());
         p2.captureTerritory(t1,t3,18);
 
@@ -172,6 +189,13 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
 
         p2.excuteAttackStrategy(0);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         assertEquals(4+1, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
 
@@ -201,12 +225,18 @@ public class TestAggressiveStrategy {
             GameManager.getInstance().nextRound();
         }
 
-        System.out.println(GameManager.getInstance().getGamePhase());
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
-
-        System.out.println(t1.getArmies());
         p2.excuteFortifyStrategy(0);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(t1.getArmies());
+        System.out.println(t2.getArmies());
+        System.out.println(t1.getArmies());
+        System.out.println(t1.getArmies());
+        assertEquals(25,t2.getArmies());
     }
 
 }
