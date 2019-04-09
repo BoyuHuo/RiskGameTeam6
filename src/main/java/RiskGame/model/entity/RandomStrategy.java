@@ -120,6 +120,10 @@ public class RandomStrategy implements Strategy {
                             GameManager.getInstance().getActivePlayer().immigrantArimies(armies, t, GameManager.getInstance().getMap().getTerritories().get(targetKey));
                         }
                     }
+                    if(GameManager.getInstance().getGamePhase().equals("Fortification")){
+                        Thread.sleep(movementTime*2);
+                        GameManager.getInstance().nextRound();
+                    }
                 } catch (Exception e) { }
             }
         };
