@@ -1,6 +1,6 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.GameMap;
+import RiskGame.model.entity.*;
 import RiskGame.model.service.imp.MapManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TournamentScreenController implements Initializable {
@@ -63,6 +66,11 @@ public class TournamentScreenController implements Initializable {
     private GameMap gameMap1, gameMap2, gameMap3, gameMap4, gameMap5;
     int mapNumber;
     boolean mapValid=false, playerScreenValid=false;
+    private List<GameMap> maps =new ArrayList<>();
+    public static ArrayList<String> mapsName =new ArrayList<>();
+    private Player player;
+    public static int noOfGames;
+    private HashMap<String, Player> playerList=new HashMap<>();
 
 
     /**
@@ -284,7 +292,7 @@ public class TournamentScreenController implements Initializable {
     }
 
 
-    private void AlertDialog(String message) {
+    private void alertDialog(String message) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Update");
@@ -379,30 +387,35 @@ public class TournamentScreenController implements Initializable {
         if (mapFile1 != null) {
 
             gameMap1 = mapManager.loadMap(mapFile1.toString());
+            mapsName.add(mapFile1.getName());
             if (gameMap1 == null) {
                 lblValidLoadMap1.setText("INVALID");
                 lblValidLoadMap1.setTextFill(Color.RED);
 
             } else {
                 lblValidLoadMap1.setText("VALID");
+                maps.add(gameMap1);
                 lblValidLoadMap1.setTextFill(Color.GREEN);
             }
         }
 
         if (mapFile2 != null) {
             gameMap2 = mapManager.loadMap(mapFile2.toString());
+            mapsName.add(mapFile2.getName());
             if (gameMap2 == null) {
                 lblValidLoadMap2.setText("INVALID");
                 lblValidLoadMap2.setTextFill(Color.RED);
 
             } else {
                 lblValidLoadMap2.setText("VALID");
+                maps.add(gameMap2);
                 lblValidLoadMap2.setTextFill(Color.GREEN);
             }
         }
 
         if (mapFile3 != null) {
             System.out.println("MapFile3 IN");
+            mapsName.add(mapFile3.getName());
             gameMap3 = mapManager.loadMap(mapFile3.toString());
             if (gameMap3 == null) {
                 lblValidLoadMap3.setText("INVALID");
@@ -410,18 +423,21 @@ public class TournamentScreenController implements Initializable {
 
             } else {
                 lblValidLoadMap3.setText("VALID");
+                maps.add(gameMap3);
                 lblValidLoadMap3.setTextFill(Color.GREEN);
             }
         }
 
         if (mapFile4 != null) {
             gameMap4 = mapManager.loadMap(mapFile4.toString());
+            mapsName.add(mapFile4.getName());
             if (gameMap4 == null) {
                 lblValidLoadMap4.setText("INVALID");
                 lblValidLoadMap4.setTextFill(Color.RED);
 
             } else {
                 lblValidLoadMap4.setText("VALID");
+                maps.add(gameMap4);
                 lblValidLoadMap4.setTextFill(Color.GREEN);
             }
         }
@@ -429,12 +445,14 @@ public class TournamentScreenController implements Initializable {
 
         if (mapFile5 != null) {
             gameMap5 = mapManager.loadMap(mapFile5.toString());
+            mapsName.add(mapFile5.getName());
             if (gameMap1 == null) {
                 lblValidLoadMap5.setText("INVALID");
                 lblValidLoadMap5.setTextFill(Color.RED);
 
             } else {
                 lblValidLoadMap5.setText("VALID");
+                maps.add(gameMap5);
                 lblValidLoadMap5.setTextFill(Color.GREEN);
             }
         }
@@ -442,16 +460,29 @@ public class TournamentScreenController implements Initializable {
         mapValid=true;
 
     }
-
+    public  static String string="";
+    public  static String result[][];
     @FXML
     private void clickBtnPlay(ActionEvent event) throws IOException {
 
-        Parent tournamentMode = FXMLLoader.load(getClass().getResource("/view/tournamentResultScreen.fxml"));
-        tournamentScene = new Scene(tournamentMode, 1000,600);
-        Stage createMapSceneStage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        noOfGames=Integer.parseInt(txtGGameSelection.getText());
+        Tournament tournament=new Tournament(maps,playerList,Integer.parseInt(txtGGameSelection.getText())
+                ,Integer.parseInt(txtDGameSelection.getText()));
+        if(tournament.start()){
+            result=tournament.getResult();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/tournamentResultScreen.fxml"));
+            loader.load();
+            Scene editPlayerScene = new Scene(loader.getRoot(), 1000,600);
+            Stage newGameScreenStage = (Stage)btnloadMap1.getScene().getWindow();
+            newGameScreenStage.setScene(editPlayerScene);
+            newGameScreenStage.show();
 
-        createMapSceneStage.setScene(tournamentScene);
-        createMapSceneStage.show();
+        } else {
+            alertDialog("Something went wrong!!");
+        }
+
+
 
     }
 
@@ -461,34 +492,92 @@ public class TournamentScreenController implements Initializable {
 
         if(txtDGameSelection.getText().isEmpty() || txtGGameSelection.getText().isEmpty())
         {
-            AlertDialog("Game Selection Configuration Empty!");
+            alertDialog("Game Selection Configuration Empty!");
             return;
         }
         if((Integer.parseInt(txtGGameSelection.getText())>5 || Integer.parseInt(txtGGameSelection.getText())<0)
                 && (Integer.parseInt(txtDGameSelection.getText())>50 || (Integer.parseInt(txtDGameSelection.getText())<10)))
         {
-            AlertDialog("Game Selection Configuration Invalid!");
+            alertDialog("Game Selection Configuration Invalid!");
             return;
         }
         if(mapValid)
         {
             if(playerScreenValid) {
                 if ((txtGGameSelection.getText().isEmpty()) && (txtDGameSelection.getText().isEmpty())) {
-                    AlertDialog("Game Selection Configuration not completed!");
+                    alertDialog("Game Selection Configuration not completed!");
                 } else {
                     btnPlay.setDisable(false);
                 }
             }
             else
             {
-                AlertDialog("Player Behaviour Selection not completed!");
+                alertDialog("Player Behaviour Selection not completed!");
             }
         }
         else
         {
-            AlertDialog("Map Validation not done!");
+            alertDialog("Map Validation not done!");
         }
+
+        initilizePlayers();
     }
+
+    private void initilizePlayers() {
+
+        switch (cbPlayerSelection.getValue())
+        {
+            case 1:
+                createPlayer(cbComp1PlayerSelection.getValue());
+                break;
+
+            case 2:
+                createPlayer(cbComp1PlayerSelection.getValue());
+                createPlayer(cbComp2PlayerSelection.getValue());
+                break;
+
+            case 3:
+                createPlayer(cbComp1PlayerSelection.getValue());
+                createPlayer(cbComp2PlayerSelection.getValue());
+                createPlayer(cbComp3PlayerSelection.getValue());
+                break;
+
+            case 4:
+                createPlayer(cbComp1PlayerSelection.getValue());
+                createPlayer(cbComp2PlayerSelection.getValue());
+                createPlayer(cbComp3PlayerSelection.getValue());
+                createPlayer(cbComp4PlayerSelection.getValue());
+                break;
+
+        }
+
+
+    }
+
+    private void createPlayer(String behaviour) {
+        player=new Player();
+        player.setName(behaviour);
+        switch (behaviour){
+            case "Aggressive":
+                player.setStrategy(new AggressiveStrategy());
+                break;
+
+            case "Cheater":
+                player.setStrategy(new CheaterStrategy());
+                break;
+
+            case "Benevolent":
+                player.setStrategy(new BenevolentStrategy());
+                break;
+            case "Random":
+                player.setStrategy(new RandomStrategy());
+                break;
+        }
+        playerList.put(behaviour,player);
+
+    }
+
+
 
 }
 

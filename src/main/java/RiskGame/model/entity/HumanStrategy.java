@@ -2,22 +2,22 @@ package RiskGame.model.entity;
 
 public class HumanStrategy implements Strategy {
     @Override
-    public boolean attack(int movementTime) {
-        return false;
+    public Thread attack(int movementTime) {
+        return null;
     }
 
     @Override
-    public boolean reinforce(int movementTime) {
-        return false;
+    public Thread reinforce(int movementTime) {
+        return null;
     }
 
     @Override
-    public boolean fortify(int movementTime) {
-        return false;
+    public Thread fortify(int movementTime) {
+        return null;
     }
 
     @Override
-    public boolean startup(int movementTime) {
-        return false;
+    public Thread startup(int movementTime) {
+        return null;
     }
 }

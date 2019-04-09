@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minWidth="356.0" prefHeight="453.94140625" prefWidth="356.0" style="-fx-background-image: url('images/gameBC.png');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.CardScreenController">
+<AnchorPane minWidth="356.0" prefHeight="453.94140625" prefWidth="356.0" stylesheets="@../CSS/cardScreen_CSS.css" style="-fx-background-image: url('images/gameBC.png');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.CardScreenController">
   <children>
     <Button id="chooseCard" layoutX="121.0" layoutY="374.0" mnemonicParsing="false" onAction="#cardButtonOnClicked" prefHeight="57.0" prefWidth="115.0" text="Sure" textFill="WHITE">
       <font>

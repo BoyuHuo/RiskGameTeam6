@@ -2,9 +2,9 @@
     -fx-background-color: darkgrey;
 }
 .button {
-    -fx-background-color: #607B8B;
+    -fx-background-color: #458B74;
 }
 
 .button:hover {
-    -fx-background-color: darkgrey;
+    -fx-background-color: #104E8B;
 }

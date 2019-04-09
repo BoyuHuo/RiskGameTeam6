@@ -1,7 +1,6 @@
 package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
-import javafx.scene.control.Alert;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -20,7 +19,7 @@ public class Player implements Serializable {
     private Strategy strategy;
     private HashMap<CardType, Integer> cards = new HashMap<>();
     private int armies;
-    private boolean live = true;
+    private boolean live;
     private double percentageOfMap;
 
     /**
@@ -480,9 +479,6 @@ public class Player implements Serializable {
                 }
             }
             percentageOfMap = myTer / totalTer * 100;
-            if (getPrecentageOfMap() == 0) {
-                live = false;
-            }
             DecimalFormat fmt = new DecimalFormat("##0.0");
             fmt.format(percentageOfMap);
             if (percentageOfMap <= 0) {
@@ -614,36 +610,34 @@ public class Player implements Serializable {
 
     }
 
-    public boolean excuteAttackStrategy(int ms) {
-        if (isHuman()) {
-            return false;
+    public Thread excuteAttackStrategy(int ms) {
+        if(isHuman()){
+            return null;
         }
-        strategy.attack(ms);
-        return true;
+        Thread thread = strategy.attack(ms);
+        return thread;
     }
 
-    public boolean excuteReinforceStrategy(int ms) {
-        if (isHuman()) {
-            return false;
+    public Thread excuteReinforceStrategy(int ms) {
+        if(isHuman()){
+            return null;
         }
-        strategy.reinforce(ms);
-        return true;
+        Thread thread = strategy.reinforce(ms);
+        return thread;
     }
-
-    public boolean excuteFortifyStrategy(int ms) {
-        if (isHuman()) {
-            return false;
+    public Thread excuteFortifyStrategy(int ms){
+        if(isHuman()){
+            return null;
         }
-        strategy.fortify(ms);
-        return true;
+        Thread thread = strategy.fortify(ms);
+        return thread;
     }
-
-    public boolean excuteStartupStrategy(int ms) {
-        if (isHuman()) {
-            return false;
+    public Thread excuteStartupStrategy(int ms){
+        if(isHuman()){
+            return null;
         }
-        strategy.startup(ms);
-        return true;
+        Thread thread = strategy.startup(ms);
+        return thread;
     }
 
     public Strategy getStrategy() {
