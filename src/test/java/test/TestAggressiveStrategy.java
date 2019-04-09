@@ -4,11 +4,9 @@ import RiskGame.model.entity.*;
 import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,9 +76,9 @@ public class TestAggressiveStrategy {
         int originalNum=RiskUtil.getAllTerritoryFromPlayer(p2).size();
         p2.excuteAttackStrategy(0);
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
-
         assertEquals(originalNum+3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
+
 
     @Test
     public void testFortification(){
@@ -115,6 +113,5 @@ public class TestAggressiveStrategy {
         p2.excuteFortifyStrategy(0);
         System.out.println(t1.getArmies());
     }
-
 
 }
