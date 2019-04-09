@@ -74,13 +74,14 @@ public class TestAggressiveStrategy {
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
         System.out.println(GameManager.getInstance().getGamePhase());
 
-        p2.excuteReinforceStrategy(0);
-
+        Thread thread = p2.excuteReinforceStrategy(0);
         try {
-            Thread.sleep(10);
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
         assertEquals(30 + 20 , t1.getArmies());
 
 

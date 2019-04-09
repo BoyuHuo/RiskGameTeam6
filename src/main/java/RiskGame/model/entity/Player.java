@@ -260,7 +260,7 @@ public class Player implements Serializable {
      *
      * @return boolean true: function successful calculated false: there are something wrong, player cannot get the reinforcement armies.
      */
-    public synchronized boolean reignforceArmies() {
+    public boolean reignforceArmies() {
         int controlNum = 0;
         int armiesFromTerr = 0;
         int terrNum = 0;
@@ -610,34 +610,34 @@ public class Player implements Serializable {
 
     }
 
-    public boolean excuteAttackStrategy(int ms) {
+    public Thread excuteAttackStrategy(int ms) {
         if(isHuman()){
-            return false;
+            return null;
         }
-        strategy.attack(ms);
-        return true;
+        Thread thread = strategy.attack(ms);
+        return thread;
     }
 
-    public boolean excuteReinforceStrategy(int ms) {
+    public Thread excuteReinforceStrategy(int ms) {
         if(isHuman()){
-            return false;
+            return null;
         }
-        strategy.reinforce(ms);
-        return true;
+        Thread thread = strategy.reinforce(ms);
+        return thread;
     }
-    public boolean excuteFortifyStrategy(int ms){
+    public Thread excuteFortifyStrategy(int ms){
         if(isHuman()){
-            return false;
+            return null;
         }
-        strategy.fortify(ms);
-        return true;
+        Thread thread = strategy.fortify(ms);
+        return thread;
     }
-    public boolean excuteStartupStrategy(int ms){
+    public Thread excuteStartupStrategy(int ms){
         if(isHuman()){
-            return false;
+            return null;
         }
-        strategy.startup(ms);
-        return true;
+        Thread thread = strategy.startup(ms);
+        return thread;
     }
 
     public Strategy getStrategy() {

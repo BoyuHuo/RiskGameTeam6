@@ -11,14 +11,15 @@ import java.util.Random;
 public class AggressiveStrategy implements Strategy {
 
     @Override
-    public boolean attack(int movementTime) {
+    public Thread attack(int movementTime) {
 
-        new Thread(){
-            public void run(){
+
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
                     if (largestTer == null) {
-                        return ;
+                        return;
                     }
                     Map<String, Territory> neibors = largestTer.getNeighbors();
 
@@ -28,7 +29,7 @@ public class AggressiveStrategy implements Strategy {
                                 GameManager.getInstance().getActivePlayer().captureTerritory(largestTer, t, t.getCaptureDiceNum());
                             } else {
                                 GameManager.getInstance().getActivePlayer().allInMode(largestTer, t);
-                                if(t.getArmies()<=0){
+                                if (t.getArmies() <= 0) {
                                     GameManager.getInstance().getActivePlayer().captureTerritory(largestTer, t, t.getCaptureDiceNum());
                                 }
                             }
@@ -43,20 +44,19 @@ public class AggressiveStrategy implements Strategy {
 
                     GameManager.getInstance().nextRound();
 
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
-        }.start();
-
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
     @Override
-    public boolean reinforce(int movementTime) {
+    public Thread reinforce(int movementTime) {
 
-        new Thread(){
-            public void run(){
+        Thread thread= new Thread() {
+            public void run() {
                 try {
                     Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
                     while (largestTer != null && GameManager.getInstance().getActivePlayer().getArmies() > 0) {
@@ -69,18 +69,20 @@ public class AggressiveStrategy implements Strategy {
                     Thread.sleep(movementTime * 2);
 
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
-        }.start();
+        };
+        thread.start();
 
 
-        return true;
+        return thread;
     }
 
     @Override
-    public boolean fortify(int movementTime) {
-        new Thread(){
-            public void run(){
+    public Thread fortify(int movementTime) {
+        Thread thread=new Thread() {
+            public void run() {
                 try {
 
                     Boolean flag = false;
@@ -101,23 +103,23 @@ public class AggressiveStrategy implements Strategy {
                         }
                     } else {
                         Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
-                        Map<String , Territory> targets = new HashMap<>();
+                        Map<String, Territory> targets = new HashMap<>();
                         here:
                         for (Territory t : territories.values()) {
                             for (Territory n : t.getNeighbors().values()) {
                                 if (n.getBelongs() != t.getBelongs()) {
-                                        targets.put(t.getName(),t);
-                                    }
+                                    targets.put(t.getName(), t);
+                                }
 
                             }
                         }
-                        while(targets.size()>0){
+                        while (targets.size() > 0) {
                             String key = targets.keySet().toArray(new String[0])[new Random().nextInt(targets.size())];
-                            Territory tempT= targets.get(key);
-                            if (GameManager.getInstance().getActivePlayer().immigrantArimies(largestTer.getArmies(), largestTer, tempT)){
-                                System.out.println("moveeeeeeeeee"+ largestTer.getName()+" to "+tempT.getName());
+                            Territory tempT = targets.get(key);
+                            if (GameManager.getInstance().getActivePlayer().immigrantArimies(largestTer.getArmies(), largestTer, tempT)) {
+                                System.out.println("moveeeeeeeeee" + largestTer.getName() + " to " + tempT.getName());
                                 break;
-                            }else{
+                            } else {
                                 targets.remove(targets.get(key));
                             }
                         }
@@ -127,22 +129,18 @@ public class AggressiveStrategy implements Strategy {
                         GameManager.getInstance().nextRound();
                     }
 
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
-        }.start();
-
-
-
-
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
     @Override
-    public boolean startup(int movementTime) {
-        new Thread(){
-            public void run(){
+    public Thread startup(int movementTime) {
+        Thread thread =new Thread() {
+            public void run() {
                 try {
                     Random random = new Random();
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -153,10 +151,12 @@ public class AggressiveStrategy implements Strategy {
                     }
                     Thread.sleep(movementTime * 2);
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
-        }.start();
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
 
