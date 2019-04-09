@@ -8,8 +8,8 @@ import java.util.Random;
 
 public class BenevolentStrategy implements Strategy {
     @Override
-    public boolean attack(int movementTime) {
-        new Thread(){
+    public Thread attack(int movementTime) {
+        Thread thread =new Thread(){
             public void run(){
                 try {
 
@@ -22,17 +22,14 @@ public class BenevolentStrategy implements Strategy {
                     GameManager.getInstance().nextRound();
                 } catch (InterruptedException e) { }
             }
-        }.start();
-
-
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
     @Override
-    public boolean reinforce(int movementTime) {
-        new Thread(){
+    public Thread reinforce(int movementTime) {
+        Thread thread = new Thread(){
             public void run(){
                 try {
                     while (GameManager.getInstance().getActivePlayer().getArmies() > 0) {
@@ -47,17 +44,14 @@ public class BenevolentStrategy implements Strategy {
                     GameManager.getInstance().nextRound();
                 } catch (InterruptedException e) { }
             }
-        }.start();
-
-
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
     @Override
-    public boolean fortify(int movementTime) {
-        new Thread(){
+    public Thread fortify(int movementTime) {
+       Thread thread = new Thread(){
             public void run(){
                 try {
 
@@ -94,17 +88,14 @@ public class BenevolentStrategy implements Strategy {
 
                 } catch (Exception e) { }
             }
-        }.start();
-
-
-
-
-        return true;
+        };
+       thread.start();
+        return thread;
     }
 
     @Override
-    public boolean startup(int movementTime) {
-        new Thread(){
+    public Thread startup(int movementTime) {
+        Thread thread = new Thread(){
             public void run(){
                 try {
                     Random random = new Random();
@@ -120,11 +111,12 @@ public class BenevolentStrategy implements Strategy {
                     GameManager.getInstance().nextRound();
                 } catch (InterruptedException e) { }
             }
-        }.start();
+        };
+        thread.start();
 
 
 
-        return true;
+        return thread;
     }
 
 

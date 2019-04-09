@@ -7,8 +7,8 @@ import java.util.*;
 
 public class RandomStrategy implements Strategy {
     @Override
-    public boolean attack(int movementTime) {
-        new Thread(){
+    public Thread attack(int movementTime) {
+        Thread thread =new Thread(){
             public void run(){
                 try {
                     Map<String, Territory> neibors = new HashMap<>();
@@ -66,18 +66,16 @@ public class RandomStrategy implements Strategy {
 
                 } catch (InterruptedException e) { }
             }
-        }.start();
-
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
 
     }
 
     @Override
-    public boolean reinforce(int movementTime) {
+    public Thread reinforce(int movementTime) {
 
-        new Thread(){
+        Thread thread = new Thread(){
             public void run(){
                 try {
                     Map<String,Territory> list = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -96,16 +94,15 @@ public class RandomStrategy implements Strategy {
 
                 } catch (InterruptedException e) { }
             }
-        }.start();
-
-
-        return true;
+        };
+        thread.start();
+        return thread;
     }
 
     @Override
-    public boolean fortify(int movementTime) {
+    public Thread fortify(int movementTime) {
 
-        new Thread(){
+        Thread thread =new Thread(){
             public void run(){
                 try {
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -125,16 +122,17 @@ public class RandomStrategy implements Strategy {
                     }
                 } catch (Exception e) { }
             }
-        }.start();
+        };
+        thread.start();
 
 
 
-        return true;
+        return thread;
     }
 
     @Override
-    public boolean startup(int movementTime) {
-        new Thread(){
+    public Thread startup(int movementTime) {
+        Thread thread = new Thread(){
             public void run(){
                 try {
                     Random random = new Random();
@@ -149,9 +147,10 @@ public class RandomStrategy implements Strategy {
                     GameManager.getInstance().nextRound();
                 } catch (InterruptedException e) { }
             }
-        }.start();
+        };
+        thread.start();
 
 
-        return true;
+        return thread;
     }
 }
