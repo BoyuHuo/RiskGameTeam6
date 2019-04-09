@@ -11,9 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-
+/**
+ * This is a Junit test Class, used for testing <b> BenevolentStrategy </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestBenevolentStrategy {
     MapManager mapManager;
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setup(){
         mapManager = new MapManager();
@@ -29,7 +38,17 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().setMap(mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath()));
         GameManager.getInstance().newGame();
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function during Reinforce stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Reinforce Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testReinforcement(){
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
@@ -74,7 +93,17 @@ public class TestBenevolentStrategy {
 
         assertEquals(12, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function during Fortification stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Fortification Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testFortification(){
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");

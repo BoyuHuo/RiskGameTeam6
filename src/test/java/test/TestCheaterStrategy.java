@@ -34,13 +34,9 @@ public class TestCheaterStrategy {
 
     @Test
     public void testReinforcement(){
-        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
-        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
-        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
-
 
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
@@ -51,13 +47,13 @@ public class TestCheaterStrategy {
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(33);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(11);
         GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(10);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p2);
@@ -65,16 +61,20 @@ public class TestCheaterStrategy {
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(0);
 
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
-        p2.excuteReinforceStrategy(0);
+        Thread thread = p2.excuteReinforceStrategy(0);
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(66, GameManager.getInstance().getMap().getTerritories().get("FireDragon").getArmies());
+        assertEquals(22, GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getArmies());
+        assertEquals(20, GameManager.getInstance().getMap().getTerritories().get("WindDragon").getArmies());
         assertEquals(40, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
     }
 
-    @Test
-    public  void testAttack(){
-
-    }
     @Test
     public void testFortification(){
 
@@ -100,13 +100,13 @@ public class TestCheaterStrategy {
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(10);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(50);
         GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(18);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p2);
@@ -114,10 +114,17 @@ public class TestCheaterStrategy {
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(5);
 
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
-        p2.excuteFortifyStrategy(0);
+        Thread thread2 = p2.excuteReinforceStrategy(0);
+
+        try {
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(20, GameManager.getInstance().getMap().getTerritories().get("FireDragon").getArmies());
+        assertEquals(100, GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getArmies());
+        assertEquals(36, GameManager.getInstance().getMap().getTerritories().get("WindDragon").getArmies());
         assertEquals(40, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
 
     }
 }

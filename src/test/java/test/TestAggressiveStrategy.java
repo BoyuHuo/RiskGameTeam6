@@ -11,10 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-
+/**
+ * This is a Junit test Class, used for testing <b> AggressiveStrategy </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestAggressiveStrategy {
     MapManager mapManager;
-
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setup() {
         mapManager = new MapManager();
@@ -31,7 +39,17 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().newGame();
 
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function during Reinforce stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Reinforce Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testReinforce() {
 
@@ -96,7 +114,17 @@ public class TestAggressiveStrategy {
         }
         assertEquals(36 + 30, t2.getArmies());
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function during Attack stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Attack Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackOne() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
@@ -130,7 +158,17 @@ public class TestAggressiveStrategy {
 
         assertEquals(originalNum + 3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
-
+    /**
+     * test case 3
+     * Purpose: testing the function during Attack stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Attack Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackTwo(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
@@ -202,7 +240,17 @@ public class TestAggressiveStrategy {
 
         assertEquals(4+1, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
-
+    /**
+     * test case 4
+     * Purpose: testing the function during Fortification stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Fortification Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testFortification(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
