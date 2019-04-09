@@ -17,6 +17,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
+/**
+ * This is the implementation for the Tournament result screen. It is responsible for displaying the
+ * results of the tournament game.
+ */
+
 public class TournamentResultScreen implements Initializable {
 
     @FXML
@@ -25,7 +30,12 @@ public class TournamentResultScreen implements Initializable {
     @FXML
     AnchorPane anchorPane;
 
-
+    /**
+     * First method called when the tournament result screen is loaded.
+     *
+     * @param location  URL location
+     * @param resources Associated resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

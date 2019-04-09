@@ -397,7 +397,6 @@ public class PlayerDetailsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-
         btnBack.setDisable(true);
         loadPlayerBehaviour();
         cbComp1.getSelectionModel().selectFirst();
@@ -412,6 +411,26 @@ public class PlayerDetailsController implements Initializable {
 
         switch (EditPlayerDetailsController.numberOfPlayers)
         {
+            case 0:
+                txtPlayer1.setDisable(true);
+                txtPlayer2.setDisable(true);
+                txtPlayer3.setDisable(true);
+                txtPlayer4.setDisable(true);
+                txtPlayer5.setDisable(true);
+                txtPlayer6.setDisable(true);
+                txtPlayer7.setDisable(true);
+                txtPlayer8.setDisable(true);
+
+                lblPlayer1.setDisable(true);
+                lblPlayer2.setDisable(true);
+                lblPlayer3.setDisable(true);
+                lblPlayer4.setDisable(true);
+                lblPlayer5.setDisable(true);
+                lblPlayer6.setDisable(true);
+                lblPlayer7.setDisable(true);
+                lblPlayer8.setDisable(true);
+                break;
+
             case 1: txtPlayer2.setDisable(true);
                     txtPlayer3.setDisable(true);
                     txtPlayer4.setDisable(true);
@@ -493,6 +512,63 @@ public class PlayerDetailsController implements Initializable {
 
         switch (EditPlayerDetailsController.numberOfComputerPlayers)
         {
+            case 0:
+                txtComp1.setDisable(true);
+                txtComp2.setDisable(true);
+                txtComp3.setDisable(true);
+                txtComp4.setDisable(true);
+                txtComp5.setDisable(true);
+                txtComp6.setDisable(true);
+                txtComp7.setDisable(true);
+                txtComp8.setDisable(true);
+
+                lblComp1.setDisable(true);
+                lblComp2.setDisable(true);
+                lblComp3.setDisable(true);
+                lblComp4.setDisable(true);
+                lblComp5.setDisable(true);
+                lblComp6.setDisable(true);
+                lblComp7.setDisable(true);
+                lblComp8.setDisable(true);
+
+                cbComp1.setDisable(true);
+                cbComp2.setDisable(true);
+                cbComp3.setDisable(true);
+                cbComp4.setDisable(true);
+                cbComp5.setDisable(true);
+                cbComp6.setDisable(true);
+                cbComp7.setDisable(true);
+                cbComp8.setDisable(true);
+
+                break;
+
+            case 1:
+                txtComp2.setDisable(true);
+                txtComp3.setDisable(true);
+                txtComp4.setDisable(true);
+                txtComp5.setDisable(true);
+                txtComp6.setDisable(true);
+                txtComp7.setDisable(true);
+                txtComp8.setDisable(true);
+
+                lblComp2.setDisable(true);
+                lblComp3.setDisable(true);
+                lblComp4.setDisable(true);
+                lblComp5.setDisable(true);
+                lblComp6.setDisable(true);
+                lblComp7.setDisable(true);
+                lblComp8.setDisable(true);
+
+                cbComp2.setDisable(true);
+                cbComp3.setDisable(true);
+                cbComp4.setDisable(true);
+                cbComp5.setDisable(true);
+                cbComp6.setDisable(true);
+                cbComp7.setDisable(true);
+                cbComp8.setDisable(true);
+
+                break;
+
             case 2:
                 txtComp3.setDisable(true);
                 txtComp4.setDisable(true);
