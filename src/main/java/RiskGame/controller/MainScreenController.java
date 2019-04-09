@@ -83,6 +83,12 @@ public class MainScreenController implements Initializable {
     }
 
 
+    /**
+     * This method implements the functionality to navigate the scene to tournament game screen
+     * @param event Action Event
+     * @throws IOException input output exception
+     */
+
     @FXML
     private void clickBtnTournamentMode(ActionEvent event) throws IOException {
 
@@ -130,10 +136,7 @@ public class MainScreenController implements Initializable {
 
             FileInputStream fileIn = new FileInputStream(filepath);
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-
             Object obj = objectIn.readObject();
-
-            System.out.println("The Object has been read from the file");
             objectIn.close();
             return obj;
 
