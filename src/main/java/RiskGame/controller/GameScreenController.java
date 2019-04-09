@@ -4,19 +4,14 @@ import RiskGame.model.entity.*;
 import RiskGame.model.service.imp.GameManager;
 import RiskGame.model.service.imp.MapManager;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,8 +26,6 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.Pair;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -186,12 +179,6 @@ public class GameScreenController implements Initializable, Observer {
             e.printStackTrace();
         }
     }
-
-    @FXML
-    private void playerInfo(String playerInfo) {
-
-    }
-
 
     /**
      * <p>
@@ -533,11 +520,20 @@ public class GameScreenController implements Initializable, Observer {
         });
 
     }
+
+    /**
+     * This method checks if the game has come to an end, if yes declares the winner of the game.
+     */
     public void checkGameEndPoint(){
         if (GameManager.getInstance().isGameOver()) {
             showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
         }
     }
+
+    /**
+     * This method is responsible for checking if the players playing the game are human or computer. Based on the result
+     * this method starts the required phase for the each of the player.
+     */
     public void checkAutoGame() {
         if (checkPhaseAndPlayerChanges()) {
             if (!GameManager.getInstance().getActivePlayer().isHuman()) {
@@ -560,6 +556,11 @@ public class GameScreenController implements Initializable, Observer {
         }
     }
 
+    /**
+     * This method makes sure that every phase for each of the player is called once. If that holds then true is returned
+     * else false is returned.
+     * @return returns true if the method has been called for the first time.
+     */
     public boolean checkPhaseAndPlayerChanges() {
         if (!(GameManager.getInstance().getGamePhase() + ":" + GameManager.getInstance().getActivePlayer()).equals(gamePhaseRecord)) {
             gamePhaseRecord = GameManager.getInstance().getGamePhase() + ":" + GameManager.getInstance().getActivePlayer();
@@ -569,7 +570,6 @@ public class GameScreenController implements Initializable, Observer {
         }
     }
 
-    ;
 
     /**
      * This is the initialize method which contains the functionality to be first executed
@@ -578,7 +578,6 @@ public class GameScreenController implements Initializable, Observer {
      * @param location  location of the URL
      * @param resources all the associated resources
      */
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

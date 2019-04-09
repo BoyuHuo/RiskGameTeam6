@@ -60,6 +60,11 @@ public class MainScreenController implements Initializable {
        Platform.exit();
    }
 
+    /**
+     * Initialize method, first method called when screen is loaded.
+     * @param location URL Location
+     * @param resources Associated resources.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -130,6 +135,11 @@ public class MainScreenController implements Initializable {
         gameStage.show();
     }
 
+    /**
+     * This methd is responsible for reading the file and returning it as an object.
+     * @param filepath the filepath of the file.
+     * @return returns the filepath as an object.
+     */
     public Object readObjectFromFile(String filepath) {
 
         try {
