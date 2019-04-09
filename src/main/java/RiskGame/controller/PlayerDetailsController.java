@@ -1,6 +1,6 @@
 package RiskGame.controller;
 
-import RiskGame.model.entity.Player;
+import RiskGame.model.entity.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -161,22 +161,22 @@ public class PlayerDetailsController implements Initializable {
         switch (EditPlayerDetailsController.numberOfComputerPlayers)
         {
             case 1: playerName.add(txtComp1.getText());
-                createPlayer(txtComp1.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
                 break;
 
             case 2:
                 createPlayer(txtComp1.getText());
                 createPlayer(txtComp2.getText());
-                playerName.add(txtComp1.getText());
-                playerName.add(txtComp2.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
                 break;
 
             case 3: playerName.add(txtComp1.getText());
                 playerName.add(txtComp2.getText());
                 playerName.add(txtComp3.getText());
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
                 break;
 
             case 4:
@@ -184,10 +184,10 @@ public class PlayerDetailsController implements Initializable {
                 playerName.add(txtComp2.getText());
                 playerName.add(txtComp3.getText());
                 playerName.add(txtComp4.getText());
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
-                createPlayer(txtComp4.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
+                createPlayer(txtComp4.getText(),cbComp4.getValue());
                 break;
 
             case 5:
@@ -196,11 +196,11 @@ public class PlayerDetailsController implements Initializable {
                 playerName.add(txtComp3.getText());
                 playerName.add(txtComp4.getText());
                 playerName.add(txtComp5.getText());
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
-                createPlayer(txtComp4.getText());
-                createPlayer(txtComp5.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
+                createPlayer(txtComp4.getText(),cbComp4.getValue());
+                createPlayer(txtComp5.getText(),cbComp5.getValue());
                 break;
 
             case 6:
@@ -211,12 +211,12 @@ public class PlayerDetailsController implements Initializable {
                 playerName.add(txtComp5.getText());
                 playerName.add(txtComp6.getText());
 
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
-                createPlayer(txtComp4.getText());
-                createPlayer(txtComp5.getText());
-                createPlayer(txtComp6.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
+                createPlayer(txtComp4.getText(),cbComp4.getValue());
+                createPlayer(txtComp5.getText(),cbComp5.getValue());
+                createPlayer(txtComp6.getText(),cbComp6.getValue());
                 break;
 
             case 7:
@@ -227,13 +227,13 @@ public class PlayerDetailsController implements Initializable {
                 playerName.add(txtComp5.getText());
                 playerName.add(txtComp6.getText());
                 playerName.add(txtComp7.getText());
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
-                createPlayer(txtComp4.getText());
-                createPlayer(txtComp5.getText());
-                createPlayer(txtComp6.getText());
-                createPlayer(txtComp7.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
+                createPlayer(txtComp4.getText(),cbComp4.getValue());
+                createPlayer(txtComp5.getText(),cbComp5.getValue());
+                createPlayer(txtComp6.getText(),cbComp6.getValue());
+                createPlayer(txtComp7.getText(),cbComp7.getValue());
                 break;
 
             case 8:
@@ -245,14 +245,14 @@ public class PlayerDetailsController implements Initializable {
                 playerName.add(txtComp6.getText());
                 playerName.add(txtComp7.getText());
                 playerName.add(txtComp7.getText());
-                createPlayer(txtComp1.getText());
-                createPlayer(txtComp2.getText());
-                createPlayer(txtComp3.getText());
-                createPlayer(txtComp4.getText());
-                createPlayer(txtComp5.getText());
-                createPlayer(txtComp6.getText());
-                createPlayer(txtComp7.getText());
-                createPlayer(txtComp8.getText());
+                createPlayer(txtComp1.getText(),cbComp1.getValue());
+                createPlayer(txtComp2.getText(),cbComp2.getValue());
+                createPlayer(txtComp3.getText(),cbComp3.getValue());
+                createPlayer(txtComp4.getText(),cbComp4.getValue());
+                createPlayer(txtComp5.getText(),cbComp5.getValue());
+                createPlayer(txtComp6.getText(),cbComp6.getValue());
+                createPlayer(txtComp7.getText(),cbComp7.getValue());
+                createPlayer(txtComp8.getText(),cbComp8.getValue());
                 break;
         }
 
@@ -327,6 +327,31 @@ public class PlayerDetailsController implements Initializable {
          playerList.put(text,player);
 
     }
+
+    private void createPlayer(String text, String behaviour) {
+        player=new Player();
+        player.setName(text);
+        player.setColor(randomColor());
+        switch (behaviour){
+            case "Aggressive":
+                player.setStrategy(new AggressiveStrategy());
+                break;
+
+            case "Cheater":
+                player.setStrategy(new CheaterStrategy());
+                break;
+
+            case "Benevolent":
+                player.setStrategy(new BenevolentStrategy());
+                break;
+            case "Random":
+                player.setStrategy(new RandomStrategy());
+                break;
+        }
+        playerList.put(text,player);
+
+    }
+
     /**
      *<p>
      * This method generates random color.
