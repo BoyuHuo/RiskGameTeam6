@@ -8,8 +8,8 @@ import java.util.*;
 public class RandomStrategy implements Strategy {
     @Override
     public Thread attack(int movementTime) {
-        Thread thread =new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     Map<String, Territory> neibors = new HashMap<>();
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -68,7 +68,8 @@ public class RandomStrategy implements Strategy {
                         GameManager.getInstance().nextRound();
                     }
 
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();
@@ -79,16 +80,16 @@ public class RandomStrategy implements Strategy {
     @Override
     public Thread reinforce(int movementTime) {
 
-        Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
-                    Map<String,Territory> list = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
+                    Map<String, Territory> list = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
                     Random random = new Random();
                     String[] keys = list.keySet().toArray(new String[0]);
                     String key = keys[random.nextInt(keys.length)];
-                    while(GameManager.getInstance().getActivePlayer().getArmies()<0){
+                    while (GameManager.getInstance().getActivePlayer().getArmies() < 0) {
                         GameManager.getInstance().getMap().getTerritories().get(key).increaseArmies(GameManager.getInstance().getActivePlayer());
-                        Thread.sleep(movementTime/2);
+                        Thread.sleep(movementTime / 2);
                     }
 
                     GameManager.getInstance().setMessage("[Random Player]" + GameManager.getInstance().getActivePlayer().getName() + " has finished the Reinforcement phase!\n" +
@@ -96,7 +97,8 @@ public class RandomStrategy implements Strategy {
                     Thread.sleep(movementTime * 2);
                     GameManager.getInstance().nextRound();
 
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();
@@ -106,13 +108,13 @@ public class RandomStrategy implements Strategy {
     @Override
     public Thread fortify(int movementTime) {
 
-        Thread thread =new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
                     if (territories.size() <= 1) {
                         GameManager.getInstance().nextRound();
-                        return ;
+                        return;
                     }
                     String targetKey = RiskUtil.randomGetATerrKey(territories);
                     for (Territory t : territories.values()) {
@@ -121,25 +123,25 @@ public class RandomStrategy implements Strategy {
                         } else {
                             Random random = new Random();
                             int armies = random.nextInt(t.getArmies()) + 1;
-                            if(!GameManager.getInstance().getActivePlayer().immigrantArimies(armies, t, GameManager.getInstance().getMap().getTerritories().get(targetKey))){
+                            if (!GameManager.getInstance().getActivePlayer().immigrantArimies(armies, t, GameManager.getInstance().getMap().getTerritories().get(targetKey))) {
                                 continue;
-                            }else{
-                                if(GameManager.getInstance().getGamePhase().equals("Fortification")){
-                                    Thread.sleep(movementTime*2);
+                            } else {
+                                if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
+                                    Thread.sleep(movementTime * 2);
                                     GameManager.getInstance().nextRound();
                                 }
                             }
                         }
                     }
-                    if(GameManager.getInstance().getGamePhase().equals("Fortification")){
-                        Thread.sleep(movementTime*2);
+                    if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
+                        Thread.sleep(movementTime * 2);
                         GameManager.getInstance().nextRound();
                     }
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         };
         thread.start();
-
 
 
         return thread;
@@ -147,8 +149,8 @@ public class RandomStrategy implements Strategy {
 
     @Override
     public Thread startup(int movementTime) {
-        Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     Random random = new Random();
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -160,7 +162,8 @@ public class RandomStrategy implements Strategy {
 
                     Thread.sleep(movementTime * 2);
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();

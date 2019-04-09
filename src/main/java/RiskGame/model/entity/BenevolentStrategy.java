@@ -9,8 +9,8 @@ import java.util.Random;
 public class BenevolentStrategy implements Strategy {
     @Override
     public Thread attack(int movementTime) {
-        Thread thread =new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
 
                     GameManager.getInstance().setMessage("[Benevolent Player]" + GameManager.getInstance().getActivePlayer().getName() + " loves peace! \n " +
@@ -20,7 +20,8 @@ public class BenevolentStrategy implements Strategy {
                     Thread.sleep(movementTime * 2);
 
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();
@@ -29,11 +30,11 @@ public class BenevolentStrategy implements Strategy {
 
     @Override
     public Thread reinforce(int movementTime) {
-        Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     while (GameManager.getInstance().getActivePlayer().getArmies() > 0) {
-                        if( RiskUtil.getActivePlayerWeakestCountry()!=null) {
+                        if (RiskUtil.getActivePlayerWeakestCountry() != null) {
                             RiskUtil.getActivePlayerWeakestCountry().increaseArmies(GameManager.getInstance().getActivePlayer());
                         }
                         Thread.sleep(movementTime / 2);
@@ -42,7 +43,8 @@ public class BenevolentStrategy implements Strategy {
                             "It will automatically move to next step in " + movementTime * 2 + "s");
                     Thread.sleep(movementTime * 2);
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();
@@ -51,14 +53,14 @@ public class BenevolentStrategy implements Strategy {
 
     @Override
     public Thread fortify(int movementTime) {
-       Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
 
                     Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
                     Territory weakestTer = RiskUtil.getActivePlayerWeakestCountry();
 
-                    if (largestTer != null && weakestTer != null&& largestTer!=weakestTer) {
+                    if (largestTer != null && weakestTer != null && largestTer != weakestTer) {
                         int armies = largestTer.getArmies() - weakestTer.getArmies();
                         if (armies > 1) {
                             armies = armies / 2;
@@ -69,34 +71,35 @@ public class BenevolentStrategy implements Strategy {
                             if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
                                 GameManager.getInstance().nextRound();
                             }
-                            return ;
+                            return;
                         }
                     }
 
-                    for (Territory t : GameManager.getInstance().getMap().getTerritories().values()) {
-                        if (t != weakestTer && t != largestTer && t.getBelongs() == GameManager.getInstance().getActivePlayer() && t.getArmies() > 0) {
-                            if (GameManager.getInstance().getActivePlayer().immigrantArimies((t.getArmies()-weakestTer.getArmies())/2, t, weakestTer)) {
+                    for (Territory t : RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer()).values()) {
+                        if (t != weakestTer && t != largestTer && t.getArmies() > 0) {
+                            if (GameManager.getInstance().getActivePlayer().immigrantArimies((t.getArmies() - weakestTer.getArmies()) / 2, t, weakestTer)) {
                                 break;
                             }
                         }
                     }
 
 
-                    if(GameManager.getInstance().getGamePhase().equals("Fortification")){
+                    if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
                         GameManager.getInstance().nextRound();
                     }
 
-                } catch (Exception e) { }
+                } catch (Exception e) {
+                }
             }
         };
-       thread.start();
+        thread.start();
         return thread;
     }
 
     @Override
     public Thread startup(int movementTime) {
-        Thread thread = new Thread(){
-            public void run(){
+        Thread thread = new Thread() {
+            public void run() {
                 try {
                     Random random = new Random();
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
@@ -109,11 +112,11 @@ public class BenevolentStrategy implements Strategy {
 
                     Thread.sleep(movementTime * 2);
                     GameManager.getInstance().nextRound();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
             }
         };
         thread.start();
-
 
 
         return thread;
