@@ -25,7 +25,7 @@ public class TestTournament {
         Map<String, Player> players = new HashMap<>();
         Player p1 = new Player("Player1", new AggressiveStrategy());
         Player p2 = new Player("Player2", new BenevolentStrategy());
-        Player p3 = new Player("Player3", new CheaterStrategy());
+        Player p3 = new Player("Player3", new BenevolentStrategy());
         players.put(p1.getName(), p1);
         players.put(p2.getName(), p2);
         players.put(p3.getName(), p3);

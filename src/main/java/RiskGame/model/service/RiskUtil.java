@@ -10,16 +10,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class RiskUtil {
-    public static void delay(int time){
-        Robot r   = null;
-        try {
-            r = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        r.delay(   time   );
-    }
-
     public static Territory getActivePlayerStrongestCountry() {
         Map<String, Territory> terrs = GameManager.getInstance().getMap().getTerritories();
         Territory largestTer = null;

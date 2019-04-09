@@ -47,7 +47,6 @@ public class Tournament {
             }
 
             System.out.println(GameManager.getInstance().getActivePlayer().getName()+":"+GameManager.getInstance().getActivePlayer().getPrecentageOfMap());
-            System.out.println("Strongest:"+ RiskUtil.getActivePlayerStrongestCountry().getArmies()+" Weakest:"+RiskUtil.getActivePlayerWeakestCountry().getArmies());
 
 
             if (GameManager.getInstance().isGameOver()) {

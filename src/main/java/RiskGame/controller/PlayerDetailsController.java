@@ -324,6 +324,7 @@ public class PlayerDetailsController implements Initializable {
          player=new Player();
          player.setName(text);
          player.setColor(randomColor());
+         player.setStrategy(new HumanStrategy());
          playerList.put(text,player);
 
     }
