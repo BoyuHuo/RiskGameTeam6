@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minWidth="356.0" fx:id="anchorPane" prefHeight="453.94140625" prefWidth="356.0" style="-fx-background-image: url('images/gameBC.png');" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="RiskGame.controller.TournamentResultScreen">
+    <TableView translateX="400" translateY="100" fx:id="tableView" GridPane.columnIndex="0"
+               GridPane.rowIndex="1">
+    </TableView>
+</AnchorPane>
