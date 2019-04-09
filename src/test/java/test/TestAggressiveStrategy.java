@@ -34,6 +34,10 @@ public class TestAggressiveStrategy {
 
     @Test
     public void testReinforce() {
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
         Player player1 = GameManager.getInstance().getPlayers().get("Player1");
         Player player2 = GameManager.getInstance().getPlayers().get("Player2");
         Player player3 = GameManager.getInstance().getPlayers().get("Player3");
@@ -63,17 +67,24 @@ public class TestAggressiveStrategy {
         t1.setArmies(30);
         p2.setArmies(20);
 
-        GameManager.getInstance().nextRound();
-        GameManager.getInstance().nextRound();
-        GameManager.getInstance().nextRound();
+
         //System.out.println(GameManager.getInstance().getGamePhase());
         //System.out.println(GameManager.getInstance().getActivePlayer().getName());
 
-        p2.excuteReinforceStrategy(0);
-        System.out.println(t1.getArmies());
-        assertEquals(30 + 20 + 3, t1.getArmies());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        System.out.println(GameManager.getInstance().getGamePhase());
 
-        GameManager.getInstance().nextRound();
+        p2.excuteReinforceStrategy(0);
+
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(30 + 20 , t1.getArmies());
+
+
+      /*  GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
@@ -86,7 +97,7 @@ public class TestAggressiveStrategy {
         p2.excuteReinforceStrategy(0);
         assertEquals(36 + 3, t2.getArmies());
         System.out.println(t2.getArmies());
-        //System.out.println(t2.getArmies());
+        //System.out.println(t2.getArmies());*/
     }
 
     @Test

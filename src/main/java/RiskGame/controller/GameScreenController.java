@@ -543,16 +543,16 @@ public class GameScreenController implements Initializable, Observer {
             if (!GameManager.getInstance().getActivePlayer().isHuman()) {
                 switch (GameManager.getInstance().getGamePhase()) {
                     case "Start Up":
-                        GameManager.getInstance().getActivePlayer().excuteStartupStrategy(1000);
+                        GameManager.getInstance().getActivePlayer().excuteStartupStrategy(500);
                         break;
                     case "Reinforcements":
-                        GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(1000);
+                        GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(500);
                         break;
                     case "Attack":
-                        GameManager.getInstance().getActivePlayer().excuteAttackStrategy(1000);
+                        GameManager.getInstance().getActivePlayer().excuteAttackStrategy(500);
                         break;
                     case "Fortification":
-                        GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(1000);
+                        GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(500);
                         break;
 
                 }

@@ -260,7 +260,7 @@ public class Player implements Serializable {
      *
      * @return boolean true: function successful calculated false: there are something wrong, player cannot get the reinforcement armies.
      */
-    public boolean reignforceArmies() {
+    public synchronized boolean reignforceArmies() {
         int controlNum = 0;
         int armiesFromTerr = 0;
         int terrNum = 0;
