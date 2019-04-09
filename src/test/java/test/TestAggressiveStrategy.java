@@ -206,7 +206,12 @@ public class TestAggressiveStrategy {
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
 
         System.out.println(t1.getArmies());
-        p2.excuteFortifyStrategy(0);
+        Thread thread = p2.excuteFortifyStrategy(0);
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(t1.getArmies());
     }
 
