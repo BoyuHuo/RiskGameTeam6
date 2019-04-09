@@ -1,8 +1,8 @@
 package RiskGame.model.entity;
 
 public interface Strategy {
-    void attack(int movementTime);
-    void reinforce(int movementTime);
-    void fortify(int movementTime);
-    void startup(int movementTime);
+    boolean attack(int movementTime);
+    boolean reinforce(int movementTime);
+    boolean fortify(int movementTime);
+    boolean startup(int movementTime);
 }
