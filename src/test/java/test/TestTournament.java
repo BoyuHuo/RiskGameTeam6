@@ -24,8 +24,8 @@ public class TestTournament {
     public void testLunchMatch() {
         Map<String, Player> players = new HashMap<>();
         Player p1 = new Player("Player1", new AggressiveStrategy());
-        Player p2 = new Player("Player2", new AggressiveStrategy());
-        Player p3 = new Player("Player3", new AggressiveStrategy());
+        Player p2 = new Player("Player2", new BenevolentStrategy());
+        Player p3 = new Player("Player3", new CheaterStrategy());
         players.put(p1.getName(), p1);
         players.put(p2.getName(), p2);
         players.put(p3.getName(), p3);
@@ -35,10 +35,7 @@ public class TestTournament {
 
         maps.add(m1);
 
-        Tournament tournament = new Tournament(maps, players, 2, 80);
+        Tournament tournament = new Tournament(maps, players, 2, 50);
         System.out.println(tournament.luncheTheMatch(0));
-        GameManager.getInstance().setActivePlayer(p2);
-        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
-        GameManager.getInstance().setActivePlayer(p1);
     }
 }

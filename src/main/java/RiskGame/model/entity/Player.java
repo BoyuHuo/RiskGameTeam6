@@ -1,7 +1,6 @@
 package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
-import javafx.scene.control.Alert;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -631,6 +630,13 @@ public class Player implements Serializable {
             return false;
         }
         strategy.fortify(ms);
+        return true;
+    }
+    public boolean excuteStartupStrategy(int ms){
+        if(isHuman()){
+            return false;
+        }
+        strategy.startup(ms);
         return true;
     }
 

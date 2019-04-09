@@ -34,6 +34,11 @@ public class CheaterStrategy implements Strategy{
                 }
             }
         }
+        if(GameManager.getInstance().getGamePhase().equals("Attack")) {
+            RiskUtil.delay(movementTime * 2);
+            GameManager.getInstance().nextRound();
+        }
+
         return true;
     }
 
@@ -45,6 +50,8 @@ public class CheaterStrategy implements Strategy{
             GameManager.getInstance().setMessage("[Cheater]"+GameManager.getInstance().getActivePlayer()+" just double the armies in "+t.getName());
             RiskUtil.delay(movementTime/2);
         }
+        RiskUtil.delay(movementTime * 2);
+        GameManager.getInstance().nextRound();
         return true;
     }
 
@@ -54,9 +61,13 @@ public class CheaterStrategy implements Strategy{
         for(Territory t: territories.values()){
             for(Territory n: t.getNeighbors().values()){
                 if(n.getBelongs()!= t.getBelongs()){
-                    n.setArmies(n.getArmies()*2);
+                    t.setArmies(t.getArmies()*2);
+                    break;
                 }
             }
+        }
+        if(GameManager.getInstance().getGamePhase().equals("Fortification")){
+            GameManager.getInstance().nextRound();
         }
         return true;
     }

@@ -71,11 +71,13 @@ public class AggressiveStrategy implements Strategy {
             }
         } else {
             Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
+            here:
             for (Territory t : territories.values()) {
                 for (Territory n : t.getNeighbors().values()) {
                     if (n.getBelongs() != t.getBelongs()) {
-                        if (GameManager.getInstance().getActivePlayer().immigrantArimies(t.getArmies(), largestTer, t)) {
-                            break;
+                        if (GameManager.getInstance().getActivePlayer().immigrantArimies(largestTer.getArmies(), largestTer, t)) {
+                            System.out.println("moveeeeeeeeee"+ largestTer.getName()+" to "+t.getName());
+                            break here;
                         }
                     }
                 }

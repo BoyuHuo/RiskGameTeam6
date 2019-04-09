@@ -1,5 +1,6 @@
 package RiskGame.model.entity;
 
+import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class Tournament {
         String r = "";
         GameManager.getInstance().setMap(maps.get(mapNum));
         GameManager.getInstance().setPlayers(players);
-        GameManager.getInstance().start();
+        GameManager.getInstance().newGame();
         while (true) {
             switch (GameManager.getInstance().getGamePhase()) {
                 case "Reinforcements":
@@ -39,9 +40,17 @@ public class Tournament {
                     System.out.println("f");
                     GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(0);
                     break;
+                case "Start Up":
+                    System.out.println("s");
+                    GameManager.getInstance().getActivePlayer().excuteStartupStrategy(0);
+                    break;
             }
-            if (GameManager.getInstance().isGameOver()) {
 
+            System.out.println(GameManager.getInstance().getActivePlayer().getName()+":"+GameManager.getInstance().getActivePlayer().getPrecentageOfMap());
+            System.out.println("Strongest:"+ RiskUtil.getActivePlayerStrongestCountry().getArmies()+" Weakest:"+RiskUtil.getActivePlayerWeakestCountry().getArmies());
+
+
+            if (GameManager.getInstance().isGameOver()) {
                 if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof AggressiveStrategy) {
                     r = "aggressive";
                 } else if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof BenevolentStrategy) {

@@ -197,6 +197,9 @@ public class GameManager extends Observable implements IGameManager {
             playerIterator = players.values().iterator();
         }
         activePlayer = (Player) playerIterator.next();
+        if(!activePlayer.isLive()){
+            nextPlayer();
+        }
         setMessage(getActivePlayer().getName() + "'s turn! \n");
     }
 

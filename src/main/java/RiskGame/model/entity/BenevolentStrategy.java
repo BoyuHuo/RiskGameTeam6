@@ -38,14 +38,17 @@ public class BenevolentStrategy implements Strategy {
         Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
         Territory weakestTer = RiskUtil.getActivePlayerWeakestCountry();
 
-        if (largestTer != null && weakestTer != null) {
+        if (largestTer != null && weakestTer != null&& largestTer!=weakestTer) {
             int armies = largestTer.getArmies() - weakestTer.getArmies();
             if (armies > 1) {
                 armies = armies / 2;
             } else if (armies == 1) {
                 armies = 1;
             }
-            if (GameManager.getInstance().getActivePlayer().immigrantArimies(largestTer.getArmies() - weakestTer.getArmies() / 2, largestTer, weakestTer)) {
+            if (GameManager.getInstance().getActivePlayer().immigrantArimies((largestTer.getArmies() - weakestTer.getArmies()) / 2, largestTer, weakestTer)) {
+                if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
+                    GameManager.getInstance().nextRound();
+                }
                 return true;
             }
         }
@@ -58,14 +61,20 @@ public class BenevolentStrategy implements Strategy {
             }
         }
 
+
+        if(GameManager.getInstance().getGamePhase().equals("Fortification")){
+            GameManager.getInstance().nextRound();
+        }
+
         return true;
     }
 
     @Override
     public boolean startup(int movementTime) {
-         Random random = new Random();
+        Random random = new Random();
         Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
         String[] keys = territories.keySet().toArray(new String[0]);
+
         while (GameManager.getInstance().getActivePlayer().getArmies() > 0) {
             GameManager.getInstance().getMap().getTerritories().get(keys[random.nextInt(keys.length)]).increaseArmies(GameManager.getInstance().getActivePlayer());
             RiskUtil.delay(movementTime / 2);
