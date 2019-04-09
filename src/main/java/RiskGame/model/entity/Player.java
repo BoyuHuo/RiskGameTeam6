@@ -1,7 +1,6 @@
 package RiskGame.model.entity;
 
 import RiskGame.model.service.imp.GameManager;
-import javafx.scene.control.Alert;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -20,7 +19,7 @@ public class Player implements Serializable {
     private Strategy strategy;
     private HashMap<CardType, Integer> cards = new HashMap<>();
     private int armies;
-    private boolean live = true;
+    private boolean live;
     private double percentageOfMap;
 
     /**
@@ -480,9 +479,6 @@ public class Player implements Serializable {
                 }
             }
             percentageOfMap = myTer / totalTer * 100;
-            if (getPrecentageOfMap() == 0) {
-                live = false;
-            }
             DecimalFormat fmt = new DecimalFormat("##0.0");
             fmt.format(percentageOfMap);
             if (percentageOfMap <= 0) {
@@ -615,7 +611,7 @@ public class Player implements Serializable {
     }
 
     public boolean excuteAttackStrategy(int ms) {
-        if (isHuman()) {
+        if(isHuman()){
             return false;
         }
         strategy.attack(ms);
@@ -623,23 +619,21 @@ public class Player implements Serializable {
     }
 
     public boolean excuteReinforceStrategy(int ms) {
-        if (isHuman()) {
+        if(isHuman()){
             return false;
         }
         strategy.reinforce(ms);
         return true;
     }
-
-    public boolean excuteFortifyStrategy(int ms) {
-        if (isHuman()) {
+    public boolean excuteFortifyStrategy(int ms){
+        if(isHuman()){
             return false;
         }
         strategy.fortify(ms);
         return true;
     }
-
-    public boolean excuteStartupStrategy(int ms) {
-        if (isHuman()) {
+    public boolean excuteStartupStrategy(int ms){
+        if(isHuman()){
             return false;
         }
         strategy.startup(ms);

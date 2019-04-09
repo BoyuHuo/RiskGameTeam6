@@ -34,24 +34,63 @@ public class TestAggressiveStrategy {
 
     @Test
     public void testReinforce() {
-        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
+        Player player1 = GameManager.getInstance().getPlayers().get("Player1");
+        Player player2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player player3 = GameManager.getInstance().getPlayers().get("Player3");
+        Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
-        t1.setBelongs(p2);
+        Player p3 = GameManager.getInstance().getPlayers().get("Player3");
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(p1);
+        GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p1);
+        GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p1);
+        GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
+        GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("IceDragon").setArmies(0);
+        GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(p3);
+        GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(0);
+
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
         t1.setArmies(30);
         p2.setArmies(20);
 
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
-        System.out.println(GameManager.getInstance().getGamePhase());
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        //System.out.println(GameManager.getInstance().getGamePhase());
+        //System.out.println(GameManager.getInstance().getActivePlayer().getName());
+
         p2.excuteReinforceStrategy(0);
         System.out.println(t1.getArmies());
-        assertEquals(30+20+3,t1.getArmies());
-        System.out.println(GameManager.getInstance().getGamePhase());
+        assertEquals(30 + 20 + 3, t1.getArmies());
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
+        t1.immigrantArimies(36,t2);
+        //t2.setArmies(66);
+        p2.excuteReinforceStrategy(0);
+        assertEquals(36 + 3, t2.getArmies());
+        System.out.println(t2.getArmies());
+        //System.out.println(t2.getArmies());
     }
+
     @Test
-    public void testAttackOne(){
+    public void testAttackOne() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("FireHorse");
         Territory t3 = GameManager.getInstance().getMap().getTerritories().get("FireBird");
@@ -73,12 +112,57 @@ public class TestAggressiveStrategy {
         System.out.println(GameManager.getInstance().getGamePhase());
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
-        int originalNum=RiskUtil.getAllTerritoryFromPlayer(p2).size();
+        int originalNum = RiskUtil.getAllTerritoryFromPlayer(p2).size();
         p2.excuteAttackStrategy(0);
         System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
-        assertEquals(originalNum+3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        assertEquals(originalNum + 3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
 
+    @Test
+    public void testAttackTwo(){
+        Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
+        Territory t2 = GameManager.getInstance().getMap().getTerritories().get("FireHorse");
+        Territory t3 = GameManager.getInstance().getMap().getTerritories().get("FireBird");
+        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
+        Territory t5 = GameManager.getInstance().getMap().getTerritories().get("WaterElephant");
+        Territory t6 = GameManager.getInstance().getMap().getTerritories().get("WindDragon");
+        Territory t7 = GameManager.getInstance().getMap().getTerritories().get("WindHorse");
+        Territory t8 = GameManager.getInstance().getMap().getTerritories().get("IceDragon");
+        Territory t9 = GameManager.getInstance().getMap().getTerritories().get("IceHorse");
+        Player p2 = GameManager.getInstance().getPlayers().get("Player2");
+        Player p1 = GameManager.getInstance().getPlayers().get("Player1");
+        Player p3 = GameManager.getInstance().getPlayers().get("Player3");
+
+        t1.setBelongs(p2);
+        t1.setArmies(22);
+        t4.setBelongs(p2);
+        t2.setBelongs(p1);
+        t3.setBelongs(p1);
+        t5.setBelongs(p1);
+        t6.setBelongs(p1);
+        t7.setBelongs(p3);
+        t8.setBelongs(p3);
+        t9.setBelongs(p3);
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+
+        p2.excuteAttackStrategy(0);
+        assertEquals(2+2, RiskUtil.getAllTerritoryFromPlayer(p2).size());
+        p2.captureTerritory(t1,t3,18);
+
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+
+        p2.excuteAttackStrategy(0);
+        assertEquals(4+1, RiskUtil.getAllTerritoryFromPlayer(p2).size());
+    }
 
     @Test
     public void testFortification(){
@@ -105,9 +189,9 @@ public class TestAggressiveStrategy {
         if(GameManager.getInstance().getGamePhase().equals("Attack")) {
             GameManager.getInstance().nextRound();
         }
+
         System.out.println(GameManager.getInstance().getGamePhase());
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
-
 
         System.out.println(t1.getArmies());
         p2.excuteFortifyStrategy(0);

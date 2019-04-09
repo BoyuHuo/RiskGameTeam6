@@ -1,8 +1,8 @@
 package RiskGame.model.entity;
 
+import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +22,10 @@ public class Tournament {
     }
 
     public String luncheTheMatch(int mapNum) {
-        String r = "unknown";
+        String r = "";
         GameManager.getInstance().setMap(maps.get(mapNum));
         GameManager.getInstance().setPlayers(players);
         GameManager.getInstance().newGame();
-
-
         while (true) {
             switch (GameManager.getInstance().getGamePhase()) {
                 case "Reinforcements":
@@ -47,7 +45,10 @@ public class Tournament {
                     GameManager.getInstance().getActivePlayer().excuteStartupStrategy(0);
                     break;
             }
+
             System.out.println(GameManager.getInstance().getActivePlayer().getName()+":"+GameManager.getInstance().getActivePlayer().getPrecentageOfMap());
+
+
             if (GameManager.getInstance().isGameOver()) {
                 if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof AggressiveStrategy) {
                     r = "aggressive";

@@ -323,8 +323,8 @@ public class PlayerDetailsController implements Initializable {
     private void createPlayer(String text) {
          player=new Player();
          player.setName(text);
-         player.setStrategy(new HumanStrategy());
          player.setColor(randomColor());
+         player.setStrategy(new HumanStrategy());
          playerList.put(text,player);
 
     }
@@ -493,31 +493,6 @@ public class PlayerDetailsController implements Initializable {
 
         switch (EditPlayerDetailsController.numberOfComputerPlayers)
         {
-            case 1:
-                txtComp2.setDisable(true);
-                txtComp3.setDisable(true);
-                txtComp4.setDisable(true);
-                txtComp5.setDisable(true);
-                txtComp6.setDisable(true);
-                txtComp7.setDisable(true);
-                txtComp8.setDisable(true);
-
-                lblComp2.setDisable(true);
-                lblComp3.setDisable(true);
-                lblComp4.setDisable(true);
-                lblComp5.setDisable(true);
-                lblComp6.setDisable(true);
-                lblComp7.setDisable(true);
-                lblComp8.setDisable(true);
-
-                cbComp2.setDisable(true);
-                cbComp3.setDisable(true);
-                cbComp4.setDisable(true);
-                cbComp5.setDisable(true);
-                cbComp6.setDisable(true);
-                cbComp7.setDisable(true);
-                cbComp8.setDisable(true);
-
             case 2:
                 txtComp3.setDisable(true);
                 txtComp4.setDisable(true);
