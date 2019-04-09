@@ -55,6 +55,10 @@ public class RandomStrategy implements Strategy {
                                     defDice = target.getArmies();
                                 }
                                 GameManager.getInstance().getActivePlayer().launchAttack(source, target, attackingDice, defDice);
+                                if (target.getArmies() <= 0) {
+                                    GameManager.getInstance().getActivePlayer().captureTerritory(source, target, target.getCaptureDiceNum());
+                                    break;
+                                }
                             }
                             Thread.sleep(movementTime);
                         }
@@ -117,7 +121,14 @@ public class RandomStrategy implements Strategy {
                         } else {
                             Random random = new Random();
                             int armies = random.nextInt(t.getArmies()) + 1;
-                            GameManager.getInstance().getActivePlayer().immigrantArimies(armies, t, GameManager.getInstance().getMap().getTerritories().get(targetKey));
+                            if(!GameManager.getInstance().getActivePlayer().immigrantArimies(armies, t, GameManager.getInstance().getMap().getTerritories().get(targetKey))){
+                                continue;
+                            }else{
+                                if(GameManager.getInstance().getGamePhase().equals("Fortification")){
+                                    Thread.sleep(movementTime*2);
+                                    GameManager.getInstance().nextRound();
+                                }
+                            }
                         }
                     }
                     if(GameManager.getInstance().getGamePhase().equals("Fortification")){

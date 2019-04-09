@@ -75,7 +75,7 @@ public class BenevolentStrategy implements Strategy {
 
                     for (Territory t : GameManager.getInstance().getMap().getTerritories().values()) {
                         if (t != weakestTer && t != largestTer && t.getBelongs() == GameManager.getInstance().getActivePlayer() && t.getArmies() > 0) {
-                            if (GameManager.getInstance().getActivePlayer().immigrantArimies((t.getArmies()-weakestTer.getArmies())/2, t, largestTer)) {
+                            if (GameManager.getInstance().getActivePlayer().immigrantArimies((t.getArmies()-weakestTer.getArmies())/2, t, weakestTer)) {
                                 break;
                             }
                         }
