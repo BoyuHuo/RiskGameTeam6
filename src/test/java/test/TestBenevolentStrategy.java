@@ -95,14 +95,14 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(20);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p2);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setArmies(100);
-        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p2);
+        GameManager.getInstance().getMap().getTerritories().get("FireDragon").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireDragon").setArmies(50);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("WaterElephant").setArmies(80);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setBelongs(p2);
         GameManager.getInstance().getMap().getTerritories().get("WaterDragon").setArmies(80);
         GameManager.getInstance().getMap().getTerritories().get("WindDragon").setBelongs(p2);
-        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(50);
+        GameManager.getInstance().getMap().getTerritories().get("WindDragon").setArmies(40);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("WindHorse").setArmies(50);
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setBelongs(p2);
@@ -119,7 +119,7 @@ public class TestBenevolentStrategy {
             e.printStackTrace();
         }
 
-        assertEquals((20+100+80+50+50)/5+1,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
+        assertEquals((20+100+80+40)/4,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
         System.out.println(GameManager.getInstance().getGamePhase());
         System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
 
