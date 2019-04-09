@@ -47,14 +47,14 @@ public class EditPlayerDetailsController implements Initializable {
     private void loadChoiceBox()
     {
         noOfHumanPlayers.removeAll(noOfHumanPlayers);
-        noOfHumanPlayers.addAll(2,3,4,5,6,7,8);
+        noOfHumanPlayers.addAll(1,2,3,4,5,6,7,8);
         cbSelectPlayers.getItems().addAll(noOfHumanPlayers);
     }
 
     private void loadComputerChoiceBox()
     {
         noOfComputerPlayers.removeAll(noOfComputerPlayers);
-        noOfComputerPlayers.addAll(2,3,4,5,6,7,8);
+        noOfComputerPlayers.addAll(1,2,3,4,5,6,7,8);
         cbNoOfComputerPlayers.getItems().addAll(noOfComputerPlayers);
     }
 

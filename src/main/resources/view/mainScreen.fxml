@@ -45,8 +45,8 @@
                     <Font size="15.0" fx:id="x1" />
                   </font>
                 </Button>
-                <Button font="$x1" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" onAction="#clickLoadMapButton" text="Load Game" translateX="90.0" />
-                <Button font="$x1" mnemonicParsing="false" onAction="#clickCreateMapButton" prefHeight="36.0" prefWidth="114.0" text="Create Map" translateX="130.0" />
+                <Button font="$x1" mnemonicParsing="false" onAction="#clickLoadMapButton" prefHeight="36.0" prefWidth="97.0" text="Load Game" translateX="80.0" />
+                <Button font="$x1" mnemonicParsing="false" onAction="#clickCreateMapButton" prefHeight="36.0" prefWidth="114.0" text="Create Map" translateX="125.0" />
                         <Button fx:id="clickBtnTournamentMode" font="$x1" mnemonicParsing="false" onAction="#clickBtnTournamentMode" prefHeight="36.0" prefWidth="149.0" text="Tournament Mode" translateX="170.0" />
                 <Button fx:id="btnExit" font="$x1" mnemonicParsing="false" onAction="#clickButtonExit" prefHeight="36.0" prefWidth="77.0" text="Exit" translateX="220.0" />
                 <ImageView fitHeight="150.0" fitWidth="206.0" translateX="240.0">
