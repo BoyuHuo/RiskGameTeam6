@@ -18,7 +18,7 @@ import java.util.*;
  * @see IGameManager
  * @since v1.0.0
  */
-public class GameManager extends Observable implements IGameManager {
+  public  class  GameManager extends Observable implements IGameManager {
 
 
     public enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
@@ -29,7 +29,7 @@ public class GameManager extends Observable implements IGameManager {
     private Player activePlayer;
     private GameMap map;
     private phase gamePhase;
-    private static GameManager instance;
+     private static GameManager instance;
     private String message = "";
     private boolean gameOver;
     private int totalTurn = 0;
@@ -174,7 +174,6 @@ public class GameManager extends Observable implements IGameManager {
                 nextPhase();
                 if (!possibleAttack())
                     nextPhase();
-                ;
                 break;
             case FORTIFICATION:
                 nextPlayer();
