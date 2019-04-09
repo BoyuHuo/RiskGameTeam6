@@ -35,6 +35,7 @@ public class TestBenevolentStrategy {
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
+
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setBelongs(p1);
         GameManager.getInstance().getMap().getTerritories().get("FireHorse").setArmies(0);
         GameManager.getInstance().getMap().getTerritories().get("FireBird").setBelongs(p1);
@@ -63,8 +64,6 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().nextRound();
 
         GameManager.getInstance().getMap().getTerritories().get("IceDragon").setArmies(0);
-        System.out.println(p2.getArmies());
-        p2.excuteReinforceStrategy(0);
 
         Thread thread = p2.excuteReinforceStrategy(0);
         try {
@@ -73,10 +72,6 @@ public class TestBenevolentStrategy {
             e.printStackTrace();
         }
 
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireDragon").getArmies());
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterDragon").getArmies());
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("WindDragon").getArmies());
-        System.out.println( GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
         assertEquals(12, GameManager.getInstance().getMap().getTerritories().get("IceDragon").getArmies());
     }
 
@@ -85,7 +80,6 @@ public class TestBenevolentStrategy {
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p3 = GameManager.getInstance().getPlayers().get("Player3");
-
 
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
@@ -111,12 +105,6 @@ public class TestBenevolentStrategy {
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setBelongs(p3);
         GameManager.getInstance().getMap().getTerritories().get("IceHorse").setArmies(50);
 
-        System.out.println(p2.getArmies());
-        System.out.println(RiskUtil.getAllTerritoryFromPlayer(p2).size());
-        System.out.println(GameManager.getInstance().getGamePhase());
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
-        p2.excuteFortifyStrategy(0);
-
         Thread thread1 = p2.excuteFortifyStrategy(0);
         try {
             thread1.join();
@@ -124,13 +112,6 @@ public class TestBenevolentStrategy {
             e.printStackTrace();
         }
 
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireBird").getArmies());
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WindHorse").getArmies());
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("WaterElephant").getArmies());
         assertEquals((20+180)/2,GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
-        System.out.println(GameManager.getInstance().getGamePhase());
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
-        System.out.println(GameManager.getInstance().getMap().getTerritories().get("FireHorse").getArmies());
     }
 }
