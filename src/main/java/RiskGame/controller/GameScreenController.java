@@ -291,47 +291,57 @@ public class GameScreenController implements Initializable, Observer {
             gameMapPane.setOnMouseReleased(null);
         }
 
+        if(!GameManager.getInstance().getActivePlayer().isHuman()) {
 
+            switch (GameManager.getInstance().getGamePhase()) {
+                case "Start Up":
+
+                    GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(1000);
+
+                    break;
+                case "Reinforcements":
+
+                    GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(1000);
+                    break;
+                case "Attack":
+
+                    GameManager.getInstance().getActivePlayer().excuteAttackStrategy(1000);
+
+                    break;
+                case "Fortification":
+
+                    GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(1000);
+
+                    break;
+            }
+        } else {
             gameMapPane.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     switch (GameManager.getInstance().getGamePhase()) {
                         case "Start Up":
 
-                            if(GameManager.getInstance().getActivePlayer().isHuman()) {
                                 setupArmyTerrotory(event.getX(), event.getY());
-                            } else{
-                                GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(1000);
-                            }
+
                             break;
                         case "Reinforcements":
 
-
-                            if(GameManager.getInstance().getActivePlayer().isHuman()) {
                                 setupArmyTerrotory(event.getX(), event.getY());
-                            } else{
-                                GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(1000);
-                            }
+
                             break;
                         case "Attack":
 
-                            if(GameManager.getInstance().getActivePlayer().isHuman()) {
                                 attackTerritory();
-                            } else{
-                                GameManager.getInstance().getActivePlayer().excuteAttackStrategy(1000);
-                            }
                             break;
                         case "Fortification":
 
-                            if(GameManager.getInstance().getActivePlayer().isHuman()) {
                                 fortifyArmy(event.getX(), event.getY());
-                            } else{
-                                GameManager.getInstance().getActivePlayer().excuteFortify(1000);
-                            }
+
                             break;
                     }
                 }
             });
+        }
     }
 
 
