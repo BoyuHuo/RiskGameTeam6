@@ -126,7 +126,6 @@ public class GameScreenController implements Initializable, Observer {
     private ObservableList defendDice = FXCollections.observableArrayList();
     private int r;
     private Line newLine;
-
     /**
      * <p>
      * This method implements New Button button that loads the card screen.
@@ -1030,20 +1029,19 @@ public class GameScreenController implements Initializable, Observer {
 
     /**
      * This method contains the implementation for saving the game to the file on mouse click.
-     *
      * @param event mouse click event on OK button click.
-     */
+     * */
 
     @FXML
     public void clickSaveButton(ActionEvent event) {
 
-        MapManager mapManager = new MapManager();
+        MapManager mapManager=new MapManager();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save game");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".game", "*.game"));
-        File file = fileChooser.showSaveDialog((Stage) btnOK.getScene().getWindow());
+        File file = fileChooser.showSaveDialog((Stage)btnOK.getScene().getWindow());
 
-        Game game = new Game();
+        Game game=new Game();
         game.setActivePlayer(GameManager.getInstance().getActivePlayer());
         game.setGamePhase(GameManager.getInstance().getGamePhase());
         game.setMap(GameManager.getInstance().getMap());
@@ -1051,16 +1049,15 @@ public class GameScreenController implements Initializable, Observer {
         game.setPlayers(GameManager.getInstance().getPlayers());
         //game.setPlayerIterator(GameManager.getInstance().getPlayerIterator());
 
-        writeGameObjectToFile(game, file.getPath());
+        writeGameObjectToFile(game,file.getPath());
     }
 
     /**
      * This method contains the implementation for writing the object to the file.
-     *
-     * @param game     object instance to be saved to file
+     * @param game object instance to be saved to file
      * @param filePath path of the file to be saved
-     */
-    public void writeGameObjectToFile(Game game, String filePath) {
+     * */
+    public void writeGameObjectToFile(Game game,String filePath) {
 
         try {
 
@@ -1078,14 +1075,13 @@ public class GameScreenController implements Initializable, Observer {
     /**
      * This method provides the implementation for the All in button. This button is used when
      * attack is performed from source to destination territories in one go.
-     *
      * @param event All in button click event
      */
     @FXML
     public void clickBtnAllInButton(ActionEvent event) {
         boolean result;
         result = GameManager.getInstance().getActivePlayer().allInMode(sourceTerritory, destT);
-        Player defender = destT.getBelongs();
+        Player defender=destT.getBelongs();
 
         if (destT.getArmies() == 0) {
 
@@ -1104,7 +1100,7 @@ public class GameScreenController implements Initializable, Observer {
             Optional<Integer> noOfArmies = dialog.showAndWait();
             GameManager.getInstance().getActivePlayer().captureTerritory(sourceTerritory, destT, noOfArmies.get());
             GameManager.getInstance().getActivePlayer().addRandomCard();
-            if (!defender.isLive()) {
+            if(!defender.isLive()){
                 GameManager.getInstance().getActivePlayer().addCard(defender.getCards());
             }
         }
@@ -1122,9 +1118,8 @@ public class GameScreenController implements Initializable, Observer {
 
     /**
      * Implementation for the update method using observable pattern.
-     *
      * @param observable Observable object
-     * @param o          Object
+     * @param o Object
      */
     @Override
     public void update(Observable observable, Object o) {

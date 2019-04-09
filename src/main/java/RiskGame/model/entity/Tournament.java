@@ -68,6 +68,7 @@ public class Tournament {
     }
 
     public boolean start() {
+        result= new String[maps.size()][gameLoop];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
                 result[i][j] = "aggressive";
@@ -76,7 +77,6 @@ public class Tournament {
         return true;
     }
 
-    ;
 
     public String[][] getResult() {
         return result;
