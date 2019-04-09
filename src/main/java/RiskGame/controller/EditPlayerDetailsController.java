@@ -26,17 +26,14 @@ import java.util.ResourceBundle;
 public class EditPlayerDetailsController implements Initializable {
 
     @FXML
-    private ChoiceBox<Integer> cbSelectPlayers,cbNoOfComputerPlayers;
+    private ChoiceBox<Integer> cbSelectPlayers;
     @FXML
     private Button btnNext;
     @FXML
     private Hyperlink hyperBack;
 
-    private ObservableList noOfHumanPlayers = FXCollections.observableArrayList();
-    private ObservableList noOfComputerPlayers = FXCollections.observableArrayList();
+    private ObservableList noOfPlayers = FXCollections.observableArrayList();
     public static int numberOfPlayers;
-    public static int numberOfComputerPlayers;
-
     private File gameMapFile;
 
     /**
@@ -44,30 +41,14 @@ public class EditPlayerDetailsController implements Initializable {
      * This method loads the choice box.
      *</p>
      */
+    @FXML
     private void loadChoiceBox()
     {
-        noOfHumanPlayers.removeAll(noOfHumanPlayers);
-        noOfHumanPlayers.addAll(1,2,3,4,5,6,7,8);
-        cbSelectPlayers.getItems().addAll(noOfHumanPlayers);
+        noOfPlayers.removeAll(noOfPlayers);
+        noOfPlayers.addAll(2,3,4,5,6,7,8);
+        cbSelectPlayers.getItems().addAll(noOfPlayers);
+
     }
-
-    private void loadComputerChoiceBox()
-    {
-        noOfComputerPlayers.removeAll(noOfComputerPlayers);
-        noOfComputerPlayers.addAll(1,2,3,4,5,6,7,8);
-        cbNoOfComputerPlayers.getItems().addAll(noOfComputerPlayers);
-    }
-
-    private void AlertDialog(String message) {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Update");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
     /**
      *<p>
      * This method implements Next Button to move to edit player screen.
@@ -78,16 +59,8 @@ public class EditPlayerDetailsController implements Initializable {
     @FXML
     private void clickNext(ActionEvent event) throws IOException
     {
-
-        if((cbNoOfComputerPlayers.getValue()+cbNoOfComputerPlayers.getValue())>8)
-        {
-            AlertDialog("Invalid Player Selection!");
-            return;
-        }
-
-        if(cbSelectPlayers.getValue()!=null && cbNoOfComputerPlayers.getValue()!=null) {
+        if(cbSelectPlayers.getValue()!=null) {
             numberOfPlayers = cbSelectPlayers.getValue();
-            numberOfComputerPlayers=cbNoOfComputerPlayers.getValue();
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/editPlayerDetailsScreen2.fxml"));
@@ -147,8 +120,5 @@ public class EditPlayerDetailsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         loadChoiceBox();
-        loadComputerChoiceBox();
-        cbSelectPlayers.getSelectionModel().selectFirst();
-        cbNoOfComputerPlayers.getSelectionModel().selectFirst();
     }
 }

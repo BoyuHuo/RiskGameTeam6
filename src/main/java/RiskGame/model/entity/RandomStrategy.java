@@ -103,19 +103,4 @@ public class RandomStrategy implements Strategy {
 
         return true;
     }
-
-    @Override
-    public boolean startup(int movementTime) {
-        Random random = new Random();
-        Map<String,Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
-        String[] keys = territories.keySet().toArray(new String[0]);
-        while(GameManager.getInstance().getActivePlayer().getArmies()>0){
-            GameManager.getInstance().getMap().getTerritories().get(keys[random.nextInt(keys.length)]).increaseArmies(GameManager.getInstance().getActivePlayer());
-            RiskUtil.delay(movementTime/2);
-        }
-
-        RiskUtil.delay(movementTime * 2);
-        GameManager.getInstance().nextRound();
-        return true;
-    }
 }
