@@ -174,12 +174,12 @@ public class GameManager extends Observable implements IGameManager {
                 nextPhase();
                 if (!possibleAttack())
                     nextPhase();
-                ;
                 break;
             case FORTIFICATION:
                 nextPlayer();
                 nextPhase();
                 totalTurn++;
+                System.out.println(totalTurn);
                 break;
             default:
                 break;
@@ -197,7 +197,11 @@ public class GameManager extends Observable implements IGameManager {
             playerIterator = players.values().iterator();
         }
         activePlayer = (Player) playerIterator.next();
-        setMessage(getActivePlayer().getName() + "'s turn! \n");
+        if(!activePlayer.isLive()){
+            nextPlayer();
+        }else {
+            setMessage(getActivePlayer().getName() + "'s turn! \n");
+        }
     }
 
     /**

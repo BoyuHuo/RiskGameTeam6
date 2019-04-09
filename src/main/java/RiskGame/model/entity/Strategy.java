@@ -4,4 +4,5 @@ public interface Strategy {
     boolean attack(int movementTime);
     boolean reinforce(int movementTime);
     boolean fortify(int movementTime);
+    boolean startup(int movementTime);
 }

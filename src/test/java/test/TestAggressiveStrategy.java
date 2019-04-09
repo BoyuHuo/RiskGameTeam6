@@ -105,9 +105,9 @@ public class TestAggressiveStrategy {
         if(GameManager.getInstance().getGamePhase().equals("Attack")) {
             GameManager.getInstance().nextRound();
         }
-
         System.out.println(GameManager.getInstance().getGamePhase());
         System.out.println(GameManager.getInstance().getActivePlayer().getName());
+
 
         System.out.println(t1.getArmies());
         p2.excuteFortifyStrategy(0);

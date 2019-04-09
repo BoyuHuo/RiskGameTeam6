@@ -15,4 +15,9 @@ public class HumanStrategy implements Strategy {
     public boolean fortify(int movementTime) {
         return false;
     }
+
+    @Override
+    public boolean startup(int movementTime) {
+        return false;
+    }
 }
