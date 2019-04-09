@@ -77,8 +77,8 @@ public class TournamentScreenController implements Initializable {
     private List<GameMap> maps =new ArrayList<>();
     public static ArrayList<String> mapsName =new ArrayList<>();
     private Player player;
-    public static int noOfGames;
-    private HashMap<String, Player> playerList=new HashMap<>();
+    public static int noOfGames,noOfTurns;
+    public static HashMap<String, Player> playerList=new HashMap<>();
 
 
     /**
@@ -508,6 +508,7 @@ public class TournamentScreenController implements Initializable {
     private void clickBtnPlay(ActionEvent event) throws IOException {
 
         noOfGames=Integer.parseInt(txtGGameSelection.getText());
+        noOfTurns=Integer.parseInt(txtDGameSelection.getText());
         Tournament tournament=new Tournament(maps,playerList,Integer.parseInt(txtGGameSelection.getText())
                 ,Integer.parseInt(txtDGameSelection.getText()));
         if(tournament.start()){

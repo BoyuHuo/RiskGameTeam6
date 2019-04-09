@@ -33,6 +33,7 @@ public class TournamentResultScreen implements Initializable {
     private String[][] gameResultArray;
     private int noOfGames;
     private ArrayList<String> mapNames;
+    private StringBuilder result=new StringBuilder();
 
     /**
      * First method called when the tournament result screen is loaded.
@@ -81,12 +82,31 @@ public class TournamentResultScreen implements Initializable {
             }
         }
 
+        result.append("M: ");
         for (int i = 1; i <TournamentScreenController.mapsName.size()+1 ; i++) {
             for (int j = 0; j <1 ; j++) {
                 gameResultArray[i][j]=TournamentScreenController.mapsName.get(i-1);
-
+                if(i==TournamentScreenController.mapsName.size()){
+                    result.append(TournamentScreenController.mapsName.get(i-1)+"\n");
+                } else{
+                    result.append(TournamentScreenController.mapsName.get(i-1)+",");
+                }
             }
         }
+        result.append("P: ");
+        int count=0;
+        for (String name: TournamentScreenController.playerList.keySet()) {
+            if(count==TournamentScreenController.playerList.size()-1){
+                result.append(name+"\n");
+            } else{
+                result.append(name+",");
+            }
+            count++;
+        }
+
+        result.append("G: "+TournamentScreenController.noOfGames);
+        result.append("D: "+TournamentScreenController.noOfTurns);
+
 
         for (int i = 0; i <TournamentScreenController.mapsName.size() ; i++) {
             for (int j = 0; j <TournamentScreenController.noOfGames ; j++) {
@@ -94,6 +114,9 @@ public class TournamentResultScreen implements Initializable {
 
             }
         }
+
+
+
 
     }
 
