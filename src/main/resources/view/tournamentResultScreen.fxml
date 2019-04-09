@@ -9,22 +9,22 @@
    <children>
        <TableView fx:id="tableView" layoutX="-261.0" layoutY="146.0" prefHeight="302.0" prefWidth="725.0" translateX="400" translateY="100" GridPane.columnIndex="0" GridPane.rowIndex="1">
     </TableView>
-      <Label layoutX="366.0" layoutY="92.0" text="M :">
+      <Label fx:id="mapslabel" layoutX="366.0" layoutY="92.0" text="M :">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="366.0" layoutY="130.0" text="P :">
+      <Label  fx:id="playerslabel" layoutX="366.0" layoutY="130.0" text="P :">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="366.0" layoutY="169.0" text="G :">
+      <Label fx:id="gameslabel" layoutX="366.0" layoutY="169.0" text="G :">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <Label layoutX="366.0" layoutY="204.0" text="D :">
+      <Label fx:id="turnslabel" layoutX="366.0" layoutY="204.0" text="D :">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

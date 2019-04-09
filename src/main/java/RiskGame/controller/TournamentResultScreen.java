@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.SnapshotResult;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
 import java.net.URL;
@@ -27,6 +28,9 @@ public class TournamentResultScreen implements Initializable {
 
     @FXML
     TableView<String[]> tableView;
+
+    @FXML
+    Label turnslabel,gameslabel,mapslabel,playerslabel;
 
     @FXML
     AnchorPane anchorPane;
@@ -93,7 +97,9 @@ public class TournamentResultScreen implements Initializable {
                 }
             }
         }
-        result.append("P: ");
+
+        mapslabel.setText(result.toString());
+        result=new StringBuilder();
         int count=0;
         for (String name: TournamentScreenController.playerList.keySet()) {
             if(count==TournamentScreenController.playerList.size()-1){
@@ -103,10 +109,10 @@ public class TournamentResultScreen implements Initializable {
             }
             count++;
         }
+        playerslabel.setText("P: "+result.toString());
 
-        result.append("G: "+TournamentScreenController.noOfGames);
-        result.append("D: "+TournamentScreenController.noOfTurns);
-
+        gameslabel.setText("G: "+String.valueOf(TournamentScreenController.noOfGames));
+        turnslabel.setText("D: "+String.valueOf(TournamentScreenController.noOfTurns));
 
         for (int i = 0; i <TournamentScreenController.mapsName.size() ; i++) {
             for (int j = 0; j <TournamentScreenController.noOfGames ; j++) {
