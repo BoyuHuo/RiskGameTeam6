@@ -20,23 +20,6 @@ import java.util.*;
  */
 public class GameManager extends Observable implements IGameManager {
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message += message;
-        setChanged();
-        notifyObservers(this);
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
-    }
 
     public enum phase {STARTUP, REINFORCEMENTS, ATTACK, FORTIFICATION}
 
@@ -49,7 +32,8 @@ public class GameManager extends Observable implements IGameManager {
     private static GameManager instance;
     private String message = "";
     private boolean gameOver;
-    public static int cardSet=0;
+    private int totalTurn = 0;
+    public static int cardSet = 0;
 
 
     /**
@@ -146,13 +130,13 @@ public class GameManager extends Observable implements IGameManager {
      * use for end a game, meanwhile clear the game data.
      */
     public void checkGameOver() {
-        int playersNum=0;
-        for(Player p: GameManager.getInstance().getPlayers().values()){
-            if(p.isLive()==true){
+        int playersNum = 0;
+        for (Player p : GameManager.getInstance().getPlayers().values()) {
+            if (p.isLive() == true) {
                 playersNum++;
             }
         }
-        if (playersNum<=1){
+        if (playersNum <= 1) {
             GameManager.getInstance().setGameOver(true);
         }
     }
@@ -195,6 +179,7 @@ public class GameManager extends Observable implements IGameManager {
             case FORTIFICATION:
                 nextPlayer();
                 nextPhase();
+                totalTurn++;
                 break;
             default:
                 break;
@@ -367,6 +352,7 @@ public class GameManager extends Observable implements IGameManager {
         this.map = new GameMap();
         this.players.clear();
         this.message = "";
+        this.totalTurn = 0;
     }
 
     /**
@@ -417,6 +403,7 @@ public class GameManager extends Observable implements IGameManager {
 
     /**
      * it will check if active player can still perform attack behavior in this turn, if not move to next phase automatically.
+     *
      * @return boolean true: possible to attack  false: impossible to attack
      */
 
@@ -436,5 +423,31 @@ public class GameManager extends Observable implements IGameManager {
         return false;
     }
 
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message += message;
+        setChanged();
+        notifyObservers(this);
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public int getTotalTurn() {
+        return totalTurn;
+    }
+
+    public void setTotalTurn(int totalTurn) {
+        this.totalTurn = totalTurn;
+    }
 
 }

@@ -626,11 +626,11 @@ public class Player implements Serializable {
         strategy.reinforce(ms);
         return true;
     }
-    public boolean excuteFortify(int ms){
+    public boolean excuteFortifyStrategy(int ms){
         if(isHuman()){
             return false;
         }
-        strategy.reinforce(ms);
+        strategy.fortify(ms);
         return true;
     }
 
