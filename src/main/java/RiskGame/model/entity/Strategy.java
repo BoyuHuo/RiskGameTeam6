@@ -1,6 +1,8 @@
 package RiskGame.model.entity;
 
-public interface Strategy {
+import java.io.Serializable;
+
+public interface Strategy extends Serializable {
     Thread attack(int movementTime);
     Thread reinforce(int movementTime);
     Thread fortify(int movementTime);

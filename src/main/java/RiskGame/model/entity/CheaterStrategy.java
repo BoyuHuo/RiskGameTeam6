@@ -16,10 +16,11 @@ public class CheaterStrategy implements Strategy {
                 try {
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
                     List<Territory> boundryTerr = new ArrayList<>();
+
                     for (Territory t : territories.values()) {
                         for (Territory n : t.getNeighbors().values()) {
                             if (n.getBelongs() != t.getBelongs()) {
-                                boundryTerr.add(n);
+                                boundryTerr.add(t);
                             }
                         }
                     }
@@ -28,12 +29,14 @@ public class CheaterStrategy implements Strategy {
                         for (Territory n : t.getNeighbors().values()) {
                             if (t.getBelongs() != n.getBelongs()) {
                                 if (n.getArmies() <= 0) {
-                                    GameManager.getInstance().getActivePlayer().captureTerritory(t, n, n.getCaptureDiceNum());
+                                    GameManager.getInstance().getActivePlayer().captureTerritory(t,n,n.getCaptureDiceNum());
                                     Thread.sleep(movementTime);
                                 } else {
-                                    GameManager.getInstance().getActivePlayer().allInMode(t, n);
                                     if (n.getArmies() > 0) {
-                                        GameManager.getInstance().getActivePlayer().captureTerritory(t, n, n.getCaptureDiceNum());
+                                        GameManager.getInstance().getActivePlayer().allInMode(t,n);
+                                        Thread.sleep(movementTime);
+                                    }else if (n.getArmies() <= 0) {
+                                        GameManager.getInstance().getActivePlayer().captureTerritory(t,n,n.getCaptureDiceNum());
                                         Thread.sleep(movementTime);
                                     }
                                 }

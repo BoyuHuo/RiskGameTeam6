@@ -18,6 +18,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
+/**
+ * This is the implementation for the Tournament result screen. It is responsible for displaying the
+ * results of the tournament game.
+ */
+
 public class TournamentResultScreen implements Initializable {
 
     @FXML
@@ -29,16 +34,17 @@ public class TournamentResultScreen implements Initializable {
     private int noOfGames;
     private ArrayList<String> mapNames;
 
-    public void setTournamentDetails(int noOfGames,ArrayList<String> maps){
-        this.noOfGames=noOfGames;
-        this.mapNames=maps;
-    }
-
+    /**
+     * First method called when the tournament result screen is loaded.
+     *
+     * @param location  URL location
+     * @param resources Associated resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        System.out.println(TournamentScreenController.string);
+
         gameResultArray=new String[TournamentScreenController.mapsName.size()+1][TournamentScreenController.noOfGames+1];
         intiliazeValues();
         ObservableList<String[]> data = FXCollections.observableArrayList();

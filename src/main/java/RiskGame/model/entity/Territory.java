@@ -161,7 +161,7 @@ public class Territory implements Serializable {
      *
      * @param p which player now assigning the armies to the territory.
      */
-    public void increaseArmies(Player p) {
+    public synchronized void increaseArmies(Player p) {
         if (!p.equals(this.belongs)) {
             return;
         }
