@@ -71,7 +71,7 @@
                         <FXCollections fx:factory="observableArrayList" />
                       </items>
                     </ChoiceBox>
-                    <AnchorPane layoutX="25.0" layoutY="-19.0" minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="314.0" translateX="10.0" translateY="220.0">
+                    <AnchorPane layoutX="25.0" layoutY="-19.0" minHeight="0.0" minWidth="0.0" prefHeight="306.0" prefWidth="314.0" translateX="10.0" translateY="220.0">
                       <children>
                         <TextArea fx:id="txtAreaStatus" prefHeight="312.0" prefWidth="287.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="0.0" />
                       </children>
