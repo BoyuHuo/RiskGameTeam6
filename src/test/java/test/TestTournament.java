@@ -11,16 +11,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * This is a Junit test Class, used for testing <b> Tournament </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestTournament {
 
     MapManager mapManager;
-
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setup() {
         mapManager = new MapManager();
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function of LunchMatch
+     * Process:
+     * <ul>
+     *     <li>Set up the map and Players</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testLunchMatch() {
         Map<String, Player> players = new HashMap<>();
@@ -43,7 +60,16 @@ public class TestTournament {
             e.printStackTrace();
         }
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function of StartBenevolent
+     * Process:
+     * <ul>
+     *     <li>Set up the map and Players</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testStartBenevolent() {
         Map<String, Player> players = new HashMap<>();
