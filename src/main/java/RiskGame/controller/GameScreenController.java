@@ -507,6 +507,8 @@ public class GameScreenController implements Initializable, Observer {
                 gameMapPane.getChildren().remove(rectangleGroups);
                 initPlayers();
                 drawMap();
+                setContinentList();
+
                 btnOK.setDisable(true);
                 txtAreaStatus.setText(GameManager.getInstance().getMessage());
                 txtAreaStatus.selectEnd();
@@ -599,7 +601,7 @@ public class GameScreenController implements Initializable, Observer {
     private void setContinentList() {
         continentData.clear();
         continentData.addAll(continent);
-
+        System.out.println("continnent listview");
         continentList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
@@ -645,6 +647,7 @@ public class GameScreenController implements Initializable, Observer {
             if (!continentColor.containsKey(territory.getContinent().getName())) {
                 continentColor.put(territory.getContinent().getName(), generateRandomColor());
                 continent.add(territory.getContinent().getName());
+                System.out.println(territory.getContinent().getName()+"Continent name");
             }
 
             setContinentSquareProperties(territory.getX(), territory.getY(), continentColor.get(territory.getContinent().getName()));
