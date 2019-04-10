@@ -8,8 +8,6 @@ import java.util.Map;
 
 public class Game implements Serializable {
 
-
-
      private Map<String, Player> players;
      private Iterator playerIterator;
      private Player activePlayer;

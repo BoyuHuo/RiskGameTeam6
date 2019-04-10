@@ -426,28 +426,52 @@ import java.util.*;
     }
 
 
+    /**
+     * getter for the message instance
+     * @return the message in the game
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * setter for the message instance
+     * @return the message in the game
+     */
     public void setMessage(String message) {
         this.message += message;
         setChanged();
         notifyObservers(this);
     }
 
+    /**
+     * use for check if the the game is over
+     * @return the game over flag
+     */
     public boolean isGameOver() {
         return gameOver;
     }
 
+    /**
+     * use to set the game over flag
+     * @param gameOver the game over flag
+     */
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
+    /**
+     * use to get  the total number of game
+     * @return the total number of the game
+     */
     public int getTotalTurn() {
         return totalTurn;
     }
 
+    /**
+     * use to set the total number of the turn
+     * @param totalTurn the total number of the game
+     */
     public void setTotalTurn(int totalTurn) {
         this.totalTurn = totalTurn;
     }

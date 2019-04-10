@@ -8,7 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This is implement class for Cheater Strategy !!
+ * contains: attack , fortification, reinforcement
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class CheaterStrategy implements Strategy {
+    /**
+     * attack behavior for CheaterStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread attack(int movementTime) {
         Thread thread = new Thread() {
@@ -59,6 +71,11 @@ public class CheaterStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * reinforce behavior for CheaterStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread reinforce(int movementTime) {
         Thread thread = new Thread() {
@@ -81,6 +98,11 @@ public class CheaterStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * fortify behavior for CheaterStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread fortify(int movementTime) {
 
@@ -133,6 +155,12 @@ public class CheaterStrategy implements Strategy {
         return thread;
     }
 
+
+    /**
+     * startup behavior for CheaterStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread startup(int movementTime) {
 

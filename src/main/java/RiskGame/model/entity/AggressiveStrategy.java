@@ -2,13 +2,25 @@ package RiskGame.model.entity;
 
 import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
-import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This is implement class for Aggressive Strategy !!
+ * contains: attack , fortification, reinforcement
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class AggressiveStrategy implements Strategy {
+
+    /**
+     * attack behavior for aggressive strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
 
     @Override
     public Thread attack(int movementTime) {
@@ -58,6 +70,12 @@ public class AggressiveStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     *  reinforce for aggressive strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
+
     @Override
     public Thread reinforce(int movementTime) {
 
@@ -85,6 +103,11 @@ public class AggressiveStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     *  fortify for aggressive strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread fortify(int movementTime) {
         Thread thread = new Thread() {
@@ -143,6 +166,11 @@ public class AggressiveStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * startup for aggressive strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread startup(int movementTime) {
         Thread thread = new Thread() {

@@ -610,6 +610,11 @@ public class Player implements Serializable {
 
     }
 
+    /**
+     * the excute attack strategy for players
+     * @param ms mills seconds
+     * @return thread the thread that runs all works in attacking phase
+     */
     public Thread excuteAttackStrategy(int ms) {
         if(isHuman()){
             return null;
@@ -618,6 +623,11 @@ public class Player implements Serializable {
         return thread;
     }
 
+    /**
+     * the excution of reinforced strategy for players
+     * @param ms mills seconds
+     * @returnthread the thread that runs all works in reinforcement phase
+     */
     public Thread excuteReinforceStrategy(int ms) {
         if(isHuman()){
             return null;
@@ -625,6 +635,11 @@ public class Player implements Serializable {
         Thread thread = strategy.reinforce(ms);
         return thread;
     }
+    /**
+     * the excution of fortify strategy for players
+     * @param ms mills seconds
+     * @returnthread the thread that runs all works in fortify phase
+     */
     public Thread excuteFortifyStrategy(int ms){
         if(isHuman()){
             return null;
@@ -632,6 +647,11 @@ public class Player implements Serializable {
         Thread thread = strategy.fortify(ms);
         return thread;
     }
+    /**
+     * the excution of startup strategy for players
+     * @param ms mills seconds
+     * @returnthread the thread that runs all works in startup phase
+     */
     public Thread excuteStartupStrategy(int ms){
         if(isHuman()){
             return null;
@@ -640,14 +660,26 @@ public class Player implements Serializable {
         return thread;
     }
 
+    /**
+     * getter method for strategy!
+     * @return strategy the strategy in this instance
+     */
     public Strategy getStrategy() {
         return strategy;
     }
 
+    /**
+     * the setter method for strategy!
+     * @param strategy the strategy in this instance
+     */
     public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
     }
 
+    /**
+     * check if this player is a human player or computer player
+     * @return boolean true : it is a human player. false : it is a computer player.
+     */
     public boolean isHuman() {
         if (strategy instanceof HumanStrategy) {
             return true;

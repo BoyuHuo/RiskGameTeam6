@@ -5,7 +5,19 @@ import RiskGame.model.service.imp.GameManager;
 
 import java.util.*;
 
+/**
+ * This is implement class for Random Strategy !!
+ * contains: attack , fortification, reinforcement
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class RandomStrategy implements Strategy {
+    /**
+     * attack behavior for RandomStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread attack(int movementTime) {
         Thread thread = new Thread() {
@@ -77,6 +89,11 @@ public class RandomStrategy implements Strategy {
 
     }
 
+    /**
+     * reinforce behavior for RandomStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread reinforce(int movementTime) {
 
@@ -105,6 +122,12 @@ public class RandomStrategy implements Strategy {
         return thread;
     }
 
+
+    /**
+     * fortify behavior for RandomStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread fortify(int movementTime) {
 
@@ -150,6 +173,11 @@ public class RandomStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * startup behavior for RandomStrategy robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread startup(int movementTime) {
         Thread thread = new Thread() {

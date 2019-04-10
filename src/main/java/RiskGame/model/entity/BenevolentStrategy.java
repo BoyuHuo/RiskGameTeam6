@@ -6,7 +6,20 @@ import RiskGame.model.service.imp.GameManager;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * This is implement class for Benevolent Strategy !!
+ * contains: attack , fortification, reinforcement
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class BenevolentStrategy implements Strategy {
+
+    /**
+     * attack behavior for benevolent strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread attack(int movementTime) {
         Thread thread = new Thread() {
@@ -28,6 +41,11 @@ public class BenevolentStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * reinforce behavior for benevolent strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread reinforce(int movementTime) {
         Thread thread = new Thread() {
@@ -51,6 +69,11 @@ public class BenevolentStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * fortify behavior for benevolent strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread fortify(int movementTime) {
         Thread thread = new Thread() {
@@ -96,6 +119,11 @@ public class BenevolentStrategy implements Strategy {
         return thread;
     }
 
+    /**
+     * startup behavior for benevolent strategies robot
+     * @param movementTime the time for every movement
+     * @return thread the thread that used to finished attack strategy
+     */
     @Override
     public Thread startup(int movementTime) {
         Thread thread = new Thread() {

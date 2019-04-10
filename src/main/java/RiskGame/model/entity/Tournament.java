@@ -1,12 +1,16 @@
 package RiskGame.model.entity;
 
-import RiskGame.model.service.RiskUtil;
 import RiskGame.model.service.imp.GameManager;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is tournament class, which is used to do the tournament work!
+ *
+ * @author Baiyu Huo
+ * @version v1.0.0
+ */
 public class Tournament {
     private String[][] result;
     private List<GameMap> maps;
@@ -14,6 +18,13 @@ public class Tournament {
     private int maximumTurn;
     private int gameLoop;
 
+    /**
+     * The constractor for tournament instance
+     * @param maps the map list that will be run the game.
+     * @param players the players list that will be play in each run of the game
+     * @param gameLoop the number of time that will be played in each map
+     * @param maximumTurn the maximum number of turn for each match
+     */
     public Tournament(List<GameMap> maps, Map<String, Player> players, int gameLoop, int maximumTurn) {
         this.maps = maps;
         this.players = players;
@@ -21,6 +32,12 @@ public class Tournament {
         this.maximumTurn = maximumTurn;
     }
 
+    /**
+     * lunch the for each game match and get the result
+     * @param mapNum the index number of map play
+     * @return result the string value of the winner strategy
+     * @throws InterruptedException thread interrupted exception
+     */
     public String luncheTheMatch(int mapNum) throws InterruptedException {
         GameManager.getInstance().cleanUp();
         String r = "";
@@ -70,6 +87,10 @@ public class Tournament {
         return r;
     }
 
+    /**
+     * run all the game at once, and then fullfill all the results for the result table
+     * @return boolean the result flag to describe if this tourament is launched successuflly or not
+     */
     public boolean start() {
         result = new String[maps.size()][gameLoop];
         for (int i = 0; i < result.length; i++) {
@@ -85,28 +106,52 @@ public class Tournament {
         return true;
     }
 
-    ;
 
+    /**
+     * the getter method for the result table
+     * @return result the result table
+     */
     public String[][] getResult() {
         return result;
     }
 
+    /**
+     * the setter method for result table, actually it will set a the result for result table
+     * @param result
+     */
     public void setResult(String[][] result) {
         this.result = result;
     }
 
+
+    /**
+     * the getter method for maps.
+     * @return maps maps list
+     */
     public List<GameMap> getMaps() {
         return maps;
     }
 
+    /**
+     * the setter method for maps, it used to set up all the map in the tourament mode
+     * @param maps the map list
+     */
     public void setMaps(List<GameMap> maps) {
         this.maps = maps;
     }
 
+    /**
+     * the getter method for players, it will return all the players who will play in the tournament
+     * @return players the players list
+     */
     public Map<String, Player> getPlayers() {
         return players;
     }
 
+    /**
+     * the setter method for players, it will set the all the players in the game
+     * @param players the players list
+     */
     public void setPlayers(Map<String, Player> players) {
         this.players = players;
     }
