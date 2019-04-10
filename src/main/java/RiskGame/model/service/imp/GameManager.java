@@ -155,7 +155,7 @@ import java.util.*;
      * @see GameManager#nextPlayer()
      * @see GameManager#nextPhase()
      */
-    public void nextRound() {
+    public  synchronized void nextRound() {
         clearMessage();
         switch (gamePhase) {
             case STARTUP:
@@ -191,7 +191,7 @@ import java.util.*;
     /**
      * it uses for moving to next player's turn.
      */
-    public void nextPlayer() {
+    public synchronized void nextPlayer() {
         if (playerIterator == null || !playerIterator.hasNext()) {
             playerIterator = players.values().iterator();
         }
@@ -352,7 +352,7 @@ import java.util.*;
      */
     public void cleanUp() {
         this.map = new GameMap();
-        this.players.clear();
+        this.players = new HashMap<>();
         this.message = "";
         this.totalTurn = 0;
     }

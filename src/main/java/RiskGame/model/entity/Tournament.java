@@ -21,7 +21,8 @@ public class Tournament {
         this.maximumTurn = maximumTurn;
     }
 
-    public String luncheTheMatch(int mapNum) {
+    public String luncheTheMatch(int mapNum) throws InterruptedException {
+        GameManager.getInstance().cleanUp();
         String r = "";
         GameManager.getInstance().setMap(maps.get(mapNum));
         GameManager.getInstance().setPlayers(players);
@@ -29,24 +30,26 @@ public class Tournament {
         while (true) {
             switch (GameManager.getInstance().getGamePhase()) {
                 case "Reinforcements":
-                    System.out.println("r");
-                    GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(0);
+                    Thread thread = GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(0);
+                    thread.join();
                     break;
                 case "Attack":
-                    System.out.println("a");
-                    GameManager.getInstance().getActivePlayer().excuteAttackStrategy(0);
+
+                    Thread thread2 = GameManager.getInstance().getActivePlayer().excuteAttackStrategy(0);
+                    thread2.join();
                     break;
                 case "Fortification":
-                    System.out.println("f");
-                    GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(0);
+
+                    Thread thread3 = GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(0);
+                    thread3.join();
                     break;
                 case "Start Up":
-                    System.out.println("s");
-                    GameManager.getInstance().getActivePlayer().excuteStartupStrategy(0);
+
+                    Thread thread4 = GameManager.getInstance().getActivePlayer().excuteStartupStrategy(0);
+                    thread4.join();
                     break;
             }
 
-            System.out.println(GameManager.getInstance().getActivePlayer().getName()+":"+GameManager.getInstance().getActivePlayer().getPrecentageOfMap());
 
 
             if (GameManager.getInstance().isGameOver()) {
@@ -68,9 +71,15 @@ public class Tournament {
     }
 
     public boolean start() {
+        result = new String[maps.size()][gameLoop];
         for (int i = 0; i < result.length; i++) {
+            System.out.println(1);
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = "aggressive";
+                try {
+                    result[i][j] = luncheTheMatch(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return true;

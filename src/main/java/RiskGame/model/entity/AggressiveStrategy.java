@@ -19,7 +19,13 @@ public class AggressiveStrategy implements Strategy {
                 try {
                     Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
                     if (largestTer == null) {
-                        return;
+                        if (GameManager.getInstance().getGamePhase().equals("Attack")) {
+                            GameManager.getInstance().setMessage("[Aggressive Player]" + GameManager.getInstance().getActivePlayer().getName() + " has finished the attacking phase!\n" +
+                                    "It will automatically move to next step in " + movementTime * 2 + "s");
+                            Thread.sleep(movementTime * 2);
+                            GameManager.getInstance().nextRound();
+                            return;
+                        }
                     }
                     Map<String, Territory> neibors = largestTer.getNeighbors();
 
@@ -55,7 +61,7 @@ public class AggressiveStrategy implements Strategy {
     @Override
     public Thread reinforce(int movementTime) {
 
-        Thread thread= new Thread() {
+        Thread thread = new Thread() {
             public void run() {
                 try {
                     Territory largestTer = RiskUtil.getActivePlayerStrongestCountry();
@@ -81,7 +87,7 @@ public class AggressiveStrategy implements Strategy {
 
     @Override
     public Thread fortify(int movementTime) {
-        Thread thread=new Thread() {
+        Thread thread = new Thread() {
             public void run() {
                 try {
 
@@ -139,7 +145,7 @@ public class AggressiveStrategy implements Strategy {
 
     @Override
     public Thread startup(int movementTime) {
-        Thread thread =new Thread() {
+        Thread thread = new Thread() {
             public void run() {
                 try {
                     Random random = new Random();

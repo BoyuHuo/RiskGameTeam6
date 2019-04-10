@@ -114,7 +114,7 @@ public class RandomStrategy implements Strategy {
                     Map<String, Territory> territories = RiskUtil.getAllTerritoryFromPlayer(GameManager.getInstance().getActivePlayer());
                     if (territories.size() <= 1) {
                         GameManager.getInstance().nextRound();
-                        return;
+                        interrupt();
                     }
                     String targetKey = RiskUtil.randomGetATerrKey(territories);
                     for (Territory t : territories.values()) {
@@ -129,6 +129,7 @@ public class RandomStrategy implements Strategy {
                                 if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
                                     Thread.sleep(movementTime * 2);
                                     GameManager.getInstance().nextRound();
+                                    interrupt();
                                 }
                             }
                         }
@@ -136,7 +137,9 @@ public class RandomStrategy implements Strategy {
                     if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
                         Thread.sleep(movementTime * 2);
                         GameManager.getInstance().nextRound();
+                        interrupt();
                     }
+
                 } catch (Exception e) {
                 }
             }

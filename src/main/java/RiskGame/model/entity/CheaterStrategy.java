@@ -96,6 +96,30 @@ public class CheaterStrategy implements Strategy {
                             }
                         }
                     }
+
+                    Territory strongest = RiskUtil.getActivePlayerStrongestCountry();
+                    boolean moveFlag = true;
+                    for(Territory t: strongest.getNeighbors().values()){
+                        if(t.getBelongs()!=GameManager.getInstance().getActivePlayer()){
+                            moveFlag = false;
+                            break;
+                        }
+                    }
+                    if(moveFlag){
+                        for (Territory t : territories.values()) {
+                            if(t==strongest){
+                                continue;
+                            }
+                            for (Territory n : t.getNeighbors().values()) {
+                                if (n.getBelongs() != t.getBelongs()) {
+                                    if(GameManager.getInstance().getActivePlayer().immigrantArimies(strongest.getArmies(),strongest,t))
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+
                     if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
                         GameManager.getInstance().nextRound();
                     }
