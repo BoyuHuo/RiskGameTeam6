@@ -46,9 +46,10 @@ public class CheaterStrategy implements Strategy {
                                 } else {
                                     if (n.getArmies() > 0) {
                                         GameManager.getInstance().getActivePlayer().allInMode(t,n);
-                                        Thread.sleep(movementTime);
-                                    }else if (n.getArmies() <= 0) {
-                                        GameManager.getInstance().getActivePlayer().captureTerritory(t,n,n.getCaptureDiceNum());
+                                        if (n.getArmies() <= 0) {
+                                            GameManager.getInstance().getActivePlayer().captureTerritory(t,n,n.getCaptureDiceNum());
+                                            Thread.sleep(movementTime);
+                                        }
                                         Thread.sleep(movementTime);
                                     }
                                 }
@@ -56,13 +57,15 @@ public class CheaterStrategy implements Strategy {
                             }
                         }
                     }
-
                     if (GameManager.getInstance().getGamePhase().equals("Attack")) {
                         Thread.sleep(movementTime * 2);
                         GameManager.getInstance().nextRound();
                     }
-
                 } catch (InterruptedException e) {
+                    GameManager.getInstance().nextRound();
+                }
+                if (GameManager.getInstance().getGamePhase().equals("Attack")) {
+                    GameManager.getInstance().nextRound();
                 }
             }
         };
@@ -146,6 +149,11 @@ public class CheaterStrategy implements Strategy {
                         GameManager.getInstance().nextRound();
                     }
                 } catch (Exception e) {
+                }
+
+                if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
+                    GameManager.getInstance().nextRound();
+                    interrupt();
                 }
             }
         };

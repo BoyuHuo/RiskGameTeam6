@@ -47,25 +47,27 @@ public class Tournament {
         while (true) {
             switch (GameManager.getInstance().getGamePhase()) {
                 case "Reinforcements":
+                    System.out.println("r");
                     Thread thread = GameManager.getInstance().getActivePlayer().excuteReinforceStrategy(0);
                     thread.join();
                     break;
                 case "Attack":
-
+                    System.out.println("a");
                     Thread thread2 = GameManager.getInstance().getActivePlayer().excuteAttackStrategy(0);
                     thread2.join();
                     break;
                 case "Fortification":
-
+                    System.out.println("f");
                     Thread thread3 = GameManager.getInstance().getActivePlayer().excuteFortifyStrategy(0);
                     thread3.join();
                     break;
                 case "Start Up":
-
+                    System.out.println("s");
                     Thread thread4 = GameManager.getInstance().getActivePlayer().excuteStartupStrategy(0);
                     thread4.join();
                     break;
             }
+            System.out.println(GameManager.getInstance().getActivePlayer().getName());
 
 
 
@@ -76,6 +78,8 @@ public class Tournament {
                     r = "benevolent";
                 } else if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof CheaterStrategy) {
                     r = "cheater";
+                } else if (GameManager.getInstance().getActivePlayer().getStrategy() instanceof  RandomStrategy){
+                    r = "random";
                 }
                 break;
             }

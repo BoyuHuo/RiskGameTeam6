@@ -528,6 +528,7 @@ public class GameScreenController implements Initializable, Observer {
     public void checkGameEndPoint(){
         if (GameManager.getInstance().isGameOver()) {
             showAlertDialog(GameManager.getInstance().getActivePlayer().getName() + " " + "wins the game");
+            GameManager.getInstance().deleteObserver(this);
         }
     }
 

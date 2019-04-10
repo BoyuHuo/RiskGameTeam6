@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * This is a Junit test Class, used for testing <b> Tournament </b> function
  *
@@ -44,9 +48,11 @@ public class TestTournament {
         Player p1 = new Player("Player1", new AggressiveStrategy());
         Player p2 = new Player("Player2", new BenevolentStrategy());
         Player p3 = new Player("Player3", new CheaterStrategy());
+        Player p4 = new Player("Player4", new RandomStrategy());
         players.put(p1.getName(), p1);
         players.put(p2.getName(), p2);
         players.put(p3.getName(), p3);
+        players.put(p4.getName(),p4);
 
         List<GameMap> maps = new ArrayList<>();
         GameMap m1 = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
@@ -54,11 +60,17 @@ public class TestTournament {
         maps.add(m1);
 
         Tournament tournament = new Tournament(maps, players, 1, 50);
+        String result = "";
         try {
-            System.out.println(tournament.luncheTheMatch(0));
+             result = tournament.luncheTheMatch(0);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(result);
+        assertTrue("aggressive,benevolent,cheater,random,Draw".contains(result));
+
+
     }
     /**
      * test case 2
@@ -83,14 +95,12 @@ public class TestTournament {
         List<GameMap> maps = new ArrayList<>();
         GameMap m1 = mapManager.loadMap(getClass().getResource("/map/FireWorld.map").getPath());
         GameMap m2 = mapManager.loadMap(getClass().getResource("/map/PekmonLand.map").getPath());
-        GameMap m3 = mapManager.loadMap(getClass().getResource("/map/IceWorld.map").getPath());
 
 
         maps.add(m1);
         maps.add(m2);
-        maps.add(m3);
 
-        Tournament tournament = new Tournament(maps, players, 3, 50);
+        Tournament tournament = new Tournament(maps, players, 2, 50);
         tournament.start();
         String[][] result = tournament.getResult();
         for (int i = 0; i < result.length; i++) {
@@ -99,5 +109,6 @@ public class TestTournament {
             }
             System.out.println();
         }
+        assertEquals(2,result.length);
     }
 }

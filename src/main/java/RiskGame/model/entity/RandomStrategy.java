@@ -164,11 +164,16 @@ public class RandomStrategy implements Strategy {
                     }
 
                 } catch (Exception e) {
+                    interrupt();
+                }
+
+                if (GameManager.getInstance().getGamePhase().equals("Fortification")) {
+                    GameManager.getInstance().nextRound();
+                    interrupt();
                 }
             }
         };
         thread.start();
-
 
         return thread;
     }
