@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.SnapshotResult;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -28,7 +30,14 @@ public class TournamentResultScreen implements Initializable {
     TableView<String[]> tableView;
 
     @FXML
+    Label turnslabel,gameslabel,mapslabel,playerslabel;
+
+    @FXML
     AnchorPane anchorPane;
+    private String[][] gameResultArray;
+    private int noOfGames;
+    private ArrayList<String> mapNames;
+    private StringBuilder result=new StringBuilder();
 
     /**
      * First method called when the tournament result screen is loaded.
@@ -39,14 +48,15 @@ public class TournamentResultScreen implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        String[][] staffArray = {{" ","G1 ", "G2", "G3"},
-                {"M1","a", "b", "c"},
-                {"M2","d", "e", "f"}};
+
+
+        gameResultArray=new String[TournamentScreenController.mapsName.size()+1][TournamentScreenController.noOfGames+1];
+        intiliazeValues();
         ObservableList<String[]> data = FXCollections.observableArrayList();
-        data.addAll(Arrays.asList(staffArray));
+        data.addAll(Arrays.asList(gameResultArray));
         data.remove(0);//remove titles from data
-        for (int i = 0; i < staffArray[0].length; i++) {
-            TableColumn tc = new TableColumn(staffArray[0][i]);
+        for (int i = 0; i < gameResultArray[0].length; i++) {
+            TableColumn tc = new TableColumn(gameResultArray[0][i]);
             final int colNo = i;
             tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
                 @Override
@@ -58,6 +68,61 @@ public class TournamentResultScreen implements Initializable {
             tableView.getColumns().add(tc);
         }
         tableView.setItems(data);
+
+    }
+
+
+
+    private void intiliazeValues() {
+
+        for (int i = 0; i <1 ; i++) {
+            for (int j = 0; j <TournamentScreenController.noOfGames+1 ; j++) {
+                if(j==0) {
+                    gameResultArray[i][j] = " ";
+                }
+                else {
+                    gameResultArray[i][j]="Game "+j;
+                }
+            }
+        }
+
+        result.append("M: ");
+        for (int i = 1; i <TournamentScreenController.mapsName.size()+1 ; i++) {
+            for (int j = 0; j <1 ; j++) {
+                gameResultArray[i][j]=TournamentScreenController.mapsName.get(i-1);
+                if(i==TournamentScreenController.mapsName.size()){
+                    result.append(TournamentScreenController.mapsName.get(i-1)+"\n");
+                } else{
+                    result.append(TournamentScreenController.mapsName.get(i-1)+",");
+                }
+            }
+        }
+
+        mapslabel.setText(result.toString());
+        result=new StringBuilder();
+        int count=0;
+        for (String name: TournamentScreenController.playerList.keySet()) {
+            if(count==TournamentScreenController.playerList.size()-1){
+                result.append(name+"\n");
+            } else{
+                result.append(name+",");
+            }
+            count++;
+        }
+        playerslabel.setText("P: "+result.toString());
+
+        gameslabel.setText("G: "+String.valueOf(TournamentScreenController.noOfGames));
+        turnslabel.setText("D: "+String.valueOf(TournamentScreenController.noOfTurns));
+
+        for (int i = 0; i <TournamentScreenController.mapsName.size() ; i++) {
+            for (int j = 0; j <TournamentScreenController.noOfGames ; j++) {
+                gameResultArray[i+1][j+1]=TournamentScreenController.result[i][j];
+
+            }
+        }
+
+
+
 
     }
 

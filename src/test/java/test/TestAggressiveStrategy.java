@@ -11,10 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-
+/**
+ * This is a Junit test Class, used for testing <b> AggressiveStrategy </b> function
+ *
+ * @author Hao Ma
+ * @version  v1.0.0
+ * @see GameManager
+ */
 public class TestAggressiveStrategy {
     MapManager mapManager;
-
+    /**
+     * Set up method for every test cases
+     */
     @Before
     public void setup() {
         mapManager = new MapManager();
@@ -31,7 +39,17 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().newGame();
 
     }
-
+    /**
+     * test case 1
+     * Purpose: testing the function during Reinforce stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Reinforce Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testReinforce() {
 
@@ -66,13 +84,6 @@ public class TestAggressiveStrategy {
         t1.setArmies(30);
         p2.setArmies(20);
 
-
-        //System.out.println(GameManager.getInstance().getGamePhase());
-        //System.out.println(GameManager.getInstance().getActivePlayer().getName());
-
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
-        System.out.println(GameManager.getInstance().getGamePhase());
-
         Thread thread = p2.excuteReinforceStrategy(0);
         try {
             thread.join();
@@ -94,8 +105,6 @@ public class TestAggressiveStrategy {
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
         t1.immigrantArimies(36,t2);
         p2.setArmies(30);
-        System.out.println(GameManager.getInstance().getActivePlayer().getName());
-        System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
 
         Thread thread1 = p2.excuteReinforceStrategy(0);
         try {
@@ -104,10 +113,18 @@ public class TestAggressiveStrategy {
             e.printStackTrace();
         }
         assertEquals(36 + 30, t2.getArmies());
-        System.out.println(t2.getArmies());
-        //System.out.println(t2.getArmies());*/
     }
-
+    /**
+     * test case 2
+     * Purpose: testing the function during Attack stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Attack Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackOne() {
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
@@ -130,9 +147,9 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
 
         int originalNum = RiskUtil.getAllTerritoryFromPlayer(p2).size();
-        p2.excuteAttackStrategy(0);
 
-        Thread thread2 = p2.excuteReinforceStrategy(0);
+        Thread thread2 = p2.excuteAttackStrategy(0);
+
         try {
             thread2.join();
         } catch (InterruptedException e) {
@@ -141,7 +158,17 @@ public class TestAggressiveStrategy {
 
         assertEquals(originalNum + 3, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
-
+    /**
+     * test case 3
+     * Purpose: testing the function during Attack stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Attack Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testAttackTwo(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
@@ -179,9 +206,8 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
         System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
         System.out.println(RiskUtil.getActivePlayerStrongestCountry().getArmies());
-        p2.excuteAttackStrategy(0);
 
-        Thread thread5 = p2.excuteReinforceStrategy(0);
+        Thread thread5 = p2.excuteAttackStrategy(0);
         try {
             thread5.join();
         } catch (InterruptedException e) {
@@ -204,32 +230,40 @@ public class TestAggressiveStrategy {
 
         System.out.println(RiskUtil.getActivePlayerStrongestCountry().getName());
         System.out.println(RiskUtil.getActivePlayerStrongestCountry().getArmies());
-        p2.excuteAttackStrategy(0);
 
-        Thread thread3 = p2.excuteReinforceStrategy(0);
+        Thread thread3 = p2.excuteAttackStrategy(0);
         try {
             thread3.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
         assertEquals(4+1, RiskUtil.getAllTerritoryFromPlayer(p2).size());
     }
-
+    /**
+     * test case 4
+     * Purpose: testing the function during Fortification stage
+     * Process:
+     * <ul>
+     *     <li>Set up the relationship between Territories and Players</li>
+     *     <li>Use the Fortification Strategy</li>
+     *     <li>Check if the result is expected</li>
+     * </ul>
+     *
+     */
     @Test
     public void testFortification(){
         Territory t1 = GameManager.getInstance().getMap().getTerritories().get("FireDragon");
         Territory t2 = GameManager.getInstance().getMap().getTerritories().get("FireHorse");
         Territory t3 = GameManager.getInstance().getMap().getTerritories().get("FireBird");
-        Territory t4 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
+        //Territory t4 = GameManager.getInstance().getMap().getTerritories().get("WaterDragon");
         Player p2 = GameManager.getInstance().getPlayers().get("Player2");
         Player p1 = GameManager.getInstance().getPlayers().get("Player1");
 
         t1.setBelongs(p2);
         t2.setBelongs(p2);
         t3.setBelongs(p2);
-        t4.setBelongs(p2);
+        //t4.setBelongs(p2);
 
         t1.setArmies(20);
         t2.setArmies(5);
@@ -238,24 +272,18 @@ public class TestAggressiveStrategy {
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
         GameManager.getInstance().nextRound();
+        GameManager.getInstance().nextRound();
+        System.out.println(GameManager.getInstance().getGamePhase());
+        System.out.println(GameManager.getInstance().getActivePlayer().getName());
+        Player activePlayer= GameManager.getInstance().getActivePlayer();
 
-        if(GameManager.getInstance().getGamePhase().equals("Attack")) {
-            GameManager.getInstance().nextRound();
-        }
-
-        p2.excuteFortifyStrategy(0);
-
-        Thread thread4 = p2.excuteReinforceStrategy(0);
+        Thread thread4 = p2.excuteFortifyStrategy(0);
         try {
             thread4.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        System.out.println(t1.getArmies());
-        System.out.println(t2.getArmies());
-        System.out.println(t3.getArmies());
-        System.out.println(t4.getArmies());
+        GameManager.getInstance().setActivePlayer(activePlayer);
         assertEquals(25,RiskUtil.getActivePlayerStrongestCountry().getArmies());
     }
 
